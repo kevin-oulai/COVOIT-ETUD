@@ -1,0 +1,30 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+.nav-list{
+    background-color: rgb(92, 179, 250);
+    padding: 1rem 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.nav-item{
+    margin-right: 2rem;
+    font-weight: 600;
+}
+
+.nav-item a{
+    color: black;
+    padding: 1rem 0;
+}
+
+.nav-item:first-child{
+    margin-right: auto;
+    margin-left: 2rem;
+}
