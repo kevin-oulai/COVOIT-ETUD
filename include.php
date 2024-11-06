@@ -1,6 +1,6 @@
 <?php
-
-
+require_once 'vendor/autoload.php';
+require_once 'config/twig.php';
 //Ajout du fichier constantes qui permet de configurer le site
 require_once 'config/constantes.php';
 

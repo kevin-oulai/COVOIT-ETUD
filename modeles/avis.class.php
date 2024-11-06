@@ -9,7 +9,7 @@ class Avis {
     private int $num_passager; //clé étrangère du commentateur qui met l'avis
     
     //constructeur
-    public function __construct(int $numero, ?string $message = null, int $note, int $num_conducteur, int $num_passager) {
+    public function __construct(int $numero, ?string $message, int $note, int $num_conducteur, int $num_passager) {
         $this->numero = $numero;
         $this->message = $message;
         $this->note = $note;
