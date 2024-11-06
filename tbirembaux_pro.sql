@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mysql-5.7
--- Généré le : mer. 06 nov. 2024 à 14:47
+-- Généré le : mer. 06 nov. 2024 à 14:55
 -- Version du serveur : 5.7.28
 -- Version de PHP : 8.0.19
 
@@ -29,13 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `ETUDIANT` (
   `numero` int(5) NOT NULL,
-  `nom` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `prenom` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `nom` varchar(50) DEFAULT NULL,
+  `prenom` varchar(50) DEFAULT NULL,
   `dateNaiss` date DEFAULT NULL,
-  `adresseMail` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `numTelephone` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
+  `adresseMail` varchar(50) DEFAULT NULL,
+  `numTelephone` varchar(10) DEFAULT NULL,
   `numero_voiture` int(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ETUDIANT`
@@ -53,13 +53,13 @@ INSERT INTO `ETUDIANT` (`numero`, `nom`, `prenom`, `dateNaiss`, `adresseMail`, `
 
 CREATE TABLE `TRAJET` (
   `numero` int(5) NOT NULL,
-  `heureDep` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
-  `heureArr` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
+  `heureDep` varchar(5) DEFAULT NULL,
+  `heureArr` varchar(5) DEFAULT NULL,
   `prix` int(3) DEFAULT NULL,
   `dateDep` date DEFAULT NULL,
   `nbPlace` int(2) DEFAULT NULL,
   `numero_conducteur` int(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `TRAJET`
@@ -77,10 +77,10 @@ INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPl
 
 CREATE TABLE `VOITURE` (
   `numero` int(5) NOT NULL,
-  `nom` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `marque` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `nom` varchar(50) DEFAULT NULL,
+  `marque` varchar(50) DEFAULT NULL,
   `nbPlace` int(2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `VOITURE`
