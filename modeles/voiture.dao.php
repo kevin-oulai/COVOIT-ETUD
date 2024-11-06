@@ -1,6 +1,5 @@
 <?php
-
-class LieuDao{
+class VoitureDao {
     private ?PDO $PDO;
 
     public function __construct(?PDO $pdo = null)
@@ -17,6 +16,4 @@ class LieuDao{
     {
         $this->PDO = $PDO;
     }
-
-
 }
