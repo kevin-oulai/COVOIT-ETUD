@@ -1,6 +1,6 @@
 <?php
 
-class TrajetDao{
+class LieuDao{
     private ?PDO $PDO;
 
     public function __construct(?PDO $pdo = null)
@@ -19,4 +19,4 @@ class TrajetDao{
     }
 
 
-}
+}<?php

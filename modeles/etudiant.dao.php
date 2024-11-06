@@ -1,6 +1,6 @@
 <?php
-
-class TrajetDao{
+class EtudiantDao
+{
     private ?PDO $PDO;
 
     public function __construct(?PDO $pdo = null)
