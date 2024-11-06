@@ -27,7 +27,7 @@ class Bd{
         return $this->pdo;
     }
 
-    //empecherd de cloner l'objet
+    //empecher de cloner l'objet
     private function __clone(){
 
     }
