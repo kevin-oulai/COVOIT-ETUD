@@ -9,7 +9,7 @@ class Voiture {
     private int $nombrePlaces;
 
     // Constructeur
-    public function __construct(?int $pNumero, ?string $pNom=null, ?string $pMarque=null, ?int $pNombrePlaces) {
+    public function __construct(?int $pNumero, ?string $pNom, ?string $pMarque, ?int $pNombrePlaces) {
         $this -> setNumero($pNumero);
         $this -> setNom($pNom);
         $this -> setMarque($pMarque);

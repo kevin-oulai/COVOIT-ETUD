@@ -1,4 +1,3 @@
-{% block navbar %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,10 +7,17 @@
     <title>CovoitEtud</title>
 </head>
 <body>
-    <nav class = 'nav-list'>
-        <img src = "images/logoCovoit-etud.png" width="110" height="70" class = "nav-item">
-        <li class = "nav-item"><a href="#">Accueil</a></li>
-        <li class = "nav-item"><a href="#">Rechercher un trajet</a></li>
-        <li class = "nav-item"><a href="#">Proposer un trajet</a></li>
-    </nav>
-{% endblock %}
+    <header>
+        <nav class = 'nav-list'>
+            <img src = "images/logoCovoit-etud.png" width="110" height="70" class = "nav-item">
+            <li class = "nav-item"><a href="#">Accueil</a></li>
+            <li class = "nav-item"><a href="#">Rechercher un trajet</a></li>
+            <li class = "nav-item"><a href="#">Proposer un trajet</a></li>
+        </nav>
+    </header>
+    
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
