@@ -9,22 +9,22 @@
 .nav-list{
     background-color: rgb(92, 179, 250);
     padding: 1rem 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
 }
 
-.nav-item{
-    margin-right: 2rem;
+.titre{
+    grid-column: 2 / 3;
+    padding-left: 10%;
+    padding-right: 10%;
     font-weight: 600;
 }
 
-.nav-item a{
+.username{
+    grid-column: 3/4;
     color: black;
-    padding: 1rem 0;
 }
 
-.nav-item:first-child{
-    margin-right: auto;
-    margin-left: 2rem;
+.pdp{
+    grid-column: 4;
 }
