@@ -1,4 +1,7 @@
 .idea
+node_modules
+package-lock.json
+package.json
 vendor
 composer.lock
 package-lock.json
