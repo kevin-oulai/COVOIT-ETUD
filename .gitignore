@@ -1,4 +1,12 @@
 .idea
+node_modules
+package-lock.json
+package.json
 vendor
 composer.lock
+<<<<<<< HEAD
+=======
+package-lock.json
+package.json
+>>>>>>> dfe12d882edac1bc1769d1b4321f124e09563c2a
 node_modules

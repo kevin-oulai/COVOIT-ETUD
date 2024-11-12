@@ -1,0 +1,21 @@
+{% extends "base_templates.html.twig" %}
+{% block content %}
+<link rel='stylesheet' type='text/css' href='node_modules/bootstrap/dist/css/bootstrap.css'>
+<div class="d-flex justify-content-center align-items-center" style="height: 600px;">
+<div class="login-container align-right" style="width: 350px;">
+    <h2 class="text-center">Connectez-vous</h2>
+    <form ACTION='login.php' METHOD='POST'>
+        <input name="login" type="username" class="form-control mb-3" placeholder="Adresse mail" required>
+        <input name="pwd" type="password" class="form-control mb-3" placeholder="Mot de passe" required>
+        <div class="text-center">
+            <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE='Se connecter'>
+        </div>
+        </br>
+        <div class="text-center">
+            <a href="inscription.php" class = "text-center">Pas de compte ? Inscrivez-vous !</a>
+        </div>
+
+    </form>
+</div>
+</div>
+{% endblock %}
