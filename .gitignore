@@ -1,7 +1,7 @@
 .idea
-node_modules
+vendor
+composer.json
 package-lock.json
 package.json
-vendor
+node_modules
 composer.lock
-composer.json
