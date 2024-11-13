@@ -3,15 +3,15 @@
 class Etudiant {
     //attributs
     private int $numero;
-    private string $nom;
-    private string $prenom;
-    private string $dateNaiss;
-    private string $mail;
-    private string $tel;
+    private string|null $nom;
+    private string|null $prenom;
+    private string|null $dateNaiss;
+    private string|null $mail;
+    private string|null $tel;
     private int|null $num_voiture;
 
     //constructeur
-    public function __construct(int $numero, string $nom, string $prenom, string $dateNaiss, string $mail, string $tel, ?int $num_voiture = null) {
+    public function __construct(int $numero, ?string $nom = null, ?string $prenom = null, ?string $dateNaiss = null, ?string $mail = null, ?string $tel = null, ?int $num_voiture = null) {
         $this->numero = $numero;
         $this->nom = $nom;
         $this->prenom = $prenom;

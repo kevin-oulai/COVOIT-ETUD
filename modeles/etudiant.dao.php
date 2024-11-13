@@ -18,11 +18,11 @@ class EtudiantDao
         $this->PDO = $PDO;
     }
 
-    public function find(int $id): Etudiant
+    public function find(int $numero): Etudiant
     {
-        $sql="SELECT * FROM ETUDIANT WHERE id= :numero";
-        $pdoStatement = $this->pdo->prepare($sql);
-        $pdoStatement->execute(array(":id"=>$id));
+        $sql="SELECT * FROM ETUDIANT WHERE numero= :numero";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":numero"=>$numero));
         $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
         $etudiant = $pdoStatement->fetch();
 

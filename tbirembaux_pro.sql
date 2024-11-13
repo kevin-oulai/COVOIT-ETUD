@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `tbirembaux_pro`
+-- Base de données : `koulai001_pro`
 --
 
 -- --------------------------------------------------------
@@ -28,109 +28,150 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `ETUDIANT` (
-  `numero` int(5) NOT NULL,
-  `nom` varchar(50) DEFAULT NULL,
-  `prenom` varchar(50) DEFAULT NULL,
-  `dateNaiss` date DEFAULT NULL,
-  `adresseMail` varchar(50) DEFAULT NULL,
-  `numTelephone` varchar(10) DEFAULT NULL,
-  `numero_voiture` int(5) DEFAULT NULL
+  numero int(5) NOT NULL PRIMARY KEY,
+  nom varchar(50) DEFAULT NULL,
+  prenom varchar(50) DEFAULT NULL,
+  dateNaiss date DEFAULT NULL,
+  adresseMail varchar(50) DEFAULT NULL,
+  numTelephone varchar(10) DEFAULT NULL,
+  numero_voiture int(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `ETUDIANT`
+-- Structure de la table `LIEU`
 --
-
-INSERT INTO `ETUDIANT` (`numero`, `nom`, `prenom`, `dateNaiss`, `adresseMail`, `numTelephone`, `numero_voiture`) VALUES
-(1, 'Birembaux', 'Theo', '2004-08-24', 'tbirembaux@iutbayonne.univ-pau.fr', '0783324454', 2),
-(2, 'Rosalie', 'Thibault', '2003-05-30', 'trosalie@iutbayonne.univ-pau.fr', '0692354381', 3);
-
--- --------------------------------------------------------
+CREATE TABLE LIEU(
+	numero int(5) NOT NULL PRIMARY KEY,
+    numRue int(5) NOT NULL,
+    nomRue varchar(50) NOT NULL,
+    ville varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Structure de la table `TRAJET`
 --
 
 CREATE TABLE `TRAJET` (
-  `numero` int(5) NOT NULL,
-  `heureDep` varchar(5) DEFAULT NULL,
-  `heureArr` varchar(5) DEFAULT NULL,
-  `prix` int(3) DEFAULT NULL,
-  `dateDep` date DEFAULT NULL,
-  `nbPlace` int(2) DEFAULT NULL,
-  `numero_conducteur` int(5) DEFAULT NULL
+  numero int(5) NOT NULL PRIMARY KEY,
+  heureDep varchar(5) DEFAULT NULL,
+  heureArr varchar(5) DEFAULT NULL,
+  prix int(3) DEFAULT NULL,
+  dateDep date DEFAULT NULL,
+  nbPlace int(2) DEFAULT NULL,
+  numero_conducteur int(5) DEFAULT NULL,
+  numero_lieu_depart int(5) NOT NULL,
+  numero_lieu_arrivee int(5) NOT NULL,
+  CONSTRAINT Fk_conducteur FOREIGN KEY (numero_conducteur) REFERENCES ETUDIANT(numero),
+  CONSTRAINT Fk_lieu_depart FOREIGN KEY (numero_lieu_depart) REFERENCES LIEU(numero),
+  CONSTRAINT Fk_lieu_arrivee FOREIGN KEY (numero_lieu_arrivee) REFERENCES LIEU(numero)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `TRAJET`
---
-
-INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPlace`, `numero_conducteur`) VALUES
-(1, '7:30', '08:00', 10, '2024-11-06', 4, 2),
-(2, '17:30', '18:00', 15, '2024-11-06', 3, 1);
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `VOITURE`
 --
 
 CREATE TABLE `VOITURE` (
-  `numero` int(5) NOT NULL,
+  `numero` int(5) NOT NULL PRIMARY KEY,
   `nom` varchar(50) DEFAULT NULL,
   `marque` varchar(50) DEFAULT NULL,
   `nbPlace` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `VOITURE`
+-- Structure de la table `BADGE`
 --
+CREATE TABLE BADGE (
+	numero int(5) NOT NULL PRIMARY KEY,
+    titre varchar(50) NOT NULL,
+    image varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- Structure de la table `AVIS`
+--
+CREATE TABLE AVIS (
+	numero int(5) NOT NULL PRIMARY KEY,
+    message varchar(50) NOT NULL,
+	note int(2) DEFAULT NULL,
+	numero_concerne int(5) NOT NULL,
+	numero_commentateur int(5) NOT NULL,
+    CONSTRAINT Fk_concerne foreign key (numero_concerne) references ETUDIANT(numero),
+    CONSTRAINT Fk_commentateur foreign key (numero_commentateur) references ETUDIANT(numero)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- Structure de la table `CHOISIR`
+--
+CREATE TABLE CHOISIR(
+	numero_trajet int(5) NOT NULL,
+    numero_passager int(5) NOT NULL,
+	CONSTRAINT Fk_trajet foreign key (numero_trajet) references TRAJET(numero),
+    CONSTRAINT Fk_passager foreign key (numero_passager) references ETUDIANT(numero)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- Structure de la table `OBTENIR`
+--
+CREATE TABLE OBTENIR(
+	numero_etudiant int(5) NOT NULL,
+    numero_badge int(5) NOT NULL,
+	CONSTRAINT Fk_etudiant foreign key (numero_etudiant) references ETUDIANT(numero),
+    CONSTRAINT Fk_badge foreign key (numero_badge) references BADGE(numero)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 INSERT INTO `VOITURE` (`numero`, `nom`, `marque`, `nbPlace`) VALUES
 (1, '911', 'Porsche', 3),
 (2, 'Clio', 'Renault', 4),
-(3, 'GT-R', 'Nissan', 4);
+(3, 'GT-R', 'Nissan', 4),
+(4, 'E36', 'BMW', 5);
 
---
--- Index pour les tables déchargées
---
+-- --------------------------------------------------------
 
---
--- Index pour la table `ETUDIANT`
---
-ALTER TABLE `ETUDIANT`
-  ADD PRIMARY KEY (`numero`),
-  ADD KEY `FK_NumVoiture` (`numero_voiture`);
+INSERT INTO `ETUDIANT` (`numero`, `nom`, `prenom`, `dateNaiss`, `adresseMail`, `numTelephone`, `numero_voiture`) VALUES
+(1, 'Birembaux', 'Theo', '2004-08-24', 'tbirembaux@iutbayonne.univ-pau.fr', '0783324454', 2),
+(2, 'Rosalie', 'Thibault', '2003-05-30', 'trosalie@iutbayonne.univ-pau.fr', '0692354381', 3),
+(3, 'Galles', 'Titouan', '2003-05-30', 'tgalles@iutbayonne.univ-pau.fr', '0692354381', 2),
+(4, 'Dutournier', 'Candice', '2003-05-30', 'cdutournier001@iutbayonne.univ-pau.fr', '0692354381', 1),
+(5, 'Oulai', 'Kevin', '2003-05-30', 'koulai001@iutbayonne.univ-pau.fr', '0692354381', 4);
 
---
--- Index pour la table `TRAJET`
---
-ALTER TABLE `TRAJET`
-  ADD PRIMARY KEY (`numero`),
-  ADD KEY `FK_numConducteur` (`numero_conducteur`);
+-- --------------------------------------------------------
 
---
--- Index pour la table `VOITURE`
---
-ALTER TABLE `VOITURE`
-  ADD PRIMARY KEY (`numero`);
+INSERT INTO LIEU (numero, numRue, nomRue, ville) VALUES
+(1, 2, 'Allee parc Montaury', 'Anglet'),
+(2, 14, 'Rue de la paix', 'Paris'),
+(3, 5, 'Allee des Champs Elysees', 'Paris');
 
---
--- Contraintes pour les tables déchargées
---
+-- --------------------------------------------------------
 
---
--- Contraintes pour la table `ETUDIANT`
---
-ALTER TABLE `ETUDIANT`
-  ADD CONSTRAINT `FK_NumVoiture` FOREIGN KEY (`numero_voiture`) REFERENCES `VOITURE` (`numero`);
+INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPlace`, `numero_conducteur`, numero_lieu_depart, numero_lieu_arrivee) VALUES
+(1, '7:30', '15:00', 30, '2024-11-06', 4, 2, 1, 3),
+(2, '17:30', '18:00', 15, '2024-11-06', 3, 1, 2, 3),
+(3, '10:30', '13:00', 20, '2024-11-06', 2, 3, 2, 1);
 
---
--- Contraintes pour la table `TRAJET`
---
-ALTER TABLE `TRAJET`
-  ADD CONSTRAINT `FK_numConducteur` FOREIGN KEY (`numero_conducteur`) REFERENCES `ETUDIANT` (`numero`);
-COMMIT;
+-- --------------------------------------------------------
+
+INSERT INTO AVIS (numero, message, note, numero_concerne, numero_commentateur) VALUES
+(1,'Bon trajet', 4, 2,3),
+(2,'Mauvaise musique dans la voiture',1, 5,1);
+
+-- --------------------------------------------------------
+
+INSERT INTO BADGE (numero, titre, image) VALUES
+(1,'Conducteur étoilé','etoile.png'),
+(2,'Passager récurent', 'recurent.png');
+
+-- --------------------------------------------------------
+
+INSERT INTO OBTENIR (numero_etudiant, numero_badge) VALUES
+(2,1),
+(4,2);
+
+-- --------------------------------------------------------
+
+INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES
+(1, 1),
+(1, 5),
+(2, 3),
+(3, 2);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
