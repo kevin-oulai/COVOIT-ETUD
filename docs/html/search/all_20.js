@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['y_20tt_0',['&lt;tt&gt;overflow-y&lt;/tt&gt;',['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2utilities_2overflow.html#autotoc_md1314',1,'']]],
+  ['yarn_1',['yarn',['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2getting-started_2download.html#autotoc_md895',1,'']]],
+  ['yeartransformer_2',['YearTransformer',['../class_symfony_1_1_component_1_1_intl_1_1_date_formatter_1_1_date_format_1_1_year_transformer.html',1,'Symfony::Component::Intl::DateFormatter::DateFormat']]],
+  ['yeartransformer_2ephp_3',['YearTransformer.php',['../_year_transformer_8php.html',1,'']]],
+  ['yi_2ephp_4',['yi.php',['../currencies_2yi_8php.html',1,'(Global Namespace)'],['../languages_2yi_8php.html',1,'(Global Namespace)'],['../locales_2yi_8php.html',1,'(Global Namespace)'],['../regions_2yi_8php.html',1,'(Global Namespace)'],['../scripts_2yi_8php.html',1,'(Global Namespace)'],['../timezones_2yi_8php.html',1,'(Global Namespace)']]],
+  ['yield_5',['yield',['../class_twig_1_1_template.html#ab59a2882a9d645297467e1204efd3855',1,'Twig::Template']]],
+  ['yieldblock_6',['yieldBlock',['../class_twig_1_1_template.html#a23889147d62a41540a42486e55bf38a8',1,'Twig::Template']]],
+  ['yieldnotreadyextension_7',['YieldNotReadyExtension',['../class_twig_1_1_extension_1_1_yield_not_ready_extension.html',1,'Twig::Extension']]],
+  ['yieldnotreadyextension_2ephp_8',['YieldNotReadyExtension.php',['../_yield_not_ready_extension_8php.html',1,'']]],
+  ['yieldnotreadynodevisitor_9',['YieldNotReadyNodeVisitor',['../class_twig_1_1_node_visitor_1_1_yield_not_ready_node_visitor.html',1,'Twig::NodeVisitor']]],
+  ['yieldnotreadynodevisitor_2ephp_10',['YieldNotReadyNodeVisitor.php',['../_yield_not_ready_node_visitor_8php.html',1,'']]],
+  ['yieldparentblock_11',['yieldParentBlock',['../class_twig_1_1_template.html#a48ee4b12a575e350833abf8277dc2409',1,'Twig::Template']]],
+  ['yieldready_12',['YieldReady',['../class_twig_1_1_attribute_1_1_yield_ready.html',1,'Twig::Attribute']]],
+  ['yieldready_2ephp_13',['YieldReady.php',['../_yield_ready_8php.html',1,'']]],
+  ['yo_2ephp_14',['yo.php',['../currencies_2yo_8php.html',1,'(Global Namespace)'],['../languages_2yo_8php.html',1,'(Global Namespace)'],['../locales_2yo_8php.html',1,'(Global Namespace)'],['../regions_2yo_8php.html',1,'(Global Namespace)'],['../scripts_2yo_8php.html',1,'(Global Namespace)'],['../timezones_2yo_8php.html',1,'(Global Namespace)']]],
+  ['yo_5fbj_2ephp_15',['yo_BJ.php',['../currencies_2yo___b_j_8php.html',1,'(Global Namespace)'],['../languages_2yo___b_j_8php.html',1,'(Global Namespace)'],['../locales_2yo___b_j_8php.html',1,'(Global Namespace)'],['../regions_2yo___b_j_8php.html',1,'(Global Namespace)'],['../scripts_2yo___b_j_8php.html',1,'(Global Namespace)'],['../timezones_2yo___b_j_8php.html',1,'(Global Namespace)']]],
+  ['you_20can_20deliver_20the_20best_20experience_16',['description: Keep your projects lean, responsive, and maintainable so you can deliver the best experience.',['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2customize_2overview.html#autotoc_md694',1,'']]],
+  ['you_20to_3a_17',['you to:',['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2about_2license.html#autotoc_md91',1,'It does not require you to:'],['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2about_2license.html#autotoc_md90',1,'It forbids you to:'],['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2about_2license.html#autotoc_md89',1,'It permits you to:'],['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2about_2license.html#autotoc_md88',1,'It requires you to:']]],
+  ['your_20forms_20with_20custom_20or_20native_20validation_20behaviors_20and_20styles_18',['description: Validate your forms with custom or native validation behaviors and styles.',['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2forms_2overview.html#autotoc_md811',1,'']]],
+  ['your_20own_19',['Creating your own',['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2customize_2components.html#autotoc_md671',1,'']]],
+  ['your_20projects_20lean_20responsive_20and_20maintainable_20so_20you_20can_20deliver_20the_20best_20experience_20',['description: Keep your projects lean, responsive, and maintainable so you can deliver the best experience.',['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2customize_2overview.html#autotoc_md694',1,'']]],
+  ['youtube_20videos_21',['Embedding YouTube videos',['../md_vendor_2twbs_2bootstrap_2site_2content_2docs_25_83_2components_2modal.html#autotoc_md335',1,'']]]
+];
