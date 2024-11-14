@@ -8,7 +8,7 @@ class Trajet {
     private int|null $prix;
     private string|null $dateDep;
     private int|null $nbPlace;
-    private int $numero_conducteur;
+    private int|null $numero_conducteur;
 
     // Constructeur
     public function __construct(?int $numero = null,?string $heureDep = null,?string $heureArr = null,?int $prix = null,?string $dateDep = null,?int $nbPlace = null,?int $numero_conducteur = null)
