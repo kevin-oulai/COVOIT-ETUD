@@ -24,6 +24,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `VOITURE`
+--
+
+CREATE TABLE VOITURE (
+  numero int(5) NOT NULL PRIMARY KEY,
+  `nom` varchar(50) DEFAULT NULL,
+  `marque` varchar(50) DEFAULT NULL,
+  `nbPlace` int(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Structure de la table `ETUDIANT`
 --
 
@@ -34,7 +45,8 @@ CREATE TABLE `ETUDIANT` (
   dateNaiss date DEFAULT NULL,
   adresseMail varchar(50) DEFAULT NULL,
   numTelephone varchar(10) DEFAULT NULL,
-  numero_voiture int(5) DEFAULT NULL
+  numero_voiture int(5) NOT NULL,
+  CONSTRAINT Fk_voiture FOREIGN KEY (numero_voiture) REFERENCES VOITURE(numero)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -66,16 +78,6 @@ CREATE TABLE `TRAJET` (
   CONSTRAINT Fk_lieu_arrivee FOREIGN KEY (numero_lieu_arrivee) REFERENCES LIEU(numero)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Structure de la table `VOITURE`
---
-
-CREATE TABLE `VOITURE` (
-  `numero` int(5) NOT NULL PRIMARY KEY,
-  `nom` varchar(50) DEFAULT NULL,
-  `marque` varchar(50) DEFAULT NULL,
-  `nbPlace` int(2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Structure de la table `BADGE`

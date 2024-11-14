@@ -3,13 +3,13 @@
 class Voiture {
 
     // Attributs
-    private int $numero;
+    private int|null $numero;
     private string|null $nom;
     private string|null $marque;
-    private int $nombrePlaces;
+    private int|null $nbPlace;
 
     // Constructeur
-    public function __construct(?int $pNumero, ?string $pNom, ?string $pMarque, ?int $pNombrePlaces) {
+    public function __construct(?int $pNumero = null, ?string $pNom = null, ?string $pMarque = null, ?int $pNombrePlaces = null) {
         $this -> setNumero($pNumero);
         $this -> setNom($pNom);
         $this -> setMarque($pMarque);
@@ -27,8 +27,8 @@ class Voiture {
     public function getMarque(): ?string {
         return $this -> marque;
     }
-    public function getNombrePlaces(): ?int {
-        return $this -> nombrePlaces;
+    public function getNbPlace(): ?int {
+        return $this -> nbPlace;
     }
 
         // Setters
@@ -41,7 +41,7 @@ class Voiture {
     public function setMarque($pMarque): void {
         $this -> marque = $pMarque;
     }
-    public function setNombrePlaces($pNombrePlaces): void {
-        $this -> nombrePlaces = $pNombrePlaces;
+    public function setNbPlace($pNombrePlaces): void {
+        $this -> nbPlace = $pNombrePlaces;
     }
 }

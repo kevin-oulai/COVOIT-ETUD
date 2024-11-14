@@ -2,23 +2,23 @@
 
 class Etudiant {
     //attributs
-    private int $numero;
+    private int|null $numero;
     private string|null $nom;
     private string|null $prenom;
     private string|null $dateNaiss;
-    private string|null $mail;
-    private string|null $tel;
-    private int|null $num_voiture;
+    private string|null $adresseMail;
+    private string|null $numTelephone;
+    private int|null $numero_voiture;
 
     //constructeur
-    public function __construct(int $numero, ?string $nom = null, ?string $prenom = null, ?string $dateNaiss = null, ?string $mail = null, ?string $tel = null, ?int $num_voiture = null) {
+    public function __construct(?int $numero=null, ?string $nom = null, ?string $prenom = null, ?string $dateNaiss = null, ?string $adresseMail = null, ?string $numTelephone = null, ?int $numero_voiture = null) {
         $this->numero = $numero;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->dateNaiss = $dateNaiss;
-        $this->mail = $mail;
-        $this->tel = $tel;
-        $this->num_voiture = $num_voiture;
+        $this->adresseMail = $adresseMail;
+        $this->numTelephone = $numTelephone;
+        $this->numero_voiture = $numero_voiture;
     }
 
     //getters & setters
@@ -62,33 +62,33 @@ class Etudiant {
         $this->dateNaiss = $dateNaiss;
     }
 
-    public function getMail(): string
+    public function getAdresseMail(): string
     {
-        return $this->mail;
+        return $this->adresseMail;
     }
 
-    public function setMail(string $mail): void
+    public function setAdresseMail(string $adresseMail): void
     {
-        $this->mail = $mail;
+        $this->adresseMail = $adresseMail;
     }
 
-    public function getTel(): string
+    public function getNumTelephone(): string
     {
-        return $this->tel;
+        return $this->numTelephone;
     }
 
-    public function setTel(string $tel): void
+    public function setNumTelephone(string $numTelephone): void
     {
-        $this->tel = $tel;
+        $this->numTelephone = $numTelephone;
     }
 
-    public function getNumVoiture(): ?int
+    public function getNumeroVoiture(): ?int
     {
-        return $this->num_voiture;
+        return $this->numero_voiture;
     }
 
-    public function setNumVoiture(?int $num_voiture): void
+    public function setNumeroVoiture(?int $numero_voiture): void
     {
-        $this->num_voiture = $num_voiture;
+        $this->numero_voiture = $numero_voiture;
     }
 }

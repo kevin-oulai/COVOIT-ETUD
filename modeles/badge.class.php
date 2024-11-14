@@ -3,12 +3,12 @@
 class Badge {
     
     // Attributs
-    private int $numero;
+    private int|null $numero;
     private string|null $titre;
     private string|null $image;
 
     // Constructeur
-    public function __construct(?int $pNumero, ?string $pTitre=null, ?string $pImage=null) {
+    public function __construct(?int $pNumero=null, ?string $pTitre=null, ?string $pImage=null) {
         $this -> setNumero($pNumero);
         $this -> setTitre($pTitre);
         $this -> setImage($pImage);

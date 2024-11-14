@@ -2,19 +2,19 @@
 
 class Avis {
     //atrtibuts ​
-    private int $numero;
+    private int|null $numero;
     private string|null $message;
-    private int $note;
-    private int $num_conducteur; //clé étrangère du conducteur qui reçoit l'avis
-    private int $num_passager; //clé étrangère du commentateur qui met l'avis
+    private int|null $note;
+    private int|null $numero_concerne; //clé étrangère du conducteur qui reçoit l'avis
+    private int|null $numero_commentateur; //clé étrangère du commentateur qui met l'avis
     
     //constructeur
-    public function __construct(int $numero, ?string $message, int $note, int $num_conducteur, int $num_passager) {
+    public function __construct(?int $numero = null, ?string $message = null, ?int $note = null, ?int $numero_concerne = null, ?int $numero_commentateur = null) {
         $this->numero = $numero;
         $this->message = $message;
         $this->note = $note;
-        $this->num_conducteur = $num_conducteur;
-        $this->num_passager = $num_passager;
+        $this->numero_concerne = $numero_concerne;
+        $this->numero_commentateur = $numero_commentateur;
     }
 
     //getters & setters
@@ -48,23 +48,23 @@ class Avis {
         $this->note = $note;
     }
 
-    public function getNumConducteur(): int
+    public function getNumeroConcerne(): int
     {
-        return $this->num_conducteur;
+        return $this->numero_concerne;
     }
 
-    public function setNumConducteur(int $num_conducteur): void
+    public function setNumConducteur(int $numero_concerne): void
     {
-        $this->num_conducteur = $num_conducteur;
+        $this->numero_concerne = $numero_concerne;
     }
 
-    public function getNumPassager(): int
+    public function getNumeroCommentateur(): int
     {
-        return $this->num_passager;
+        return $this->numero_commentateur;
     }
 
-    public function setNumPassager(int $num_passager): void
+    public function setNumeroCommentateur(int $numero_commentateur): void
     {
-        $this->num_passager = $num_passager;
+        $this->numero_commentateur = $numero_commentateur;
     }
 }

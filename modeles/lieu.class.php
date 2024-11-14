@@ -2,13 +2,13 @@
 
 class Lieu {
     //attributs
-    private int $numero;
-    private int $numRue;
-    private string $nomRue;
-    private string $ville;
+    private int|null $numero;
+    private int|null $numRue;
+    private string|null $nomRue;
+    private string|null $ville;
 
     //constructeur
-    public function __construct(int $numero, int $numRue, string $nomRue, string $ville) {
+    public function __construct(?int $numero = null, ?int $numRue = null, ?string $nomRue = null, ?string $ville = null) {
         $this->numero = $numero;
         $this->numRue = $numRue;
         $this->nomRue = $nomRue;
