@@ -9,7 +9,7 @@ class Controller{
 
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
         $db = Bd::getInstance();
-        $this->pdo = $dbgetConnexion();
+        $this->pdo = $db->getConnexion();
         
         $this->loader = $loader;
         $this->twig = $twig;
@@ -24,7 +24,7 @@ class Controller{
 
     public function call(string $methode): mixed{
         if (!method_exists($this, $methode)) {
-            throw new Exeption("La méthode $methode n'existe pas dans le controller ".__CLASS__);
+            throw new Exception("La méthode $methode n'existe pas dans le controller ".__CLASS__);
         }
         return $this->$methode();
     }
