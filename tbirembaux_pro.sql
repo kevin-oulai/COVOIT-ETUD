@@ -178,3 +178,25 @@ INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- REQUETES SQL
+
+-- Intitulé : Le nombre de places disponibles pour les trajets partant d'un lieu donné ayant comme lieu d’arrivée l’IUT de Bayonne et du Pays basque à Anglet.
+SELECT T.nbPlace 
+FROM TRAJET T
+JOIN LIEU L ON L.numero = T.numero_lieu_arrivee
+WHERE L.numero = 1;
+
+-- Intitulé : Le prix moyen des trajets partant d’un endroit donné et allant à l’IUT de Bayonne et du Pays basque à Anglet.
+SELECT AVG(T.prix)
+FROM TRAJET T
+JOIN LIEU L ON L.numero = T.numero_lieu_arrivee
+WHERE T.numero = 1;
+
+-- Intitulé : La/les ville(s) qui possède le plus de trajet (le plus de lieu de départ et de lieu d'arrivée)
+SELECT L.ville AS Ville, COUNT(T.numero) AS Nombre_Trajet
+FROM LIEU L
+JOIN TRAJET T ON T.numero_lieu_depart = L.numero
+GROUP BY L.ville
+ORDER BY COUNT(T.numero) DESC
