@@ -134,6 +134,8 @@ INSERT INTO `ETUDIANT` (`numero`, `nom`, `prenom`, `dateNaiss`, `adresseMail`, `
 (3, 'Galles', 'Titouan', '2003-05-30', 'tgalles@iutbayonne.univ-pau.fr', '0692354381', 2),
 (4, 'Dutournier', 'Candice', '2003-05-30', 'cdutournier001@iutbayonne.univ-pau.fr', '0692354381', 1),
 (5, 'Oulai', 'Kevin', '2003-05-30', 'koulai001@iutbayonne.univ-pau.fr', '0692354381', 4);
+INSERT INTO `ETUDIANT` (`numero`, `nom`, `prenom`, `dateNaiss`, `adresseMail`, `numTelephone`, `numero_voiture`) VALUES
+(6, 'Oulai', 'Kevin', '2009-05-30', 'koulai001@iutbayonne.univ-pau.fr', '0692354381', 4);
 
 -- --------------------------------------------------------
 
@@ -174,6 +176,7 @@ INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES
 (1, 5),
 (2, 3),
 (3, 2);
+(3, 4);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
@@ -200,3 +203,15 @@ FROM LIEU L
 JOIN TRAJET T ON T.numero_lieu_depart = L.numero
 GROUP BY L.ville
 ORDER BY COUNT(T.numero) DESC
+
+-- Intitulé : Le nombre de conducteurs ayant plus de 20 ans
+SELECT COUNT(E.numero) AS Nombre_Conducteur
+FROM ETUDIANT E
+WHERE DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'), E.dateNaiss) > 7305;
+
+-- Intitulé : Le nombre de trajets complets.
+SELECT COUNT(T.numero) AS NombreTrajetsComplets
+FROM TRAJET T
+WHERE T.nbPlace = ( SELECT COUNT(C.numero_passager) 
+                    FROM CHOISIR C 
+                    WHERE C.numero_trajet = T.numero);
