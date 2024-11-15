@@ -10,7 +10,14 @@ class ControllerTrajet extends Controller{
     }
 
     public function lister(){
-        echo "lister les trajets";
+        $managerEtudiant = new EtudiantDao($this->getPdo());
+        $etudiant = $managerEtudiant->find(1);
+        //var_dump($etudiant);
+
+        $template = $this->getTwig()->load('index.html.twig');
+
+        echo $template->render(array(
+        ));
     }
 
     
