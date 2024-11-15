@@ -12,6 +12,8 @@ $theme-colors: (
         "primary": $primary,
 );
 
+$spacer: 100px;
+
 @font-face {
   font-family: 'Heavitas';
   src: url("font/Heavitas.ttf") format('truetype');
@@ -28,3 +30,4 @@ $theme-colors: (
 body{
   font-family: 'Heavitas', sans-serif;
 }
+.mt-xxl {margin-top: ($spacer * 6);}
