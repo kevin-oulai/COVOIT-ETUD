@@ -1,7 +1,5 @@
 <?php
 /**
-* @file    avis.class.php
-* @author  Candice Dutournier
 * @brief   Classe Etudiant pour représenter les étudiants.
 *
 * @details Cette classe permet de gérer les informations d'un étudiant, telles que 
@@ -11,8 +9,6 @@
 * Le numéro de voiture d'un étudiant est représentés par
 * un objet Voiture.
 *          
-* @version 0.1
-* @date    14/11/2024
 */
 
 class Etudiant {

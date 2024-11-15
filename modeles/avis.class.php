@@ -1,7 +1,5 @@
 <?php
 /**
-* @file    avis.class.php
-* @author  Candice Dutournier
 * @brief   Classe Avis pour représenter l'avis d'un étudiant passager.
 *
 * @details Cette classe permet de gérer les informations d'un avis, telles que 
@@ -11,8 +9,6 @@
 * Les étudiants concernés et commentateurs sont représentés par
 * un objet Etudiant.
 *          
-* @version 0.1
-* @date    14/11/2024
 */
 
 class Avis {
