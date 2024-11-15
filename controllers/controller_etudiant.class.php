@@ -6,7 +6,11 @@ class ControllerEtudiant extends Controller{
     }
 
     public function afficher(){
-        echo "Afficher l'etudiant";
+        
+        $template = $this->getTwig()->load('profil.html.twig');
+
+        echo $template->render(array(
+        ));
     }
     
 }
