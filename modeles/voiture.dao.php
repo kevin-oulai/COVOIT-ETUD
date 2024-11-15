@@ -50,4 +50,15 @@ class VoitureDao {
     {
         $this->PDO = $PDO;
     }
+
+    public function find(int $numero): Voiture
+    {
+        $sql="SELECT * FROM VOITURE WHERE numero= :numero";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":numero"=>$numero));
+        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Voiture');
+        $voiture = $pdoStatement->fetch();
+
+        return $voiture;
+    }
 }

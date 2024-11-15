@@ -46,7 +46,7 @@ class Voiture {
         $this -> setNumero($pNumero);
         $this -> setNom($pNom);
         $this -> setMarque($pMarque);
-        $this -> setNombrePlaces($pNombrePlaces);
+        $this -> setNbPlace($pNombrePlaces);
     }
 
     // Getters & Setters

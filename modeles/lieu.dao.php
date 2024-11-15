@@ -46,5 +46,15 @@ class LieuDao{
         $this->PDO = $PDO;
     }
 
+    public function find(int $numero): Lieu
+    {
+        $sql="SELECT * FROM LIEU WHERE numero= :numero";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":numero"=>$numero));
+        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lieu');
+        $lieu = $pdoStatement->fetch();
+
+        return $lieu;
+    }
 
 }
