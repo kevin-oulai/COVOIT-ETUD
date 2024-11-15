@@ -7,6 +7,13 @@ require_once 'config/constantes.php';
 //Ajout du modèle qui gère la connexion mysql
 require_once 'modeles/bd.class.php';
 
+//Ajout des controleurs
+require_once 'controllers/controller.class.php';
+require_once 'controllers/controller_trajet.class.php';
+require_once 'controllers/controller_etudiant.class.php';
+require_once 'controllers/controller_avis.class.php';
+require_once 'controllers/controller_factory.class.php';
+
 //Ajout des modeles
 require_once 'modeles/avis.class.php';
 require_once 'modeles/avis.dao.php';

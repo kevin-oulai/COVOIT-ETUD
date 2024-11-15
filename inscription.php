@@ -16,7 +16,8 @@ echo $template->render(array(
    $nbNum[0]++;
    if(isset($_POST["Nom"]))
    {
-      $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture) VALUES ((?),(?),(?),(?),(?),(?),'1' )";
+      $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'1',(?) )";
+      $pwd = password_hash($_POST["pwd"],PASSWORD_DEFAULT);
       $date = date($_POST["dateNaiss"]);
       $pdoStatement = $pdo->prepare($query);
       $pdoStatement->bindValue(1, $nbNum[0], PDO::PARAM_INT);
@@ -25,14 +26,10 @@ echo $template->render(array(
       $pdoStatement->bindValue(4,  $date, PDO::PARAM_STR);
       $pdoStatement->bindValue(5, $_POST["mail"], PDO::PARAM_STR);
       $pdoStatement->bindValue(6, $_POST["tel"], PDO::PARAM_STR);
+      $pdoStatement->bindValue(7, $pwd, PDO::PARAM_STR);
       $pdoStatement->execute();
+      echo "<meta http-equiv='refresh' content='0;url=connexion.php' />";
    }
-
-
-
-
-
-
 
 
    
