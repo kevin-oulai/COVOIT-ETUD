@@ -29,10 +29,4 @@ echo $template->render(array(
    }
 
 
-
-
-
-
-
-
    
