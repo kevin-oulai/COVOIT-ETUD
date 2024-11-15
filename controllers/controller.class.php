@@ -69,8 +69,6 @@ class Controller{
 
     /**
      * Set the value of get
-     *
-     * @param array<mixed> $get
      */
     public function setGet(?array $get): void
     {
@@ -79,8 +77,6 @@ class Controller{
 
     /**
      * Get the value of post
-     *
-     * @return array<mixed>
      */
     public function getPost(): ?array
     {
