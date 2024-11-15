@@ -5,3 +5,4 @@ package-lock.json
 package.json
 node_modules
 composer.lock
+docs

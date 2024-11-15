@@ -40,8 +40,3 @@ try {
 } catch (Exception $e) {
    die("Erreur : ".$e->getMessage());
 }
-=======
-$template = $twig->load('index.html.twig');
-
-echo $template->render(array(
-   ));

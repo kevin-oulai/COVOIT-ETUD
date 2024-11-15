@@ -10,6 +10,10 @@ class ControllerTrajet extends Controller{
     }
 
     public function lister(){
+        echo "lister les trajets";
+    }
+
+    public function rechercher(){
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $etudiant = $managerEtudiant->find(1);
         //var_dump($etudiant);
