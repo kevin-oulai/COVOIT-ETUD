@@ -6,3 +6,4 @@ $template = $twig->load('connexion.html.twig');
 
 echo $template->render(array(
    ));
+
