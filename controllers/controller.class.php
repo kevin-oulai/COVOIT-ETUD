@@ -1,3 +1,7 @@
+<?php
+
+class Controller {
+
 <?php 
 
 class Controller{
