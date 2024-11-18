@@ -157,6 +157,10 @@ INSERT INTO AVIS (numero, message, note, numero_concerne, numero_commentateur) V
 (1,'Bon trajet', 4, 2,3),
 (2,'Mauvaise musique dans la voiture',1, 5,1);
 
+INSERT INTO AVIS (numero, message, note, numero_concerne, numero_commentateur) VALUES
+(3,'Bon trajet', 4, 2,3),
+(4,'Mauvaise musique dans la voiture',1, 5,1);
+
 -- --------------------------------------------------------
 
 INSERT INTO BADGE (numero, titre, image) VALUES
@@ -226,3 +230,20 @@ WHERE E.numero IN (SELECT T.numero_conducteur
                     GROUP BY T.numero_conducteur
                     HAVING COUNT(T.numero) >= 2);
 
+-- Intitulé : Le nom, prénom et mail des conducteurs ayant un trajet disponible pour un lieu d’arrivée donné
+SELECT E.nom AS Nom, E.prenom AS Prenom, E.adresseMail AS Mail
+FROM ETUDIANT E
+JOIN TRAJET T ON T.numero_conducteur = E.numero
+WHERE T.numero_lieu_arrivee = 1;
+
+-- Intitulé : Trouver des trajets dont le prix est inférieur à un prix donné
+SELECT T.numero AS NumeroTrajet, T.prix AS Prix
+FROM TRAJET T
+WHERE T.prix < 20;
+
+-- Intitulé : Nombre d’avis reçu par personne (du plus d’avis au moins d'avis)
+SELECT E.nom AS Nom, E.prenom AS Prenom, COUNT(A.numero) AS NombreAvis
+FROM ETUDIANT E
+JOIN AVIS A ON A.numero_concerne = E.numero
+GROUP BY E.numero
+ORDER BY COUNT(A.numero) DESC;
