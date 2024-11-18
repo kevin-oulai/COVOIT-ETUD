@@ -154,12 +154,16 @@ INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPl
 -- --------------------------------------------------------
 
 INSERT INTO AVIS (numero, message, note, numero_concerne, numero_commentateur) VALUES
-(1,'Bon trajet', 4, 2,3),
-(2,'Mauvaise musique dans la voiture',1, 5,1);
+(1,'Bon trajet', 4, 2, 3),
+(2,'Mauvaise musique dans la voiture', 2, 5, 1);
 
 INSERT INTO AVIS (numero, message, note, numero_concerne, numero_commentateur) VALUES
-(3,'Bon trajet', 4, 2,3),
-(4,'Mauvaise musique dans la voiture',1, 5,1);
+(3,'Excellent pilote', 5, 2, 3),
+(4,'Conduit avec la mentalité "On a qu\'une vie"', 1, 2, 3),
+(5,'A obtenu son permis dans un Kinder Surprise !!!', 1, 2, 3),
+(6, 'Conduite assurée', 4, 5, 1),
+(7, 'Bon trajet.. Si c\'était une course de rallye!', 1, 5, 1),
+(8,'Conduite assurée et consciencieuse', 4, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -191,38 +195,38 @@ INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES
 
 -- REQUETES SQL
 
--- Intitulé : Le nombre de places disponibles pour les trajets partant d'un lieu donné ayant comme lieu d’arrivée l’IUT de Bayonne et du Pays basque à Anglet.
+-- Intitulé 1 : Le nombre de places disponibles pour les trajets partant d'un lieu donné ayant comme lieu d’arrivée l’IUT de Bayonne et du Pays basque à Anglet.
 SELECT T.nbPlace AS NombrePlaceDisponible
 FROM TRAJET T
 JOIN LIEU L ON L.numero = T.numero_lieu_arrivee
 WHERE L.numero = 1;
 
--- Intitulé : Le prix moyen des trajets partant d’un endroit donné et allant à l’IUT de Bayonne et du Pays basque à Anglet.
+-- Intitulé 2 : Le prix moyen des trajets partant d’un endroit donné et allant à l’IUT de Bayonne et du Pays basque à Anglet.
 SELECT AVG(T.prix) AS PrixMoyen
 FROM TRAJET T
 JOIN LIEU L ON L.numero = T.numero_lieu_arrivee
 WHERE T.numero = 1;
 
--- Intitulé : La/les ville(s) qui possède le plus de trajet (le plus de lieu de départ et de lieu d'arrivée)
+-- Intitulé 3 : La/les ville(s) qui possède le plus de trajet (le plus de lieu de départ et de lieu d'arrivée)
 SELECT L.ville AS Ville, COUNT(T.numero) AS NombreTrajet
 FROM LIEU L
 JOIN TRAJET T ON T.numero_lieu_depart = L.numero
 GROUP BY L.ville
 ORDER BY COUNT(T.numero) DESC
 
--- Intitulé : Le nombre de conducteurs ayant plus de 20 ans
+-- Intitulé 4 : Le nombre de conducteurs ayant plus de 20 ans
 SELECT COUNT(E.numero) AS NombreConducteur
 FROM ETUDIANT E
 WHERE DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'), E.dateNaiss) > 7305;
 
--- Intitulé : Le nombre de trajets complets.
+-- Intitulé 5 : Le nombre de trajets complets.
 SELECT COUNT(T.numero) AS NombreTrajetsComplets
 FROM TRAJET T
 WHERE T.nbPlace = ( SELECT COUNT(C.numero_passager) 
                     FROM CHOISIR C 
                     WHERE C.numero_trajet = T.numero);
 
--- Intitulé : Le nombre de conducteurs ayant proposé au moins 2 trajets.
+-- Intitulé 6 : Le nombre de conducteurs ayant proposé au moins 2 trajets.
 SELECT COUNT(E.numero) AS NombreConducteur
 FROM ETUDIANT E
 WHERE E.numero IN (SELECT T.numero_conducteur
@@ -230,20 +234,28 @@ WHERE E.numero IN (SELECT T.numero_conducteur
                     GROUP BY T.numero_conducteur
                     HAVING COUNT(T.numero) >= 2);
 
--- Intitulé : Le nom, prénom et mail des conducteurs ayant un trajet disponible pour un lieu d’arrivée donné
+-- Intitulé 7 : Le nom, prénom et mail des conducteurs ayant un trajet disponible pour un lieu d’arrivée donné
 SELECT E.nom AS Nom, E.prenom AS Prenom, E.adresseMail AS Mail
 FROM ETUDIANT E
 JOIN TRAJET T ON T.numero_conducteur = E.numero
 WHERE T.numero_lieu_arrivee = 1;
 
--- Intitulé : Trouver des trajets dont le prix est inférieur à un prix donné
+-- Intitulé 8 : Trouver des trajets dont le prix est inférieur à un prix donné
 SELECT T.numero AS NumeroTrajet, T.prix AS Prix
 FROM TRAJET T
 WHERE T.prix < 20;
 
--- Intitulé : Nombre d’avis reçu par personne (du plus d’avis au moins d'avis)
+-- Intitulé 9 : Nombre d’avis reçu par personne (du plus d’avis au moins d'avis)
 SELECT E.nom AS Nom, E.prenom AS Prenom, COUNT(A.numero) AS NombreAvis
 FROM ETUDIANT E
 JOIN AVIS A ON A.numero_concerne = E.numero
 GROUP BY E.numero
 ORDER BY COUNT(A.numero) DESC;
+
+-- Intitulé 10 : Liste de tous les conducteurs avec une moyenne de note au-dessus d’un paramètre saisi au clavier triés par moyenne
+SELECT E.nom AS Nom, E.prenom AS Prenom, AVG(A.note) AS MoyenneNote
+FROM ETUDIANT E
+JOIN AVIS A ON A.numero_concerne = E.numero
+GROUP BY E.numero
+HAVING AVG(A.note) > 1
+ORDER BY AVG(A.note) DESC;
