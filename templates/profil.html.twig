@@ -1,0 +1,22 @@
+{% extends "base_templates.html.twig" %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="height: 600px">
+  <div class="login-container align-right" style="width: 350px;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h2 class="text-center">Profil</h2></li>
+            <li class="list-group-item">A Propos de vous<br>
+            <br><img src = "images/photoProfilParDefaut.png" width="100" height="100"><br><br>
+            <p> Nom : ...</p><br>
+            <p>Prenom : ...</p></li>
+            <li class="list-group-item">Informations <br>
+            <br><p>Adresse mail : ...</p><br>
+            <p>Numero de téléphone : ...</p></li>
+        </ul>
+        <div class ="text-center">
+            <a href="index.php" class="btn btn-danger">Retour</a>
+        </div>
+
+    </div>
+</div>
+    
+{% endblock %}

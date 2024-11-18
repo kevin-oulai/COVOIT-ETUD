@@ -2,30 +2,37 @@
 {% block content %}
 
 <link rel='stylesheet' type='text/css' href='node_modules/bootstrap/dist/css/bootstrap.css'>
-    
+
 <div class="d-flex justify-content-center align-items-center" style="height: 600px">
 <div class="login-container align-right" style="width: 350px;">
     <h2 class="text-center">Inscription</h2>
-    <form ACTION='login.php' METHOD='POST'>
+    <form ACTION='inscription.php' METHOD='POST'>
     <div class="row">
                   <div class="col-md-6 mb-4">
                     <div data-mdb-input-init class="form-outline">
+                      <label>Nom</label>
                       <input type="text" name="Nom" class="form-control" placeholder="Nom" required/>
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div data-mdb-input-init class="form-outline">
+                      <label>Prenom</label>
                       <input type="text" name="Prenom" class="form-control" placeholder="Prenom" required/>
                     </div>
                   </div>
                 </div>
+        <label> Adresse Mail</label>
         <input name="mail" type="email" class="form-control mb-3" placeholder="Adresse mail" required>
-        <input name="tel" type="text" class="form-control mb-3" placeholder="Numero de téléphone" required>
+        <label> Numéro de téléphone</label>
+        <input type="tel" name="tel" class="form-control mb-3" name="phone" pattern="[0-9]{10}" placeholder="Numero de téléphone" required />
+        <label> Date de naissance</label>
+        <input name="dateNaiss" type="date" class="form-control mb-3" placeholder="Date de naissance" required>
+        <label>Mot de passe</label>
         <input name="pwd" type="password" class="form-control mb-3" placeholder="Mot de passe" required>
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
           <label class="form-check-label" for="flexCheckDefault">
-            NewLetter
+            NewsLetter
           </label>
         </div>
         <div class="text-center">
@@ -38,11 +45,6 @@
     </form>
 </div>
 </div>
-
-
-
-
-
 
 
 
