@@ -175,7 +175,9 @@ INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES
 (1, 1),
 (1, 5),
 (2, 3),
-(3, 2);
+(2, 4),
+(2, 5),
+(3, 2),
 (3, 4);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
@@ -186,26 +188,26 @@ INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES
 -- REQUETES SQL
 
 -- Intitulé : Le nombre de places disponibles pour les trajets partant d'un lieu donné ayant comme lieu d’arrivée l’IUT de Bayonne et du Pays basque à Anglet.
-SELECT T.nbPlace 
+SELECT T.nbPlace AS NombrePlaceDisponible
 FROM TRAJET T
 JOIN LIEU L ON L.numero = T.numero_lieu_arrivee
 WHERE L.numero = 1;
 
 -- Intitulé : Le prix moyen des trajets partant d’un endroit donné et allant à l’IUT de Bayonne et du Pays basque à Anglet.
-SELECT AVG(T.prix)
+SELECT AVG(T.prix) AS PrixMoyen
 FROM TRAJET T
 JOIN LIEU L ON L.numero = T.numero_lieu_arrivee
 WHERE T.numero = 1;
 
 -- Intitulé : La/les ville(s) qui possède le plus de trajet (le plus de lieu de départ et de lieu d'arrivée)
-SELECT L.ville AS Ville, COUNT(T.numero) AS Nombre_Trajet
+SELECT L.ville AS Ville, COUNT(T.numero) AS NombreTrajet
 FROM LIEU L
 JOIN TRAJET T ON T.numero_lieu_depart = L.numero
 GROUP BY L.ville
 ORDER BY COUNT(T.numero) DESC
 
 -- Intitulé : Le nombre de conducteurs ayant plus de 20 ans
-SELECT COUNT(E.numero) AS Nombre_Conducteur
+SELECT COUNT(E.numero) AS NombreConducteur
 FROM ETUDIANT E
 WHERE DATEDIFF(DATE_FORMAT(NOW(), '%Y-%m-%d'), E.dateNaiss) > 7305;
 
@@ -215,3 +217,12 @@ FROM TRAJET T
 WHERE T.nbPlace = ( SELECT COUNT(C.numero_passager) 
                     FROM CHOISIR C 
                     WHERE C.numero_trajet = T.numero);
+
+-- Intitulé : Le nombre de conducteurs ayant proposé au moins 2 trajets.
+SELECT COUNT(E.numero) AS NombreConducteur
+FROM ETUDIANT E
+WHERE E.numero IN (SELECT T.numero_conducteur
+                    FROM TRAJET T
+                    GROUP BY T.numero_conducteur
+                    HAVING COUNT(T.numero) >= 2);
+
