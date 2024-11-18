@@ -259,3 +259,18 @@ JOIN AVIS A ON A.numero_concerne = E.numero
 GROUP BY E.numero
 HAVING AVG(A.note) > 1
 ORDER BY AVG(A.note) DESC;
+
+-- Intitulé 11 : Compter le nombre de trajet pour chaque lieu d’arrivée.
+SELECT L.nomRue AS NomRue, COUNT(T.numero) AS NombreTrajet
+FROM LIEU L
+JOIN TRAJET T ON T.numero_lieu_arrivee = L.numero
+GROUP BY L.numero;
+
+-- Intitulé 12 : Nombre de trajets qui ont encore de la place par conducteur
+SELECT E.nom AS Nom, E.prenom AS Prenom, COUNT(T.numero) AS NombreTrajet
+FROM ETUDIANT E
+JOIN TRAJET T ON T.numero_conducteur = E.numero
+WHERE T.nbPlace > (SELECT COUNT(C.numero_passager) 
+                    FROM CHOISIR C 
+                    WHERE C.numero_trajet = T.numero)
+GROUP BY E.numero;
