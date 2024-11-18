@@ -26,7 +26,7 @@ try {
    }
    if ($controleurName == "" && $methode == "") {
       $controleurName = "trajet";
-      $methode = "lister";
+      $methode = "rechercher";
    }
    if ($controleurName == "") {
       throw new Exception("Le controleur n'est pas defini");

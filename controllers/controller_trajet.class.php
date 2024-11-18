@@ -10,7 +10,23 @@ class ControllerTrajet extends Controller{
     }
 
     public function lister(){
-        echo "lister les trajets";
+        // $depart = $_POST['depart'];
+        // $arrivee = $_POST['arrivee'];
+        // $date = $_POST['date'];
+        // $nbPassager = $_POST['nombre_passagers'];
+
+        $managerTrajet = new LieuDao($this->getPdo());
+        $numTrajet1 = $managerTrajet->findNumByVille("Anglet");
+        $numTrajet2 = $managerTrajet->findNumByVille("Paris");
+        var_dump($numTrajet1);
+        var_dump($numTrajet2);
+
+        $template = $this->getTwig()->load('pageTrajets.html.twig');
+
+        echo $template->render(array(
+        ));
+        
+   
     }
 
     public function rechercher(){

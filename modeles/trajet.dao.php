@@ -62,4 +62,19 @@ class TrajetDao{
         return $trajet;
     }
 
+    public function findAll(string $lieu_depart, string $lieu_arrivee, string $date, int $nbPassager): Trajet
+    {
+        $requete = "SELECT numero FROM LIEU WHERE ville = :lieu_depart";
+        $pdoStatement = $this->PDO->prepare($requete);
+        $pdoStatement->execute(array(":lieu_depart"=>$lieu_depart));
+        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Lieu');
+        $numLieuDep = $pdoStatement->fetch();
+
+        $requete = "SELECT numero FROM LIEU WHERE ville = :lieu_depart";
+        $pdoStatement = $this->PDO->prepare($requete);
+        $pdoStatement->execute(array(":lieu_depart"=>$lieu_depart, ":lieu_arrivee"=>$lieu_arrivee, ":uneDate"=>$date, ":nbPlace"=>$nbPassager));
+        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Trajet');
+        $trajet = $pdoStatement->fetch();
+        return $trajet;
+    }
 }

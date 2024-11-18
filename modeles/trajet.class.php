@@ -59,6 +59,9 @@ class Trajet {
      */
     private int|null $numero_conducteur;
 
+    private int|null $numero_lieu_depart;
+    private int|null $numero_lieu_arrivee;
+
     // Constructeur
     /**
      * @brief Constructeur de la classe Trajet
@@ -230,5 +233,25 @@ class Trajet {
     public function setNumeroConducteur(int $numero_conducteur): void
     {
         $this->numero_conducteur = $numero_conducteur;
+    }
+
+    public function getNumeroLieuDepart(): ?int
+    {
+        return $this->numero_lieu_depart;
+    }
+
+    public function setNumeroLieuDepart(?int $numero_lieu_depart): void
+    {
+        $this->numero_lieu_depart = $numero_lieu_depart;
+    }
+
+    public function getNumeroLieuArrivee(): ?int
+    {
+        return $this->numero_lieu_arrivee;
+    }
+
+    public function setNumeroLieuArrivee(?int $numero_lieu_arrivee): void
+    {
+        $this->numero_lieu_arrivee = $numero_lieu_arrivee;
     }
 }
