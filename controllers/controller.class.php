@@ -1,9 +1,5 @@
 <?php
 
-class Controller {
-
-<?php 
-
 class Controller{
     private PDO $pdo;
     private Twig\Loader\FilesystemLoader $loader;

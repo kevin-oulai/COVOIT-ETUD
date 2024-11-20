@@ -11,8 +11,7 @@ echo $template->render(array(
    $query = "SELECT COUNT(numero) FROM ETUDIANT";
    $pdoStatement = $pdo->prepare($query);
    $pdoStatement->execute();
-   $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT); 
-   print($nbNum[0]);
+   $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
    $nbNum[0]++;
    if(isset($_POST["Nom"]))
    {

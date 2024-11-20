@@ -62,4 +62,21 @@ class TrajetDao{
         return $trajet;
     }
 
+    public function insert(?string $heureDep = null,?string $heureArr = null,?int $prix = null,?int $nbPlace = null): void
+    {
+        $sql = "SELECT COUNT(numero) FROM TRAJET";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        $newNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+        $newNum[0]++;
+        $dateDep = "2024-11-06";
+        $query = $this->PDO->prepare("INSERT INTO TRAJET(numero,heureDep, heureArr, prix, dateDep, nbPlace, numero_conducteur, numero_lieu_depart, numero_lieu_arrivee) VALUES (:numero, :heureDep, :heureArr, :prix, :dateDep, :nbPlace, '1', '1', '1' )");
+        $query->bindParam(':numero', $newNum[0]);
+        $query->bindParam(':heureDep', $heureDep);
+        $query->bindParam(':heureArr', $heureArr);
+        $query->bindParam(':prix', $prix);
+        $query->bindParam(':dateDep', $dateDep);
+        $query->bindParam(':nbPlace', $nbPlace);
+        $query->execute();
+    }
 }

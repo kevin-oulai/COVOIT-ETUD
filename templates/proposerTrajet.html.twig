@@ -1,0 +1,13 @@
+{% extends "base_templates.html.twig" %}
+{% block content %}
+    <main class="d-flex justify-content-center align-items-center">
+        <h1>Enregistrer un trajet</h1>
+        <form action="index.php?controleur=trajet&methode=enregistrer" method="post">
+        <label>Heure de départ</label><input name="heureDep" type="time">
+        <label>Heure d'arrivée</label><input name="heureArr" type="time">
+        <label>Prix</label><input name="prix" type="number">
+        <label>Nombre de places</label><input name="nbPlace" type="number">
+            <input type="Submit" value="Enregistrer le trajet">
+        </form>
+    </main>
+{% endblock %}

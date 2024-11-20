@@ -4,12 +4,8 @@ require_once 'include.php';
 
 $pdo = Bd::getInstance()->getConnexion();
 
-echo $template->render(array(
-    'listeLieux'=>$listeLieux
-   ));
-=======
-// echo $template->render(array(
-//    ));
+$template = $twig->load('index.html.twig');
+
 try {
    if (isset($_GET['controleur'])) {
       $controleurName = $_GET['controleur'];
@@ -24,7 +20,7 @@ try {
    }
    if ($controleurName == "" && $methode == "") {
       $controleurName = "trajet";
-      $methode = "lister";
+      $methode = "rechercher";
    }
    if ($controleurName == "") {
       throw new Exception("Le controleur n'est pas defini");
