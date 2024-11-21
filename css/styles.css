@@ -11437,4 +11437,15 @@ body {
   height: 500px;
 }
 
+#ajout {
+  height: 60px;
+  width: 60px;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 9999;
+  border-radius: 30px;
+  transition: all 0.3s ease-in-out;
+}
+
 /*# sourceMappingURL=styles.css.map */

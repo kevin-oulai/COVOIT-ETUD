@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 class ControllerTrajet extends Controller{
 
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
@@ -33,16 +35,13 @@ class ControllerTrajet extends Controller{
 
         if(isset($_POST["heureDep"]) && isset($_POST["heureArr"]) && isset($_POST["prix"]) && isset($_POST["nbPlace"]))
         {
+            $numero_conducteur =  $_SESSION["id"];
             $heureDep = $_POST["heureDep"];
             $heureArr = $_POST["heureArr"];
             $prix = $_POST["prix"];
             $nbPlace = $_POST["nbPlace"];
             $managerTrajet = new TrajetDao($this->getPdo());
-            $managerTrajet->insert($heureDep, $heureArr, $prix, $nbPlace);
-            print("<p> OK </p>");
-        }
-        else{
-            print("<p> PAS OK </p>");
+            $managerTrajet->insert($heureDep, $heureArr, $prix, $nbPlace, $numero_conducteur);
         }
     }
 
