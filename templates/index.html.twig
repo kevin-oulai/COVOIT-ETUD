@@ -1,3 +1,40 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
+
+        <div class="px-5">
+            <form action="" method="post" class="input-group mt-xl px-xl" autocomplete="off">
+                <div class="autocomplete" style="width:300px;">
+                    <input type="text" placeholder="Depart" name="depart" id="depart" class="form-control m-1 rounded">
+                </div>
+                <input type="text" placeholder="Arrivee" name="arrivee" id="arrivee" class="form-control m-1 rounded">
+                <input type="date" placeholder="Date" name="date" class="form-control m-1 rounded">
+                <input type="number" min="1" placeholder="Nombre de passagers" name="nombre_passagers" class="form-control m-1 rounded">
+                <input type="submit" class="m-1 btn-search rounded" value="">
+            </form>
+        </div>
+        <main class="container-fluid mt-xxl fs-4 fw-bold lh-sm">
+            <div class="text-align-left ps-xl-5 me-xxl container-fluid">
+                <div class="row">
+                    <h1 class="fw-bolder fs-2 mb-3 col">Le saviez-vous ?</h1>
+                </div>
+                <div class="row">
+                    <p class="col">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras risus odio, egestas quis accumsan sed, placerat et arcu. Praesent eleifend maximus nisi, eget lacinia sem euismod et. Cras egestas sit amet turpis ut pellentesque. Fusce maximus, nisi in auctor suscipit, elit libero rutrum erat, quis porttitor risus ligula et eros. Praesent sapien enim, condimentum id pulvinar nec, porttitor ultrices turpis. Aliquam lectus ligula, lacinia efficitur luctus nec, euismod vel lectus. Vivamus nisl tellus, sagittis ac lobortis eu, mollis ac lectus. Pellentesque ullamcorper tortor sed auctor mattis. Morbi sed imperdiet nisi, quis pulvinar urna. Ut congue fermentum justo sit amet eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec eu hendrerit turpis. Nullam elit leo, finibus sit amet cursus non, sodales quis mi. Ut vel ultricies turpis, sodales egestas dui. Nulla rhoncus lectus quis nisl hendrerit, eget hendrerit ante vulputate.
+                    </p>
+                    <img src="placeholder.png" class="col">
+                </div>
+            </div>
+            <div class="text-align-right mt-xxl mb-3 ps-5 pe-xl-5 container-fluid">
+                <div class="row">
+                    <h1 class="fw-bolder fs-2 col">Fait écologique</h1>
+                </div>
+                <div class="row">
+                    <img src="images/image-ecologie.png" class="col square-500">
+                    <p class="col">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras risus odio, egestas quis accumsan sed, placerat et arcu. Praesent eleifend maximus nisi, eget lacinia sem euismod et. Cras egestas sit amet turpis ut pellentesque. Fusce maximus, nisi in auctor suscipit, elit libero rutrum erat, quis porttitor risus ligula et eros. Praesent sapien enim, condimentum id pulvinar nec, porttitor ultrices turpis. Aliquam lectus ligula, lacinia efficitur luctus nec, euismod vel lectus. Vivamus nisl tellus, sagittis ac lobortis eu, mollis ac lectus. Pellentesque ullamcorper tortor sed auctor mattis. Morbi sed imperdiet nisi, quis pulvinar urna. Ut congue fermentum justo sit amet eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec eu hendrerit turpis. Nullam elit leo, finibus sit amet cursus non, sodales quis mi. Ut vel ultricies turpis, sodales egestas dui. Nulla rhoncus lectus quis nisl hendrerit, eget hendrerit ante vulputate.
+                    </p>
+                </div>
+            </div>
+        </main>
+
 {% endblock %}

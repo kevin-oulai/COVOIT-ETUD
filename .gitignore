@@ -5,5 +5,5 @@ package-lock.json
 package.json
 node_modules
 composer.lock
+config/constantes.yaml
 docs
-constantes.yaml

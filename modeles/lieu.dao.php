@@ -56,5 +56,32 @@ class LieuDao{
 
         return $lieu;
     }
+    public function findAllAssoc(){
+        $sql="SELECT * FROM LIEU";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $lieu = $pdoStatement->fetchAll();
+        return $lieu;
+    }
+
+    public function hydrate(array $tableauAssoc): ?Lieu
+    {
+        $lieu = new Lieu();
+        $lieu->setNumero($tableauAssoc['numero']);
+        $lieu->setNumRue($tableauAssoc['numRue']);
+        $lieu->setNomRue($tableauAssoc['nomRue']);
+        $lieu->setVille($tableauAssoc['ville']);
+        return $lieu;
+    }
+
+    public function hydrateAll($tableau): ?array{
+        $lieux = [];
+        foreach($tableau as $tableauAssoc){
+            $lieu = $this->hydrate($tableauAssoc);
+            $lieux[] = $lieu;
+        }
+        return $lieux;
+    }
 
 }

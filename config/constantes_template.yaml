@@ -1,0 +1,6 @@
+# Remplacer par vos variables et renommer le fichier en constantes.yaml
+database:
+  DB_HOST: host
+  DB_NAME: name
+  DB_USER: user
+  DB_PASS: pass
