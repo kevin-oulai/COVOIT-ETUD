@@ -36,7 +36,8 @@ class ControllerTrajet extends Controller{
         if(isset($_POST["heureDep"]) && isset($_POST["heureArr"]) && isset($_POST["prix"]) && isset($_POST["nbPlace"]))
         {
             $managerLieu = new LieuDao($this->getPdo());
-            $numero_conducteur =  $_SESSION["id"];
+//            $numero_conducteur =  $_SESSION["id"];
+            $numero_conducteur = 1;
             $heureDep = $_POST["heureDep"];
             $heureArr = $_POST["heureArr"];
             $prix = $_POST["prix"];
@@ -63,7 +64,7 @@ class ControllerTrajet extends Controller{
             }
             $nomRueDep = substr($nomRueDep, 0, strlen($nomRueDep)-2);
             $nomRueArr = substr($nomRueArr, 0, strlen($nomRueArr)-2);
-            // On regarde si le lieu existe, si ce n'est pas le cas on l'insere
+            // On regarde si le lieu existe, si ce n'est pas le cas on l'insere dans la bd
             if(!$managerLieu->existe($numRueDep, $nomRueDep, $villeDep)){
                 $managerLieu->insert($numRueDep, $nomRueDep, $villeDep);
             }
@@ -71,11 +72,15 @@ class ControllerTrajet extends Controller{
             if(!$managerLieu->existe($numRueArr, $nomRueArr, $villeArr)){
                 $managerLieu->insert($numRueArr, $nomRueArr, $villeArr);
             }
-            
+
+            $numero_lieu_depart = $managerLieu->findNum($numRueDep, $nomRueDep, $villeDep);
+            $numero_lieu_arrivee = $managerLieu->findNum($numRueArr, $nomRueArr, $villeArr);
+
+            echo $numero_lieu_depart . "<br>";
+            echo $numero_lieu_arrivee . "<br>";
+
             $managerTrajet = new TrajetDao($this->getPdo());
             //$managerTrajet->insert($heureDep, $heureArr, $prix, $nbPlace, $numero_conducteur);
         }
     }
-
-    
 }

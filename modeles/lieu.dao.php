@@ -93,6 +93,17 @@ class LieuDao{
         $query->execute();
     }
 
+    public function findNum(?int $numRue = null,?string $nomRue = null,?string $ville = null): int
+    {
+        $sql="SELECT numero FROM LIEU WHERE numRue= :numRue AND nomRue= :nomRue AND ville= :ville";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":numRue"=>$numRue, ":nomRue"=>$nomRue, ":ville"=>$ville));
+        $pdoStatement->setFetchMode(PDO::FETCH_NUM);
+        $num = $pdoStatement->fetch()[0];
+
+        return $num;
+    }
+
     public function hydrate(array $tableauAssoc): ?Lieu
     {
         $lieu = new Lieu();
