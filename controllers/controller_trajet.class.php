@@ -35,15 +35,45 @@ class ControllerTrajet extends Controller{
 
         if(isset($_POST["heureDep"]) && isset($_POST["heureArr"]) && isset($_POST["prix"]) && isset($_POST["nbPlace"]))
         {
+            $managerLieu = new LieuDao($this->getPdo());
             $numero_conducteur =  $_SESSION["id"];
             $heureDep = $_POST["heureDep"];
             $heureArr = $_POST["heureArr"];
             $prix = $_POST["prix"];
             $nbPlace = $_POST["nbPlace"];
-            $managerLieu = new LieuDao($this->getPdo());
+            $lieuDepart = $_POST["lieuDepart"];
+            $lieuArrivee = $_POST["lieuArrivee"];
+            $expLieuDepart = explode(" ", $lieuDepart);
+            $expLieuArrivee = explode(" ", $lieuArrivee);
+            $numRueDep = $expLieuDepart[0];
+            $numRueArr= $expLieuArrivee[0];
+            $villeDep = $expLieuDepart[sizeof($expLieuDepart)-1];
+            $villeArr = $expLieuArrivee[sizeof($expLieuArrivee)-1];
+            $nomRueDep = "";
+            $nomRueArr = "";
+            foreach ($expLieuDepart as $part) {
+                if($part != $numRueDep && $part != $villeDep && $part){
+                    $nomRueDep .= $part . " ";
+                }
+            }
+            foreach ($expLieuArrivee as $part) {
+                if($part != $numRueArr && $part != $villeArr){
+                    $nomRueArr .= $part . " ";
+                }
+            }
+            $nomRueDep = substr($nomRueDep, 0, strlen($nomRueDep)-2);
+            $nomRueArr = substr($nomRueArr, 0, strlen($nomRueArr)-2);
+            // On regarde si le lieu existe, si ce n'est pas le cas on l'insere
+            if(!$managerLieu->existe($numRueDep, $nomRueDep, $villeDep)){
+                $managerLieu->insert($numRueDep, $nomRueDep, $villeDep);
+            }
+
+            if(!$managerLieu->existe($numRueArr, $nomRueArr, $villeArr)){
+                $managerLieu->insert($numRueArr, $nomRueArr, $villeArr);
+            }
             
             $managerTrajet = new TrajetDao($this->getPdo());
-            $managerTrajet->insert($heureDep, $heureArr, $prix, $nbPlace, $numero_conducteur);
+            //$managerTrajet->insert($heureDep, $heureArr, $prix, $nbPlace, $numero_conducteur);
         }
     }
 

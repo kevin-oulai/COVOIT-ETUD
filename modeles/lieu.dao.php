@@ -65,6 +65,34 @@ class LieuDao{
         return $lieu;
     }
 
+    public function existe(int $numRue, string $nomRue, string $ville): bool
+    {
+        $sql="SELECT count(*) FROM LIEU WHERE numRue= :numRue AND nomRue= :nomRue AND ville= :ville";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":numRue"=>$numRue, ":nomRue"=>$nomRue, ":ville"=>$ville));
+        $pdoStatement->setFetchMode(PDO::FETCH_NUM);
+        $count = $pdoStatement->fetch();
+        if ($count[0] > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function insert(?int $numRue = null,?string $nomRue = null,?string $ville = null): void
+    {
+        $sql = "SELECT COUNT(numero) FROM LIEU";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        $newNum = $pdoStatement->fetch(PDO::FETCH_NUM);
+        $newNum[0]++;
+        $query = $this->PDO->prepare("INSERT INTO LIEU(numero, numRue, nomRue, ville) VALUES (:numero, :numRue, :nomRue, :ville)");
+        $query->bindParam(':numero', $newNum[0]);
+        $query->bindParam(':numRue', $numRue);
+        $query->bindParam(':nomRue', $nomRue);
+        $query->bindParam(':ville', $ville);
+        $query->execute();
+    }
+
     public function hydrate(array $tableauAssoc): ?Lieu
     {
         $lieu = new Lieu();
