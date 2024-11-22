@@ -11445,6 +11445,7 @@ body {
   right: 40px;
   z-index: 9999;
   border-radius: 30px;
+  overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
 

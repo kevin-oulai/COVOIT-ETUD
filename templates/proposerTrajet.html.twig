@@ -4,28 +4,21 @@
     <main class="d-flex justify-content-center align-items-center container mt-5">
         <div class="login-container align-right" style="width: 350px;">
             <form action="index.php?controleur=trajet&methode=enregistrer" method="post" class="input-group">
-                <div class="row">
-                    <div class="col">
-                        <div data-mdb-input-init class="form-outline mt-5">
-                    <label>Heure de départ</label><input name="heureDep" type="time" class="form-control">
-                    <label>Heure d'arrivée</label><input name="heureArr" type="time" class="form-control">
-                        </div>
+                    <div data-mdb-input-init class="form-outline mt-5">
+                            <label>Heure de départ</label><input name="heureDep" type="datetime-local" class="form-control">
+                            <label>Heure d'arrivée</label><input name="heureArr" type="time" class="form-control">
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
                         <div data-mdb-input-init class="form-outline mt-5">
-                    <label>Prix</label><input name="prix" type="number" class="form-control">
-                    <label>Nombre de places</label><input name="nbPlace" type="number" class="form-control">
+                            <label>Prix</label><input name="prix" type="number" class="form-control">
+                            <label>Nombre de places</label><input name="nbPlace" type="number" class="form-control">
                         </div>
-                    </div>
-                </div>
-                <div class="row ">
-                    <div class="col">
+                        <div data-mdb-input-init class="form-outline mt-5">
+{#                            // Thibault -> regex stp#}
+                            <label>Lieu de départ</label><input name="prix" type="text" pattern="^[0-9]{1,3}\s[a-zA-Z\s\u00C0-\u017F]+,[a-zA-Z\s]+$" class="form-control" placeholder="E.g : 2 Allée parc Montaury, Anglet">
+                            <label>Lieu d'arrivée</label><input name="nbPlace" type="text" pattern="^[0-9]{1,3}\s[a-zA-Z\s\u00C0-\u017F]+,[a-zA-Z\s]+$" class="form-control" placeholder="E.g : 2 Allée parc Montaury, Anglet">
+                        </div>
                         <div data-mdb-input-init class="form-outline">
                     <input type="Submit" value="Enregistrer le trajet" class="btn btn-primary mt-5">
-                        </div>
-                    </div>
                 </div>
             </form>
         </div>

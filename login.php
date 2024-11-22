@@ -10,7 +10,7 @@ session_start ();
    $query = "SELECT numero, motDePasse FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
    $pdoStatement = $pdo->prepare($query);
    $pdoStatement->execute();
-   $result = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+   $result = $pdoStatement->fetch(PDO::FETCH_NUM);
    $verifMDP = password_verify($_POST['pwd'],$result[1]);
 
    // on vérifie les informations saisies

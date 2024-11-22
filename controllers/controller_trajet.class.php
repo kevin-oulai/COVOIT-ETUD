@@ -40,6 +40,8 @@ class ControllerTrajet extends Controller{
             $heureArr = $_POST["heureArr"];
             $prix = $_POST["prix"];
             $nbPlace = $_POST["nbPlace"];
+            $managerLieu = new LieuDao($this->getPdo());
+            
             $managerTrajet = new TrajetDao($this->getPdo());
             $managerTrajet->insert($heureDep, $heureArr, $prix, $nbPlace, $numero_conducteur);
         }

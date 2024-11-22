@@ -15,7 +15,7 @@ echo $template->render(array(
    $nbNum[0]++;
    if(isset($_POST["Nom"]))
    {
-      $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'1',(?) )";
+      $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),NULL,(?) )";
       $pwd = password_hash($_POST["pwd"],PASSWORD_DEFAULT);
       $date = date($_POST["dateNaiss"]);
       $pdoStatement = $pdo->prepare($query);
