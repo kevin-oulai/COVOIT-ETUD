@@ -1,5 +1,7 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
+
+
     <h1 class="fs-1 text-center mt-xxl">Enregistrer un trajet</h1>
     <main class="d-flex justify-content-center align-items-center mt-5">
         <div class="" style="width: 350px;">
@@ -23,4 +25,32 @@
             </form>
         </div>
     </main>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Félicitation !</h5>
+                </div>
+                <div class="modal-body">
+                    Le trajet a bien été enregistré.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="location = 'index.php';">Retourner à la page d'acceuil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script>
+        $(function(){
+            $('#myModal').modal({
+                show:true,
+                backdrop:'static'
+            });
+            if($('#modalTrigger').length){
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
 {% endblock %}
