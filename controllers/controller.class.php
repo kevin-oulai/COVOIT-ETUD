@@ -1,8 +1,5 @@
 <?php
 
-class Controller {
-
-<?php 
 
 class Controller{
     private PDO $pdo;
