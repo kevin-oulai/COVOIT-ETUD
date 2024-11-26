@@ -11,12 +11,11 @@ echo $template->render(array(
    $query = "SELECT COUNT(numero) FROM ETUDIANT";
    $pdoStatement = $pdo->prepare($query);
    $pdoStatement->execute();
-   $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT); 
-   print($nbNum[0]);
+   $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
    $nbNum[0]++;
    if(isset($_POST["Nom"]))
    {
-      $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'1',(?) )";
+      $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),NULL,(?) )";
       $pwd = password_hash($_POST["pwd"],PASSWORD_DEFAULT);
       $date = date($_POST["dateNaiss"]);
       $pdoStatement = $pdo->prepare($query);

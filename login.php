@@ -7,11 +7,12 @@ session_start ();
  if (isset($_POST['login']) && isset($_POST['pwd'])) {
 
    $pdo = Bd::getInstance()->getConnexion();
+
    $query = "SELECT motDePasse, numero, numero_voiture FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
    $pdoStatement = $pdo->prepare($query);
    $pdoStatement->execute();
-   $mdp = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT); 
-   $verifMDP = password_verify($_POST['pwd'],$mdp[0]);
+   $result = $pdoStatement->fetch(PDO::FETCH_NUM);
+   $verifMDP = password_verify($_POST['pwd'],$result[1]);
 
    // on vérifie les informations saisies
    if ($verifMDP) {

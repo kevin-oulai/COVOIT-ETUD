@@ -2,10 +2,8 @@
 {% block content %}
 
         <div class="px-5">
-            <form action="" method="post" class="input-group mt-xl px-xl" autocomplete="off">
-                <div class="autocomplete" style="width:300px;">
-                    <input type="text" placeholder="Depart" name="depart" id="depart" class="form-control m-1 rounded">
-                </div>
+            <form action="pageTrajets.php" method="post" class="input-group mt-xl px-xl" autocomplete="off">
+                <input type="text" placeholder="Depart" name="depart" id="depart" class="form-control m-1 rounded">
                 <input type="text" placeholder="Arrivee" name="arrivee" id="arrivee" class="form-control m-1 rounded">
                 <input type="date" placeholder="Date" name="date" class="form-control m-1 rounded">
                 <input type="number" min="1" placeholder="Nombre de passagers" name="nombre_passagers" class="form-control m-1 rounded">
@@ -13,6 +11,7 @@
             </form>
         </div>
         <main class="container-fluid mt-xxl fs-4 fw-bold lh-sm">
+            <button id="ajout" class="btn btn-primary">+</button>
             <div class="text-align-left ps-xl-5 me-xxl container-fluid">
                 <div class="row">
                     <h1 class="fw-bolder fs-2 mb-3 col">Le saviez-vous ?</h1>
@@ -36,5 +35,5 @@
                 </div>
             </div>
         </main>
-
+    <script src="scripts/script_index.js"></script>
 {% endblock %}
