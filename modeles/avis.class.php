@@ -2,6 +2,7 @@
 /**
 * @file    avis.class.php
 * @author  Candice Dutournier
+
 * @brief   Classe Avis pour représenter l'avis d'un étudiant passager.
 *
 * @details Cette classe permet de gérer les informations d'un avis, telles que 

@@ -2,6 +2,7 @@
 /**
 * @file    badge.class.php
 * @author  Candice Dutournier
+
 * @brief   Classe Badge pour représenter les badges que peut recevoir un étudiant.
 *
 * @details Cette classe permet de gérer les informations d'un badge, telles que 
@@ -9,6 +10,7 @@
 *          
 * @version 0.1
 * @date    14/11/2024
+
 */
 
 class Badge {

@@ -4,8 +4,6 @@ require_once 'include.php';
 
 $pdo = Bd::getInstance()->getConnexion();
 
-$template = $twig->load('index.html.twig');
-
 try {
    if (isset($_GET['controleur'])) {
       $controleurName = $_GET['controleur'];
