@@ -274,3 +274,9 @@ WHERE T.nbPlace > (SELECT COUNT(C.numero_passager)
                     FROM CHOISIR C 
                     WHERE C.numero_trajet = T.numero)
 GROUP BY E.numero;
+
+-- Intitulé 13 : La durée moyenne des trajets par conducteur inférieure à un nombre saisi.
+
+SELECT T.numero AS NumTrajet, AVG(TIMEDIFF(T.heureArr, T.heureDep) AS DureeMoyenne
+FROM `TRAJET` T
+GROUP BY T.numero;
