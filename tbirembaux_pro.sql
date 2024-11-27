@@ -277,6 +277,18 @@ GROUP BY E.numero;
 
 -- Intitulé 13 : La durée moyenne des trajets par conducteur inférieure à un nombre saisi.
 
-SELECT T.numero AS NumTrajet, AVG(TIMEDIFF(T.heureArr, T.heureDep) AS DureeMoyenne
+SELECT E.numero AS NumEtudiant, ROUND(AVG(TIMEDIFF(T.heureArr, T.heureDep))/10000,2) AS DureeMoyenneTrajet
 FROM `TRAJET` T
-GROUP BY T.numero;
+JOIN `ETUDIANT` E ON T.numero_conducteur = E.numero
+GROUP BY E.numero
+HAVING DureeMoyenneTrajet < 7;
+
+-- Intitulé 14 : Le nom et prénom des conducteurs dont le nombre de trajet est supérieur au nombre de trajet moyen.
+SELECT T.numero_conducteur AS NumeroConducteur, E.nom AS NomEtudiant, E.prenom AS PrenomEtudiant, COUNT(T.numero) AS NombreTrajet
+FROM ETUDIANT E
+JOIN TRAJET T ON `E`.`numero` = `T`.`numero_conducteur`
+GROUP BY T.numero_conducteur
+HAVING NombreTrajet > ( SELECT AVG(NombreTrajet)
+                        FROM (SELECT COUNT(T.numero) AS NombreTrajet
+                                FROM TRAJET T
+                                GROUP BY T.numero_conducteur) AS NombreTrajetMoyen);
