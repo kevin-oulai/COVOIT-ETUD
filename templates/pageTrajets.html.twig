@@ -1,14 +1,24 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-    {# {% for trajet in trajets %} #}
-    <div class="card">
+    {% for trajet in listeTrajet %}
+    <div class="card ms-5 mt-4" style = "width: 75rem;">
         <div class="card-body">
-            <h5 class="card-title">Lieu de départ : </h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div>
+                    <h5 style="display: inline;">{{trajet.villeDep}} -> {{trajet.villeArr}}</h5>
+                </div>
+                <h5 style="display: inline; margin-left: 300px;">{{trajet.heureDep}} - {{trajet.heureArr}}</h5>
+            </div>
+            <br><br><br>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div>
+                    <h5 style="display: inline;">{{trajet.prix}} €</h5>
+                </div>
+                <a href="#" class="btn btn-primary" style="display: inline;">Informations du trajet</a>
+            </div>
         </div>
     </div>
-    {# {% endfor %} #}
+    {% endfor %}
     <h1>Page des trajets </h1>
     <a href="index.php" class="btn btn-danger">Retour</a>
 {% endblock %}
