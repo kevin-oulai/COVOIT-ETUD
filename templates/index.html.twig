@@ -11,7 +11,9 @@
             </form>
         </div>
         <main class="container-fluid mt-xxl fs-4 fw-bold lh-sm">
-            <button id="ajout" class="btn btn-primary">+</button>
+            {% if conducteur == true %}
+                <button id="ajout" class="btn btn-primary">+</button>
+            {% endif %}
             <div class="text-align-left ps-xl-5 me-xxl container-fluid">
                 <div class="row">
                     <h1 class="fw-bolder fs-2 mb-3 col">Le saviez-vous ?</h1>

@@ -21,9 +21,18 @@ class ControllerTrajet extends Controller{
         $etudiant = $managerEtudiant->find(1);
         //var_dump($etudiant);
 
+        $conducteur = false;
+
+        if(isset($_SESSION['voiture'])) {
+            if ($_SESSION['voiture'] != null){
+                $conducteur = true;
+            }
+        }
+
         $template = $this->getTwig()->load('index.html.twig');
 
         echo $template->render(array(
+            'conducteur' => $conducteur
         ));
     }
 
