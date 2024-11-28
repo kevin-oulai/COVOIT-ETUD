@@ -1,20 +1,29 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
     {% for trajet in listeTrajet %}
-    <div class="card ms-5 mt-4" style = "width: 75rem;">
-        <div class="card-body">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                <div>
-                    <h5 style="display: inline;">{{trajet.villeDep}} -> {{trajet.villeArr}}</h5>
+    <div class="row row-cols-1 row-cols-md-5 g-4 mx-auto">
+        <div class="col mb-5">
+            <div class="card ms-5 mt-4" style = "width: 25rem;">
+                <div class="card-body">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div>
+                            <h5 style = "display : inline">{{trajet.villeDep}} -</h5>
+                            <h5 style = "display : inline"> {{trajet.heureDep}}</h5>
+                        </div>
+                        <h5 style="display: inline;">{{trajet.prix}} €</h5>
+                    </div>
+                    <h5 style = "margin-left: 20px;"> .</h5>
+                    <h5 style = "margin-left: 20px;"> .</h5>
+                    <h5 style = "margin-left: 20px;"> .</h5>
+                    <h5 style = "margin-left: 20px;"> .</h5>
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div>
+                            <h5 style = "display : inline">{{trajet.villeArr}} -</h5>
+                            <h5 style = "display : inline"> {{trajet.heureArr}}</h5>
+                        </div>
+                        <a href="#" class="btn btn-primary" style="display: inline;">Informations du trajet</a>
+                    </div>
                 </div>
-                <h5 style="display: inline; margin-left: 300px;">{{trajet.heureDep}} - {{trajet.heureArr}}</h5>
-            </div>
-            <br><br><br>
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                <div>
-                    <h5 style="display: inline;">{{trajet.prix}} €</h5>
-                </div>
-                <a href="#" class="btn btn-primary" style="display: inline;">Informations du trajet</a>
             </div>
         </div>
     </div>
