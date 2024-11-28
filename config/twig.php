@@ -1,4 +1,5 @@
 <?php
+include_once 'constantes.php';
 //ajout de la classe IntlExtension et creation de l’alias IntlExtension
 use Twig\Extra\Intl\IntlExtension;
 
@@ -22,3 +23,6 @@ $twig->addExtension(new \Twig\Extension\DebugExtension());
 
 //Ajout de l'extension d'internationalisation qui permet d'utiliser les filtres de date dans twig
 $twig->addExtension(new IntlExtension());
+
+// Ajout de variables globales
+$twig->addGlobal('STATUS', $GLOBALS['STATUS']);

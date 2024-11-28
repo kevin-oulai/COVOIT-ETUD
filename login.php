@@ -14,6 +14,9 @@ require_once 'include.php';
 
    // on vérifie les informations saisies
    if ($verifMDP) {
+       // On indique globalement que nous sommes maintenant connectés
+       $GLOBALS['STATUS'] = 'connected';
+       var_dump($GLOBALS['STATUS']);
        // on enregistre les paramètres de notre visiteur comme variables de session ($login et $pwd) (
        $_SESSION['login'] = $_POST['login'];
        $_SESSION['pwd'] = $_POST['pwd'];

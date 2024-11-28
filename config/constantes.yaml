@@ -3,3 +3,5 @@ database:
     DB_NAME: koulai001_pro
     DB_USER: koulai001_pro
     DB_PASS: koulai001_pro
+user:
+    CONNECTED: false

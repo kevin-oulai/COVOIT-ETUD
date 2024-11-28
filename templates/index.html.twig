@@ -3,20 +3,20 @@
 
         <div class="px-5">
             <form action="pageTrajets.php" method="post" class="input-group mt-xl px-xl" autocomplete="off">
-                <input type="text" placeholder="Depart" name="depart" id="depart" class="form-control m-1 rounded">
-                <input type="text" placeholder="Arrivee" name="arrivee" id="arrivee" class="form-control m-1 rounded">
-                <input type="date" placeholder="Date" name="date" class="form-control m-1 rounded">
-                <input type="number" min="1" placeholder="Nombre de passagers" name="nombre_passagers" class="form-control m-1 rounded">
+                <input type="text" placeholder="Depart" name="depart" id="depart" class="form-control m-1 rounded" required>
+                <input type="text" placeholder="Arrivee" name="arrivee" id="arrivee" class="form-control m-1 rounded" required>
+                <input type="date" placeholder="Date" name="date" class="form-control m-1 rounded" required>
+                <input type="number" min="1" placeholder="Nombre de passagers" name="nombre_passagers" class="form-control m-1 rounded" required>
                 <input type="submit" class="m-1 btn-search rounded" value="">
             </form>
         </div>
         <main class="container-fluid mt-xxl fs-4 fw-bold lh-sm">
-            {% if conducteur == true %}
+            {% if conducteur == 'true' %}
                 <button id="ajout" class="btn btn-primary">+</button>
             {% endif %}
             <div class="text-align-left ps-xl-5 me-xxl container-fluid">
                 <div class="row">
-                    <h1 class="fw-bolder fs-2 mb-3 col">Le saviez-vous ?</h1>
+                    <h1 class="fw-bolder fs-2 mb-3 col">Le saviez-vous ?{{ STATUS }}</h1>
                 </div>
                 <div class="row">
                     <p class="col">

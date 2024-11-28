@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 class ControllerTrajet extends Controller{
 
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
@@ -29,8 +27,8 @@ class ControllerTrajet extends Controller{
                 $conducteur = true;
             }
         }
-        $template = $this->getTwig()->load('index.html.twig');
 
+        $template = $this->getTwig()->load('index.html.twig');
         echo $template->render(array(
             'conducteur' => $conducteur,
             'connected' => $connected
