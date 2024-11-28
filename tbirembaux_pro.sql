@@ -292,3 +292,13 @@ HAVING NombreTrajet > ( SELECT AVG(NombreTrajet)
                         FROM (SELECT COUNT(T.numero) AS NombreTrajet
                                 FROM TRAJET T
                                 GROUP BY T.numero_conducteur) AS NombreTrajetMoyen);
+
+-- Intitulé 15 : Liste des conducteurs ayant fait plus de 5 trajets entre Bayonne et l’IUT ayant des tarifs inférieurs aux tarifs moyens pour ce trajet
+SELECT T.numero_conducteur AS NumConducteur, E.nom AS Nom, E.prenom AS Prenom, COUNT(T.numero) AS NombreTrajet
+FROM ETUDIANT E
+JOIN TRAJET T ON T.numero_conducteur = E.numero
+WHERE T.numero_lieu_depart = 1 AND T.numero_lieu_arrivee = 3 AND T.prix < ( SELECT AVG(T2.prix) 
+                                                                            FROM TRAJET T2 
+                                                                            WHERE T2.numero_lieu_depart = 1 AND T2.numero_lieu_arrivee = 3)
+GROUP BY T.numero_conducteur
+HAVING COUNT(T.numero) > 5;
