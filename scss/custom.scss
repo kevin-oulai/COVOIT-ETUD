@@ -1,0 +1,119 @@
+
+// Custom.scss
+// Option A: Include all of Bootstrap
+// Include any default variable overrides here (though functions won't be available)
+// Required
+@import "../node_modules/bootstrap/scss/functions";
+$primary: #4357BD;
+$header-color: #abc4ff;
+
+// Required
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+$theme-colors: (
+        "primary": $primary,
+);
+
+$spacer: 50px;
+
+@mixin linear-gradient($direction, $color-stops...) {
+  // Direction has been omitted and happens to be a color-stop
+  @if is-direction($direction) == false {
+    $color-stops: $direction, $color-stops;
+    $direction: 180deg;
+  }
+
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
+}
+
+@font-face {
+  font-family: 'Heavitas';
+  src: url("font/Heavitas.ttf") format('truetype');
+}
+
+//
+// Gradient system
+//
+$gradients: () !default;
+$gradients: map-merge((
+        chill: linear-gradient(135deg, #09e485 0%,#0291e3 100%),
+        warm: linear-gradient(135deg, #F2CD48 0%,#FD803F 100%),
+        hot: linear-gradient(135deg, #F9445A 0%,#FD803F 100%),
+        cold: linear-gradient(135deg, #8019C6 0%,#2F93CC 100%),
+        primary: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%)
+), $gradients);
+
+
+// Gradient backgrounds
+@mixin bg-gradient($parent, $gradient) {
+  #{$parent} {
+    background: $gradient;
+  }
+}
+
+// Gradient Classes
+@each $gradient, $value in $gradients {
+  @include bg-gradient(".bg-gradient-#{$gradient}", $value);
+}
+
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/bootstrap/scss/modal";
+
+.mycolor {
+  color: $primary;
+}
+
+body{
+  font-family: 'Heavitas', sans-serif;
+}
+
+.bg-light{background: #eaeaea;
+
+}.bg-header-color{background: $header-color;
+}
+
+.text-align-right{text-align: end;}
+.text-align-left{text-align: start;}
+
+.height-full{height: auto;}
+
+.px-xl{padding-left: ($spacer * 2.5);
+padding-right: ($spacer * 2.5);}
+
+.ps-xxl {padding-left: ($spacer * 4);}
+
+.mt-xl{margin-top: ($spacer * 2);}
+
+.mt-xxl {margin-top: ($spacer * 4);}
+
+.me-xxl {margin-right: ($spacer * 15);}
+
+.ms-xxl {margin-left: ($spacer * 15);}
+
+.btn-search{width: 50px;
+border: none;
+  background: #6aaa6a;
+}
+
+.square-500{
+  width: 500px;
+  height: 500px;
+}
+
+#ajout{
+  height: 60px;
+  width: 60px;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 9999;
+  border-radius: 30px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+

@@ -1,32 +1,28 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
     {% for trajet in listeTrajet %}
-    <div class="row row-cols-1 row-cols-md-5 g-4 mx-auto">
-        <div class="col mb-5">
-            <div class="card ms-5 mt-4" style = "width: 25rem;">
-                <div class="card-body">
-                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                        <div>
-                            <h5 style = "display : inline">{{trajet.villeDep}} -</h5>
-                            <h5 style = "display : inline"> {{trajet.heureDep}}</h5>
-                        </div>
+        <div class="card" style = "width: 40rem; margin-left: 150px; margin-top: 50px;">
+            <div class="card-body">
+                <div style = "display: flex;">
+                    <ul class="liste" style="display: inline-block; list-style-type: none; margin: 0; padding: 0;">
+                        <p style = "line-height: 1;">{{trajet.heureDep}}</p>
+                        <p style = "line-height: 1;">{{trajet.villeDep}}</p>
+                        <p style = "line-height: 1;">{{trajet.numRueDep}} {{trajet.nomRueDep}}</p>
+                    </ul>
+                    <ul class="liste" style = "display: inline block; margin-left: 200px;">
+                        <p style = "line-height: 1;">{{trajet.heureArr}}</p>
+                        <p style = "line-height: 1;">{{trajet.villeArr}}</p>
+                        <p style = "line-height: 1;">{{trajet.numRueArr}} {{trajet.nomRueArr}}</p>
+                    </ul>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div>
                         <h5 style="display: inline;">{{trajet.prix}} €</h5>
                     </div>
-                    <h5 style = "margin-left: 20px;"> .</h5>
-                    <h5 style = "margin-left: 20px;"> .</h5>
-                    <h5 style = "margin-left: 20px;"> .</h5>
-                    <h5 style = "margin-left: 20px;"> .</h5>
-                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                        <div>
-                            <h5 style = "display : inline">{{trajet.villeArr}} -</h5>
-                            <h5 style = "display : inline"> {{trajet.heureArr}}</h5>
-                        </div>
-                        <a href="#" class="btn btn-primary" style="display: inline;">Informations du trajet</a>
-                    </div>
+                    <a href="#" class="btn btn-primary" style="display: inline;">Informations du trajet</a>
                 </div>
             </div>
         </div>
-    </div>
     {% endfor %}
     <h1>Page des trajets </h1>
     <a href="index.php" class="btn btn-danger">Retour</a>

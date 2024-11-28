@@ -1,0 +1,6 @@
+database:
+  DB_HOST: lakartxela.iutbayonne.univ-pau.fr
+  DB_NAME: koulai001_pro
+  DB_USER: koulai001_pro
+  DB_PASS: koulai001_pro
+
