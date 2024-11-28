@@ -113,7 +113,7 @@ class EtudiantDao
             }
             else
             {
-                echo '<body onLoad="alert(\'Membre non reconnu...\')">';
+                echo '<body onLoad="alert(\'Mail deja utilisé\')">';
                 // puis on le redirige vers la page d'accueil
                 echo '<meta http-equiv="refresh" content="0;URL=index.php?controleur=inscription&methode=afficher">';
             }
