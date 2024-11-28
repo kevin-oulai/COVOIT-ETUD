@@ -5,6 +5,7 @@
     "require": {
         "twig/twig": "^3.14",
         "twig/intl-extra": "^3.13",
-        "twbs/bootstrap": "^5.3"
+        "twbs/bootstrap": "^5.3",
+        "symfony/yaml": "^6.0"
     }
 }

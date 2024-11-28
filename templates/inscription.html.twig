@@ -11,7 +11,7 @@
 <div class="d-flex justify-content-center align-items-center" style="height: 600px">
 <div class="login-container align-right" style="width: 350px;">
     <h2 class="text-center">Inscription</h2>
-    <form ACTION='inscription.php' METHOD='POST'>
+    <form ACTION='index.php?controleur=inscription&methode=ajoutBD' METHOD='POST'>
     <div class="row">
                   <div class="col-md-6 mb-4">
                     <div data-mdb-input-init class="form-outline">
@@ -36,9 +36,9 @@
         <input name="pwd" type="password" class="form-control mb-3" placeholder="Mot de passe" required>
         <div class="text-center">
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" style='backdrop-filter: blur(2px)' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style='background-color: #CCDBFD;' >
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel"></h5>
             </button>
@@ -46,21 +46,23 @@
           <div class="modal-body">
             <h4>Abonnez vous à notre NewsLetter</h4>
             <h5>pour ne rater aucune acualité</h5>
-            <img src = "images/logoCovoit-etud.png" width="260" height="190" >
+            <img src = "images/logoCovoit-etud.png" width="260" height="190" > <br>
 
           <div>
-              <input type="checkbox" id="scales" name="acceptMail" align="left"/>
+              <input type="checkbox"  name="acceptMail" align="left"/>
               <label for="scales">J'accepte de recevoir vos e-mails.</label>
           </div>
-
+          
           <div>
-              <input type="checkbox" id="horns" name="Poltique" required />
-              <label for="horns">Je confirme avoir pris connaissance de votre politique de confidentialité.</label>
+              <input type="checkbox" name="Poltique" required />
+              <label for="horns">Je confirme avoir pris connaissance de votre politique de confidentialité.</label> 
           </div>
+                    <br>
+                    <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE="S'abonner">
+
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-          <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE='Valider'>
+            {# <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button> #}
           </div>
         </div>
       </div>
@@ -77,7 +79,7 @@
 </button>
 </div>
 <div class ="text-center">
-            <a href="Connexion.php">Déja un compte ? Connectez-vous</a>
+            {# <a href="Connexion.php">Déja un compte ? Connectez-vous</a> #}
 </div>
 
 </div>
