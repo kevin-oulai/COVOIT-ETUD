@@ -289,7 +289,7 @@ FROM ETUDIANT E
 JOIN TRAJET T ON `E`.`numero` = `T`.`numero_conducteur`
 GROUP BY T.numero_conducteur
 HAVING NombreTrajet > ( SELECT AVG(NombreTrajet)
-                        FROM (SELECT COUNT(T.numero) AS NombreTrajet
+                        FROM (  SELECT COUNT(T.numero) AS NombreTrajet
                                 FROM TRAJET T
                                 GROUP BY T.numero_conducteur) AS NombreTrajetMoyen);
 
@@ -302,3 +302,8 @@ WHERE T.numero_lieu_depart = 1 AND T.numero_lieu_arrivee = 3 AND T.prix < ( SELE
                                                                             WHERE T2.numero_lieu_depart = 1 AND T2.numero_lieu_arrivee = 3)
 GROUP BY T.numero_conducteur
 HAVING COUNT(T.numero) > 5;
+
+-- Intitulé 16 : Modifier les informations du profil.
+UPDATE `ETUDIANT`
+SET `nom` = 'Marquesuzaa', `prenom` = 'Christophe', `dateNaiss` = '1955-05-30', `adresseMail` = 'marquesu@univ-pau.fr', `numTelephone` = '0792657844'
+WHERE `numero` = 6;
