@@ -1,6 +1,5 @@
 <?php
 require_once 'include.php';
-session_start ();
 
 
 // on teste si nos variables sont définies
@@ -12,16 +11,16 @@ session_start ();
    $pdoStatement = $pdo->prepare($query);
    $pdoStatement->execute();
    $result = $pdoStatement->fetch(PDO::FETCH_NUM);
-   $verifMDP = password_verify($_POST['pwd'],$result[1]);
+   $verifMDP = password_verify($_POST['pwd'],$result[0]);
 
    // on vérifie les informations saisies
    if ($verifMDP) {
        // on enregistre les paramètres de notre visiteur comme variables de session ($login et $pwd) (
        $_SESSION['login'] = $_POST['login'];
        $_SESSION['pwd'] = $_POST['pwd'];
-       $_SESSION['id'] = $mdp[1];
-       if(!is_null($mdp[2])){
-           $_SESSION["voiture"] = $mdp[2];
+       $_SESSION['id'] = $result[1];
+       if(!is_null($result[2])){
+           $_SESSION["voiture"] = $result[2];
        }
        else{
            $_SESSION['voiture'] = null;
