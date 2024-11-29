@@ -63,6 +63,7 @@ $gradients: map-merge((
 @import "../node_modules/bootstrap/scss/root";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootstrap/scss/modal";
+@import "../node_modules/bootstrap/scss/card";
 
 .mycolor {
   color: $primary;
@@ -117,3 +118,48 @@ border: none;
   transition: all 0.3s ease-in-out;
 }
 
+.cardTrajet{
+  width: 40rem; 
+  margin-left: 150px; 
+  margin-top: 50px;
+}
+
+.listeTrajet{
+  display: inline-block; 
+  list-style-type: none;
+  margin: 0; 
+  padding: 0;
+}
+
+.infoTrajet{
+  line-height: 1;
+}
+
+.listeTrajet2{
+  display: inline block; 
+  margin-left: 200px;
+}
+
+.boutonCarteTrajet{
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%;
+}
+.rectangleBleu {
+  position: fixed;
+  border-radius: 30px;
+  border: solid;
+  right: 80px;
+  top: 150px; /* distance depuis le haut de la page */
+  width: 300px; /* largeur du rectangle */
+  height: 500px; /* hauteur initiale */
+  background-color: rgb(211, 211, 211); /* couleur du rectangle */
+  z-index: 1000; /* s'assure que le rectangle reste au-dessus des autres éléments */
+}
+
+.form-check{
+  display: flex;
+  margin-top: 20px;
+  margin-left: 20px;
+}
