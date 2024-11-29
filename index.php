@@ -2,16 +2,8 @@
 //ajout de l’autoload de composer
 require_once 'include.php';
 
+$pdo = Bd::getInstance()->getConnexion();
 
-// $pdo = Bd::getInstance()->getConnexion();
-// $managerEtudiant = new EtudiantDao($pdo);
-// $etudiant = $managerEtudiant->find(1);
-// //var_dump($etudiant);
-
-// $template = $twig->load('index.html.twig');
-
-// echo $template->render(array(
-//    ));
 try {
    if (isset($_GET['controleur'])) {
       $controleurName = $_GET['controleur'];
@@ -32,7 +24,7 @@ try {
       throw new Exception("Le controleur n'est pas defini");
    }
    if ($methode == "") {
-      throw new Exception("La methode n'est pas defini");
+      throw new Exception("La methode n'est pas definie");
    }
    $controleur = ControllerFactory::getController($controleurName, $loader, $twig);
 

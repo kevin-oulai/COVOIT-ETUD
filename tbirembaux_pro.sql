@@ -149,6 +149,12 @@ INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPl
 (2, '17:30', '18:00', 15, '2024-11-06', 3, 1, 2, 3),
 (3, '10:30', '13:00', 20, '2024-11-06', 2, 3, 2, 1);
 
+INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPlace`, `numero_conducteur`, numero_lieu_depart, numero_lieu_arrivee) VALUES
+(4, '10:30', '14:00', 20, '2024-11-06', 2, 3, 2, 1);
+
+INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPlace`, `numero_conducteur`, numero_lieu_depart, numero_lieu_arrivee) VALUES
+(5, '11:30', '14:00', 20, '2024-11-06', 2, 1, 2, 1);
+
 -- --------------------------------------------------------
 
 INSERT INTO AVIS (numero, message, note, numero_concerne, numero_commentateur) VALUES
@@ -174,6 +180,33 @@ INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES
 (1, 5),
 (2, 3),
 (3, 2);
+
+INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES (3, 3);
+ 
+-- --------------------------------------------------------
+
+-- Le nombre de places disponibles pour les trajets partant 
+-- d'un lieu donné ayant comme lieu d’arrivée l’IUT de Bayonne et du Pays basque à Anglet.
+
+SELECT sum(T.nbPlace) FROM TRAJET T
+WHERE T.numero_lieu_depart = '2' AND T.numero_lieu_arrivee = '3';
+
+-- --------------------------------------------------------
+
+-- Vérifier qu’un étudiant n’est pas à la fois conducteur et passager d’un trajet
+
+SELECT E.numero FROM ETUDIANT E
+JOIN TRAJET T ON E.numero = T.numero_conducteur
+JOIN CHOISIR C ON E.numero = C.numero_passager
+WHERE C.numero_trajet = T.numero;
+
+-- Vérifier qu’un étudiant n’est pas à la fois conducteur et passager d’un trajet
+
+SELECT E.numero, T.dateDep, T.heureDep, count(E.numero) FROM ETUDIANT E
+JOIN TRAJET T ON E.numero = T.numero_conducteur
+GROUP BY E.numero, T.dateDep, T.heureDep
+HAVING count(E.numero) > 1;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
