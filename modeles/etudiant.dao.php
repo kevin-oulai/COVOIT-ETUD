@@ -63,4 +63,26 @@ class EtudiantDao
 
         return $etudiant;
     }
+
+    public function findConcerneParAvis(int $numero_commentateur): Etudiant
+    {
+        $sql="SELECT * FROM ETUDIANT E JOIN AVIS A ON E.NUMERO = A.NUMERO_CONCERNE WHERE numero_commentateur= :numero_commentateur";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":numero_commentateur"=>$numero_commentateur));
+        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
+        $etudiant = $pdoStatement->fetch();
+
+        return $etudiant;
+    }
+
+    public function findCommentateurDAvis(int $numero_concerne): Etudiant
+    {
+        $sql="SELECT * FROM ETUDIANT E JOIN AVIS A ON E.NUMERO = A.NUMERO_COMMENTATEUR WHERE numero_concerne= :numero_concerne";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":numero_concerne"=>$numero_concerne));
+        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
+        $etudiant = $pdoStatement->fetch();
+
+        return $etudiant;
+    }
 }
