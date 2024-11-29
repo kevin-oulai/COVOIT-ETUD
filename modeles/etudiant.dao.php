@@ -53,7 +53,7 @@ class EtudiantDao
      * @param int $numero
      * @return Etudiant
      */
-    public function find(int $numero): Etudiant
+    public function find(?int $numero): ?Etudiant
     {
         $sql="SELECT * FROM ETUDIANT WHERE numero= :numero";
         $pdoStatement = $this->PDO->prepare($sql);
@@ -64,7 +64,7 @@ class EtudiantDao
         return $etudiant;
     }
 
-    public function findConcerneParAvis(int $numero_commentateur): Etudiant
+    public function findConcerneParAvis(?int $numero_commentateur): ?Etudiant
     {
         $sql="SELECT * FROM ETUDIANT E JOIN AVIS A ON E.NUMERO = A.NUMERO_CONCERNE WHERE numero_commentateur= :numero_commentateur";
         $pdoStatement = $this->PDO->prepare($sql);
@@ -75,7 +75,7 @@ class EtudiantDao
         return $etudiant;
     }
 
-    public function findCommentateurDAvis(int $numero_concerne): Etudiant
+    public function findCommentateurDAvis(?int $numero_concerne): ?Etudiant
     {
         $sql="SELECT * FROM ETUDIANT E JOIN AVIS A ON E.NUMERO = A.NUMERO_COMMENTATEUR WHERE numero_concerne= :numero_concerne";
         $pdoStatement = $this->PDO->prepare($sql);
@@ -86,7 +86,7 @@ class EtudiantDao
         return $etudiant;
     }
 
-    public function findNbTrajets(int $numero_etudiant): INT
+    public function findNbTrajets(?int $numero_etudiant): ?INT
     {
         $sql="SELECT COUNT(T.NUMERO) FROM TRAJET T JOIN ETUDIANT E ON T.NUMERO_CONDUCTEUR = E.NUMERO WHERE E.numero= $numero_etudiant";
         $pdoStatement = $this->PDO->prepare($sql);
