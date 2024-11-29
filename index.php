@@ -2,16 +2,8 @@
 //ajout de l’autoload de composer
 require_once 'include.php';
 
+$pdo = Bd::getInstance()->getConnexion();
 
-// $pdo = Bd::getInstance()->getConnexion();
-// $managerEtudiant = new EtudiantDao($pdo);
-// $etudiant = $managerEtudiant->find(1);
-// //var_dump($etudiant);
-
-// $template = $twig->load('index.html.twig');
-
-// echo $template->render(array(
-//    ));
 try {
    if (isset($_GET['controleur'])) {
       $controleurName = $_GET['controleur'];
@@ -26,7 +18,7 @@ try {
    }
    if ($controleurName == "" && $methode == "") {
       $controleurName = "trajet";
-      $methode = "lister";
+      $methode = "rechercher";
    }
    if ($controleurName == "") {
       throw new Exception("Le controleur n'est pas defini");
