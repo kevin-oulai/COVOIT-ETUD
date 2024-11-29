@@ -19,9 +19,10 @@
                             <div class="row gx-3">
                                 <div class="col-4">Nom : {{etudiant.nom}}</div><br>
                                 <div class="col-4">Prenom : {{etudiant.prenom}}</div><br>
-                                <div class="col-4">Date de naissance : {{etudiant.dateNaiss}}</div></li>
+                                <div class="col-4">Date de naissance : {{etudiant.dateNaiss}}</div><br>
+                                <div class="col-4">Nombre de trajets total : {{nbTrajet}}</div></li>
                                 <div>
-                                    <li class="list-group-item"><h4>Informations personnelles</h4>
+                                    <br><li class="list-group-item"><h4>Informations personnelles</h4>
                                     <div class="row gx-3">
                                         <div class="col-4">Adresse mail : {{etudiant.adresseMail}}<br></div>
                                         <div class="col-4">Numero de téléphone : {{etudiant.numTelephone}}</div>
@@ -36,40 +37,40 @@
                                     <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
                                         Nom : {{voiture.modele}}<br>
                                         Marque : {{voiture.marque}}<br>
-                                        Nombre de places : {{voiture.nbPlace}}<br>
-                                        Nombre de trajets faits avec : </div>
+                                        Nombre de places : {{voiture.nbPlace}}
                                     </div>
-                                    <div class="col-6">
-                                        <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
-                                            <img src = "{{badge.image}}" width="70" height="70"> <br>
-                                            {{badge.titre}}
-                                        </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
+                                        <img src = "{{badge.image}}" width="70" height="70"> <br>
+                                        {{badge.titre}}
                                     </div>
-                                    <div class="col-6">
-                                        <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
-                                            <div class="row gx-5">
-                                                <div class="col-5">
-                                                    Le *date* à *heure*<br>
-                                                    Pour le conducteur :<br>{{etudiantConcerne.nom}} {{etudiantConcerne.prenom}}<br>
-                                                    Note : {{avisDonnes.note}}
-                                                </div>
-                                                <div class="col-7">
-                                                    Message : {{avisDonnes.message}}
-                                                </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
+                                        <div class="row gx-5">
+                                            <div class="col-5">
+                                                Le *date* à *heure*<br>
+                                                Pour le conducteur :<br>{{etudiantConcerne.nom}} {{etudiantConcerne.prenom}}<br>
+                                                Note : {{avisDonnes.note}}
+                                            </div>
+                                            <div class="col-7">
+                                                Message : {{avisDonnes.message}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
-                                            <div class="row gx-5">
-                                                <div class="col-5">
-                                                    Le *date* à *heure*<br>
-                                                    Par le passager :<br>{{etudiantCommentateur.nom}} {{etudiantCommentateur.prenom}}<br>
-                                                    Note : {{avisReçus.note}}
-                                                </div>
-                                                <div class="col-7">
-                                                    Message : {{avisReçus.message}}
-                                                </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
+                                        <div class="row gx-5">
+                                            <div class="col-5">
+                                                Le *date* à *heure*<br>
+                                                Par le passager :<br>{{etudiantCommentateur.nom}} {{etudiantCommentateur.prenom}}<br>
+                                                Note : {{avisReçus.note}}
+                                            </div>
+                                            <div class="col-7">
+                                                Message : {{avisReçus.message}}
+                                            </div>
                                             </div>
                                         </div>
                                     </div>

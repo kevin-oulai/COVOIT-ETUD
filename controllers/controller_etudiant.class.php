@@ -9,6 +9,7 @@ class ControllerEtudiant extends Controller{
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $managerEtudiantConcerne = new EtudiantDao($this->getPdo());
         $managerEtudiantCommentateur = new EtudiantDao($this->getPdo());
+        $managerNbTrajet = new EtudiantDao($this->getPdo());
         $managerVoiture = new VoitureDao($this->getPdo());
         $managerBadge = new BadgeDao($this->getPdo());
         $managerAvisDonnes = new AvisDao($this->getPdo());
@@ -16,6 +17,7 @@ class ControllerEtudiant extends Controller{
         $etudiant = $managerEtudiant->find(1);
         $etudiantConcerne = $managerEtudiantConcerne->findConcerneParAvis(1);
         $etudiantCommentateur = $managerEtudiantCommentateur->findCommentateurDAvis(1);
+        $nbTrajet = $managerNbTrajet->findNbTrajets(1);
         $voiture = $managerVoiture->findMonEtudiant(1);
         $badge = $managerBadge->find(1);
         $avisDonnes = $managerAvisDonnes->findCommentateur(1);
@@ -32,6 +34,7 @@ class ControllerEtudiant extends Controller{
             'avisReçus' => $avisReçus,
             'etudiantConcerne' => $etudiantConcerne,
             'etudiantCommentateur' => $etudiantCommentateur,
+            'nbTrajet' => $nbTrajet,
         ));
 
         $numero_conducteur = 1; // A changer lorsque les variables de session serons mises en place.
