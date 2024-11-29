@@ -1,0 +1,42 @@
+{% extends "base_templates.html.twig" %}
+{% block content %}
+    <h1>Liste de mes trajets</h1>
+    <div class="container mt-xxl">
+        <div class="container mb-5">
+            <button class="btn btn-primary" onclick="location.href='index.php?controleur=trajet&methode=enregistrer'">Ajouter un trajet</button>
+        </div>
+
+        {% for trajet in listeTrajets %}
+            <div class="card mt-3 bg-gradient-secondary">
+                <div class="card-body ">
+                    <div class="btn-toolbar justify-content-between">
+                        <div class="btn-group">
+                            <p class="card-title fs-4 btn-group">{{ lieux[trajet.numero_lieu_depart - 1].numRue }} {{ lieux[trajet.numero_lieu_depart - 1].nomRue }}, {{ lieux[trajet.numero_lieu_depart - 1].ville }} → {{ lieux[trajet.numero_lieu_arrivee - 1].numRue }} {{ lieux[trajet.numero_lieu_arrivee - 1].nomRue }}, {{ lieux[trajet.numero_lieu_arrivee - 1].ville }}</p>
+                        </div>
+                        <div class="input-group">
+                            <p class="card-title fs-4 btn-group">{{ trajet.heureDep }} - {{ trajet.heureArr }}</p>
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <p> le {{ trajet.dateDep }}</p>
+                    </div>
+
+                    <div class="btn-toolbar justify-content-between mt-5">
+                        <div class="btn-group">
+                            <p class="card-text fs-5">Nombre de places : {{ trajet.nbPlace }}</p>
+                        </div>
+                        <div class="input-group">
+                            <p class="card-text fs-5">Prix : {{ trajet.prix }} €</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-align-right">
+                    <button class="btn btn-secondary">Modifier</button>
+                    <button class="btn btn-danger">Supprimer</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <a href="index.php" class="btn btn-danger">Retour</a>
+{% endblock %}

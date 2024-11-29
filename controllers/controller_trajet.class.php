@@ -14,6 +14,20 @@ class ControllerTrajet extends Controller{
         echo "lister les trajets";
     }
 
+    public function listerMesTrajets(){
+        $template = $this->getTwig()->load('mesTrajets.html.twig');
+        $managerTrajet = new TrajetDao($this->getPdo());
+        $managerLieu = new LieuDao($this->getPdo());
+
+        $lieux = $managerLieu->findAllAssoc();
+
+        $listeMesTrajets = $managerTrajet->findAllByConducteur(1);
+        echo $template->render(array(
+            "listeTrajets" => $listeMesTrajets,
+            "lieux" => $lieux
+        ));
+    }
+
     public function rechercher(){
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $etudiant = $managerEtudiant->find(1);

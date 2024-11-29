@@ -62,6 +62,39 @@ class TrajetDao{
         return $trajet;
     }
 
+    public function findAllByConducteur(int $numero): array{
+        $sql="SELECT * FROM TRAJET WHERE numero_conducteur = :numero_conducteur";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero_conducteur", $numero);
+        $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $trajets = $pdoStatement->fetchAll();
+        return $trajets;
+    }
+
+    public function hydrate(array $tableauAssoc): ?Trajet
+    {
+        $trajet = new Trajet();
+        $trajet->setNumero($tableauAssoc['numero']);
+        $trajet->setHeureDep($tableauAssoc['heureDep']);
+        $trajet->setHeureArr($tableauAssoc['heureArr']);
+        $trajet->setPrix($tableauAssoc['prix']);
+        $trajet->setDateDep($tableauAssoc['dateDep']);
+        $trajet->setNbPlace($tableauAssoc['nbPlace']);
+        $trajet->setNumeroConducteur($tableauAssoc['numero_conducteur']);
+        $trajet->setNumeroConducteur($tableauAssoc['numero_conducteur']);
+        return $trajet;
+    }
+
+    public function hydrateAll($tableau): ?array{
+        $trajets = [];
+        foreach($tableau as $tableauAssoc){
+            $trajets = $this->hydrate($tableauAssoc);
+            $trajets[] = $trajets;
+        }
+        return $trajets;
+    }
+
     public function insert(?string $heureDep = null,?string $heureArr = null,?int $prix = null,?int $nbPlace = null,?int $numero_conducteur = null,?int $numero_lieu_depart = null,?int $numero_lieu_arrivee = null): void
     {
         $sql = "SELECT COUNT(numero) FROM TRAJET";

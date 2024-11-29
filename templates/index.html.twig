@@ -13,10 +13,11 @@
         <main class="container-fluid mt-xxl fs-4 fw-bold lh-sm">
             {% if conducteur == 'true' %}
                 <button id="ajout" class="btn btn-primary">+</button>
+                <a href="index.php?controleur=trajet&methode=listerMesTrajets">Voir mes trajets</a>
             {% endif %}
             <div class="text-align-left ps-xl-5 me-xxl container-fluid">
                 <div class="row">
-                    <h1 class="fw-bolder fs-2 mb-3 col">Le saviez-vous ?{{ STATUS }}</h1>
+                    <h1 class="fw-bolder fs-2 mb-3 col">Le saviez-vous ?</h1>
                 </div>
                 <div class="row">
                     <p class="col">
