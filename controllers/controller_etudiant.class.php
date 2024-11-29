@@ -16,7 +16,7 @@ class ControllerEtudiant extends Controller{
         $etudiant = $managerEtudiant->find(1);
         $etudiantConcerne = $managerEtudiantConcerne->findConcerneParAvis(1);
         $etudiantCommentateur = $managerEtudiantCommentateur->findCommentateurDAvis(1);
-        $voiture = $managerVoiture->find(1);
+        $voiture = $managerVoiture->findMonEtudiant(1);
         $badge = $managerBadge->find(1);
         $avisDonnes = $managerAvisDonnes->findCommentateur(1);
         $avisReçus = $managerAvisReçus->findConcerne(1);
