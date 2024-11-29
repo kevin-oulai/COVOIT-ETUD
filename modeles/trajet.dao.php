@@ -62,6 +62,20 @@ class TrajetDao{
         return $trajet;
     }
 
+    public function findAll(string $num_lieu_depart, string $num_lieu_arrivee, string $date, int $nbPassager): array
+    {
+        $requete = "SELECT T.heureDep, T.heureArr, T.prix, T.dateDep, T.nbPlace, L1.ville AS villeArr, L1.numRue AS numRueArr, L1.nomRue AS nomRueArr, L2.ville AS villeDep, L2.numRue AS numRueDep, L2.nomRue AS nomRueDep FROM TRAJET T LEFT JOIN LIEU L1 ON L1.numero = T.numero_lieu_arrivee LEFT JOIN LIEU L2 ON L2.numero = T.numero_lieu_depart WHERE numero_lieu_depart IN " . $num_lieu_depart . " AND numero_lieu_arrivee IN " . $num_lieu_arrivee . " AND dateDep = ? AND nbPlace > " . $nbPassager . "";
+        $pdoStatement = $this->PDO->prepare($requete);
+        $pdoStatement->bindValue(1, $date, PDO::PARAM_STR);
+        $pdoStatement->execute();
+        $listeTrajet = $pdoStatement->fetchAll();
+        return $listeTrajet;
+    }
+
+    public function hydrate(array $tab): Trajet
+    {
+        $trajet = new Trajet();
+        
     public function insert(?string $heureDep = null,?string $heureArr = null,?int $prix = null,?int $nbPlace = null,?int $numero_conducteur = null,?int $numero_lieu_depart = null,?int $numero_lieu_arrivee = null): void
     {
         $sql = "SELECT COUNT(numero) FROM TRAJET";
