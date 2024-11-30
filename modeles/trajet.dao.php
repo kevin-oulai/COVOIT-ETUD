@@ -72,6 +72,15 @@ class TrajetDao{
         return $trajets;
     }
 
+    public function getNombreReservations(): array{
+        $sql="SELECT T.numero, COUNT(C.numero_passager) AS nbPassagers FROM TRAJET T LEFT JOIN CHOISIR C ON T.numero = C.numero_trajet GROUP BY T.numero;";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $trajets = $pdoStatement->fetchAll();
+        return $trajets;
+    }
+
     public function hydrate(array $tableauAssoc): ?Trajet
     {
         $trajet = new Trajet();

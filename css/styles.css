@@ -11,8 +11,8 @@
   background: linear-gradient(135deg, #F2CD48 0%, #FD803F 100%);
 }
 
-.bg-gradient-hot {
-  background: linear-gradient(135deg, #F9445A 0%, #FD803F 100%);
+.bg-gradient-dark {
+  background: linear-gradient(135deg, #6b97fd 0%, #5f8fff 100%);
 }
 
 .bg-gradient-secondary {
@@ -11825,6 +11825,14 @@ textarea.form-control-lg {
   background-color: #ea9c9c;
 }
 
+.btn-success {
+  background: #6aaa6a;
+}
+
+.btn-success:hover {
+  background: #538f53;
+}
+
 .btn-secondary:hover {
   background-color: #6e92e6;
 }
@@ -11843,6 +11851,10 @@ body {
 
 .bg-header-color {
   background: #abc4ff;
+}
+
+.bg-danger {
+  background-color: #f33e3e;
 }
 
 .text-align-right {
@@ -11903,6 +11915,34 @@ body {
   border-radius: 30px;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
+}
+
+.card {
+  transition: all 0.1s ease-in-out;
+}
+
+.card:hover {
+  scale: 1.01;
+}
+
+.card .btn-secondary {
+  transition: all 0.1s ease-in-out;
+}
+
+.card .btn-secondary:hover {
+  scale: 1.05;
+}
+
+.card .btn-danger {
+  transition: all 0.1s ease-in-out;
+}
+
+.card .btn-danger:hover {
+  scale: 1.05;
+}
+
+.modal {
+  backdrop-filter: blur(1px);
 }
 
 /*# sourceMappingURL=styles.css.map */

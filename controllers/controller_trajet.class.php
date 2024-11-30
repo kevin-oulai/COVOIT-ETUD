@@ -22,9 +22,12 @@ class ControllerTrajet extends Controller{
         $lieux = $managerLieu->findAllAssoc();
 
         $listeMesTrajets = $managerTrajet->findAllByConducteur(1);
+        $listeDesReservations = $managerTrajet->getNombreReservations();
+        var_dump($lieux);
         echo $template->render(array(
             "listeTrajets" => $listeMesTrajets,
-            "lieux" => $lieux
+            "lieux" => $lieux,
+            "listeReservations" => $listeDesReservations
         ));
     }
 

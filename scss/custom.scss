@@ -39,7 +39,7 @@ $gradients: () !default;
 $gradients: map-merge((
         chill: linear-gradient(135deg, #09e485 0%,#0291e3 100%),
         warm: linear-gradient(135deg, #F2CD48 0%,#FD803F 100%),
-        hot: linear-gradient(135deg, #F9445A 0%,#FD803F 100%),
+        dark: linear-gradient(135deg, #6b97fd 0%, #5f8fff 100%),
         secondary: linear-gradient(135deg, #abc4ff 0%, #b6ccfe 100%),
         primary: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%)
 ), $gradients);
@@ -76,6 +76,14 @@ $gradients: map-merge((
   background-color: #ea9c9c;
 }
 
+.btn-success{
+  background: #6aaa6a;
+}
+
+.btn-success:hover{
+  background: #538f53;
+}
+
 .btn-secondary:hover{
   background-color: #6e92e6;
 }
@@ -92,6 +100,10 @@ body{
 
 }.bg-header-color{background: $header-color;
 }
+
+ .bg-danger{
+   background-color: #f33e3e;
+ }
 
 .text-align-right{text-align: end;}
 .text-align-left{text-align: start;}
@@ -131,4 +143,32 @@ border: none;
   border-radius: 30px;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
+}
+
+.card{
+  transition: all 0.1s ease-in-out;
+}
+
+.card:hover{
+  scale: 1.01;
+}
+
+.card .btn-secondary{
+  transition: all 0.1s ease-in-out;
+}
+
+.card .btn-secondary:hover{
+  scale: 1.05;
+}
+
+.card .btn-danger{
+  transition: all 0.1s ease-in-out;
+}
+
+.card .btn-danger:hover{
+  scale: 1.05;
+}
+
+.modal{
+  backdrop-filter: blur(1px);
 }
