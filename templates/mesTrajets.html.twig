@@ -76,7 +76,7 @@
                         </div>
                         <div class='modal-footer'>
                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
-                            <button onclick=window.location.href='#'; class='btn btn-danger'><i class='bi bi-trash-fill'></i>Confirmer</button>
+                            <button onclick=window.location.href='index.php?controleur=trajet&methode=listerMesTrajets&action=supprimer&id={{ trajet.numero }}'; class='btn btn-danger'><i class='bi bi-trash-fill'></i>Confirmer</button>
                         </div>
                     </div>
                 </div>
@@ -86,4 +86,30 @@
     <div class="text-center mt-5">
         <a href="index.php" class="btn btn-danger">Retour</a>
     </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-gradient-primary border-2">
+                <div class="modal-body">
+                    Le trajet a bien été supprimé.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=trajet&methode=listerMesTrajets';">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script>
+        $(function(){
+            $('#myModal').modal({
+                show:true,
+                backdrop:'static'
+            });
+            if($('#modalTrigger').length){
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
 {% endblock %}

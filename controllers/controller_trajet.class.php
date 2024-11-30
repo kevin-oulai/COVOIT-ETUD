@@ -22,13 +22,19 @@ class ControllerTrajet extends Controller{
         $lieux = $managerLieu->findAllAssoc();
 
         $listeMesTrajets = $managerTrajet->findAllByConducteur(1);
-        $listeDesReservations = $managerTrajet->getNombreReservations();
-        var_dump($lieux);
+        $listeDesReservations = $managerTrajet->getAllNombreReservations();
         echo $template->render(array(
             "listeTrajets" => $listeMesTrajets,
             "lieux" => $lieux,
             "listeReservations" => $listeDesReservations
         ));
+
+        if(isset($_GET['action'])){
+            if($_GET['action'] == "supprimer"){
+                $managerTrajet->delete($_GET['id']);
+                echo "<div id=modalTrigger></div>";
+            }
+        }
     }
 
     public function rechercher(){
