@@ -55,6 +55,12 @@ class Etudiant {
      */
     private int|null $numero_voiture;
 
+    /**
+     * @brief Chemin d'acces de la photo de profil de l'étudiant
+     * @var string|null
+     */
+    private string|null $photoProfil;
+
     //constructeur
     /**
      * @brief Constructeur de la classe étudiant.
@@ -66,8 +72,9 @@ class Etudiant {
      * @param string|null $adresseMail Adresse mail de l'étudiant.
      * @param string|null $numTelephone Numéro de téléphone de l'étudiant.
      * @param integer|null $numero_voiture Numéro de la voiture de l'étudiant.
+     * @param string|null $photoProfil Chemin d'acces de la photo de profil de l'étudiant
      */
-    public function __construct(?int $numero=null, ?string $nom = null, ?string $prenom = null, ?string $dateNaiss = null, ?string $adresseMail = null, ?string $numTelephone = null, ?int $numero_voiture = null) {
+    public function __construct(?int $numero=null, ?string $nom = null, ?string $prenom = null, ?string $dateNaiss = null, ?string $adresseMail = null, ?string $numTelephone = null, ?int $numero_voiture = null, ?string $photoProfil = null) {
         $this->numero = $numero;
         $this->nom = $nom;
         $this->prenom = $prenom;
@@ -75,11 +82,12 @@ class Etudiant {
         $this->adresseMail = $adresseMail;
         $this->numTelephone = $numTelephone;
         $this->numero_voiture = $numero_voiture;
+        $this->photoProfil = $photoProfil;
     }
 
     //getters & setters
     /**
-     * @brief 
+     * @brief
      * @return integer|null
      */
     public function getNumero(): ?int
@@ -155,5 +163,15 @@ class Etudiant {
     public function setNumeroVoiture(?int $numero_voiture): void
     {
         $this->numero_voiture = $numero_voiture;
+    }
+
+    public function getPhotoProfil(): ?string
+    {
+        return $this->photoProfil;
+    }
+
+    public function setPhotoProfil(?string $photoProfil): void
+    {
+        $this->photoProfil = $photoProfil;
     }
 }
