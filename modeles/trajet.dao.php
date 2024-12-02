@@ -75,6 +75,7 @@ class TrajetDao{
     public function hydrate(array $tab): Trajet
     {
         $trajet = new Trajet();
+    }
         
     public function insert(?string $heureDep = null,?string $heureArr = null,?int $prix = null,?int $nbPlace = null,?int $numero_conducteur = null,?int $numero_lieu_depart = null,?int $numero_lieu_arrivee = null): void
     {
