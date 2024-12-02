@@ -6,7 +6,6 @@ require_once 'include.php';
  if (isset($_POST['login']) && isset($_POST['pwd'])) {
 
    $pdo = Bd::getInstance()->getConnexion();
-
    $query = "SELECT motDePasse, numero, numero_voiture FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
    $pdoStatement = $pdo->prepare($query);
    $pdoStatement->execute();
@@ -15,19 +14,21 @@ require_once 'include.php';
 
    // on vérifie les informations saisies
    if ($verifMDP) {
+       // On indique globalement que nous sommes maintenant connectés
+       $GLOBALS['STATUS'] = 'connected';
+       var_dump($GLOBALS['STATUS']);
        // on enregistre les paramètres de notre visiteur comme variables de session ($login et $pwd) (
        $_SESSION['login'] = $_POST['login'];
        $_SESSION['pwd'] = $_POST['pwd'];
        $_SESSION['id'] = $result[1];
        if(!is_null($result[2])){
-           $_SESSION["voiture"] = $result[2];
+           $_SESSION['voiture'] = $result[2];
        }
        else{
            $_SESSION['voiture'] = null;
        }
        //on redirige notre visiteur vers une page de notre section membre
        echo "<meta http-equiv='refresh' content='0;url=index.php' />";
-
     }
    else {
        session_destroy();

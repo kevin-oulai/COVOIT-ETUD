@@ -24,7 +24,7 @@ try {
       throw new Exception("Le controleur n'est pas defini");
    }
    if ($methode == "") {
-      throw new Exception("La methode n'est pas defini");
+      throw new Exception("La methode n'est pas definie");
    }
    $controleur = ControllerFactory::getController($controleurName, $loader, $twig);
 

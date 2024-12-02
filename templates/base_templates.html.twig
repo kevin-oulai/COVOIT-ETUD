@@ -14,8 +14,12 @@
             <li class = "nav-item position-absolute top-50 start-50 translate-middle"><img src="images/websiteName.png" width="220" height="70"></li>
         </ul>
         <div class="container-fluid w-100 nav-item justify-content-md-end">
+            {% if STATUS == 'connected' %}
             <p class="row me-3 mt-3">Username</p>
             <a href="index.php?controleur=etudiant&methode=afficher" class = "row"><img src="images/profilePicture.jpg" width="70" height="70"></a>
+            {% else %}
+            <a href="connexion.php" class="link-body-emphasis link-offset-2 link-underline link-underline-opacity-0 "><p class="row me-3 mt-3">Se connecter</p></a>
+            {% endif %}
         </div>
     </nav>
 
