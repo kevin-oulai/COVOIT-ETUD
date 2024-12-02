@@ -48,7 +48,7 @@
 
             <!-- Fenetre modale suppression -->
             <div class='modal fade' id='fSupprimer_{{ trajet.numero }}' tabindex='-1' aria-labelledby='Supprimer' aria-hidden='true'>
-                <div class='modal-dialog modal-dialog-centered'>
+                <div class='modal-dialog modal-dialog-centered modal-lg'>
                     <div class='modal-content bg-gradient-primary border-2'>
                         <div class='modal-header'>
                             <h1 class='modal-title fs-5' id='fSupprimerLabel_{{ trajet.numero }}'>Supprimer un trajet</h1>
@@ -70,7 +70,7 @@
                                     {% endif %}
                                 {% endfor %}
                             </div>
-                            <p class="fw-semibold text-align-left">
+                            <p class="fw-semibold text-align-center">
                                 le {{ trajet.dateDep }} à {{ trajet.heureDep }}
                             </p>
                             {% for reservations in listeReservations %}
@@ -124,9 +124,9 @@
                             </p>
                             <p class="fw-semibold text-align-left input-group">
                                 <label>le </label>
-                                <input class="form-control" type="date" value="{{ trajet.dateDep }}">
-                                à <input class="form-control" type="time" value="{{ trajet.heureDep }}">
-                                et arrive à <input class="form-control" type="time" value="{{ trajet.heureArr }}">
+                                <input class="form-control" type="date" value="{{ trajet.dateDep }}"><br>
+                                Départ à <input class="form-control" type="time" value="{{ trajet.heureDep }}">
+                                Arrivée à <input class="form-control" type="time" value="{{ trajet.heureArr }}">
                             </p>
                             {% for reservations in listeReservations %}
                                 {% if reservations.numero == trajet.numero %}
