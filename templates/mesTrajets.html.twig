@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="card-footer text-align-right">
-                    <button class="btn btn-secondary">Modifier</button>
+                    <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ trajet.numero }}'>Modifier</button>
                     <button class="btn btn-danger" data-bs-toggle='modal' data-bs-target='#fSupprimer_{{ trajet.numero }}'>Supprimer</button>
                 </div>
             </div>
@@ -58,17 +58,30 @@
                             <p>
                                 Voulez-vous vraiment supprimer ce trajet ?
                             </p>
-                            <p class="fw-bold text-align-left">
-                                {{ lieux[trajet.numero_lieu_depart - 1].numRue }} {{ lieux[trajet.numero_lieu_depart - 1].nomRue }}, {{ lieux[trajet.numero_lieu_depart - 1].ville }} → {{ lieux[trajet.numero_lieu_arrivee - 1].numRue }} {{ lieux[trajet.numero_lieu_arrivee - 1].nomRue }}, {{ lieux[trajet.numero_lieu_arrivee - 1].ville }}
-                            </p>
+                            <div class="btn-group">
+                                {% for lieu in lieux %}
+                                    {% if lieu.numero == trajet.numero_lieu_depart %}
+                                        <p class="fw-bold text-align-left">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }} → </p>
+                                    {% endif %}
+                                {% endfor %}
+                                {% for lieu in lieux %}
+                                    {% if lieu.numero == trajet.numero_lieu_arrivee %}
+                                        <p class="fw-bold text-align-left">‎ {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                             <p class="fw-semibold text-align-left">
                                 le {{ trajet.dateDep }} à {{ trajet.heureDep }}
                             </p>
                             {% for reservations in listeReservations %}
                                 {% if reservations.numero == trajet.numero %}
                                     {% if reservations.nbPassagers >= 1 %}
-                                        <p class="fw-semibold text-align-left badge bg-danger text-wrap">
+                                        <p class="fw-semibold text-align-left badge bg-danger text-wrap" data-toggle="tooltip" title="Ce trajet sera supprimé pour tous les utilisateurs">
                                             Attention ! Ce trajet à été réservé par {{ reservations.nbPassagers }} personne(s).
+                                        </p>
+                                    {% else %}
+                                        <p class="fw-semibold text-align-left badge bg-success text-wrap">
+                                            Personne n'a réservé ce trajet.
                                         </p>
                                     {% endif %}
                                 {% endif %}
@@ -81,8 +94,65 @@
                     </div>
                 </div>
             </div>
+
+
+            <!-- Fenetre modale modification -->
+            <div class='modal fade' id='fModifier_{{ trajet.numero }}' tabindex='-1' aria-labelledby='Modifier' aria-hidden='true'>
+                <div class='modal-dialog modal-dialog-centered modal-lg'>
+                    <div class='modal-content bg-gradient-primary border-2'>
+                        <div class='modal-header'>
+                            <h1 class='modal-title fs-5' id='fSupprimerLabel_{{ trajet.numero }}'>Modifier un trajet</h1>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
+                        </div>
+                        <div class='modal-body'>
+
+                            <p class="fw-bold text-align-left input-group">
+                              <div class="btn-group">
+                                    {% for lieu in lieux %}
+                                        {% if lieu.numero == trajet.numero_lieu_depart %}
+                                            <label class="fw-bold text-align-left">Lieu de départ‎</label><br>
+                                            <input class="form-control" type="text" value="{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}"> →‎
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for lieu in lieux %}
+                                        {% if lieu.numero == trajet.numero_lieu_arrivee %}
+                                            <label class="fw-bold text-align-left">Lieu de d'arrivée‎</label><br>
+                                            <input class="form-control" type="text" value="{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </p>
+                            <p class="fw-semibold text-align-left input-group">
+                                <label>le </label>
+                                <input class="form-control" type="date" value="{{ trajet.dateDep }}">
+                                à <input class="form-control" type="time" value="{{ trajet.heureDep }}">
+                                et arrive à <input class="form-control" type="time" value="{{ trajet.heureArr }}">
+                            </p>
+                            {% for reservations in listeReservations %}
+                                {% if reservations.numero == trajet.numero %}
+                                    {% if reservations.nbPassagers >= 1 %}
+                                        <p class="fw-semibold text-align-left badge bg-danger text-wrap" data-toggle="tooltip" title="Ce trajet sera supprimé pour tous les utilisateurs">
+                                            Attention ! Ce trajet à été réservé par {{ reservations.nbPassagers }} personne(s).
+                                        </p>
+                                    {% else %}
+                                        <p class="fw-semibold text-align-left badge bg-success text-wrap">
+                                            Personne n'a réservé ce trajet.
+                                        </p>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+                            <button onclick=window.location.href='index.php?controleur=trajet&methode=listerMesTrajets&action=modifier&id={{ trajet.numero }}'; class='btn btn-success'><i class='bi bi-trash-fill'></i>Confirmer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
+
+
     <div class="text-center mt-5">
         <a href="index.php" class="btn btn-danger">Retour</a>
     </div>
@@ -111,5 +181,9 @@
                 $('#myModal').modal('show');
             }
         });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 {% endblock %}

@@ -98,12 +98,18 @@ body{
 
 .bg-light{background: #eaeaea;
 
-}.bg-header-color{background: $header-color;
 }
 
- .bg-danger{
+.bg-header-color{background: $header-color;
+}
+
+.bg-danger{
    background-color: #f33e3e;
  }
+
+.bg-success{
+  background-color: #4fa54f;
+}
 
 .text-align-right{text-align: end;}
 .text-align-left{text-align: start;}
