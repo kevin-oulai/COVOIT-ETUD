@@ -11,14 +11,14 @@ class ControllerTrajet extends Controller{
     }
 
     public function lister(){
-        // $depart = $_POST['depart'];
-        // $arrivee = $_POST['arrivee'];
-        // $date = $_POST['date'];
-        // $nbPassager = $_POST['nombre_passagers'];
+        $depart = $_POST['depart'];
+        $arrivee = $_POST['arrivee'];
+        $date = $_POST['date'];
+        $nbPassager = $_POST['nombre_passagers'];
 
         $managerLieu = new LieuDao($this->getPdo());
-        $numTrajet1 = $managerLieu->findNumByVille("Anglet");
-        $numTrajet2 = $managerLieu->findNumByVille("Paris");
+        $numTrajet1 = $managerLieu->findNumByVille($depart);
+        $numTrajet2 = $managerLieu->findNumByVille($arrivee);
         $listeNum1="(";
         $listeNum2="(";
         
@@ -38,7 +38,7 @@ class ControllerTrajet extends Controller{
         $listeNum2 = $listeNum2 . ")";
         
         $managerTrajet = new TrajetDao($this->getPdo());
-        $listeTrajet = $managerTrajet->findAll($listeNum1, $listeNum2, "2024-11-06", 1);
+        $listeTrajet = $managerTrajet->findAll($listeNum1, $listeNum2, $date, $nbPassager);
 
         $template = $this->getTwig()->load('pageTrajets.html.twig');
 
