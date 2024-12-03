@@ -14,7 +14,6 @@ class ControllerTrajet extends Controller{
 
 
         $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
-        echo $criteria;
         if ($criteria === '') {
                 echo "On vient d'arriver sur la page";
                 $depart = $_POST['depart'];
@@ -54,16 +53,8 @@ class ControllerTrajet extends Controller{
             $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
         }elseif ($criteria === 'departTot') {
             $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
-            echo "Vous avez sélectionné : Départ le plus tôt.";
-            // Placez ici la logique spécifique pour cette option
         } elseif ($criteria === 'prixBas') {
             $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
-            // Option "Prix le plus bas"
-            echo "Vous avez sélectionné : Prix le plus bas.";
-            // Placez ici la logique spécifique pour cette option
-        } else {
-            // Si une valeur inattendue est envoyée (par exemple, une manipulation)
-            echo "Option non valide.";
         }
 
         $template = $this->getTwig()->load('pageTrajets.html.twig');
