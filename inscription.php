@@ -16,7 +16,6 @@ if(isset($_POST["Nom"]))
         $date = date($_POST["dateNaiss"]);
         $dir = "images"; // Nom du dossier contenant les photos
         $name = "photoProfilParDefaut.png";
-        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),NULL,:image,(?) )";
         if(is_uploaded_file($_FILES["image"]["tmp_name"])){
             $name = rand(0,2147483647) . ".png";
             move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$name");
