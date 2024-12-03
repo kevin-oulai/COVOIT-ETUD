@@ -49,13 +49,15 @@ class ControllerTrajet extends Controller{
         $listeNum2 = $listeNum2 . ")";
         
         $managerTrajet = new TrajetDao($this->getPdo());
-        $listeTrajet = $managerTrajet->findAll($listeNum1, $listeNum2, $date, $nbPassager);
-
-        if ($criteria === 'departTot') {
-            // Option "Départ le plus tôt"
+        //$listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $date, $nbPassager);
+        if ($criteria === '') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+        }elseif ($criteria === 'departTot') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             echo "Vous avez sélectionné : Départ le plus tôt.";
             // Placez ici la logique spécifique pour cette option
         } elseif ($criteria === 'prixBas') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             // Option "Prix le plus bas"
             echo "Vous avez sélectionné : Prix le plus bas.";
             // Placez ici la logique spécifique pour cette option
