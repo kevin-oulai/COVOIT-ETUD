@@ -95,4 +95,55 @@ class EtudiantDao
 
         return $nbTrajet;
     }
+
+    public function possedeBadge(?int $numero_etudiant): ?bool
+    {
+        $sql="SELECT COUNT(numero_badge) FROM OBTENIR WHERE numero_etudiant = :numero ";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero", $numero_etudiant);
+        $pdoStatement->execute();
+        $count = $pdoStatement->fetch();
+        if ($count[0] > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function estConducteur(?int $numero_etudiant): ?bool
+    {
+        $sql="SELECT COUNT(numero) FROM ETUDIANT WHERE numero = :numero AND numero_voiture != NULL";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero", $numero_etudiant);
+        $pdoStatement->execute();
+        $count = $pdoStatement->fetch();
+        if ($count[0] > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function aPosteAvis(?int $numero_etudiant): ?bool
+    {
+        $sql="SELECT COUNT(numero) FROM AVIS WHERE numero_commentateur = :numero";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero", $numero_etudiant);
+        $pdoStatement->execute();
+        $count = $pdoStatement->fetch();
+        if ($count[0] > 0) {
+            return true;
+        }
+        return false;
+    }
+    public function aRecuAvis(?int $numero_etudiant): ?bool
+    {
+        $sql="SELECT COUNT(numero) FROM AVIS WHERE numero_concerne = :numero";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero", $numero_etudiant);
+        $pdoStatement->execute();
+        $count = $pdoStatement->fetch();
+        if ($count[0] > 0) {
+            return true;
+        }
+        return false;
+    }
 }
