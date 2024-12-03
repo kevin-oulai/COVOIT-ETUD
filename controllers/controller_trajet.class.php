@@ -13,16 +13,23 @@ class ControllerTrajet extends Controller{
     public function lister(){
 
 
-        
-
-        $depart = $_POST['depart'];
-        $arrivee = $_POST['arrivee'];
-        $date = $_POST['date'];
-        $nbPassager = $_POST['nombre_passagers'];
+        $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
+        echo $criteria;
+        if ($criteria === '') {
+                echo "On vient d'arriver sur la page";
+                $depart = $_POST['depart'];
+                $_SESSION["depart"]=$depart;
+                $arrivee = $_POST['arrivee'];
+                $_SESSION["arrivee"]=$arrivee;
+                $date = $_POST['date'];
+                $_SESSION["date"]=$date;
+                $nbPassager = $_POST['nombre_passagers'];
+                $_SESSION["nombre_passagers"]=$nbPassager;
+            } 
 
         $managerLieu = new LieuDao($this->getPdo());
-        $numTrajet1 = $managerLieu->findNumByVille($depart);
-        $numTrajet2 = $managerLieu->findNumByVille($arrivee);
+        $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
+        $numTrajet2 = $managerLieu->findNumByVille($_SESSION["arrivee"]);
         $listeNum1="(";
         $listeNum2="(";
         
@@ -43,6 +50,19 @@ class ControllerTrajet extends Controller{
         
         $managerTrajet = new TrajetDao($this->getPdo());
         $listeTrajet = $managerTrajet->findAll($listeNum1, $listeNum2, $date, $nbPassager);
+
+        if ($criteria === 'departTot') {
+            // Option "Départ le plus tôt"
+            echo "Vous avez sélectionné : Départ le plus tôt.";
+            // Placez ici la logique spécifique pour cette option
+        } elseif ($criteria === 'prixBas') {
+            // Option "Prix le plus bas"
+            echo "Vous avez sélectionné : Prix le plus bas.";
+            // Placez ici la logique spécifique pour cette option
+        } else {
+            // Si une valeur inattendue est envoyée (par exemple, une manipulation)
+            echo "Option non valide.";
+        }
 
         $template = $this->getTwig()->load('pageTrajets.html.twig');
 

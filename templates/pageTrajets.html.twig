@@ -23,11 +23,10 @@
                 </div>
             </div>
         </div>
-        <form ACTION='?controleur=trajet&methode=lister' METHOD='POST'>
             <div class="formulaireFiltre">
                 <form method="POST" action="?controleur=trajet&methode=lister">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="departTot" name="criteria" value="departTot" />
+                        <input class="form-check-input" type="radio" id="departTot" name="criteria" value="departTot" checked/>
                         <label for="departTot">Départ le plus tôt</label>
                     </div>
                     <div class="form-check">
@@ -37,6 +36,5 @@
                     <button style = "margin-left: 20px; margin-top: 20px;" type="submit">Appliquer</button>
                 </form>
             </div>
-        </form>
     {% endfor %}
 {% endblock %}
