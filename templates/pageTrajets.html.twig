@@ -24,15 +24,18 @@
             </div>
         </div>
         <form ACTION='?controleur=trajet&methode=lister' METHOD='POST'>
-            <div class="rectangleBleu">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="departTot" name="departTot"/>
-                    <label class="form-check-label" for="departTot">Départ le plus tôt</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="prixBas" name="prixBas"/>
-                    <label class="form-check-label" for="prixBas">Prix le plus bas</label>
-                </div>
+            <div class="formulaireFiltre">
+                <form method="POST" action="?controleur=trajet&methode=lister">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="departTot" name="criteria" value="departTot" />
+                        <label for="departTot">Départ le plus tôt</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="prixBas" name="criteria" value="prixBas" />
+                        <label for="prixBas">Prix le plus bas</label>
+                    </div>
+                    <button style = "margin-left: 20px; margin-top: 20px;" type="submit">Appliquer</button>
+                </form>
             </div>
         </form>
     {% endfor %}
