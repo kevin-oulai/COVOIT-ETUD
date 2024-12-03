@@ -98,10 +98,10 @@
 
             <!-- Fenetre modale modification -->
             <div class='modal fade' id='fModifier_{{ trajet.numero }}' tabindex='-1' aria-labelledby='Modifier' aria-hidden='true'>
-                <div class='modal-dialog modal-dialog-centered modal-lg'>
+                <div class='modal-dialog modal-dialog-centered '>
                     <div class='modal-content bg-gradient-primary border-2'>
                         <div class='modal-header'>
-                            <h1 class='modal-title fs-5' id='fSupprimerLabel_{{ trajet.numero }}'>Modifier un trajet</h1>
+                            <h1 class='modal-title fs-5' id='fModifierLabel_{{ trajet.numero }}'>Modifier un trajet</h1>
                             <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
                         </div>
                         <div class='modal-body'>
@@ -110,23 +110,34 @@
                               <div class="btn-group">
                                     {% for lieu in lieux %}
                                         {% if lieu.numero == trajet.numero_lieu_depart %}
-                                            <label class="fw-bold text-align-left">Lieu de départ‎</label><br>
-                                            <input class="form-control" type="text" value="{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}"> →‎
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% for lieu in lieux %}
-                                        {% if lieu.numero == trajet.numero_lieu_arrivee %}
-                                            <label class="fw-bold text-align-left">Lieu de d'arrivée‎</label><br>
-                                            <input class="form-control" type="text" value="{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}">
+                                            <label class="fw-bold">Lieu de départ‎
+                                            <input class="form-control" type="text" value="{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}"></label> ‎
                                         {% endif %}
                                     {% endfor %}
                                 </div>
                             </p>
-                            <p class="fw-semibold text-align-left input-group">
-                                <label>le </label>
-                                <input class="form-control" type="date" value="{{ trajet.dateDep }}"><br>
-                                Départ à <input class="form-control" type="time" value="{{ trajet.heureDep }}">
-                                Arrivée à <input class="form-control" type="time" value="{{ trajet.heureArr }}">
+                            ↓
+                            <p class="fw-bold text-align-left input-group">
+                              <div class="btn-group">
+                                    {% for lieu in lieux %}
+                                        {% if lieu.numero == trajet.numero_lieu_arrivee %}
+                                            <label class="fw-bold ">Lieu de d'arrivée‎
+                                            <input class="form-control" type="text" value="{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}"></label><br>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </p>
+                            <p class="fw-bold text-align-left input-group">
+                                <div class="btn-group">
+                                    <label class="fw-bold ">Date 
+                                    <input class="form-control" type="date" value="{{ trajet.dateDep }}"></label><br>
+                                </div>
+                            </p>
+                            <p class="fw-bold text-align-center input-group">
+                                <div class="btn-group">
+                                    <label class="fw-bold ">Départ à <input class="form-control" type="time" value="{{ trajet.heureDep }}">‎</label>
+                                    <label class="fw-bold">Arrivée à <input class="form-control" type="time" value="{{ trajet.heureArr }}"></label>
+                                </div>
                             </p>
                             {% for reservations in listeReservations %}
                                 {% if reservations.numero == trajet.numero %}
