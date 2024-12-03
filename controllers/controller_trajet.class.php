@@ -11,6 +11,8 @@ class ControllerTrajet extends Controller{
     }
 
     public function lister(){
+
+        
         $depart = $_POST['depart'];
         $arrivee = $_POST['arrivee'];
         $date = $_POST['date'];
