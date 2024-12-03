@@ -1,4 +1,61 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
 
+	<h1>Répondre à une offre de trajet</h1>
+
+	<div class="container">
+		<div class="row">
+			<h2 class="col text-start">Date départ : --/--/----</h2>
+			<h2 class="col text-end">100€</h2>
+		</div>
+
+        {# Informations du trajet #}
+		<div class="row row-cols-1 row-cols-md-1 g-4">
+			<div class="col">
+				<div class="card">
+                    <div class="card-header text-center">
+                        <h1>Informations du trajet</h1>
+                    </div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<h3 class="card-text text-center">Heure de départ</h3>
+								<h2 class="text-center">12:00</h2>
+								<h3 class="card-text text-center">Heure d'arrivée</h3>
+								<h2 class="text-center">14:00</h2>
+							</div>
+							<div class="col">
+								<h3 class="card-text text-center">Lieu de départ</h3>
+								<h2 class="text-center">Paris</h2>
+								<h3 class="card-text text-center">Lieu de d'arrivée</h3>
+								<h2 class="text-center">Lyon</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+            {# Informations sur le futur passager #}
+			<div class="col">
+				<div class="card mb-3">
+					<div class="row g-0">
+						<div class="col-md-4">
+							<h1 class="text-center">Rosalie Thibault</h1>
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<form>
+                                    <input type="text" class="form-control" placeholder="Ajouter une note...">
+                                    <div class="form-text"><i>*Facultatif*</i></div>
+                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="col text-center">
+                <input type="submit" class="btn btn-primary" value="Réservation"/>
+            </div>
+		</div>
+	</div>
 {% endblock %}
