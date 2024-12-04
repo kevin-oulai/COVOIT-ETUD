@@ -9,26 +9,39 @@
 			<h2 class="col text-end">100€</h2>
 		</div>
 
-        {# Informations du trajet #}
-		<div class="row row-cols-1 row-cols-md-1 g-4">
-			<div class="col">
-				<div class="card">
-                    <div class="card-header text-center">
-                        <h1>Informations du trajet</h1>
+		<div class="row row-cols-1 g-4">
+        	
+			{# Informations du trajet #}
+			<div class="col d-flex justify-content-center">
+				<div class="card" style="width: 60rem">
+                    <div class="row card-body">
+						<div class="col text-start ">
+							<h4>Informations conducteur</h4>
+							<h5>Théo Birembaux</h5>
+							<h5>20 ans</h5>
+						</div>
+						<div class="col text-end">
+							<h4>Informations voiture</h4>
+							<h5>Renault</h5>
+							<h5>Clio</h5>
+							<h5>3 places libres</h5>
+						</div>
                     </div>
-					<div class="card-body">
+					<hr>
+					<hr>
+					<div class="row">
 						<div class="row">
-							<div class="col">
-								<h3 class="card-text text-center">Heure de départ</h3>
-								<h2 class="text-center">12:00</h2>
-								<h3 class="card-text text-center">Heure d'arrivée</h3>
-								<h2 class="text-center">14:00</h2>
+							<div class="col text-center">
+								<h3 class="card-text">Heure de départ</h3>
+								<h2>12:00</h2>
+								<h3 class="card-text">Heure d'arrivée</h3>
+								<h2>14:00</h2>
 							</div>
-							<div class="col">
-								<h3 class="card-text text-center">Lieu de départ</h3>
-								<h2 class="text-center">Paris</h2>
-								<h3 class="card-text text-center">Lieu de d'arrivée</h3>
-								<h2 class="text-center">Lyon</h2>
+							<div class="col text-center">
+								<h3 class="card-text">Lieu de départ</h3>
+								<h2>Paris</h2>
+								<h3 class="card-text">Lieu de d'arrivée</h3>
+								<h2>Lyon</h2>
 							</div>
 						</div>
 					</div>
@@ -36,16 +49,16 @@
 			</div>
 
             {# Informations sur le futur passager #}
-			<div class="col">
-				<div class="card mb-3">
+			<div class="col d-flex justify-content-center">
+				<div class="card mb-3" style="width: 65rem">
 					<div class="row g-0">
 						<div class="col-md-4">
-							<h1 class="text-center">Rosalie Thibault</h1>
+							<h3 class="text-start" style="margin: 8%;">Rosalie Thibault</h3>
 						</div>
 						<div class="col-md-8">
 							<div class="card-body">
-								<form>
-                                    <input type="text" class="form-control" placeholder="Ajouter une note...">
+								<form style="margin-top: 1.5%">
+                                    <input id="notePersoPassager" type="text" class="form-control" placeholder="Ajouter une note...">
                                     <div class="form-text"><i>*Facultatif*</i></div>
                                 </form>
 							</div>
@@ -53,8 +66,10 @@
 					</div>
 				</div>
 			</div>
+
+			{# Bouton de validation #}
             <div class="col text-center">
-                <input type="submit" class="btn btn-primary" value="Réservation"/>
+                <input type="submit" class="btn btn-primary" value="Payer"/>
             </div>
 		</div>
 	</div>
