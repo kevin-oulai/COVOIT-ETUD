@@ -46,6 +46,7 @@ CREATE TABLE `ETUDIANT` (
   adresseMail varchar(50) DEFAULT NULL,
   numTelephone varchar(10) DEFAULT NULL,
   numero_voiture int(5) NOT NULL,
+  photoDeProfil varchar(99) DEFAULT "photoProfilParDefaut.png",
   CONSTRAINT Fk_voiture FOREIGN KEY (numero_voiture) REFERENCES VOITURE(numero)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -92,6 +93,7 @@ CREATE TABLE BADGE (
 --
 CREATE TABLE AVIS (
 	numero int(5) NOT NULL PRIMARY KEY,
+    datePost DATE NOT NULL,
     message varchar(50) NOT NULL,
 	note int(2) DEFAULT NULL,
 	numero_concerne int(5) NOT NULL,
