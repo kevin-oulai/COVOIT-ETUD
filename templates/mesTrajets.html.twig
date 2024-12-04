@@ -104,59 +104,70 @@
                             <h1 class='modal-title fs-5' id='fModifierLabel_{{ trajet.numero }}'>Modifier un trajet</h1>
                             <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
                         </div>
-                        <div class='modal-body'>
+                        <form action="index.php?controleur=trajet&methode=listerMesTrajets&action=modifier&id={{ trajet.numero }}" method="post">
+                            <div class='modal-body'>
 
-                            <p class="fw-bold text-align-left input-group">
-                              <div class="btn-group">
-                                    {% for lieu in lieux %}
-                                        {% if lieu.numero == trajet.numero_lieu_depart %}
-                                            <label class="fw-bold">Lieu de départ‎
-                                            <input class="form-control" type="text" value="{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}"></label> ‎
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </p>
-                            ↓
-                            <p class="fw-bold text-align-left input-group">
-                              <div class="btn-group">
-                                    {% for lieu in lieux %}
-                                        {% if lieu.numero == trajet.numero_lieu_arrivee %}
-                                            <label class="fw-bold ">Lieu de d'arrivée‎
-                                            <input class="form-control" type="text" value="{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}"></label><br>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </p>
-                            <p class="fw-bold text-align-left input-group">
+                                <p class="fw-bold text-align-left input-group">
+                                    <div class="btn-group">
+                                        {% for lieu in lieux %}
+                                            {% if lieu.numero == trajet.numero_lieu_depart %}
+                                                <label class="fw-bold">Lieu de départ‎
+                                                <input class="form-control" name="lieu_depart" type="text" pattern="^[0-9]{1,3}\s[a-zA-Z\s\u00C0-\u017F]+,[a-zA-Z\s]+$" value="{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}"></label> ‎
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </p>
+                                ↓
+                                <p class="fw-bold text-align-left input-group">
+                                  <div class="btn-group">
+                                        {% for lieu in lieux %}
+                                            {% if lieu.numero == trajet.numero_lieu_arrivee %}
+                                                <label class="fw-bold ">Lieu de d'arrivée‎
+                                                <input class="form-control" type="text" name="lieu_arrivee" pattern="^[0-9]{1,3}\s[a-zA-Z\s\u00C0-\u017F]+,[a-zA-Z\s]+$" value="{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}"></label><br>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </p>
+                                <p class="fw-bold text-align-left input-group">
+                                    <div class="btn-group">
+                                        <label class="fw-bold ">Date
+                                        <input class="form-control" type="date" name="dateDep" value="{{ trajet.dateDep }}"></label><br>
+                                    </div>
+                                </p>
+                                <p class="fw-bold text-align-center input-group">
+                                    <div class="btn-group">
+                                        <label class="fw-bold ">Départ à <input class="form-control" type="time" name="heureDep" value="{{ trajet.heureDep }}">‎</label>
+                                        <label class="fw-bold">Arrivée à <input class="form-control" type="time" name="heureArr" value="{{ trajet.heureArr }}"></label>
+                                    </div>
+                                </p>
+
+                                <p class="fw-bold text-align-center input-group">
                                 <div class="btn-group">
-                                    <label class="fw-bold ">Date 
-                                    <input class="form-control" type="date" value="{{ trajet.dateDep }}"></label><br>
+                                    <label class="fw-bold ">Prix ‎
+                                        <input class="form-control" type="number" name="prix" value="{{ trajet.prix }}" min="1"></label>
                                 </div>
-                            </p>
-                            <p class="fw-bold text-align-center input-group">
-                                <div class="btn-group">
-                                    <label class="fw-bold ">Départ à <input class="form-control" type="time" value="{{ trajet.heureDep }}">‎</label>
-                                    <label class="fw-bold">Arrivée à <input class="form-control" type="time" value="{{ trajet.heureArr }}"></label>
-                                </div>
-                            </p>
-                            {% for reservations in listeReservations %}
-                                {% if reservations.numero == trajet.numero %}
-                                    {% if reservations.nbPassagers >= 1 %}
-                                        <p class="fw-semibold text-align-left badge bg-danger text-wrap" data-toggle="tooltip" title="Ce trajet sera supprimé pour tous les utilisateurs">
-                                            Attention ! Ce trajet à été réservé par {{ reservations.nbPassagers }} personne(s).
-                                        </p>
-                                    {% else %}
-                                        <p class="fw-semibold text-align-left badge bg-success text-wrap">
-                                            Personne n'a réservé ce trajet.
-                                        </p>
+                                </p>
+
+
+                                {% for reservations in listeReservations %}
+                                    {% if reservations.numero == trajet.numero %}
+                                        {% if reservations.nbPassagers >= 1 %}
+                                            <p class="fw-semibold text-align-left badge bg-danger text-wrap" data-toggle="tooltip" title="Ce trajet sera supprimé pour tous les utilisateurs">
+                                                Attention ! Ce trajet à été réservé par {{ reservations.nbPassagers }} personne(s).
+                                            </p>
+                                        {% else %}
+                                            <p class="fw-semibold text-align-left badge bg-success text-wrap">
+                                                Personne n'a réservé ce trajet.
+                                            </p>
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <div class='modal-footer'>
-                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
-                            <button onclick=window.location.href='index.php?controleur=trajet&methode=listerMesTrajets&action=modifier&id={{ trajet.numero }}'; class='btn btn-success'><i class='bi bi-trash-fill'></i>Confirmer</button>
-                        </div>
+                                {% endfor %}
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+                                <input type="submit" class="btn btn-success" value="Confirmer">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -168,7 +179,7 @@
         <a href="index.php" class="btn btn-danger">Retour</a>
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+    <div class="modal fade" id="myModalSuppr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content bg-gradient-primary border-2">
                 <div class="modal-body">
@@ -181,15 +192,38 @@
         </div>
     </div>
 
+    <div class="modal fade" id="myModalModif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-gradient-primary border-2">
+                <div class="modal-body">
+                    Le trajet a bien été modifié.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=trajet&methode=listerMesTrajets';">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script>
         $(function(){
-            $('#myModal').modal({
+            $('#myModalSuppr').modal({
                 show:true,
                 backdrop:'static'
             });
-            if($('#modalTrigger').length){
-                $('#myModal').modal('show');
+            if($('#modalTriggerSuppr').length){
+                $('#myModalSuppr').modal('show');
+            }
+        });
+
+        $(function(){
+            $('#myModalModif').modal({
+                show:true,
+                backdrop:'static'
+            });
+            if($('#modalTriggerModif').length){
+                $('#myModalModif').modal('show');
             }
         });
 

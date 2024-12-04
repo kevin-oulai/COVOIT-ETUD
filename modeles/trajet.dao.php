@@ -131,4 +131,16 @@ class TrajetDao{
         $query->bindParam(':numero_lieu_arrivee', $numero_lieu_arrivee);
         $query->execute();
     }
+
+    public function update(?int $numero = null, ?string $heureDep = null,?string $heureArr = null,?int $prix = null,?string $dateDep = null,?int $numero_lieu_depart = null,?int $numero_lieu_arrivee = null){
+        $query = $this->PDO->prepare("UPDATE TRAJET SET heureDep = :heureDep, heureArr = :heureArr, prix = :prix, dateDep = :dateDep, numero_lieu_depart = :numero_lieu_depart, numero_lieu_arrivee = :numero_lieu_arrivee WHERE numero = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->bindParam(':heureDep', $heureDep);
+        $query->bindParam(':heureArr', $heureArr);
+        $query->bindParam(':prix', $prix);
+        $query->bindParam(':dateDep', $dateDep);
+        $query->bindParam(':numero_lieu_depart', $numero_lieu_depart);
+        $query->bindParam(':numero_lieu_arrivee', $numero_lieu_arrivee);
+        $query->execute();
+    }
 }
