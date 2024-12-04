@@ -28,7 +28,7 @@
                                 <div>
                                     <br><li class="list-group-item"><h4>Informations personnelles</h4>
                                     <div class="row gx-3">
-                                        <div class="col-4">Adresse mail : {{etudiant.adresseMail}}<br></div>
+                                        <div class="col-6">Adresse mail : {{etudiant.adresseMail}}<br></div>
                                         <div class="col-4">Numero de téléphone : {{etudiant.numTelephone}}</div>
                                     </li>
                                     </div><br>
@@ -51,7 +51,7 @@
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
                                         {% if badge is defined %}
-                                            <img src = "{{badge.image}}" width="60" height="60"> <br>
+                                            <img src = "images/{{badge.image}}" width="60" height="60"> <br>
                                             {{badge.titre}}
                                         {% else %}
                                             <h6 class=" text-center">Vous ne possédez pas de badge.</h6>
