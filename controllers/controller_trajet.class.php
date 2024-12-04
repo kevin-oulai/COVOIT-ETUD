@@ -13,16 +13,21 @@ class ControllerTrajet extends Controller{
     public function lister(){
 
 
-        
-
-        $depart = $_POST['depart'];
-        $arrivee = $_POST['arrivee'];
-        $date = $_POST['date'];
-        $nbPassager = $_POST['nombre_passagers'];
+        $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
+        if ($criteria === '') {
+                $depart = $_POST['depart'];
+                $_SESSION["depart"]=$depart;
+                $arrivee = $_POST['arrivee'];
+                $_SESSION["arrivee"]=$arrivee;
+                $date = $_POST['date'];
+                $_SESSION["date"]=$date;
+                $nbPassager = $_POST['nombre_passagers'];
+                $_SESSION["nombre_passagers"]=$nbPassager;
+            } 
 
         $managerLieu = new LieuDao($this->getPdo());
-        $numTrajet1 = $managerLieu->findNumByVille($depart);
-        $numTrajet2 = $managerLieu->findNumByVille($arrivee);
+        $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
+        $numTrajet2 = $managerLieu->findNumByVille($_SESSION["arrivee"]);
         $listeNum1="(";
         $listeNum2="(";
         
@@ -42,12 +47,22 @@ class ControllerTrajet extends Controller{
         $listeNum2 = $listeNum2 . ")";
         
         $managerTrajet = new TrajetDao($this->getPdo());
-        $listeTrajet = $managerTrajet->findAll($listeNum1, $listeNum2, $date, $nbPassager);
-
+        //$listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $date, $nbPassager);
+        if ($criteria === '') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $infoFiltre = "departTot";
+        }elseif ($criteria === 'departTot') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $infoFiltre = "departTot";
+        } elseif ($criteria === 'prixBas') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $infoFiltre = "PrixBas";
+        }
         $template = $this->getTwig()->load('pageTrajets.html.twig');
-
+        
         echo $template->render(array(
             'listeTrajet' => $listeTrajet,
+            'infoFiltre' => $infoFiltre
         ));
         
    
