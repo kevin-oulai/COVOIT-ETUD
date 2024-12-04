@@ -5,7 +5,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item" style="background-color: rgba(0,0,0,0);"><h2 class="text-center">Profil</h2>
                 <div class ="text-center">
-                <a href="modifierProfil.php" class = "btn btn-primary align-center">Modifier mon profil</a>
+                <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
             </li>
                 </div>
             <form action="index.php?controleur=etudiant&methode=afficher" class="input-group">
@@ -103,5 +103,82 @@
 
     </div>
 </div>
+<!-- Fenetre modale modification -->
+            <div class='modal fade' id='fModifier_{{ etudiant.numero }}' tabindex='-1' aria-labelledby='Modifier' aria-hidden='true'>
+                <div class='modal-dialog modal-dialog-centered '>
+                    <div class='modal-content bg-gradient-primary border-2'>
+                        <div class='modal-header'>
+                            <h1 class='modal-title fs-5' id='fModifierLabel_{{ etudiant.numero }}'>Modifier mon profil</h1>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
+                        </div>
+                        <div class='modal-body'>
+
+                            <p class="fw-bold text-align-left input-group">
+                                <div class="btn-group">
+                                    <label class="fw-bold">Nom‎
+                                    <input class="form-control" type="text" value="{{ etudiant.nom }}"></label> 
+                                    <label class="fw-bold">Prenom‎
+                                    <input class="form-control" type="text" value="{{ etudiant.prenom }}"></label> 
+                                </div>
+                            </p>
+                            <p class="fw-bold text-align-left input-group">
+                                <div class="btn-group">
+                                    <label class="fw-bold">Date de naissance‎
+                                    <input class="form-control" type="text" value="{{ etudiant.dateNaiss }}"></label> 
+                                    <label class="fw-bold">Numéro de téléphone‎
+                                    <input class="form-control" type="text" value="{{ etudiant.numTelephone }}"></label> 
+                                </div>
+                            </p>
+                            <p class="fw-bold text-align-left input-group">
+                                <div class="btn-group">
+                                    <label class="fw-bold">Adresse mail‎
+                                    <input class="form-control" type="text" value="{{ etudiant.adresseMail }}"></label> 
+                                </div>
+                            </p>
+                            <p class="fw-bold text-align-center input-group">
+                                <div class="btn-group">
+                                    <label class="fw-bold">Photo de profil‎
+                                    <input class="form-control" type="file" value="{{ etudiant.photoProfil }}"></label> 
+                                </div>
+                            </p>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+                            <button onclick=window.location.href='index.php?controleur=trajet&methode=listerMesTrajets&action=modifier&id={{ trajet.numero }}'; class='btn btn-success'><i class='bi bi-trash-fill'></i>Confirmer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-gradient-primary border-2">
+                <div class="modal-body">
+                    Le trajet a bien été supprimé.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=trajet&methode=listerMesTrajets';">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script>
+        $(function(){
+            $('#myModal').modal({
+                show:true,
+                backdrop:'static'
+            });
+            if($('#modalTrigger').length){
+                $('#myModal').modal('show');
+            }
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
     
 {% endblock %}

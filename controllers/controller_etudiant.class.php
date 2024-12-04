@@ -50,5 +50,17 @@ class ControllerEtudiant extends Controller{
         echo $template->render($twig_params);
 
     }
+
+    public function modifier(){
+        
+        $num_etudiant = $_SESSION['id'];
+        $managerEtudiant = new EtudiantDao($this->getPdo());
+        $etudiant = $managerEtudiant->find($num_etudiant);
+        $twig_params = array('etudiant' => $etudiant);
+
+        $template = $this->getTwig()->load('modifierProfil.html.twig');
+
+        echo $template->render($twig_params);
+    }
     
 }
