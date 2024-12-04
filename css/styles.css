@@ -11,12 +11,12 @@
   background: linear-gradient(135deg, #F2CD48 0%, #FD803F 100%);
 }
 
-.bg-gradient-hot {
-  background: linear-gradient(135deg, #F9445A 0%, #FD803F 100%);
+.bg-gradient-dark {
+  background: linear-gradient(135deg, #6b97fd 0%, #5f8fff 100%);
 }
 
-.bg-gradient-cold {
-  background: linear-gradient(135deg, #8019C6 0%, #2F93CC 100%);
+.bg-gradient-secondary {
+  background: linear-gradient(135deg, #abc4ff 0%, #b6ccfe 100%);
 }
 
 .bg-gradient-primary {
@@ -11945,7 +11945,7 @@ body {
 }
 
 .listeTrajet2 {
-  display: inline block;
+  display: inline-block;
   margin-left: 200px;
 }
 
@@ -11972,6 +11972,38 @@ body {
   display: flex;
   margin-top: 20px;
   margin-left: 20px;
+}
+
+.btn-close {
+  background-color: #6c0101;
+}
+
+.btn-close:hover {
+  background-color: #490101;
+}
+
+.btn-secondary {
+  background-color: #719bff;
+}
+
+.btn-danger {
+  background-color: #ea9c9c;
+}
+
+.btn-success {
+  background: #6aaa6a;
+}
+
+.btn-success:hover {
+  background: #538f53;
+}
+
+.btn-secondary:hover {
+  background-color: #6e92e6;
+}
+
+.btn-danger:hover {
+  background-color: #d37070;
 }
 
 /*# sourceMappingURL=styles.css.map */

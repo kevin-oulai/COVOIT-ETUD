@@ -39,8 +39,8 @@ $gradients: () !default;
 $gradients: map-merge((
         chill: linear-gradient(135deg, #09e485 0%,#0291e3 100%),
         warm: linear-gradient(135deg, #F2CD48 0%,#FD803F 100%),
-        hot: linear-gradient(135deg, #F9445A 0%,#FD803F 100%),
-        cold: linear-gradient(135deg, #8019C6 0%,#2F93CC 100%),
+        dark: linear-gradient(135deg, #6b97fd 0%, #5f8fff 100%),
+        secondary: linear-gradient(135deg, #abc4ff 0%, #b6ccfe 100%),
         primary: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%)
 ), $gradients);
 
@@ -135,7 +135,7 @@ border: none;
 }
 
 .listeTrajet2{
-  display: inline block; 
+  display: inline-block;
   margin-left: 200px;
 }
 
@@ -163,3 +163,34 @@ border: none;
   margin-left: 20px;
 }
 
+.btn-close{
+  background-color: #6c0101;
+}
+
+.btn-close:hover{
+  background-color: #490101;
+}
+
+.btn-secondary{
+  background-color: #719bff;
+}
+
+.btn-danger{
+  background-color: #ea9c9c;
+}
+
+.btn-success{
+  background: #6aaa6a;
+}
+
+.btn-success:hover{
+  background: #538f53;
+}
+
+.btn-secondary:hover{
+  background-color: #6e92e6;
+}
+
+.btn-danger:hover{
+  background-color: #d37070;
+}

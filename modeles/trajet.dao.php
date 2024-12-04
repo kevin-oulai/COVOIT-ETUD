@@ -51,6 +51,16 @@ class TrajetDao{
         $this->PDO = $PDO;
     }
 
+    public function findAllByPassager(int $numero): array
+    {
+        $requete = "SELECT T.* FROM TRAJET T JOIN CHOISIR C ON T.NUMERO = C.NUMERO_TRAJET WHERE C.NUMERO_PASSAGER = :numero";
+        $pdoStatement = $this->PDO->prepare($requete);
+        $pdoStatement->bindValue(":numero", $numero);
+        $pdoStatement->execute();
+        $listeTrajets = $pdoStatement->fetchAll();
+        return $listeTrajets;
+    }
+
     public function find(int $numero): Trajet
     {
         $sql="SELECT * FROM TRAJET WHERE numero= :numero";
@@ -96,5 +106,14 @@ class TrajetDao{
         $query->bindParam(':numero_lieu_depart', $numero_lieu_depart);
         $query->bindParam(':numero_lieu_arrivee', $numero_lieu_arrivee);
         $query->execute();
+    }
+
+    public function getConducteur(int $numero): int{
+        $sql = "SELECT numero_conducteur FROM TRAJET WHERE numero = :numero";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero", $numero);
+        $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_NUM);
+        return $pdoStatement->fetch()[0];
     }
 }

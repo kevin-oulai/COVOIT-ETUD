@@ -53,6 +53,32 @@ class ControllerTrajet extends Controller{
    
     }
 
+    public function listerParticipations(){
+        $numero_etudiant = $_SESSION['id'];
+        $managerTrajet = new TrajetDao($this->getPdo());
+        $listeTrajets = $managerTrajet->findAllByPassager($numero_etudiant);
+
+        $managerLieu = new LieuDao($this->getPdo());
+        $listeLieux = $managerLieu->findAllAssoc();
+
+        $template = $this->getTwig()->load('mesParticipations.html.twig');
+        echo $template->render(array(
+            'listeTrajets' => $listeTrajets,
+            'lieux' => $listeLieux
+        ));
+
+        if(isset($_GET['action'])){
+            if($_GET['action'] == "poster"){
+                $concerne = $managerTrajet->getConducteur($_GET['id']);
+                $commentateur = $_SESSION['id'];
+                $datePost = date("Y-m-d");
+                $managerAvis = new AvisDao($this->getPdo());
+                $managerAvis->insert($datePost, $_POST['message'], $_POST['note'], $concerne, $commentateur);
+                echo "<div id=modalTrigger></div>";
+            }
+        }
+    }
+
     public function rechercher(){
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $etudiant = $managerEtudiant->find(1);
