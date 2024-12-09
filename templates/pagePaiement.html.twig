@@ -3,42 +3,46 @@
 
 	<h1>Page de paiement</h1>
 
-	<div class="container">
-		<div class="card" style="width: 25rem;">
+	<div class="container d-flex justify-content-center">
+		<div class="card" style="width: 32rem">
 			<div class="card-body">
 				<h5 class="card-title text-center">Formulaire de paiement</h5>
-                <form>
-                    <div class="row gx-2">
-                        <div class="col">Nom
-                            <input type="text" class="form-control" name ="nom" placeholder="..." required/>
-                        </div>
-                        <div class="col">Prénom
-                            <input type="text" class="form-control" name ="prenom" placeholder="..." required/>
-                        </div>
-                    </div>
+				<div class="card-text">
+					<form>
+						<div class="row gx-2">
+							<div class="col">Nom
+								<input type="text" class="form-control" name="nom" placeholder="..." required/>
+							</div>
+							<div class="col">Prénom
+								<input type="text" class="form-control" name="prenom" placeholder="..." required/>
+							</div>
+						</div>
 
-                    <div class="row">
-                        <div class="col">Numéro de carte
-                            <input type="text" class="form-control" placeholder="..." pattern="[^a-zA-Z]+" size="17" minlength="16" maxlength="16" required/>
-                        </div>
-                    </div>
+						<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
+							<div class="col">Numéro de carte
+								<input type="text" class="form-control" placeholder="..." pattern="[^a-zA-Z]+" size="17" minlength="16" maxlength="16" required/>
+							</div>
+						</div>
 
-                    <div class="row gx-2">
-                        <div class="col">Date d'expiration
-                            <input type="date" class="form-control" required/>
-                        </div>
-                        <div class="col">CVC
-                            <input type="text" class="form-control" placeholder="..." pattern="[^a-zA-Z]+" size="4" minlength="3" maxlength="3" required/>
-                        </div>
-                    </div>
-                </form>
+						<div class="row gx-2">
+							<div class="col">Date d'expiration
+								<input type="date" class="form-control" required/>
+							</div>
+							<div class="col">CVC
+								<input type="text" class="form-control" placeholder="..." pattern="[^a-zA-Z]+" size="4" minlength="3" maxlength="3" required/>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
-            <div class="card-footer text-center">
-                <input type="submit" class="btn btn-primary" value="Valider">
-            </div>                
+			<div class="card-body text-center">
+				<img class="card-img-bottom" src="images/cb.png" style="width: 30rem;">
+			</div>
+			<div class="card-footer text-center">
+				<input type="submit" class="btn btn-primary" value="Valider">
+			</div>
 		</div>
 	</div>
 
-    
 
 {% endblock %}
