@@ -155,10 +155,11 @@ padding-right: ($spacer * 2.5);}
   transition: all 0.1s ease-in-out;
 }
 
-.card:hover{
-  scale: 1.01;
+.cardError{
+  width: 500px;
+  margin-left: 700px;
+  margin-top: 100px;
 }
-
 .card .btn-secondary{
   transition: all 0.1s ease-in-out;
 }
@@ -178,7 +179,7 @@ padding-right: ($spacer * 2.5);}
 
 .modal{
   backdrop-filter: blur(1px);
-
+}
  
 .listeTrajet2{
   display: inline-block;

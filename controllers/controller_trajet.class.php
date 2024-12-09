@@ -28,6 +28,14 @@ class ControllerTrajet extends Controller{
         $managerLieu = new LieuDao($this->getPdo());
         $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
         $numTrajet2 = $managerLieu->findNumByVille($_SESSION["arrivee"]);
+        if (empty($numTrajet1) || empty($numTrajet2)) {
+            $template = $this->getTwig()->load('pageTrajets.html.twig');
+            $infoFiltre = "aucunTrajet";
+            echo $template->render(array(
+                'infoFiltre' => $infoFiltre
+            ));
+        }
+        else {
         $listeNum1="(";
         $listeNum2="(";
         
@@ -64,7 +72,7 @@ class ControllerTrajet extends Controller{
             'listeTrajet' => $listeTrajet,
             'infoFiltre' => $infoFiltre
         ));
-        
+    }
    
     }
 

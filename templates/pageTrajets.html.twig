@@ -1,5 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
+    {% if infoFiltre != "aucunTrajet" %}
     <div class="formulaireFiltre">
         <form method="POST" action="?controleur=trajet&methode=lister">
             <div class="form-check">
@@ -48,4 +49,14 @@
                 </div>
             </div>
             {% endfor %}
+        {% endif %}
+        {% if infoFiltre == "aucunTrajet" %}
+        <div class="cardError card bg-gradient-secondary">
+            <div class="card-body">
+                <h5 class="card-title">Erreur</h5>
+                <p class="card-text">Aucun trajet ne correspond à votre recherche</p>
+                <a href="?controleur=trajet&methode=rechercher" class="btn btn-primary">Rechercher un nouveau trajet</a>
+            </div>
+        </div>
+        {% endif %}
 {% endblock %}

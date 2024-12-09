@@ -44,6 +44,7 @@ class AvisDao{
         $query->bindParam(':numero_concerne', $concerne);
         $query->bindParam(':numero_commentateur', $commentateur);
         $query->execute();
+    }
 
     public function findConcerne(?int $numero_concerne): ?Avis
     {
