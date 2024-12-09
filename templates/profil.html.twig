@@ -95,6 +95,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row justify-content-end custom-line">
+                                <div class="col-2">
+                                    <button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,22 +134,49 @@
                                     <input class="form-control" type="text" value="{{ etudiant.numTelephone }}"></label> 
                                 </div>
                             </p>
-                            <p class="fw-bold text-align-left input-group">
+                            <p class="fw-bold input">
                                 <div class="btn-group">
                                     <label class="fw-bold">Adresse mail‎
                                     <input class="form-control" type="text" value="{{ etudiant.adresseMail }}"></label> 
                                 </div>
                             </p>
-                            <p class="fw-bold text-align-center input-group">
+                            <p class="fw-bold text-align-center input">
                                 <div class="btn-group">
                                     <label class="fw-bold">Photo de profil‎
                                     <input class="form-control" type="file" value="{{ etudiant.photoProfil }}"></label> 
                                 </div>
                             </p>
                         </div>
+                        
+                        <div class='modal-body'>
+
+                            <p class="fw-bold text-align-left input-group">
+                                <h3>Votre voiture</h3>
+                                {% if voiture is not defined %}
+                                    Vous ne possédez pas encore de voiture.
+                                <div class="btn-group">
+                                    <label class="fw-bold">Modele
+                                    <input class="form-control" type="text" placeholder="ex : Clio"></label> 
+                                    <label class="fw-bold">Marque
+                                    <input class="form-control" type="text" placeholder="ex : Renault"></label> 
+                                    <label class="fw-bold">Nombre de places
+                                    <input class="form-control" type="text" placeholder="ex : 4"></label> 
+                                </div>
+                                {% else %}
+                                <div class="btn-group">
+                                    <label class="fw-bold">Modele
+                                    <input class="form-control" type="text" value="{{ voiture.modele }}"></label> 
+                                    <label class="fw-bold">Marque
+                                    <input class="form-control" type="text" value="{{ voiture.marque }}"></label> 
+                                    <label class="fw-bold">Nombre de places
+                                    <input class="form-control" type="text" value="{{ voiture.nbPlace }}"></label> 
+                                </div>
+                                {% endif %}
+                            </p>
+                        </div>
                         <div class='modal-footer'>
                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
-                            <button onclick=window.location.href='index.php?controleur=trajet&methode=listerMesTrajets&action=modifier&id={{ trajet.numero }}'; class='btn btn-success'><i class='bi bi-trash-fill'></i>Confirmer</button>
+                            <button onclick=window.location.href='index.php?controleur=etudiant&methode=afficher&action=modifier&id={{ etudiant.numero }}'; class='btn btn-success'><i class='bi bi-trash-fill'></i>Confirmer</button>
                         </div>
                     </div>
                 </div>
@@ -155,10 +187,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content bg-gradient-primary border-2">
                 <div class="modal-body">
-                    Le trajet a bien été supprimé.
+                    Votre profil a bien été modifié.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=trajet&methode=listerMesTrajets';">OK</button>
+                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=etudiant&methode=afficher';">OK</button>
                 </div>
             </div>
         </div>

@@ -49,18 +49,26 @@ class ControllerEtudiant extends Controller{
 
         echo $template->render($twig_params);
 
-    }
+        if(isset($_GET['action'])){
+            if($_GET['action'] == "modifier"){
+                $modele = $_POST['modele'];
+                $modele = $_POST['marque'];
+                $modele = $_POST['nbPlace'];
 
-    public function modifier(){
-        
-        $num_etudiant = $_SESSION['id'];
-        $managerEtudiant = new EtudiantDao($this->getPdo());
-        $etudiant = $managerEtudiant->find($num_etudiant);
-        $twig_params = array('etudiant' => $etudiant);
+                // On regarde si la voiture de départ existe, si ce n'est pas le cas on l'insere dans la bd
+                if (!$managerVoiture->existe($modele, $marque, $nbPlace)) {
+                    $managerVoiture->insert($modele, $marque, $nbPlace);
+                }
 
-        $template = $this->getTwig()->load('modifierProfil.html.twig');
+                // Récupération du numéro de voiture à partir des autres colonnes
+                $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
 
-        echo $template->render($twig_params);
+                $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $_POST['numero_voiture'], $_POST['photoProfil']);
+
+                echo "<div id=modalTriggerModif></div>";
+            }
+        }
+
     }
     
 }

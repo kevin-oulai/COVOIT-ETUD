@@ -72,4 +72,15 @@ class VoitureDao {
 
         return $voiture;
     }
+
+    public function findNum(?int $modele = null,?string $marque = null,?string $nbPlace = null): int
+    {
+        $sql="SELECT numero FROM VOITURE WHERE modele= :modele AND marque= :marque AND nbPlace= :nbPlace";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":modele"=>$modele, ":marque"=>$marque, ":nbPlace"=>$nbPlace));
+        $pdoStatement->setFetchMode(PDO::FETCH_NUM);
+        $num = $pdoStatement->fetch()[0];
+
+        return $num;
+    }
 }
