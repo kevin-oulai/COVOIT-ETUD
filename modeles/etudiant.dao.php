@@ -145,7 +145,8 @@ class EtudiantDao
             return true;
         }
         return false;
-
+    }
+    
     public function verifMail(string $mail): bool
     {
         $resul = false;
