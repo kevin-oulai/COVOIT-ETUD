@@ -26,3 +26,5 @@ $twig->addExtension(new IntlExtension());
 
 // Ajout de variables globales
 $twig->addGlobal('STATUS', $GLOBALS['STATUS']);
+$twig->addGlobal('CONDUCTEUR', $GLOBALS['CONDUCTEUR']);
+$twig->addGlobal('CLIENT', $GLOBALS['CLIENT']);

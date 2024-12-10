@@ -70,23 +70,28 @@ class ControllerTrajet extends Controller{
 
     public function listerParticipations(){
         $numero_etudiant = $_SESSION['id'];
+
         $managerTrajet = new TrajetDao($this->getPdo());
         $listeTrajets = $managerTrajet->findAllByPassager($numero_etudiant);
 
         $managerLieu = new LieuDao($this->getPdo());
         $listeLieux = $managerLieu->findAllAssoc();
 
+        $managerEtudiant = new EtudiantDao($this->getPdo());
+        $listeEtudiants = $managerEtudiant->findAllAssoc();
+
         $template = $this->getTwig()->load('mesParticipations.html.twig');
         echo $template->render(array(
             'listeTrajets' => $listeTrajets,
-            'lieux' => $listeLieux
+            'lieux' => $listeLieux,
+            'etudiants' => $listeEtudiants
         ));
 
         if(isset($_GET['action'])){
             if($_GET['action'] == "poster"){
                 $concerne = $managerTrajet->getConducteur($_GET['id']);
                 $commentateur = $_SESSION['id'];
-                $datePost = date("Y-m-d");
+                $datePost = date("Y-m-d h:i:s");
                 $managerAvis = new AvisDao($this->getPdo());
                 $managerAvis->insert($datePost, $_POST['message'], $_POST['note'], $concerne, $commentateur);
                 echo "<div id=modalTrigger></div>";
@@ -95,23 +100,9 @@ class ControllerTrajet extends Controller{
     }
 
     public function rechercher(){
-        $managerEtudiant = new EtudiantDao($this->getPdo());
-        $etudiant = $managerEtudiant->find(1);
-
-        $connected = false;
-        $conducteur = false;
-
-        if (isset($_SESSION['login']) || isset($_SESSION['pwd'])) {
-            $connected = true;
-            if ($_SESSION['voiture'] != null){
-                $conducteur = true;
-            }
-        }
 
         $template = $this->getTwig()->load('index.html.twig');
         echo $template->render(array(
-            'conducteur' => $conducteur,
-            'connected' => $connected
         ));
     }
 
