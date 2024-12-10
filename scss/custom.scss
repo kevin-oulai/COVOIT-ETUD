@@ -27,10 +27,10 @@ $spacer: 50px;
   background: linear-gradient($direction, $color-stops);
 }
 
-@font-face {
-  font-family: 'Heavitas';
-  src: url("font/Heavitas.ttf") format('truetype');
-}
+// @font-face {
+//   font-family: 'Heavitas';
+//   src: url("font/Heavitas.ttf") format('truetype');
+// }
 
 //
 // Gradient system
@@ -68,9 +68,9 @@ $gradients: map-merge((
   color: $primary;
 }
 
-body{
-  font-family: 'Heavitas', sans-serif;
-}
+// body{
+//   font-family: 'Heavitas', sans-serif;
+// }
 
 .bg-light{background: #eaeaea;
 
