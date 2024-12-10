@@ -12112,7 +12112,7 @@ body {
   transition: all 0.1s ease-in-out;
 }
 
-.card:hover {
+.hover:hover {
   scale: 1.01;
 }
 
@@ -12123,6 +12123,7 @@ body {
 .card .btn-secondary:hover {
   scale: 1.05;
 }
+
 .card .btn-danger {
   transition: all 0.1s ease-in-out;
 }
@@ -12133,7 +12134,8 @@ body {
 
 .modal {
   backdrop-filter: blur(1px);
-  
+}
+
 .listeTrajet2 {
   display: inline-block;
   margin-left: 200px;
@@ -12153,13 +12155,12 @@ body {
 }
 
 .formulaireFiltre {
-  position: fixed;
   border-radius: 30px;
   border: solid;
   right: 80px;
   top: 150px; /* distance depuis le haut de la page */
   width: 300px; /* largeur du rectangle */
-  height: 500px; /* hauteur initiale */
+  height: auto; /* hauteur initiale */
   background-color: rgb(211, 211, 211); /* couleur du rectangle */
   z-index: 1000; /* s'assure que le rectangle reste au-dessus des autres éléments */
 }
@@ -12200,6 +12201,12 @@ body {
 
 .btn-danger:hover {
   background-color: #d37070;
+}
+
+.pdp-sm {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
 }
 
 /*# sourceMappingURL=styles.css.map */

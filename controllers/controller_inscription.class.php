@@ -7,13 +7,7 @@ class ControllerInscription extends Controller{
 
     public function afficher(){
             $template = $this->getTwig()->load('inscription.html.twig');
-
             echo $template->render(array(
-            ));     
-
+            ));
    }
-
-
-
-    
 }

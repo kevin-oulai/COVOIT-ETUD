@@ -3,8 +3,21 @@
     <h1 class="text-center mt-5 fs-1 fw-bold">Vos participations</h1>
     <div class="container mt-5 text-center">
         {% for trajet in listeTrajets %}
-            <div class="card mt-3 bg-gradient-secondary shadow">
+            <div class="card mt-3 bg-gradient-secondary hover shadow">
                 <div class="card-body">
+                    <div class="btn-toolbar justify-content-between right">
+                        <div class="btn-group">
+                            {% for etudiant in etudiants %}
+                                {% if etudiant.numero == trajet.numero_conducteur %}
+                                    <a class="text-decoration-none" href="index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}">
+                                    <img class="pdp-sm" src="images/{{ etudiant.photoProfil }}">
+                                    <p class="card-title fs-5 btn-group ms-2 mt-2" style="color: black;">{{ etudiant.prenom }} {{ etudiant.nom }}</p>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <hr>
                     <div class="btn-toolbar justify-content-between">
                         <div class="btn-group">
                             {% for lieu in lieux %}

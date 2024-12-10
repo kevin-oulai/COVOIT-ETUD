@@ -6,7 +6,7 @@ class ControllerEtudiant extends Controller{
     }
 
     public function afficher(){
-        $num_etudiant = $_SESSION['id'];
+        $num_etudiant = $_GET['id'];
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $etudiant = $managerEtudiant->find($num_etudiant);
         $twig_params = array('etudiant' => $etudiant);
