@@ -65,6 +65,7 @@ $gradients: map-merge((
 @import "../node_modules/bootstrap/scss/buttons";
 @import "../node_modules/bootstrap/scss/card";
 
+
 .mycolor {
   color: $primary;
 }
@@ -151,6 +152,7 @@ padding-right: ($spacer * 2.5);}
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
+
 .card{
   transition: all 0.1s ease-in-out;
 }
@@ -178,6 +180,7 @@ padding-right: ($spacer * 2.5);}
 
 .modal{
   backdrop-filter: blur(1px);
+
 
  
 .listeTrajet2{

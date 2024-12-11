@@ -11813,6 +11813,7 @@ textarea.form-control-lg {
   --bs-btn-border-radius: var(--bs-border-radius-sm);
 }
 
+
 .card {
   --bs-card-spacer-y: 1rem;
   --bs-card-spacer-x: 1rem;
@@ -12123,6 +12124,7 @@ body {
 .card .btn-secondary:hover {
   scale: 1.05;
 }
+
 .card .btn-danger {
   transition: all 0.1s ease-in-out;
 }
@@ -12133,6 +12135,7 @@ body {
 
 .modal {
   backdrop-filter: blur(1px);
+
   
 .listeTrajet2 {
   display: inline-block;
