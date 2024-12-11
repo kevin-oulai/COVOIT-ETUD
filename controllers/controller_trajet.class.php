@@ -99,6 +99,83 @@ class ControllerTrajet extends Controller{
         }
     }
 
+    public function listerMesTrajets(){
+        $template = $this->getTwig()->load('mesTrajets.html.twig');
+        $managerTrajet = new TrajetDao($this->getPdo());
+        $managerLieu = new LieuDao($this->getPdo());
+
+        $lieux = $managerLieu->findAllAssoc();
+
+        $listeMesTrajets = $managerTrajet->findAllByConducteur($_SESSION["id"]);
+        $listeDesReservations = $managerTrajet->getAllNombreReservations();
+        echo $template->render(array(
+            "listeTrajets" => $listeMesTrajets,
+            "lieux" => $lieux,
+            "listeReservations" => $listeDesReservations
+        ));
+
+        if(isset($_GET['action'])){
+            if($_GET['action'] == "supprimer"){
+                $managerTrajet->delete($_GET['id']);
+                echo "<div id=modalTriggerSuppr></div>";
+            }
+            elseif ($_GET['action'] == "modifier"){
+
+                $lieuDepart = $_POST["lieu_depart"];
+                $lieuArrivee = $_POST["lieu_arrivee"];
+
+                $expLieuDepart = explode(" ", $lieuDepart);
+                $expLieuArrivee = explode(" ", $lieuArrivee);
+
+                // On récupere le numéro de rue qui est le premier élément de la liste explosée de l'adresse
+                $numRueDep = $expLieuDepart[0];
+                $numRueArr = $expLieuArrivee[0];
+
+                // On récupere la ville qui est le dernier élément de la liste explosée de l'adresse
+                $villeDep = $expLieuDepart[sizeof($expLieuDepart) - 1];
+                $villeArr = $expLieuArrivee[sizeof($expLieuArrivee) - 1];
+
+                //Initialisation des noms de rue
+                $nomRueDep = "";
+                $nomRueArr = "";
+
+                // On parcours et concatene toutes les parties de l'adresse sauf le numéro de rue et la ville pour avoir uniquement le nom de rue
+                foreach ($expLieuDepart as $part) {
+                    if ($part != $numRueDep && $part != $villeDep && $part) {
+                        $nomRueDep .= $part . " ";
+                    }
+                }
+                foreach ($expLieuArrivee as $part) {
+                    if ($part != $numRueArr && $part != $villeArr) {
+                        $nomRueArr .= $part . " ";
+                    }
+                }
+
+                // On retire une virgule parasite
+                $nomRueDep = substr($nomRueDep, 0, strlen($nomRueDep) - 2);
+                $nomRueArr = substr($nomRueArr, 0, strlen($nomRueArr) - 2);
+
+                // On regarde si le lieu de départ existe, si ce n'est pas le cas on l'insere dans la bd
+                if (!$managerLieu->existe($numRueDep, $nomRueDep, $villeDep)) {
+                    $managerLieu->insert($numRueDep, $nomRueDep, $villeDep);
+                }
+
+                // On regarde si le lieu d'arrivée existe, si ce n'est pas le cas on l'insere dans la bd
+                if (!$managerLieu->existe($numRueArr, $nomRueArr, $villeArr)) {
+                    $managerLieu->insert($numRueArr, $nomRueArr, $villeArr);
+                }
+
+                // Récupération des numéros de trajet à partir des autres colonnes
+                $numero_lieu_depart = $managerLieu->findNum($numRueDep, $nomRueDep, $villeDep);
+                $numero_lieu_arrivee = $managerLieu->findNum($numRueArr, $nomRueArr, $villeArr);
+
+                $managerTrajet->update($_GET['id'],$_POST['heureDep'], $_POST['heureArr'], $_POST['prix'], $_POST['dateDep'], $numero_lieu_depart, $numero_lieu_arrivee);
+
+                echo "<div id=modalTriggerModif></div>";
+            }
+        }
+    }
+
     public function rechercher(){
 
         $template = $this->getTwig()->load('index.html.twig');
