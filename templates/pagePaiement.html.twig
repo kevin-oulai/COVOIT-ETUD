@@ -7,7 +7,7 @@
 				<div class="card-body">
 					<h5 class="card-title text-center">Formulaire de paiement</h5>
 					<div class="card-text">
-						<form action="paiement" method="post" onsubmit="return verifFormulaire()">
+						<form action="paiement.php" method="post" onsubmit="return verifFormulaire()">
 							<div class="row gx-2">
 								<div class="col">Nom
 									<input type="text" class="form-control" name="nom" placeholder="..." required/>
@@ -48,13 +48,119 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
 		<script>
+		    // Auto-formatage des champs de saisie
 			$(document).ready(function () {
 				$('input[name="num_carte"]').mask('0000 0000 0000 0000');
 				$('input[name="date_exp"]').mask('00/00');
 				$('input[name="cvc"]').mask('000');
 			});
+
+			// Vérification sur le formulaire
+				// Vérification de la date d'expiration // Format de la date : MM/AA
+			function verifDate() {
+				// VARIABLES
+				let dateExp = $('input[name="date_exp"]').val(); // Récupération de la date d'expiration
+
+				// TRAITEMENTS
+				// Récupération du mois et de l'année
+				let mois = parseInt(dateExp.substring(0, 2));
+				let annee = parseInt(dateExp.substring(3, 5));
+
+				// Récupération de la date actuelle
+				let dateActuelle = new Date();
+				let moisActuel = dateActuelle.getMonth() + 1;
+				let anneeActuelle = dateActuelle.getFullYear() % 100;
+
+				// RÉSULTAT
+				if (annee > anneeActuelle || (annee == anneeActuelle && mois >= moisActuel)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+				// Vérification de la validité du numéro de carte
+			function verifNumeroCarte() {
+				/*  
+					Il est possible de vérifier vous-même si votre numéro de carte bancaire est valide. Pour ce faire, il suffit de réaliser le calcul suivant :
+					Notez la suite de chiffres de votre numéro de carte bancaire.
+					En partant de l’avant-dernier chiffre de votre carte et en repartant vers le premier chiffre, multipliez par deux un numéro sur deux.
+					Une fois cela fait, additionnez les nouveaux chiffres trouvés avec ceux que vous n’avez pas doublés. Et si un chiffre est supérieur à 9, 
+					vous devrez additionner le chiffre des dizaines et le chiffre des unités (15 = 1+5).
+					Si vous obtenez un nombre divisible par 10, cela signifie alors que le numéro de votre carte bancaire est valide.
+				*/
+				
+				// VARIABLES
+				let numCarte = $('input[name="num_carte"]').val(); // Récupération du numéro de carte
+				let numCarteSansEspace = numCarte.replace(/\s/g, ''); // Suppression des espaces
+				let numCarteArray = numCarteSansEspace.split(''); // Transformation en tableau
+				let numCarteArrayReverse = numCarteArray.reverse(); // Inversion du tableau
+				let somme = 0; // Initialisation de la somme
+
+				// TRAITEMENTS
+				// Parcours du tableau
+				for (let i = 0; i < numCarteArrayReverse.length; i++) {
+					// Si l'indice est impair
+					if (i % 2 == 1) {
+						let chiffre = parseInt(numCarteArrayReverse[i]) * 2; // Doublage du chiffre
+
+						// Si le chiffre est supérieur à 9
+						if (chiffre > 9) {
+							chiffre = chiffre - 9; // On soustrait 9
+						}
+
+						// Ajout du chiffre à la somme
+						somme += chiffre;
+					} else { 
+						// Ajout du chiffre à la somme
+						somme += parseInt(numCarteArrayReverse[i]);
+					}
+				}
+
+				// RÉSULTAT
+				if (somme % 10 == 0) { // Si la somme est divisible par 10
+					return true;
+				} else { // Sinon
+					return false;
+				}
+			}
+
+			// Vérification du formulaire
+			function verifFormulaire() {
+				let erreurDate = verifDate();
+				let erreurNumeroCarte = verifNumeroCarte();
+
+				let msgErreur = "Erreurs :\n";
+
+				if (erreurDate && erreurNumeroCarte) {
+					return true;
+
+				} else {
+					if (!erreurDate) {
+						msgErreur += "\tLa date d'expiration de la carte est dépassée !\n";
+					}
+
+					if (!erreurNumeroCarte) {
+						console.log($('input[name="num_carte"]').val());
+						msgErreur += "\tLe numéro de carte bancaire n'est pas valide !\n";
+					}
+
+					alert(msgErreur);
+					return false;
+				}
+			}
+
 		</script>
 	{% else %}
-		<p>Vous devez être connecté pour accéder à cette page.</p>
+		<div class="container d-flex justify-content-center">
+			<div class="card" style="max-width: 18rem;">
+				<div class="card-header">Accès refusé !</div>
+				<div class="card-body">
+					<h5 class="card-title">Avertissement</h5>
+					<p class="card-text">Vous devez être connecté pour utiliser cette option.</p>
+					<a href="connexion.php" class="btn btn-primary">Se connecter</a>
+				</div>
+			</div>
+		</div>
 	{% endif %}
 {% endblock %}
