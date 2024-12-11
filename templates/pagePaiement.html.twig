@@ -1,48 +1,60 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-
 	<h1>Page de paiement</h1>
+	{% if STATUS == 'connected' %}
+		<div class="container d-flex justify-content-center">
+			<div class="card" style="width: 32rem">
+				<div class="card-body">
+					<h5 class="card-title text-center">Formulaire de paiement</h5>
+					<div class="card-text">
+						<form action="paiement" method="post" onsubmit="return verifFormulaire()">
+							<div class="row gx-2">
+								<div class="col">Nom
+									<input type="text" class="form-control" name="nom" placeholder="..." required/>
+								</div>
+								<div class="col">Prénom
+									<input type="text" class="form-control" name="prenom" placeholder="..." required/>
+								</div>
+							</div>
 
-	<div class="container d-flex justify-content-center">
-		<div class="card" style="width: 32rem">
-			<div class="card-body">
-				<h5 class="card-title text-center">Formulaire de paiement</h5>
-				<div class="card-text">
-					<form>
-						<div class="row gx-2">
-							<div class="col">Nom
-								<input type="text" class="form-control" name="nom" placeholder="..." required/>
+							<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
+								<div class="col">Numéro de carte
+									<input type="text" class="form-control" name="num_carte" placeholder="..." pattern="[^a-zA-Z]+" size="17" minlength="16" maxlength="16" required/>
+								</div>
 							</div>
-							<div class="col">Prénom
-								<input type="text" class="form-control" name="prenom" placeholder="..." required/>
-							</div>
-						</div>
 
-						<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-							<div class="col">Numéro de carte
-								<input type="text" class="form-control" name="num_carte" placeholder="..." pattern="[^a-zA-Z]+" size="17" minlength="16" maxlength="16" required/>
+							<div class="row gx-2">
+								<div class="col">Date d'expiration
+									<input type="text" class="form-control" name="date_exp" placeholder="../.." pattern="\d{2}\/\d{2}" class="form-control" required/>
+								</div>
+								<div class="col">CVC
+									<input type="text" class="form-control" name="cvc" placeholder="..." pattern="[^a-zA-Z]+" size="4" minlength="3" maxlength="3" required/>
+								</div>
 							</div>
-						</div>
 
-						<div class="row gx-2">
-							<div class="col">Date d'expiration
-								<input type="text" class="form-control" name="date_exp" placeholder="../.." pattern="\d{2}\/\d{2}" class="form-control" required/>
+							<div class="card-body text-center">
+								<img class="card-img-bottom" src="images/cb.png" style="width: 95%;">
 							</div>
-							<div class="col">CVC
-								<input type="text" class="form-control" name="cvc" placeholder="..." pattern="[^a-zA-Z]+" size="4" minlength="3" maxlength="3" required/>
+							<div class="text-center">
+								<input type="submit" class="btn btn-primary" value="Valider">
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
 			</div>
-			<div class="card-body text-center">
-				<img class="card-img-bottom" src="images/cb.png" style="width: 90%;">
-			</div>
-			<div class="card-footer text-center">
-				<input type="submit" class="btn btn-primary" value="Valider">
-			</div>
 		</div>
-	</div>
+		{# Importation de JQuery pour la mise en forme automatique de l'entrée utilisateur (masque) #}
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
-
+		<script>
+			$(document).ready(function () {
+				$('input[name="num_carte"]').mask('0000 0000 0000 0000');
+				$('input[name="date_exp"]').mask('00/00');
+				$('input[name="cvc"]').mask('000');
+			});
+		</script>
+	{% else %}
+		<p>Vous devez être connecté pour accéder à cette page.</p>
+	{% endif %}
 {% endblock %}
