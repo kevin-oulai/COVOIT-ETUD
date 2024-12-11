@@ -157,9 +157,10 @@ padding-right: ($spacer * 2.5);}
   transition: all 0.1s ease-in-out;
 }
 
-.card:hover{
+.hover:hover{
   scale: 1.01;
 }
+
 
 .card .btn-secondary{
   transition: all 0.1s ease-in-out;
@@ -178,9 +179,9 @@ padding-right: ($spacer * 2.5);}
   scale: 1.05;
 }
 
-.modal{
+.modal {
   backdrop-filter: blur(1px);
-
+}
 
  
 .listeTrajet2{
@@ -248,4 +249,10 @@ padding-right: ($spacer * 2.5);}
 
 .btn-danger:hover{
   background-color: #d37070;
+}
+
+.pdp-sm{
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
 }

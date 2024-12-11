@@ -15,6 +15,12 @@
         </ul>
         <div class="container-fluid w-100 nav-item justify-content-md-end">
             {% if STATUS == 'connected' %}
+                <a href="?controleur=trajet&methode=listerParticipations" class="me-5">Mes participations</a>
+                {% if CONDUCTEUR == 'true' %}
+                    <a href="?controleur=trajet&methode=listerParticipations" class="me-5">Mes trajets</a>
+                {% endif %}
+                <p class="row me-3 mt-3">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p>
+                <a href="index.php?controleur=etudiant&methode=afficher&id={{ CLIENT.numero }}" class = "row"><img src="images/{{ CLIENT.photoProfil }}" width="70" height="70" style="border-radius: 100%;"></a>
                 <p class="row me-3 mt-3">Username</p>
                 <a href="index.php?controleur=etudiant&methode=afficher" class = "row"><img src="images/profilePicture.jpg" width="70" height="70"></a>
             {% else %}
