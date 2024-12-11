@@ -11,7 +11,87 @@ class ControllerTrajet extends Controller{
     }
 
     public function lister(){
-        echo "lister les trajets";
+
+
+        $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
+        if ($criteria === '') {
+                $depart = $_POST['depart'];
+                $_SESSION["depart"]=$depart;
+                $arrivee = $_POST['arrivee'];
+                $_SESSION["arrivee"]=$arrivee;
+                $date = $_POST['date'];
+                $_SESSION["date"]=$date;
+                $nbPassager = $_POST['nombre_passagers'];
+                $_SESSION["nombre_passagers"]=$nbPassager;
+            } 
+
+        $managerLieu = new LieuDao($this->getPdo());
+        $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
+        $numTrajet2 = $managerLieu->findNumByVille($_SESSION["arrivee"]);
+        $listeNum1="(";
+        $listeNum2="(";
+        
+        foreach($numTrajet1 as $num1)
+        {
+            $listeNum1 = $listeNum1 . $num1['numero'] . ", ";
+            
+        }
+        $listeNum1 = substr($listeNum1, 0, -2);
+        $listeNum1 = $listeNum1 . ")";
+        foreach($numTrajet2 as $num2)
+        {
+            $listeNum2 = $listeNum2 . $num2['numero'] . ", ";
+            
+        }
+        $listeNum2 = substr($listeNum2, 0, -2);
+        $listeNum2 = $listeNum2 . ")";
+        
+        $managerTrajet = new TrajetDao($this->getPdo());
+        //$listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $date, $nbPassager);
+        if ($criteria === '') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $infoFiltre = "departTot";
+        }elseif ($criteria === 'departTot') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $infoFiltre = "departTot";
+        } elseif ($criteria === 'prixBas') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $infoFiltre = "PrixBas";
+        }
+        $template = $this->getTwig()->load('pageTrajets.html.twig');
+        
+        echo $template->render(array(
+            'listeTrajet' => $listeTrajet,
+            'infoFiltre' => $infoFiltre
+        ));
+        
+   
+    }
+
+    public function listerParticipations(){
+        $numero_etudiant = $_SESSION['id'];
+        $managerTrajet = new TrajetDao($this->getPdo());
+        $listeTrajets = $managerTrajet->findAllByPassager($numero_etudiant);
+
+        $managerLieu = new LieuDao($this->getPdo());
+        $listeLieux = $managerLieu->findAllAssoc();
+
+        $template = $this->getTwig()->load('mesParticipations.html.twig');
+        echo $template->render(array(
+            'listeTrajets' => $listeTrajets,
+            'lieux' => $listeLieux
+        ));
+
+        if(isset($_GET['action'])){
+            if($_GET['action'] == "poster"){
+                $concerne = $managerTrajet->getConducteur($_GET['id']);
+                $commentateur = $_SESSION['id'];
+                $datePost = date("Y-m-d");
+                $managerAvis = new AvisDao($this->getPdo());
+                $managerAvis->insert($datePost, $_POST['message'], $_POST['note'], $concerne, $commentateur);
+                echo "<div id=modalTrigger></div>";
+            }
+        }
     }
 
     public function listerMesTrajets(){

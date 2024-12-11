@@ -11,29 +11,31 @@
 <div class="d-flex justify-content-center align-items-center" style="height: 600px">
 <div class="login-container align-right" style="width: 350px;">
     <h2 class="text-center">Inscription</h2>
-    <form ACTION='index.php?controleur=inscription&methode=ajoutBD' METHOD='POST'>
+    <form ENCTYPE='multipart/form-data' ACTION='inscription.php' METHOD='POST'>
     <div class="row">
                   <div class="col-md-6 mb-4">
                     <div data-mdb-input-init class="form-outline">
                       <label>Nom</label>
-                      <input type="text" name="Nom" class="form-control" placeholder="Nom" required/>
+                      <input type="text" name="Nom" class="form-control" placeholder="Ex : Dupont" required/>
                     </div>
                   </div>
                     <div class="col-md-6 mb-4">
                     <div data-mdb-input-init class="form-outline">
                       <label>Prenom</label>
-                      <input type="text" name="Prenom" class="form-control" placeholder="Prenom" required/>
+                      <input type="text" name="Prenom" class="form-control" placeholder="Ex : Jean" required/>
                     </div>
                   </div>
                 </div>
         <label> Adresse Mail</label>
-        <input name="mail" type="email" class="form-control mb-3" placeholder="Adresse mail" required>
+        <input name="mail" type="email" class="form-control mb-3" placeholder="Ex : exemple@gmail.com" required>
         <label> Numéro de téléphone</label>
-        <input type="tel" name="tel" class="form-control mb-3" name="phone" pattern="[0-9]{10}" placeholder="Numero de téléphone" required />
+        <input type="tel" name="tel" class="form-control mb-3" name="phone" pattern="[0-9]{10}"  minlength=10 maxlength=10 placeholder="Ex : 0558915764" required />
         <label> Date de naissance</label>
         <input name="dateNaiss" type="date" class="form-control mb-3" placeholder="Date de naissance" required>
         <label>Mot de passe</label>
         <input name="pwd" type="password" class="form-control mb-3" placeholder="Mot de passe" required>
+        <label>Choisir une photo de profil</label>
+        <input name="image" type="file" class="form-control mb-3" placeholder="choisir une photo de profil" accept="image/*">
         <div class="text-center">
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" style='backdrop-filter: blur(2px)' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

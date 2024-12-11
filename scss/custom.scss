@@ -63,6 +63,8 @@ $gradients: map-merge((
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootstrap/scss/modal";
 @import "../node_modules/bootstrap/scss/buttons";
+@import "../node_modules/bootstrap/scss/card";
+
 
 .mycolor {
   color: $primary;
@@ -130,7 +132,7 @@ padding-right: ($spacer * 2.5);}
 .ms-xxl {margin-left: ($spacer * 15);}
 
 .btn-search{width: 50px;
-border: none;
+  border: none;
   background: #6aaa6a;
 }
 
@@ -171,10 +173,79 @@ border: none;
   transition: all 0.1s ease-in-out;
 }
 
+
 .card .btn-danger:hover{
   scale: 1.05;
 }
 
 .modal{
   backdrop-filter: blur(1px);
+
+
+ 
+.listeTrajet2{
+  display: inline-block;
+  margin-left: 200px;
+}
+
+.boutonCarteTrajet{
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%;
+}
+
+.carteTrajet{
+  width: 1300px; 
+  margin-left: 75px;
+  margin-top: 50px;
+}
+
+.formulaireFiltre {
+  border-radius: 30px;
+  border: solid;
+  right: 80px;
+  top: 150px; /* distance depuis le haut de la page */
+  width: 300px; /* largeur du rectangle */
+  height: auto; /* hauteur initiale */
+  background-color: rgb(211, 211, 211); /* couleur du rectangle */
+  z-index: 1000; /* s'assure que le rectangle reste au-dessus des autres éléments */
+}
+
+.form-check{
+  display: flex;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.btn-close{
+  background-color: #6c0101;
+}
+
+.btn-close:hover{
+  background-color: #490101;
+}
+
+.btn-secondary{
+  background-color: #719bff;
+}
+
+.btn-danger{
+  background-color: #ea9c9c;
+}
+
+.btn-success{
+  background: #6aaa6a;
+}
+
+.btn-success:hover{
+  background: #538f53;
+}
+
+.btn-secondary:hover{
+  background-color: #6e92e6;
+}
+
+.btn-danger:hover{
+  background-color: #d37070;
 }

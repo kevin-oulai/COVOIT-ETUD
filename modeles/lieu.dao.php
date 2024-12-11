@@ -123,4 +123,14 @@ class LieuDao{
         return $lieux;
     }
 
+    public function findNumByVille(string $ville): ?array
+    {
+        $sql="SELECT numero FROM LIEU WHERE ville= :ville";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":ville"=>$ville));
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $lieu = $pdoStatement->fetchAll();
+
+        return $lieu;
+    }
 }

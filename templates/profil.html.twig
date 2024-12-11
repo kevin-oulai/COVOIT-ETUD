@@ -3,72 +3,94 @@
 <div class="container" style="height: 600px">
     <div class="login-container align-right">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item"><h2 class="text-center">Profil</h2>
+            <li class="list-group-item" style="background-color: rgba(0,0,0,0);"><h2 class="text-center">Profil</h2>
                 <div class ="text-center">
                 <a href="modifierProfil.php" class = "btn btn-primary align-center">Modifier mon profil</a>
             </li>
                 </div>
-            <div class="container overflow-hidden">
-                <div class="row gx-5">
-                    <div class="col-1">
-                        <img src = "images/photoProfilParDefaut.png" width="100" height="100">
-                    </div>
-                    <div class="col-11">
-                        <li class="list-group-item"><h4>A Propos de vous</h4>
-                        <div class="row gx-3">
-                            <div class="col-4">Nom : </div><br>
-                            <div class="col-4">Prenom : </div><br>
-                            <div class="col-4">Date de naissance : </div></li>
-                            <div>
-                                <li class="list-group-item"><h4>Informations personnelles</h4>
-                                <div class="row gx-3">
-                                    <div class="col-4">Adresse mail : <br></div>
-                                    <div class="col-4">Numero de téléphone : </div>
-                                </li>
+            <form action="index.php?controleur=etudiant&methode=afficher" class="input-group">
+                <div class="container overflow-hidden">
+                    <div class="row gx-5">
+                        <div class="col-1">
+                            <img src = "imagesgir/{{etudiant.photoProfil}}" width="100" height="100">
+                        </div>
+                        <div class="col-11">
+                            <li class="list-group-item"><h4>A Propos de vous</h4>
+                            <div class="row gx-3">
+                                <div class="col-4">Nom : {{etudiant.nom}}</div><br>
+                                <div class="col-4">Prenom : {{etudiant.prenom}}</div><br>
+                                <div class="col-4">Date de naissance : {{etudiant.dateNaiss}}</div><br><br>
+                                {% if nbTrajet is defined %}
+                                    <div class="col-4">Nombre de trajets total : {{nbTrajet}}</div></li>
+                                {% else %}
+                                    <div class="col-4">Vous n'avez pas effectué de trajets.</div></li>
+                                {% endif %}
+                                <div>
+                                    <br><li class="list-group-item"><h4>Informations personnelles</h4>
+                                    <div class="row gx-3">
+                                        <div class="col-4">Adresse mail : {{etudiant.adresseMail}}<br></div>
+                                        <div class="col-4">Numero de téléphone : {{etudiant.numTelephone}}</div>
+                                    </li>
+                                    </div><br>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="container overflow-hidden">
-                        <div class="row gx-5">
-                            <div class="col-6">
-                                <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
-                                    Nom : <br>
-                                    Marque : <br>
-                                    Nombre de places : <br>
-                                    Nombre de trajets faits avec : </div>
+                        <div class="container overflow-hidden">
+                            <div class="row gx-5">
+                                <div class="col-6">
+                                    <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
+                                        {% if voiture is defined %}
+                                            Nom : {{voiture.modele}}<br>
+                                            Marque : {{voiture.marque}}<br>
+                                            Nombre de places : {{voiture.nbPlace}}
+                                        {% else %}
+                                            <h6 class=" text-center">Vous n'avez pas de voiture.</h6>
+                                        {% endif %}
+                                    </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
-                                        <img src = "images/photoProfilParDefaut.png" width="70" height="70"> <br>
-                                        *Titre*
+                                        {% if badge is defined %}
+                                            <img src = "{{badge.image}}" width="60" height="60"> <br>
+                                            {{badge.titre}}
+                                        {% else %}
+                                            <h6 class=" text-center">Vous ne possédez pas de badge.</h6>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
                                         <div class="row gx-5">
-                                            <div class="col-5">
-                                                Le *date* à *heure*<br>
-                                                Pour le conducteur : <br>
-                                                Note : 
-                                            </div>
-                                            <div class="col-7">
-                                                Message : 
-                                            </div>
+                                            {% if avis is defined or etudiantConcerne is defined %}
+                                                <div class="col-5">
+                                                    Le *date* à *heure*<br>
+                                                    Pour le conducteur :<br>{{etudiantConcerne.nom}} {{etudiantConcerne.prenom}}<br>
+                                                    Note : {{avisDonnes.note}}
+                                                </div>
+                                                <div class="col-7">
+                                                    Message : {{avisDonnes.message}}
+                                                </div>
+                                            {% else %}
+                                                <h6 class=" text-center">Vous n'avez pas donné d'avis.</h6>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
                                         <div class="row gx-5">
+                                            {% if avis is defined or etudiantCommentateur is defined %}
                                             <div class="col-5">
                                                 Le *date* à *heure*<br>
-                                                Pour le conducteur : <br>
-                                                Note : 
+                                                Par le passager :<br>{{etudiantCommentateur.nom}} {{etudiantCommentateur.prenom}}<br>
+                                                Note : {{avisReçus.note}}
                                             </div>
                                             <div class="col-7">
-                                                Message : 
+                                                Message : {{avisReçus.message}}
                                             </div>
+                                            {% else %}
+                                                <h6 class=" text-center">Vous n'avez pas reçu d'avis.</h6>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -76,8 +98,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </form>
         </ul>
 
     </div>

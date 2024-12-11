@@ -53,7 +53,7 @@ class EtudiantDao
      * @param int $numero
      * @return Etudiant
      */
-    public function find(int $numero): Etudiant
+    public function find(?int $numero): ?Etudiant
     {
         $sql="SELECT * FROM ETUDIANT WHERE numero= :numero";
         $pdoStatement = $this->PDO->prepare($sql);
@@ -63,6 +63,88 @@ class EtudiantDao
 
         return $etudiant;
     }
+
+    public function findConcerneParAvis(?int $numero_commentateur): ?Etudiant
+    {
+        $sql="SELECT * FROM ETUDIANT E JOIN AVIS A ON E.NUMERO = A.NUMERO_CONCERNE WHERE numero_commentateur= :numero_commentateur";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":numero_commentateur"=>$numero_commentateur));
+        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
+        $etudiant = $pdoStatement->fetch();
+
+        return $etudiant;
+    }
+
+    public function findCommentateurDAvis(?int $numero_concerne): ?Etudiant
+    {
+        $sql="SELECT * FROM ETUDIANT E JOIN AVIS A ON E.NUMERO = A.NUMERO_COMMENTATEUR WHERE numero_concerne= :numero_concerne";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":numero_concerne"=>$numero_concerne));
+        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
+        $etudiant = $pdoStatement->fetch();
+
+        return $etudiant;
+    }
+
+    public function findNbTrajets(?int $numero_etudiant): ?INT
+    {
+        $sql="SELECT COUNT(T.NUMERO) FROM TRAJET T JOIN ETUDIANT E ON T.NUMERO_CONDUCTEUR = E.NUMERO WHERE E.numero= $numero_etudiant";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        $nbTrajet = $pdoStatement->fetchColumn();
+
+        return $nbTrajet;
+    }
+
+    public function possedeBadge(?int $numero_etudiant): ?bool
+    {
+        $sql="SELECT COUNT(numero_badge) FROM OBTENIR WHERE numero_etudiant = :numero ";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero", $numero_etudiant);
+        $pdoStatement->execute();
+        $count = $pdoStatement->fetch();
+        if ($count[0] > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function estConducteur(?int $numero_etudiant): ?bool
+    {
+        $sql="SELECT COUNT(numero) FROM ETUDIANT WHERE numero = :numero AND numero_voiture != NULL";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero", $numero_etudiant);
+        $pdoStatement->execute();
+        $count = $pdoStatement->fetch();
+        if ($count[0] > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function aPosteAvis(?int $numero_etudiant): ?bool
+    {
+        $sql="SELECT COUNT(numero) FROM AVIS WHERE numero_commentateur = :numero";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero", $numero_etudiant);
+        $pdoStatement->execute();
+        $count = $pdoStatement->fetch();
+        if ($count[0] > 0) {
+            return true;
+        }
+        return false;
+    }
+    public function aRecuAvis(?int $numero_etudiant): ?bool
+    {
+        $sql="SELECT COUNT(numero) FROM AVIS WHERE numero_concerne = :numero";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero", $numero_etudiant);
+        $pdoStatement->execute();
+        $count = $pdoStatement->fetch();
+        if ($count[0] > 0) {
+            return true;
+        }
+        return false;
 
     public function verifMail(string $mail): bool
     {
@@ -76,47 +158,32 @@ class EtudiantDao
         {
             $resul = true;
         }
-
         return $resul;
-
-
-
     }
 
-    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel,bool $resul)
+    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image)
     {
         $pdo = Bd::getInstance()->getConnexion();
         $query = "SELECT COUNT(numero) FROM ETUDIANT";
         $pdoStatement = $pdo->prepare($query);
         $pdoStatement->execute();
-        $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT); 
-        print($nbNum[0]);
+        $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
         $nbNum[0]++;
-        if(isset($_POST["Nom"]))
-        {
 
-            if ($resul == true)
-            {
-                $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'1',(?) )";
-                $pwd = password_hash($_POST["pwd"],PASSWORD_DEFAULT);
-            $date = date($_POST["dateNaiss"]);
-            $pdoStatement = $pdo->prepare($query);
-            $pdoStatement->bindValue(1, $nbNum[0], PDO::PARAM_INT);
-            $pdoStatement->bindValue(2, $_POST["Nom"], PDO::PARAM_STR);
-            $pdoStatement->bindValue(3, $_POST["Prenom"], PDO::PARAM_STR);
-            $pdoStatement->bindValue(4,  $date, PDO::PARAM_STR);
-            $pdoStatement->bindValue(5, $_POST["mail"], PDO::PARAM_STR);
-            $pdoStatement->bindValue(6, $_POST["tel"], PDO::PARAM_STR);
-            $pdoStatement->bindValue(7, $pwd, PDO::PARAM_STR);
-            $pdoStatement->execute();
-            echo "<meta http-equiv='refresh' content='0;url=connexion.php' />";
-            }
-            else
-            {
-                echo '<body onLoad="alert(\'Mail deja utilisé\')">';
-                // puis on le redirige vers la page d'accueil
-                echo '<meta http-equiv="refresh" content="0;URL=index.php?controleur=inscription&methode=afficher">';
-            }
-    }
+        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'1',(?),(?) )";
+
+        $pwd = password_hash($_POST["pwd"],PASSWORD_DEFAULT);
+        $date = date($_POST["dateNaiss"]);
+
+        $pdoStatement = $pdo->prepare($query);
+        $pdoStatement->bindValue(1, $nbNum[0], PDO::PARAM_INT);
+        $pdoStatement->bindValue(2, $nom, PDO::PARAM_STR);
+        $pdoStatement->bindValue(3, $prenom, PDO::PARAM_STR);
+        $pdoStatement->bindValue(4,  $date, PDO::PARAM_STR);
+        $pdoStatement->bindValue(5, $mail, PDO::PARAM_STR);
+        $pdoStatement->bindValue(6, $tel, PDO::PARAM_STR);
+        $pdoStatement->bindValue(7, $image, PDO::PARAM_STR);
+        $pdoStatement->bindValue(8, $pwd, PDO::PARAM_STR);
+        $pdoStatement->execute();
     }
 }

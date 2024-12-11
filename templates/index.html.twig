@@ -2,7 +2,7 @@
 {% block content %}
 
         <div class="px-5">
-            <form action="pageTrajets.php" method="post" class="input-group mt-xl px-xl" autocomplete="off">
+            <form action="?controleur=trajet&methode=lister" method="post" class="input-group mt-xl px-xl" autocomplete="off">
                 <input type="text" placeholder="Depart" name="depart" id="depart" class="form-control m-1 rounded" required>
                 <input type="text" placeholder="Arrivee" name="arrivee" id="arrivee" class="form-control m-1 rounded" required>
                 <input type="date" placeholder="Date" name="date" class="form-control m-1 rounded" required>
@@ -16,6 +16,7 @@
                 <a href="index.php?controleur=trajet&methode=listerMesTrajets">Voir mes trajets</a>
             {% endif %}
             <div class="text-align-left ps-xl-5 me-xxl container-fluid">
+                <a href="?controleur=trajet&methode=listerParticipations">Mes participations</a>
                 <div class="row">
                     <h1 class="fw-bolder fs-2 mb-3 col">Le saviez-vous ?</h1>
                 </div>

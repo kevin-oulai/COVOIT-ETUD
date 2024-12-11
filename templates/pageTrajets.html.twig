@@ -1,5 +1,51 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-    <h1>Page des trajets </h1>
-    <a href="index.php" class="btn btn-danger">Retour</a>
+    <div class="formulaireFiltre">
+        <form method="POST" action="?controleur=trajet&methode=lister">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="departTot" name="criteria" value="departTot" 
+                {% if infoFiltre == "departTot" %} checked {% endif %}
+                />
+                <label for="departTot">Départ le plus tôt</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="prixBas" name="criteria" value="prixBas" 
+                {% if infoFiltre == "PrixBas" %} checked {% endif %}
+                />
+                <label for="prixBas">Prix le plus bas</label>
+            </div>
+            <button style = "margin-left: 20px; margin-top: 20px;" type="submit" class = "mb-3">Appliquer</button>
+        </form>
+    </div>
+    {% for trajet in listeTrajet %}
+        <div class="card mt-3 bg-gradient-secondary shadow carteTrajet" >
+                <div class="card-body ">
+                    <div class="btn-toolbar justify-content-between">
+                        <div class="btn-group">
+                                <p class="card-title fs-4 btn-group">{{ trajet.numRueDep }} {{ trajet.nomRueDep }}, {{ trajet.villeDep }} → </p>
+                                <p class="card-title fs-4 btn-group">{{ trajet.numRueArr }} {{ trajet.nomRueArr }}, {{ trajet.villeArr }}</p>
+                            </div>
+                        <div class="input-group">
+                            <p class="card-title fs-4 btn-group">{{ trajet.heureDep }} - {{ trajet.heureArr }}</p>
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <p> le {{ trajet.dateDep }}</p>
+                    </div>
+
+                    <div class="btn-toolbar justify-content-between mt-5">
+                        <div class="btn-group">
+                            <p class="card-text fs-5">Nombre de places : {{ trajet.nbPlace }}</p>
+                        </div>
+                        <div class="input-group">
+                            <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : {{ trajet.prix }} €</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-align-right">
+                    <a href="#" class="btn btn-primary" style="display: inline;">Informations du trajet</a>
+                </div>
+            </div>
+            {% endfor %}
 {% endblock %}
