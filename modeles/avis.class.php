@@ -27,7 +27,7 @@ class Avis {
      * @brief Date de post de l'avis.
      * @var string|null
      */
-    private int|null $datePost;
+    private string|null $datePost;
     /**
      * @brief Message de l'avis.
      * @var string|null
