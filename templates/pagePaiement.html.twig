@@ -1,13 +1,13 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
 	<h1>Page de paiement</h1>
-	{% if STATUS == 'connected' %}
+	{# {% if STATUS == 'connected' %} #}
 		<div class="container d-flex justify-content-center">
 			<div class="card" style="width: 32rem">
 				<div class="card-body">
 					<h5 class="card-title text-center">Formulaire de paiement</h5>
 					<div class="card-text">
-						<form action="paiement.php" method="post" onsubmit="return verifFormulaire()">
+						<form action="validerPaiement.php" method="post" onsubmit="return verifFormulaire()">
 							<div class="row gx-2">
 								<div class="col">Nom
 									<input type="text" class="form-control" name="nom" placeholder="..." required/>
@@ -151,7 +151,7 @@
 			}
 
 		</script>
-	{% else %}
+	{# {% else %}
 		<div class="container d-flex justify-content-center">
 			<div class="card" style="max-width: 18rem;">
 				<div class="card-header">Accès refusé !</div>
@@ -162,5 +162,5 @@
 				</div>
 			</div>
 		</div>
-	{% endif %}
+	{% endif %} #}
 {% endblock %}
