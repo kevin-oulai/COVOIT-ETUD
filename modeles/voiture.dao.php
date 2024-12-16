@@ -83,4 +83,32 @@ class VoitureDao {
 
         return $num;
     }
+
+    public function existe(?int $modele = null,?string $marque = null,?string $nbPlace = null): bool
+    {
+        $sql="SELECT count(*) FROM VOITURE WHERE modele= :modele AND marque= :marque AND nbPlace= :nbPlace";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":modele"=>$modele, ":marque"=>$marque, ":nbPlace"=>$nbPlace));
+        $pdoStatement->setFetchMode(PDO::FETCH_NUM);
+        $count = $pdoStatement->fetch();
+        if ($count[0] > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function insert(?int $modele = null,?string $marque = null,?string $nbPlace = null): void
+    {
+        $sql = "SELECT COUNT(numero) FROM VOITURE";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        $newNum = $pdoStatement->fetch(PDO::FETCH_NUM);
+        $newNum[0]++;
+        $query = $this->PDO->prepare("INSERT INTO VOITURE(numero, modele, marque, nbPlace) VALUES (:numero, :modele, :marque, :nbPlace)");
+        $query->bindParam(':numero', $newNum[0]);
+        $query->bindParam(':modele', $modele);
+        $query->bindParam(':marque', $marque);
+        $query->bindParam(':nbPlace', $nbPlace);
+        $query->execute();
+    }
 }
