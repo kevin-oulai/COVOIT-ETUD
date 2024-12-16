@@ -12112,9 +12112,10 @@ body {
   transition: all 0.1s ease-in-out;
 }
 
-.hover:hover {
-  scale: 1.01;
-}
+.cardError {
+  width: 500px;
+  margin-left: 700px;
+  margin-top: 100px;
 
 .card .btn-secondary {
   transition: all 0.1s ease-in-out;
@@ -12155,9 +12156,10 @@ body {
 }
 
 .formulaireFiltre {
+  position: absolute;
   border-radius: 30px;
   border: solid;
-  right: 80px;
+  right: 20px;
   top: 150px; /* distance depuis le haut de la page */
   width: 300px; /* largeur du rectangle */
   height: auto; /* hauteur initiale */
