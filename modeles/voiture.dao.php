@@ -73,7 +73,7 @@ class VoitureDao {
         return $voiture;
     }
 
-    public function findNum(?int $modele = null,?string $marque = null,?string $nbPlace = null): int
+    public function findNum(?string $modele = null,?string $marque = null,?string $nbPlace = null): int
     {
         $sql="SELECT numero FROM VOITURE WHERE modele= :modele AND marque= :marque AND nbPlace= :nbPlace";
         $pdoStatement = $this->PDO->prepare($sql);
@@ -84,7 +84,7 @@ class VoitureDao {
         return $num;
     }
 
-    public function existe(?int $modele = null,?string $marque = null,?string $nbPlace = null): bool
+    public function existe(?string $modele = null,?string $marque = null,?string $nbPlace = null): bool
     {
         $sql="SELECT count(*) FROM VOITURE WHERE modele= :modele AND marque= :marque AND nbPlace= :nbPlace";
         $pdoStatement = $this->PDO->prepare($sql);
@@ -97,7 +97,7 @@ class VoitureDao {
         return false;
     }
 
-    public function insert(?int $modele = null,?string $marque = null,?string $nbPlace = null): void
+    public function insert(?string $modele = null,?string $marque = null,?string $nbPlace = null): void
     {
         $sql = "SELECT COUNT(numero) FROM VOITURE";
         $pdoStatement = $this->PDO->prepare($sql);

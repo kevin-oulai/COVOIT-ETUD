@@ -188,7 +188,7 @@ class EtudiantDao
         $pdoStatement->execute();
     }
 
-    public function update(?int $numero = null, ?string $nom = null,?string $prenom = null,?date $dateNaiss = null,?string $mail = null,?string $tel = null,?int $numVoiture = null,?string $image = null){
+    public function update(?int $numero = null, ?string $nom = null,?string $prenom = null,?string $dateNaiss = null,?string $mail = null,?string $tel = null,?int $numVoiture = null,?string $image = null){
         $query = $this->PDO->prepare("UPDATE ETUDIANT SET nom = :nom, prenom = :prenom, dateNaiss = :dateNaiss, adresseMail = :adresseMail, numTelephone = :numTelephone, numero_voiture = :numero_voiture, photoProfil = :photoProfil WHERE numero = :numero");
         $query->bindParam(':numero', $numero);
         $query->bindParam(':nom', $nom);

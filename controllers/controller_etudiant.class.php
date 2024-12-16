@@ -17,9 +17,9 @@ class ControllerEtudiant extends Controller{
             $twig_params['badge'] = $badge;
         }
 
+        $managerVoiture = new VoitureDao($this->getPdo());
         if($managerEtudiant->estConducteur($num_etudiant)) { // Verifier si l'étudiant est un conducteur
             $managerNbTrajet = new EtudiantDao($this->getPdo());
-            $managerVoiture = new VoitureDao($this->getPdo());
             $nbTrajet = $managerNbTrajet->findNbTrajets($num_etudiant);
             $voiture = $managerVoiture->findMonEtudiant($num_etudiant);
             $twig_params['nbTrajet'] = $nbTrajet;
@@ -51,18 +51,21 @@ class ControllerEtudiant extends Controller{
 
         if(isset($_GET['action'])){
             if($_GET['action'] == "modifier"){
-                $modele = $_POST['modele'];
-                $marque = $_POST['marque'];
-                $nbPlace = $_POST['nbPlace'];
+                $numero_voiture = NULL;
+                if($_POST['modele'] != '' && $_POST['marque'] != '' && $_POST['nbPlace'] != ''){
+                    $modele = $_POST['modele'];
+                    $marque = $_POST['marque'];
+                    $nbPlace = $_POST['nbPlace'];
 
-                // On regarde si la voiture de départ existe, si ce n'est pas le cas on l'insere dans la bd
-                if (!$managerVoiture->existe($modele, $marque, $nbPlace)) {
-                    $managerVoiture->insert($modele, $marque, $nbPlace);
+                    var_dump($_POST);
+                    // On regarde si la voiture de départ existe, si ce n'est pas le cas on l'insere dans la bd
+                    if (!$managerVoiture->existe($modele, $marque, $nbPlace)) {
+                        $managerVoiture->insert($modele, $marque, $nbPlace);
+                    }
+
+                    // Récupération du numéro de voiture à partir des autres colonnes
+                    $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
                 }
-
-                // Récupération du numéro de voiture à partir des autres colonnes
-                $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
-
                 $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $_POST['photoProfil']);
 
                 echo "<div id=modalTriggerModif></div>";

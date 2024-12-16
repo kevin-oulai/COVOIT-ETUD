@@ -122,29 +122,29 @@
                             <p class="fw-bold text-align-left input-group">
                                 <div class="btn-group">
                                     <label class="fw-bold">Nom‎
-                                    <input class="form-control" type="text" value="{{ etudiant.nom }}"></label> 
+                                    <input class="form-control" type="text" value="{{ etudiant.nom }}" name="nom"></label> 
                                     <label class="fw-bold">Prenom‎
-                                    <input class="form-control" type="text" value="{{ etudiant.prenom }}"></label> 
+                                    <input class="form-control" type="text" value="{{ etudiant.prenom }}" name="prenom"></label> 
                                 </div>
                             </p>
                             <p class="fw-bold text-align-left input-group">
                                 <div class="btn-group">
                                     <label class="fw-bold">Date de naissance‎
-                                    <input class="form-control" type="text" value="{{ etudiant.dateNaiss }}"></label> 
+                                    <input class="form-control" type="text" value="{{ etudiant.dateNaiss }}" name="dateNaiss"></label> 
                                     <label class="fw-bold">Numéro de téléphone‎
-                                    <input class="form-control" type="text" pattern="[0-9]{10}" minlength=10 maxlength=10 value="{{ etudiant.numTelephone }}"></label> 
+                                    <input class="form-control" type="text" pattern="[0-9]{10}" minlength=10 maxlength=10 value="{{ etudiant.numTelephone }}" name="numTelephone"></label> 
                                 </div>
                             </p>
                             <p class="fw-bold input">
                                 <div class="btn-group">
                                     <label class="fw-bold">Adresse mail‎
-                                    <input class="form-control" type="text" value="{{ etudiant.adresseMail }}"></label> 
+                                    <input class="form-control" type="text" value="{{ etudiant.adresseMail }}" name="adresseMail"></label> 
                                 </div>
                             </p>
                             <p class="fw-bold text-align-center input">
                                 <div class="btn-group">
                                     <label class="fw-bold">Photo de profil‎
-                                    <input class="form-control" type="file" value="{{ etudiant.photoProfil }}"></label> 
+                                    <input class="form-control" type="file" value="{{ etudiant.photoProfil }}" name="photoProfil"></label> 
                                 </div>
                             </p>
                         </div>
@@ -157,20 +157,20 @@
                                     Vous ne possédez pas encore de voiture.
                                 <div class="btn-group">
                                     <label class="fw-bold">Modele
-                                    <input class="form-control" type="text" placeholder="ex : Clio"></label> 
+                                    <input class="form-control" type="text" placeholder="ex : Clio" name="modele"></label> 
                                     <label class="fw-bold">Marque
-                                    <input class="form-control" type="text" placeholder="ex : Renault"></label> 
+                                    <input class="form-control" type="text" placeholder="ex : Renault" name="marque"></label> 
                                     <label class="fw-bold">Nombre de places
-                                    <input class="form-control" type="number" placeholder="ex : 4"></label> 
+                                    <input class="form-control" type="number" placeholder="ex : 4" name="nbPlace"></label> 
                                 </div>
                                 {% else %}
                                 <div class="btn-group">
                                     <label class="fw-bold">Modele
-                                    <input class="form-control" type="text" value="{{ voiture.modele }}"></label> 
+                                    <input class="form-control" type="text" value="{{ voiture.modele }}" name="modele"></label> 
                                     <label class="fw-bold">Marque
-                                    <input class="form-control" type="text" value="{{ voiture.marque }}"></label> 
+                                    <input class="form-control" type="text" value="{{ voiture.marque }}" name="marque"></label> 
                                     <label class="fw-bold">Nombre de places
-                                    <input class="form-control" type="number" value="{{ voiture.nbPlace }}"></label> 
+                                    <input class="form-control" type="number" value="{{ voiture.nbPlace }}" name="nbPlace"></label> 
                                 </div>
                                 {% endif %}
                             </p>
@@ -179,6 +179,7 @@
                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
                                 <input type="submit" class="btn btn-success" value="Confirmer">
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
