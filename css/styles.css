@@ -12157,9 +12157,10 @@ body {
 }
 
 .formulaireFiltre {
+  position: absolute;
   border-radius: 30px;
   border: solid;
-  right: 80px;
+  right: 20px;
   top: 150px; /* distance depuis le haut de la page */
   width: 300px; /* largeur du rectangle */
   height: auto; /* hauteur initiale */
