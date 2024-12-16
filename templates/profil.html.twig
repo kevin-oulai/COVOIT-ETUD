@@ -116,6 +116,7 @@
                             <h1 class='modal-title fs-5' id='fModifierLabel_{{ etudiant.numero }}'>Modifier mon profil</h1>
                             <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
                         </div>
+                        <form action="index.php?controleur=etudiant&methode=afficher&action=modifier&id={{ etudiant.numero }}" method="post">
                         <div class='modal-body'>
 
                             <p class="fw-bold text-align-left input-group">
@@ -131,7 +132,7 @@
                                     <label class="fw-bold">Date de naissance‎
                                     <input class="form-control" type="text" value="{{ etudiant.dateNaiss }}"></label> 
                                     <label class="fw-bold">Numéro de téléphone‎
-                                    <input class="form-control" type="text" value="{{ etudiant.numTelephone }}"></label> 
+                                    <input class="form-control" type="text" pattern="[0-9]{10}" minlength=10 maxlength=10 value="{{ etudiant.numTelephone }}"></label> 
                                 </div>
                             </p>
                             <p class="fw-bold input">
@@ -160,7 +161,7 @@
                                     <label class="fw-bold">Marque
                                     <input class="form-control" type="text" placeholder="ex : Renault"></label> 
                                     <label class="fw-bold">Nombre de places
-                                    <input class="form-control" type="text" placeholder="ex : 4"></label> 
+                                    <input class="form-control" type="number" placeholder="ex : 4"></label> 
                                 </div>
                                 {% else %}
                                 <div class="btn-group">
@@ -169,7 +170,7 @@
                                     <label class="fw-bold">Marque
                                     <input class="form-control" type="text" value="{{ voiture.marque }}"></label> 
                                     <label class="fw-bold">Nombre de places
-                                    <input class="form-control" type="text" value="{{ voiture.nbPlace }}"></label> 
+                                    <input class="form-control" type="number" value="{{ voiture.nbPlace }}"></label> 
                                 </div>
                                 {% endif %}
                             </p>
