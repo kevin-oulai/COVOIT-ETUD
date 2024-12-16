@@ -30,7 +30,8 @@ class AvisDao{
     }
 
 
-    public function insert($datePost, $message, $note, $concerne, $commentateur): void{
+    public function insert($datePost, $message, $note, $concerne, $commentateur): void
+    {
         $sql = "SELECT COUNT(numero) FROM AVIS";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute();
@@ -45,7 +46,7 @@ class AvisDao{
         $query->bindParam(':numero_commentateur', $commentateur);
         $query->execute();
     }
-
+  
     public function findConcerne(?int $numero_concerne): ?Avis
     {
         $sql="SELECT * FROM AVIS WHERE numero_concerne= :numero_concerne";

@@ -64,6 +64,14 @@ class EtudiantDao
         return $etudiant;
     }
 
+    public function findAllAssoc(): ?array
+    {
+        $sql="SELECT * FROM ETUDIANT";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        return $pdoStatement->fetchAll();
+    }
+
     public function findConcerneParAvis(?int $numero_commentateur): ?Etudiant
     {
         $sql="SELECT * FROM ETUDIANT E JOIN AVIS A ON E.NUMERO = A.NUMERO_CONCERNE WHERE numero_commentateur= :numero_commentateur";
@@ -136,7 +144,7 @@ class EtudiantDao
     }
     public function aRecuAvis(?int $numero_etudiant): ?bool
     {
-        $sql="SELECT COUNT(numero) FROM AVIS WHERE numero_concerne = :numero";
+        $sql = "SELECT COUNT(numero) FROM AVIS WHERE numero_concerne = :numero";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->bindParam(":numero", $numero_etudiant);
         $pdoStatement->execute();

@@ -65,6 +65,7 @@ $gradients: map-merge((
 @import "../node_modules/bootstrap/scss/buttons";
 @import "../node_modules/bootstrap/scss/card";
 
+
 .mycolor {
   color: $primary;
 }
@@ -151,9 +152,11 @@ padding-right: ($spacer * 2.5);}
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
+
 .card{
   transition: all 0.1s ease-in-out;
 }
+
 
 .cardError{
   width: 500px;
@@ -177,10 +180,10 @@ padding-right: ($spacer * 2.5);}
   scale: 1.05;
 }
 
-.modal{
+.modal {
   backdrop-filter: blur(1px);
 }
- 
+
 .listeTrajet2{
   display: inline-block;
   margin-left: 200px;
@@ -247,4 +250,10 @@ padding-right: ($spacer * 2.5);}
 
 .btn-danger:hover{
   background-color: #d37070;
+}
+
+.pdp-sm{
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
 }

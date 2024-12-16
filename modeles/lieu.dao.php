@@ -56,13 +56,14 @@ class LieuDao{
 
         return $lieu;
     }
-    public function findAllAssoc(){
+    public function findAllAssoc(): ?array
+    {
         $sql="SELECT * FROM LIEU";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute();
         $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
-        $lieu = $pdoStatement->fetchAll();
-        return $lieu;
+        $lieux = $pdoStatement->fetchAll();
+        return $lieux;
     }
 
     public function existe(int $numRue, string $nomRue, string $ville): bool
