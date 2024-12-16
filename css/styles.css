@@ -11813,7 +11813,6 @@ textarea.form-control-lg {
   --bs-btn-border-radius: var(--bs-border-radius-sm);
 }
 
-
 .card {
   --bs-card-spacer-y: 1rem;
   --bs-card-spacer-x: 1rem;
@@ -12208,6 +12207,10 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 100%;
+}
+
+#footer-content {
+  text-align: center;
 }
 
 /*# sourceMappingURL=styles.css.map */
