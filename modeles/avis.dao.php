@@ -46,6 +46,7 @@ class AvisDao{
         $query->bindParam(':numero_commentateur', $commentateur);
         $query->execute();
     }
+  
     public function findConcerne(?int $numero_concerne): ?Avis
     {
         $sql="SELECT * FROM AVIS WHERE numero_concerne= :numero_concerne";
