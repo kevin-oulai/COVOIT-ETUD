@@ -64,6 +64,8 @@ $gradients: map-merge((
 @import "../node_modules/bootstrap/scss/modal";
 @import "../node_modules/bootstrap/scss/buttons";
 @import "../node_modules/bootstrap/scss/card";
+@import "../node_modules/bootstrap/scss/alert";
+
 
 
 .mycolor {
@@ -260,4 +262,17 @@ padding-right: ($spacer * 2.5);}
 
 #footer-content{
   text-align: center;
+}
+
+// Personnalisation pour les alertes de type danger
+.alert-danger {
+  background-color: #f8d7da; // Couleur de fond
+  color: #721c24;            // Couleur du texte
+  border-color: #f5c6cb;     // Couleur de la bordure
+  padding: 1rem;             // Espacement interne de l'alerte
+
+
+  
+  // Personnalisation de la bordure arrondie
+  border-radius: 0.375rem;
 }
