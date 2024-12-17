@@ -12,8 +12,10 @@ class ControllerTrajet extends Controller{
     }
 
     public function lister(){
-
-
+        $depart = $_POST['depart'];
+        $arrivee = $_POST['arrivee'];
+        $date = $_POST['date'];
+        $nbPassager = $_POST['nombre_passagers'];
         $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
         if ($criteria === '') {
                 $depart = $_POST['depart'];
@@ -25,6 +27,7 @@ class ControllerTrajet extends Controller{
                 $nbPassager = $_POST['nombre_passagers'];
                 $_SESSION["nombre_passagers"]=$nbPassager;
             } 
+    }
 
         $managerLieu = new LieuDao($this->getPdo());
         $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
