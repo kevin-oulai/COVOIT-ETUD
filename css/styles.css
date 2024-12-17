@@ -23,6 +23,10 @@
   background: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%);
 }
 
+.bg-gradient-danger {
+  background: linear-gradient(135deg, #ffc3c3 0%, #ffb4b4 100%);
+}
+
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -12222,6 +12226,7 @@ body {
 
 .btn-close {
   background-color: #6c0101;
+  color: white;
 }
 
 .btn-close:hover {
