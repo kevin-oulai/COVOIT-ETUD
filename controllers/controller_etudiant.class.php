@@ -30,19 +30,15 @@ class ControllerEtudiant extends Controller{
         if($managerEtudiant->aPosteAvis($num_etudiant)) {
             $managerAvisDonnes = new AvisDao($this->getPdo());
             $managerEtudiantConcerne = new EtudiantDao($this->getPdo());
-            $etudiantConcerne = $managerEtudiantConcerne->findConcerneParAvis($num_etudiant);
             $listeAvisDonnes = $managerAvisDonnes->findAllCommentateur($num_etudiant);
             $twig_params['listeAvisDonnes'] = $listeAvisDonnes;
-            $twig_params['etudiantConcerne'] = $etudiantConcerne;
         }
 
         if($managerEtudiant->aRecuAvis($num_etudiant)) {
             $managerAvisReçus = new AvisDao($this->getPdo());
             $managerEtudiantCommentateur = new EtudiantDao($this->getPdo());
-            $etudiantCommentateur = $managerEtudiantCommentateur->findCommentateurDAvis($num_etudiant);
             $listeAvisReçus = $managerAvisReçus->findAllConcerne($num_etudiant);
             $twig_params['listeAvisReçus'] = $listeAvisReçus;
-            $twig_params['etudiantCommentateur'] = $etudiantCommentateur;
         }
 
         $template = $this->getTwig()->load('profil.html.twig');

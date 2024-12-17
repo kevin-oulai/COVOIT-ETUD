@@ -76,14 +76,14 @@
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
                                         <div class="card card-avis">
-                                            {% if listeAvisDonnes is defined or etudiantConcerne is defined %}
+                                            {% if listeAvisDonnes is defined %}
                                                 <div class="card-body">
                                                     {% for avisDonnes in listeAvisDonnes %}
                                                         <div class="card incard-avis" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
                                                                     Le {{avisDonnes.datePost}}<br>
-                                                                    Pour le conducteur :<br>{{etudiantConcerne.nom}} {{etudiantConcerne.prenom}}<br>
+                                                                    Pour le conducteur :<br>{{avisDonnes.nomEtudiant}} {{avisDonnes.prenomEtudiant}}<br>
                                                                     Note : {{avisDonnes.note}}
                                                                 </div>
                                                                 <div class="col-7">
@@ -102,14 +102,14 @@
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
                                         <div class="card card-avis">
-                                            {% if listeAvisReçus is defined or etudiantCommentateur is defined %}
+                                            {% if listeAvisReçus is defined %}
                                                 <div class="card-body">
                                                     {% for avisReçus in listeAvisReçus %}
                                                         <div class="card" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
                                                                     Le {{avisReçus.datePost}}<br>
-                                                                    Par le passager :<br>{{etudiantCommentateur.nom}} {{etudiantCommentateur.prenom}}<br>
+                                                                    Par le passager :<br>{{avisReçus.nomEtudiant}} {{avisReçus.prenomEtudiant}}<br>
                                                                     Note : {{avisReçus.note}}
                                                                 </div>
                                                                 <div class="col-7">

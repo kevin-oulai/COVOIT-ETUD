@@ -31,7 +31,7 @@ class AvisDao{
 
     public function findAllConcerne(?int $numero_concerne): array
     {
-        $requete = "SELECT * from AVIS  WHERE numero_concerne= :numero_concerne";
+        $requete = "SELECT A.*, E.nom as nomEtudiant, E.prenom as prenomEtudiant from AVIS A join ETUDIANT E on A.numero_commentateur = E.numero WHERE numero_concerne= :numero_concerne";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->bindValue(1, PDO::PARAM_STR);
         $pdoStatement->execute(array(":numero_concerne"=>$numero_concerne));
@@ -41,7 +41,7 @@ class AvisDao{
 
     public function findAllCommentateur(?int $numero_commentateur): array
     {
-        $requete = "SELECT * from AVIS  WHERE numero_commentateur= :numero_commentateur";
+        $requete = "SELECT A.*, E.nom as nomEtudiant, E.prenom as prenomEtudiant from AVIS A join ETUDIANT E on A.numero_concerne = E.numero WHERE numero_commentateur= :numero_commentateur";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->bindValue(1, PDO::PARAM_STR);
         $pdoStatement->execute(array(":numero_commentateur"=>$numero_commentateur));
