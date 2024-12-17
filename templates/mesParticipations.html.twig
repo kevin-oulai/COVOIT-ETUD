@@ -62,7 +62,7 @@
                             <h1 class='modal-title fs-5' id='fAvisLabel_{{ trajet.numero }}'>Laisser un avis sur le conducteur</h1>
                             <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
                         </div>
-                        <form action="index.php?controleur=trajet&methode=listerParticipations&action=poster&id={{ trajet.numero }}" method="post">
+                        <form action="index.php?controleur=trajet&methode=listerParticipations&action=poster&id={{ trajet.numero }}" method="post" novalidate>
                             <div class='modal-body'>
                                 <p class="fw-semibold text-align-left badge bg-gradient-dark text-wrap">
                                     Attention, l'avis sera laissé sur la page du conducteur.
@@ -116,6 +116,16 @@
             });
             if($('#modalTrigger').length){
                 $('#myModal').modal('show');
+            }
+        });
+
+        $(function(){
+            $('#errorModal').modal({
+                show:true,
+                backdrop:'static'
+            });
+            if($('#errorModalTrigger').length){
+                $('#errorModal').modal('show');
             }
         });
     </script>
