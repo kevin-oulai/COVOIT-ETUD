@@ -29,6 +29,26 @@ class AvisDao{
         return $avis;
     }
 
+    public function findAllConcerne(?int $numero_concerne): array
+    {
+        $requete = "SELECT * from AVIS  WHERE numero_concerne= :numero_concerne";
+        $pdoStatement = $this->PDO->prepare($requete);
+        $pdoStatement->bindValue(1, PDO::PARAM_STR);
+        $pdoStatement->execute(array(":numero_concerne"=>$numero_concerne));
+        $listeAvisConcerne = $pdoStatement->fetchAll();
+        return $listeAvisConcerne;
+    }
+
+    public function findAllCommentateur(?int $numero_commentateur): array
+    {
+        $requete = "SELECT * from AVIS  WHERE numero_commentateur= :numero_commentateur";
+        $pdoStatement = $this->PDO->prepare($requete);
+        $pdoStatement->bindValue(1, PDO::PARAM_STR);
+        $pdoStatement->execute(array(":numero_commentateur"=>$numero_commentateur));
+        $listeAvisCommentateur = $pdoStatement->fetchAll();
+        return $listeAvisCommentateur;
+    }
+
     public function findConcerne(?int $numero_concerne): ?Avis
     {
         $sql="SELECT * FROM AVIS WHERE numero_concerne= :numero_concerne";

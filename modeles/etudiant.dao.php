@@ -171,7 +171,7 @@ class EtudiantDao
         $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
         $nbNum[0]++;
 
-        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'1',(?),(?) )";
+        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'NULL',(?),(?) )";
 
         $pwd = password_hash($_POST["pwd"],PASSWORD_DEFAULT);
         $date = date($_POST["dateNaiss"]);
@@ -180,7 +180,7 @@ class EtudiantDao
         $pdoStatement->bindValue(1, $nbNum[0], PDO::PARAM_INT);
         $pdoStatement->bindValue(2, $nom, PDO::PARAM_STR);
         $pdoStatement->bindValue(3, $prenom, PDO::PARAM_STR);
-        $pdoStatement->bindValue(4,  $date, PDO::PARAM_STR);
+        $pdoStatement->bindValue(4, $date, PDO::PARAM_STR);
         $pdoStatement->bindValue(5, $mail, PDO::PARAM_STR);
         $pdoStatement->bindValue(6, $tel, PDO::PARAM_STR);
         $pdoStatement->bindValue(7, $image, PDO::PARAM_STR);

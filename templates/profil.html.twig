@@ -6,6 +6,11 @@
             <li class="list-group-item" style="background-color: rgba(0,0,0,0);"><h2 class="text-center">Profil</h2>
                 <div class ="text-center">
                 <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
+                    <div class="row justify-content-end custom-line">
+                        <div class="col-2">
+                            <button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
+                        </div>
+                    </div>
             </li>
                 </div>
             <form action="index.php?controleur=etudiant&methode=afficher" class="input-group">
@@ -21,15 +26,15 @@
                                 <div class="col-4">Prenom : {{etudiant.prenom}}</div><br>
                                 <div class="col-4">Date de naissance : {{etudiant.dateNaiss}}</div><br><br>
                                 {% if nbTrajet is defined %}
-                                    <div class="col-4">Nombre de trajets total : {{nbTrajet}}</div></li>
+                                    <div class="col-12">Nombre de trajets total : {{nbTrajet}}</div></li>
                                 {% else %}
-                                    <div class="col-4">Vous n'avez pas effectué de trajets.</div></li>
+                                    <div class="col-12">Vous n'avez pas effectué de trajets.</div></li>
                                 {% endif %}
                                 <div>
                                     <br><li class="list-group-item"><h4>Informations personnelles</h4>
                                     <div class="row gx-3">
                                         <div class="col-6">Adresse mail : {{etudiant.adresseMail}}<br></div>
-                                        <div class="col-4">Numero de téléphone : {{etudiant.numTelephone}}</div>
+                                        <div class="col-6">Numero de téléphone : {{etudiant.numTelephone}}</div>
                                     </li>
                                     </div><br>
                                 </div>
@@ -39,36 +44,54 @@
                             <div class="row gx-5">
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
-                                        {% if voiture is defined %}
-                                            Nom : {{voiture.modele}}<br>
-                                            Marque : {{voiture.marque}}<br>
-                                            Nombre de places : {{voiture.nbPlace}}
-                                        {% else %}
-                                            <h6 class=" text-center">Vous n'avez pas de voiture.</h6>
-                                        {% endif %}
+                                        <div class="card">
+                                            {% if voiture is defined %}
+                                                Nom : {{voiture.modele}}<br>
+                                                Marque : {{voiture.marque}}<br>
+                                                Nombre de places : {{voiture.nbPlace}}
+                                            {% else %}
+                                                <h6 class=" text-center">Vous n'avez pas de voiture.</h6>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
-                                        {% if badge is defined %}
-                                            <img src = "images/{{badge.image}}" width="60" height="60"> <br>
-                                            {{badge.titre}}
-                                        {% else %}
-                                            <h6 class=" text-center">Vous ne possédez pas de badge.</h6>
-                                        {% endif %}
+                                        <div class="card">
+                                            {% if listeBadge is defined %}
+                                                <div class="card-body">
+                                                    {% for badge in listeBadge %}
+                                                        <div>
+                                                            <img src = "images/{{badge.image}}" width="60" height="60"> <br>
+                                                            {{badge.titre}}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                <h6 class=" text-center">Vous ne possédez pas de badge.</h6>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
-                                        <div class="row gx-5">
-                                            {% if avis is defined or etudiantConcerne is defined %}
-                                                <div class="col-5">
-                                                    Le *date* à *heure*<br>
-                                                    Pour le conducteur :<br>{{etudiantConcerne.nom}} {{etudiantConcerne.prenom}}<br>
-                                                    Note : {{avisDonnes.note}}
-                                                </div>
-                                                <div class="col-7">
-                                                    Message : {{avisDonnes.message}}
+                                        <div class="card card-avis">
+                                            {% if listeAvisDonnes is defined or etudiantConcerne is defined %}
+                                                <div class="card-body">
+                                                    {% for avisDonnes in listeAvisDonnes %}
+                                                        <div class="card incard-avis" style="margin-bottom: 2%;">
+                                                            <div class="row gx-5 card-body">
+                                                                <div class="col-5">
+                                                                    Le {{avisDonnes.datePost}}<br>
+                                                                    Pour le conducteur :<br>{{etudiantConcerne.nom}} {{etudiantConcerne.prenom}}<br>
+                                                                    Note : {{avisDonnes.note}}
+                                                                </div>
+                                                                <div class="col-7">
+                                                                    Message : {{avisDonnes.message}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
                                                 </div>
                                             {% else %}
                                                 <h6 class=" text-center">Vous n'avez pas donné d'avis.</h6>
@@ -78,26 +101,29 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
-                                        <div class="row gx-5">
-                                            {% if avis is defined or etudiantCommentateur is defined %}
-                                            <div class="col-5">
-                                                Le *date* à *heure*<br>
-                                                Par le passager :<br>{{etudiantCommentateur.nom}} {{etudiantCommentateur.prenom}}<br>
-                                                Note : {{avisReçus.note}}
-                                            </div>
-                                            <div class="col-7">
-                                                Message : {{avisReçus.message}}
-                                            </div>
+                                        <div class="card card-avis">
+                                            {% if listeAvisReçus is defined or etudiantCommentateur is defined %}
+                                                <div class="card-body">
+                                                    {% for avisReçus in listeAvisReçus %}
+                                                        <div class="card" style="margin-bottom: 2%;">
+                                                            <div class="row gx-5 card-body">
+                                                                <div class="col-5">
+                                                                    Le {{avisReçus.datePost}}<br>
+                                                                    Par le passager :<br>{{etudiantCommentateur.nom}} {{etudiantCommentateur.prenom}}<br>
+                                                                    Note : {{avisReçus.note}}
+                                                                </div>
+                                                                <div class="col-7">
+                                                                    Message : {{avisReçus.message}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
                                             {% else %}
                                                 <h6 class=" text-center">Vous n'avez pas reçu d'avis.</h6>
                                             {% endif %}
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row justify-content-end custom-line">
-                                <div class="col-2">
-                                    <button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
                                 </div>
                             </div>
                         </div>

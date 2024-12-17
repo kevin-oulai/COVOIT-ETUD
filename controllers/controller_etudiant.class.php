@@ -13,8 +13,8 @@ class ControllerEtudiant extends Controller{
 
         if($managerEtudiant->possedeBadge($num_etudiant)) { // Verifier si l'étudiant possède des badges
             $managerBadge = new BadgeDao($this->getPdo());
-            $badge = $managerBadge->find($num_etudiant);
-            $twig_params['badge'] = $badge;
+            $listeBadge = $managerBadge->findAll($num_etudiant);
+            $twig_params['listeBadge'] = $listeBadge;
         }
 
         $managerVoiture = new VoitureDao($this->getPdo());
@@ -31,8 +31,8 @@ class ControllerEtudiant extends Controller{
             $managerAvisDonnes = new AvisDao($this->getPdo());
             $managerEtudiantConcerne = new EtudiantDao($this->getPdo());
             $etudiantConcerne = $managerEtudiantConcerne->findConcerneParAvis($num_etudiant);
-            $avisDonnes = $managerAvisDonnes->findCommentateur($num_etudiant);
-            $twig_params['avisDonnes'] = $avisDonnes;
+            $listeAvisDonnes = $managerAvisDonnes->findAllCommentateur($num_etudiant);
+            $twig_params['listeAvisDonnes'] = $listeAvisDonnes;
             $twig_params['etudiantConcerne'] = $etudiantConcerne;
         }
 
@@ -40,8 +40,8 @@ class ControllerEtudiant extends Controller{
             $managerAvisReçus = new AvisDao($this->getPdo());
             $managerEtudiantCommentateur = new EtudiantDao($this->getPdo());
             $etudiantCommentateur = $managerEtudiantCommentateur->findCommentateurDAvis($num_etudiant);
-            $avisReçus = $managerAvisReçus->findConcerne($num_etudiant);
-            $twig_params['avisRecus'] = $avisReçus;
+            $listeAvisReçus = $managerAvisReçus->findAllConcerne($num_etudiant);
+            $twig_params['listeAvisReçus'] = $listeAvisReçus;
             $twig_params['etudiantCommentateur'] = $etudiantCommentateur;
         }
 

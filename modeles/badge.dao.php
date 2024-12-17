@@ -28,4 +28,14 @@ class BadgeDao{
         return $badge;
     }
 
+    public function findAll(?int $numero_etudiant): array
+    {
+        $requete = "SELECT * from BADGE B join OBTENIR O on B.numero = O.numero_badge WHERE numero_etudiant= :numero_etudiant";
+        $pdoStatement = $this->PDO->prepare($requete);
+        $pdoStatement->bindValue(1, PDO::PARAM_STR);
+        $pdoStatement->execute(array(":numero_etudiant"=>$numero_etudiant));
+        $listeAvisCommentateur = $pdoStatement->fetchAll();
+        return $listeAvisCommentateur;
+    }
+
 }
