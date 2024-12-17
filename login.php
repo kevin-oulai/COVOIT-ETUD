@@ -26,6 +26,7 @@ require_once 'include.php';
        $_SESSION['CLIENT'] = $managerEtudiant->find($result[1]);
 
        $_SESSION['id'] = $result[1];
+       $_SESSION['etudiant'] = $result[3];
        if(!is_null($result[2])){
            $_SESSION['voiture'] = $result[2];
        }

@@ -1,8 +1,4 @@
 @charset "UTF-8";
-@font-face {
-  font-family: "Heavitas";
-  src: url("font/Heavitas.ttf") format("truetype");
-}
 .bg-gradient-chill {
   background: linear-gradient(135deg, #09e485 0%, #0291e3 100%);
 }
@@ -11,16 +7,32 @@
   background: linear-gradient(135deg, #F2CD48 0%, #FD803F 100%);
 }
 
+.bg-gradient-hot {
+  background: linear-gradient(135deg, #F9445A 0%, #FD803F 100%);
+}
+
+.bg-gradient-cold {
+  background: linear-gradient(135deg, #CCDBFD 0%, #2F93CC 100%);
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%);
+}
+
+.bg-gradient-primaire {
+  background: linear-gradient(135deg, #bbd0ff 0%, #c5d7ff 100%);
+}
+
+.bg-gradient-secondaire {
+  background: linear-gradient(135deg, #E2EAFC 0%, #dde7fd 100%);
+}
+
 .bg-gradient-dark {
   background: linear-gradient(135deg, #6b97fd 0%, #5f8fff 100%);
 }
 
 .bg-gradient-secondary {
   background: linear-gradient(135deg, #abc4ff 0%, #b6ccfe 100%);
-}
-
-.bg-gradient-primary {
-  background: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%);
 }
 
 .bg-gradient-danger {

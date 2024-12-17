@@ -19,7 +19,7 @@ class Voiture {
      *
      * @var string|null
      */
-    private string|null $nom;
+    private string|null $modele;
     /**
      * @brief Marque de la voiture
      *
@@ -42,9 +42,9 @@ class Voiture {
      * @param string|null $pMarque
      * @param integer|null $pNombrePlaces
      */
-    public function __construct(?int $pNumero = null, ?string $pNom = null, ?string $pMarque = null, ?int $pNombrePlaces = null) {
+    public function __construct(?int $pNumero = null, ?string $pModele = null, ?string $pMarque = null, ?int $pNombrePlaces = null) {
         $this -> setNumero($pNumero);
-        $this -> setNom($pNom);
+        $this -> setModele($pModele);
         $this -> setMarque($pMarque);
         $this -> setNbPlace($pNombrePlaces);
     }
@@ -65,8 +65,8 @@ class Voiture {
      *
      * @return string|null
      */
-    public function getNom(): ?string {
-        return $this -> nom;
+    public function getModele(): ?string {
+        return $this -> modele;
     }
 
     /**
@@ -104,8 +104,8 @@ class Voiture {
      * @param string $pNom
      * @return void
      */
-    public function setNom($pNom): void {
-        $this -> nom = $pNom;
+    public function setModele($pModele): void {
+        $this -> modele = $pModele;
     }
 
     /**
