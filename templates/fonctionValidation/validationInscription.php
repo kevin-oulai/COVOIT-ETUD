@@ -248,7 +248,7 @@ function validerUploadEtPdp($pdp,array &$messageErreurs)
     if(isset($pdp) && $pdp['error'] == UPLOAD_ERR_OK)
     {
         // Si le fichier a été télécharger sans erreurs, on procède à la validation du fichier
-        $valide = validerMdp($pdp, $messageErreurs);
+        $valide = validerPdp($pdp, $messageErreurs);
     }
     else
     {
@@ -299,7 +299,7 @@ function validerPdp($pdp,array &$messageErreurs)
     // 5. Plages de valeurs : non pertinent pour un fichier
 
     // 6. Fichiers uploadé : vérifier la taille et le type
-    $typeAutorises = ['images/jpeg','images/png'];
+    $typeAutorises = ['jpeg','png','jpg','images/PNG','images/JPG','images/JPEG'];
 
     // Vérification du type MIME réel pour contrer les falsifications d'extension
     $typeMimeReel = mime_content_type($pdp['tmp_name']);
