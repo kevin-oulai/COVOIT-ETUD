@@ -53,7 +53,6 @@ class ControllerEtudiant extends Controller{
                     $marque = $_POST['marque'];
                     $nbPlace = $_POST['nbPlace'];
 
-                    var_dump($_POST);
                     // On regarde si la voiture de départ existe, si ce n'est pas le cas on l'insere dans la bd
                     if (!$managerVoiture->existe($modele, $marque, $nbPlace)) {
                         $managerVoiture->insert($modele, $marque, $nbPlace);
@@ -62,7 +61,11 @@ class ControllerEtudiant extends Controller{
                     // Récupération du numéro de voiture à partir des autres colonnes
                     $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
                 }
-                $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $_POST['photoProfil']);
+                $photoProfil = $_POST['photoProfil'];
+                if($photoProfil == NULL) {
+                    $photoProfil = $etudiant->getPhotoProfil();
+                }
+                $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $photoProfil);
 
                 echo "<div id=modalTriggerModif></div>";
             }
