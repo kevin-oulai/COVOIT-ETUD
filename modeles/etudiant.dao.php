@@ -64,6 +64,16 @@ class EtudiantDao
         return $etudiant;
     }
 
+
+    public function findAllAssoc(): ?array
+    {
+        $sql="SELECT * FROM ETUDIANT";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        return $pdoStatement->fetchAll();
+    }
+
+
     public function findNbTrajets(?int $numero_etudiant): ?INT
     {
         $sql="SELECT COUNT(T.NUMERO) FROM TRAJET T JOIN ETUDIANT E ON T.NUMERO_CONDUCTEUR = E.NUMERO WHERE E.numero= $numero_etudiant";
@@ -114,7 +124,7 @@ class EtudiantDao
     }
     public function aRecuAvis(?int $numero_etudiant): ?bool
     {
-        $sql="SELECT COUNT(numero) FROM AVIS WHERE numero_concerne = :numero";
+        $sql = "SELECT COUNT(numero) FROM AVIS WHERE numero_concerne = :numero";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->bindParam(":numero", $numero_etudiant);
         $pdoStatement->execute();
@@ -140,7 +150,7 @@ class EtudiantDao
         return $resul;
     }
 
-    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image)
+    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image,string $dateNaiss, string $mdp)
     {
         $pdo = Bd::getInstance()->getConnexion();
         $query = "SELECT COUNT(numero) FROM ETUDIANT";
@@ -151,8 +161,8 @@ class EtudiantDao
 
         $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'NULL',(?),(?) )";
 
-        $pwd = password_hash($_POST["pwd"],PASSWORD_DEFAULT);
-        $date = date($_POST["dateNaiss"]);
+        $pwd = password_hash($mdp,PASSWORD_DEFAULT);
+        $date = date($dateNaiss);
 
         $pdoStatement = $pdo->prepare($query);
         $pdoStatement->bindValue(1, $nbNum[0], PDO::PARAM_INT);
