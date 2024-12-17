@@ -38,11 +38,10 @@ $gradients: map-merge((
         hot: linear-gradient(135deg, #F9445A 0%,#FD803F 100%),
         cold: linear-gradient(135deg, #CCDBFD 0%,#2F93CC 100%),
         primary: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%),
-        primaire: linear-gradient(135deg, #CCDBFD 0%, #c5d7ff 100%),
-        secondaire: linear-gradient(135deg, #E2EAFC 0%, #dde7fd 100%) 
+        primaire: linear-gradient(135deg, #bbd0ff 0%, #c5d7ff 100%),
+        secondaire: linear-gradient(135deg, #E2EAFC 0%, #dde7fd 100%), 
         dark: linear-gradient(135deg, #6b97fd 0%, #5f8fff 100%),
         secondary: linear-gradient(135deg, #abc4ff 0%, #b6ccfe 100%),
-        primary: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%),
         danger: linear-gradient(135deg, #ffc3c3 0%, #ffb4b4 100%)
 ), $gradients);
 

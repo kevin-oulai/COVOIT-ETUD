@@ -44,7 +44,7 @@
                             <div class="row gx-5">
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
-                                        <div class="card">
+                                        <div class="card bg-gradient-primaire">
                                             {% if voiture is defined %}
                                                 Nom : {{voiture.modele}}<br>
                                                 Marque : {{voiture.marque}}<br>
@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
-                                        <div class="card">
+                                        <div class="card bg-gradient-primaire">
                                             {% if listeBadge is defined %}
                                                 <div class="card-body">
                                                     {% for badge in listeBadge %}
