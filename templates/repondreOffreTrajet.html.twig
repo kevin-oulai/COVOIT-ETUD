@@ -1,24 +1,24 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-
-	<h1>Répondre à une offre de trajet</h1>
 	{% for trajet in infoTrajet %}
 	<div class="container">
-		<div class="row">
-			<h2 class="col text-start">Date départ : {{trajet.dateDep}}</h2>
-			<h2 class="col text-end">{{trajet.prix}}€</h2>
-		</div>
+		
 		<div class="row row-cols-1 g-4">
         	
 			{# Informations du trajet #}
-			<div class="col d-flex justify-content-center">
-				<div class="card" style="width: 60rem">
+			<div class="col d-flex justify-content-center mt-xl">
+				<div class="card bg-gradient-secondary" style="width: 60rem">
                     <div class="row card-body">
 						<div class="col" style = "display: inline-block;">
 							<h4>Informations conducteur</h4>
 							<h5>{{trajet.nom }} {{trajet.prenom}}</h5>
 							<h5>{{age}} ans</h5>
 							<img src="images/{{ trajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
+						</div>
+						<div class="col">
+							<h3 class="col text-center">Information du trajet :</h3>
+							<h4 class="col text-center">{{trajet.dateDep}}</h4>
+							<h4 class="col text-center">{{trajet.prix}}€</h4>
 						</div>
 						<div class="col text-end">
 							<h4>Informations voiture</h4>
@@ -27,7 +27,6 @@
 							<h5>{{trajet.nbPlace}} places libres</h5>
 						</div>
                     </div>
-					<hr>
 					<hr>
 					<div class="row">
 						<div class="row">
@@ -50,7 +49,7 @@
 	{% endfor %}
 			{# Bouton de validation #}
             <div class="col text-center">
-                <input type="submit" class="btn btn-primary" value="Payer"/>
+				<a href="?controleur=paiement&methode=afficher" class="btn btn-primary">Payer</a>
             </div>
 			<div class="text-center mt-5">
 				<a href="?controleur=&methode=" class="btn btn-danger">Retour</a>
