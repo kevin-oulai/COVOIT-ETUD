@@ -36,8 +36,10 @@ $gradients: map-merge((
         chill: linear-gradient(135deg, #09e485 0%,#0291e3 100%),
         warm: linear-gradient(135deg, #F2CD48 0%,#FD803F 100%),
         hot: linear-gradient(135deg, #F9445A 0%,#FD803F 100%),
-        cold: linear-gradient(135deg, #8019C6 0%,#2F93CC 100%),
-        primary: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%)
+        cold: linear-gradient(135deg, #CCDBFD 0%,#2F93CC 100%),
+        primary: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%),
+        primaire: linear-gradient(135deg, #CCDBFD 0%, #c5d7ff 100%),
+        secondaire: linear-gradient(135deg, #E2EAFC 0%, #dde7fd 100%) 
 ), $gradients);
 
 

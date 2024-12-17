@@ -44,7 +44,7 @@ class Voiture {
      */
     public function __construct(?int $pNumero = null, ?string $pModele = null, ?string $pMarque = null, ?int $pNombrePlaces = null) {
         $this -> setNumero($pNumero);
-        $this -> setNom($pModele);
+        $this -> setModele($pModele);
         $this -> setMarque($pMarque);
         $this -> setNbPlace($pNombrePlaces);
     }

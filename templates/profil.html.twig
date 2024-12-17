@@ -75,11 +75,11 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
-                                        <div class="card card-avis">
+                                        <div class="card bg-gradient-primaire">
                                             {% if listeAvisDonnes is defined %}
                                                 <div class="card-body">
                                                     {% for avisDonnes in listeAvisDonnes %}
-                                                        <div class="card incard-avis" style="margin-bottom: 2%;">
+                                                        <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
                                                                     Le {{avisDonnes.datePost}}<br>
@@ -101,11 +101,11 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
-                                        <div class="card card-avis">
+                                        <div class="card bg-gradient-primaire">
                                             {% if listeAvisReçus is defined %}
                                                 <div class="card-body">
                                                     {% for avisReçus in listeAvisReçus %}
-                                                        <div class="card" style="margin-bottom: 2%;">
+                                                        <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
                                                                     Le {{avisReçus.datePost}}<br>
