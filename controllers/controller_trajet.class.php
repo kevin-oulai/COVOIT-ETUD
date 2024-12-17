@@ -67,6 +67,9 @@ class ControllerTrajet extends Controller{
             $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             $infoFiltre = "PrixBas";
         }
+        if (empty($listeTrajet)) {
+            $infoFiltre = "aucunTrajet";
+        }
         $template = $this->getTwig()->load('pageTrajets.html.twig');
         
         echo $template->render(array(
@@ -75,6 +78,22 @@ class ControllerTrajet extends Controller{
         ));
     }
    
+    }
+
+    public function repondreOffre(){
+        $id = $_GET["id"];
+        $managerTrajet = new TrajetDao($this->getPdo());
+        $infoTrajet = $managerTrajet->infoRepOffre($id);        
+
+        $dateNaissance = $infoTrajet[0]['dateNaiss'];
+        $aujourdhui = date("Y-m-d");
+        $diff = date_diff(date_create($dateNaissance), date_create($aujourdhui));
+        $age = $diff->format('%y');
+        $template = $this->getTwig()->load('repondreOffreTrajet.html.twig');
+        echo $template->render(array(
+            'infoTrajet' => $infoTrajet,
+            'age' => $age
+        ));
     }
 
     public function listerParticipations(){

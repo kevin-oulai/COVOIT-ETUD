@@ -34,3 +34,4 @@ if(isset($_POST["Nom"]))
     $template = $twig->load('inscription.html.twig');
     echo $template->render(array(
     ));
+

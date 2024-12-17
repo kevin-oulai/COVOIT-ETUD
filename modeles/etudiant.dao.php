@@ -64,6 +64,7 @@ class EtudiantDao
         return $etudiant;
     }
 
+
     public function findAllAssoc(): ?array
     {
         $sql="SELECT * FROM ETUDIANT";
@@ -155,6 +156,7 @@ class EtudiantDao
         return false;
     }
 
+
     public function verifMail(string $mail): bool
     {
         $resul = false;
@@ -170,7 +172,7 @@ class EtudiantDao
         return $resul;
     }
 
-    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image)
+    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image,string $dateNaiss, string $mdp)
     {
         $pdo = Bd::getInstance()->getConnexion();
         $query = "SELECT COUNT(numero) FROM ETUDIANT";
@@ -181,8 +183,8 @@ class EtudiantDao
 
         $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'1',(?),(?) )";
 
-        $pwd = password_hash($_POST["pwd"],PASSWORD_DEFAULT);
-        $date = date($_POST["dateNaiss"]);
+        $pwd = password_hash($mdp,PASSWORD_DEFAULT);
+        $date = date($dateNaiss);
 
         $pdoStatement = $pdo->prepare($query);
         $pdoStatement->bindValue(1, $nbNum[0], PDO::PARAM_INT);
