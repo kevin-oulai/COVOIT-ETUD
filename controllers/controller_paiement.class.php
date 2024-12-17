@@ -7,43 +7,55 @@ class ControllerPaiement extends Controller
     {
         parent::__construct($twig, $loader);
     }
-
     public function afficher()
     {
         $formulaireRempli = (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["num_carte"]) && isset($_POST["date_exp"]) && isset($_POST["cvc"]));
-        
+
+        $nom = "";
+        $prenom = "";
+        $numCarte = "";
+        $dateExp = "";
+        $cvc = "";
+
         if ($formulaireRempli) {
             // VARIABLES
             // Initialisation du tableau des messages d'erreurs
             $messagesErreurs = array();
 
-            $nomValide = validerNom($_POST["nom"], $messagesErreurs);
-            $prenomValide = validerPrenom($_POST["prenom"], $messagesErreurs);
-            $numCarteValide = validerNumeroCarte($_POST["num_carte"], $messagesErreurs);
-            $dateValide = validerDateExpiration($_POST["date_exp"], $messagesErreurs);
-            $codeValide = validerCodeSecurite($_POST["cvc"], $messagesErreurs);
+            $nom = $_POST["nom"];
+            $prenom = $_POST["prenom"];
+            $numCarte = $_POST["num_carte"];
+            $dateExp = $_POST["date_exp"];
+            $cvc = $_POST["cvc"];
 
-            // Si les données sont valides, on affiche un message de succès
-            if (empty($messagesErreurs)) {
+            $nomValide = validerNom($nom, $messagesErreurs);
+            $prenomValide = validerPrenom($prenom, $messagesErreurs);
+            $numCarteValide = validerNumeroCarte($numCarte, $messagesErreurs);
+            $dateValide = validerDateExpiration($dateExp, $messagesErreurs);
+            $codeValide = validerCodeSecurite($cvc, $messagesErreurs);
+
+            // Si le formulaire comporte des erreurs, envoyer messagesErreurs à la vue
+            if (!empty($messagesErreurs)) {
                 $template = $this->getTwig()->load('pagePaiement.html.twig');
 
                 echo $template->render(array(
-                    'messageSucces' => "Paiement effectué avec succès !"
+                    'messagesErreurs' => $messagesErreurs,
+                    'paiementValide' => false
                 ));
-
             } else {
-                // Sinon, on affiche les messages d'erreurs
-                foreach ($messagesErreurs as $message) {
-                    echo $message . "<br>";
-                }
+                $template = $this->getTwig()->load('pagePaiement.html.twig');
+
+                echo $template->render(array(
+                    'paiementValide' => true
+                ));
             }
 
         } else {
             $template = $this->getTwig()->load('pagePaiement.html.twig');
 
             echo $template->render(array(
+                'paiementValide' => false
             ));
         }
-
     }
 }
