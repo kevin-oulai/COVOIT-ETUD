@@ -39,8 +39,8 @@ $gradients: () !default;
 $gradients: map-merge((
         chill: linear-gradient(135deg, #09e485 0%,#0291e3 100%),
         warm: linear-gradient(135deg, #F2CD48 0%,#FD803F 100%),
-        hot: linear-gradient(135deg, #F9445A 0%,#FD803F 100%),
-        cold: linear-gradient(135deg, #8019C6 0%,#2F93CC 100%),
+        dark: linear-gradient(135deg, #6b97fd 0%, #5f8fff 100%),
+        secondary: linear-gradient(135deg, #abc4ff 0%, #b6ccfe 100%),
         primary: linear-gradient(135deg, #c1d3fe 0%, #e2eafc 100%)
 ), $gradients);
 
@@ -62,10 +62,36 @@ $gradients: map-merge((
 @import "../node_modules/bootstrap/scss/root";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootstrap/scss/modal";
+@import "../node_modules/bootstrap/scss/buttons";
 @import "../node_modules/bootstrap/scss/card";
+
 
 .mycolor {
   color: $primary;
+}
+
+.btn-secondary{
+  background-color: #719bff;
+}
+
+.btn-danger{
+  background-color: #ea9c9c;
+}
+
+.btn-success{
+  background: #6aaa6a;
+}
+
+.btn-success:hover{
+  background: #538f53;
+}
+
+.btn-secondary:hover{
+  background-color: #6e92e6;
+}
+
+.btn-danger:hover{
+  background-color: #d37070;
 }
 
 body{
@@ -74,7 +100,17 @@ body{
 
 .bg-light{background: #eaeaea;
 
-}.bg-header-color{background: $header-color;
+}
+
+.bg-header-color{background: $header-color;
+}
+
+.bg-danger{
+   background-color: #f33e3e;
+ }
+
+.bg-success{
+  background-color: #4fa54f;
 }
 
 .text-align-right{text-align: end;}
@@ -96,7 +132,7 @@ padding-right: ($spacer * 2.5);}
 .ms-xxl {margin-left: ($spacer * 15);}
 
 .btn-search{width: 50px;
-border: none;
+  border: none;
   background: #6aaa6a;
 }
 
@@ -117,25 +153,39 @@ border: none;
   transition: all 0.3s ease-in-out;
 }
 
-.cardTrajet{
-  width: 40rem; 
-  margin-left: 150px; 
-  margin-top: 50px;
+.card{
+  transition: all 0.1s ease-in-out;
 }
 
-.listeTrajet{
-  display: inline-block; 
-  list-style-type: none;
-  margin: 0; 
-  padding: 0;
+
+.cardError{
+  width: 500px;
+  margin-left: 700px;
+  margin-top: 100px;
+}
+.card .btn-secondary{
+  transition: all 0.1s ease-in-out;
 }
 
-.infoTrajet{
-  line-height: 1;
+.card .btn-secondary:hover{
+  scale: 1.05;
+}
+
+.card .btn-danger{
+  transition: all 0.1s ease-in-out;
+}
+
+
+.card .btn-danger:hover{
+  scale: 1.05;
+}
+
+.modal {
+  backdrop-filter: blur(1px);
 }
 
 .listeTrajet2{
-  display: inline block; 
+  display: inline-block;
   margin-left: 200px;
 }
 
@@ -145,14 +195,21 @@ border: none;
   align-items: center; 
   width: 100%;
 }
-.rectangleBleu {
-  position: fixed;
+
+.carteTrajet{
+  width: 1300px; 
+  margin-left: 75px;
+  margin-top: 50px;
+}
+
+.formulaireFiltre {
+  position : absolute;
   border-radius: 30px;
   border: solid;
-  right: 80px;
+  right: 20px;
   top: 150px; /* distance depuis le haut de la page */
   width: 300px; /* largeur du rectangle */
-  height: 500px; /* hauteur initiale */
+  height: auto; /* hauteur initiale */
   background-color: rgb(211, 211, 211); /* couleur du rectangle */
   z-index: 1000; /* s'assure que le rectangle reste au-dessus des autres éléments */
 }
@@ -163,3 +220,44 @@ border: none;
   margin-left: 20px;
 }
 
+.btn-close{
+  background-color: #6c0101;
+}
+
+.btn-close:hover{
+  background-color: #490101;
+}
+
+.btn-secondary{
+  background-color: #719bff;
+}
+
+.btn-danger{
+  background-color: #ea9c9c;
+}
+
+.btn-success{
+  background: #6aaa6a;
+}
+
+.btn-success:hover{
+  background: #538f53;
+}
+
+.btn-secondary:hover{
+  background-color: #6e92e6;
+}
+
+.btn-danger:hover{
+  background-color: #d37070;
+}
+
+.pdp-sm{
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+#footer-content{
+  text-align: center;
+}

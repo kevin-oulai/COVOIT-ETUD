@@ -24,6 +24,11 @@ class Avis {
      */
     private int|null $numero;
     /**
+     * @brief Date de post de l'avis.
+     * @var string|null
+     */
+    private string|null $datePost;
+    /**
      * @brief Message de l'avis.
      * @var string|null
      */
@@ -49,13 +54,15 @@ class Avis {
      * @brief constructeur de la classe Avis.
      *
      * @param integer|null $numero Identifiant de l'avis.
+     * @param string|null $datePost Date de post de l'avis.
      * @param string|null $message Message de l'avis.
      * @param integer|null $note Note de l'avis
      * @param integer|null $numero_concerne Numéro de l'étudiant concerné par l'avis.
      * @param integer|null $numero_commentateur Numéro de l'étudiant qui met l'avis.
      */
-    public function __construct(?int $numero = null, ?string $message = null, ?int $note = null, ?int $numero_concerne = null, ?int $numero_commentateur = null) {
+    public function __construct(?int $numero = null,?string $datePost = null, ?string $message = null, ?int $note = null, ?int $numero_concerne = null, ?int $numero_commentateur = null) {
         $this->numero = $numero;
+        $this->datePost = $datePost;
         $this->message = $message;
         $this->note = $note;
         $this->numero_concerne = $numero_concerne;
@@ -64,7 +71,7 @@ class Avis {
 
     //getters & setters
     /**
-     * @brief Retourne le numéro de la recette.
+     * @brief Retourne le numéro de l'avis.
      * @return integer|null
      */
     public function getNumero(): ?int
@@ -80,6 +87,24 @@ class Avis {
     public function setNumero(?int $numero): void
     {
         $this->numero = $numero;
+    }
+    /**
+     * @brief Retourne la date de l'avis.
+     * @return string|null
+     */
+    public function getDatePost(): ?string
+    {
+        return $this->datePost;
+    }
+
+    /**
+     * @brief Assigne une date à l'avis
+     * @param string|null $dateDep
+     * @return void
+     */
+    public function setDateDep(?string $dateDep): void
+    {
+        $this->datePost = $dateDep;
     }
 
     /**

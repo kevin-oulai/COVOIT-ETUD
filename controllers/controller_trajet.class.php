@@ -13,16 +13,29 @@ class ControllerTrajet extends Controller{
     public function lister(){
 
 
-        
-
-        $depart = $_POST['depart'];
-        $arrivee = $_POST['arrivee'];
-        $date = $_POST['date'];
-        $nbPassager = $_POST['nombre_passagers'];
+        $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
+        if ($criteria === '') {
+                $depart = $_POST['depart'];
+                $_SESSION["depart"]=$depart;
+                $arrivee = $_POST['arrivee'];
+                $_SESSION["arrivee"]=$arrivee;
+                $date = $_POST['date'];
+                $_SESSION["date"]=$date;
+                $nbPassager = $_POST['nombre_passagers'];
+                $_SESSION["nombre_passagers"]=$nbPassager;
+            } 
 
         $managerLieu = new LieuDao($this->getPdo());
-        $numTrajet1 = $managerLieu->findNumByVille($depart);
-        $numTrajet2 = $managerLieu->findNumByVille($arrivee);
+        $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
+        $numTrajet2 = $managerLieu->findNumByVille($_SESSION["arrivee"]);
+        if (empty($numTrajet1) || empty($numTrajet2)) {
+            $template = $this->getTwig()->load('pageTrajets.html.twig');
+            $infoFiltre = "aucunTrajet";
+            echo $template->render(array(
+                'infoFiltre' => $infoFiltre
+            ));
+        }
+        else {
         $listeNum1="(";
         $listeNum2="(";
         
@@ -42,35 +55,139 @@ class ControllerTrajet extends Controller{
         $listeNum2 = $listeNum2 . ")";
         
         $managerTrajet = new TrajetDao($this->getPdo());
-        $listeTrajet = $managerTrajet->findAll($listeNum1, $listeNum2, $date, $nbPassager);
-
+        //$listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $date, $nbPassager);
+        if ($criteria === '') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $infoFiltre = "departTot";
+        }elseif ($criteria === 'departTot') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $infoFiltre = "departTot";
+        } elseif ($criteria === 'prixBas') {
+            $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $infoFiltre = "PrixBas";
+        }
         $template = $this->getTwig()->load('pageTrajets.html.twig');
-
+        
         echo $template->render(array(
             'listeTrajet' => $listeTrajet,
+            'infoFiltre' => $infoFiltre
         ));
-        
+    }
    
     }
 
-    public function rechercher(){
+    public function listerParticipations(){
+        $numero_etudiant = $_SESSION['id'];
+
+        $managerTrajet = new TrajetDao($this->getPdo());
+        $listeTrajets = $managerTrajet->findAllByPassager($numero_etudiant);
+
+        $managerLieu = new LieuDao($this->getPdo());
+        $listeLieux = $managerLieu->findAllAssoc();
+
         $managerEtudiant = new EtudiantDao($this->getPdo());
-        $etudiant = $managerEtudiant->find(1);
+        $listeEtudiants = $managerEtudiant->findAllAssoc();
 
-        $connected = false;
-        $conducteur = false;
+        $template = $this->getTwig()->load('mesParticipations.html.twig');
+        echo $template->render(array(
+            'listeTrajets' => $listeTrajets,
+            'lieux' => $listeLieux,
+            'etudiants' => $listeEtudiants
+        ));
 
-        if (isset($_SESSION['login']) || isset($_SESSION['pwd'])) {
-            $connected = true;
-            if ($_SESSION['voiture'] != null){
-                $conducteur = true;
+        if(isset($_GET['action'])){
+            if($_GET['action'] == "poster"){
+                $concerne = $managerTrajet->getConducteur($_GET['id']);
+                $commentateur = $_SESSION['id'];
+                $datePost = date("Y-m-d h:i:s");
+                $managerAvis = new AvisDao($this->getPdo());
+                $managerAvis->insert($datePost, $_POST['message'], $_POST['note'], $concerne, $commentateur);
+                echo "<div id=modalTrigger></div>";
             }
         }
+    }
+
+    public function listerMesTrajets(){
+        $template = $this->getTwig()->load('mesTrajets.html.twig');
+        $managerTrajet = new TrajetDao($this->getPdo());
+        $managerLieu = new LieuDao($this->getPdo());
+
+        $lieux = $managerLieu->findAllAssoc();
+
+        $listeMesTrajets = $managerTrajet->findAllByConducteur($_SESSION["id"]);
+        $listeDesReservations = $managerTrajet->getAllNombreReservations();
+        echo $template->render(array(
+            "listeTrajets" => $listeMesTrajets,
+            "lieux" => $lieux,
+            "listeReservations" => $listeDesReservations
+        ));
+
+        if(isset($_GET['action'])){
+            if($_GET['action'] == "supprimer"){
+                $managerTrajet->delete($_GET['id']);
+                echo "<div id=modalTriggerSuppr></div>";
+            }
+            elseif ($_GET['action'] == "modifier"){
+
+                $lieuDepart = $_POST["lieu_depart"];
+                $lieuArrivee = $_POST["lieu_arrivee"];
+
+                $expLieuDepart = explode(" ", $lieuDepart);
+                $expLieuArrivee = explode(" ", $lieuArrivee);
+
+                // On récupere le numéro de rue qui est le premier élément de la liste explosée de l'adresse
+                $numRueDep = $expLieuDepart[0];
+                $numRueArr = $expLieuArrivee[0];
+
+                // On récupere la ville qui est le dernier élément de la liste explosée de l'adresse
+                $villeDep = $expLieuDepart[sizeof($expLieuDepart) - 1];
+                $villeArr = $expLieuArrivee[sizeof($expLieuArrivee) - 1];
+
+                //Initialisation des noms de rue
+                $nomRueDep = "";
+                $nomRueArr = "";
+
+                // On parcours et concatene toutes les parties de l'adresse sauf le numéro de rue et la ville pour avoir uniquement le nom de rue
+                foreach ($expLieuDepart as $part) {
+                    if ($part != $numRueDep && $part != $villeDep && $part) {
+                        $nomRueDep .= $part . " ";
+                    }
+                }
+                foreach ($expLieuArrivee as $part) {
+                    if ($part != $numRueArr && $part != $villeArr) {
+                        $nomRueArr .= $part . " ";
+                    }
+                }
+
+                // On retire une virgule parasite
+                $nomRueDep = substr($nomRueDep, 0, strlen($nomRueDep) - 2);
+                $nomRueArr = substr($nomRueArr, 0, strlen($nomRueArr) - 2);
+
+                // On regarde si le lieu de départ existe, si ce n'est pas le cas on l'insere dans la bd
+                if (!$managerLieu->existe($numRueDep, $nomRueDep, $villeDep)) {
+                    $managerLieu->insert($numRueDep, $nomRueDep, $villeDep);
+                }
+
+                // On regarde si le lieu d'arrivée existe, si ce n'est pas le cas on l'insere dans la bd
+                if (!$managerLieu->existe($numRueArr, $nomRueArr, $villeArr)) {
+                    $managerLieu->insert($numRueArr, $nomRueArr, $villeArr);
+                }
+
+                // Récupération des numéros de trajet à partir des autres colonnes
+                $numero_lieu_depart = $managerLieu->findNum($numRueDep, $nomRueDep, $villeDep);
+                $numero_lieu_arrivee = $managerLieu->findNum($numRueArr, $nomRueArr, $villeArr);
+
+                $managerTrajet->update($_GET['id'],$_POST['heureDep'], $_POST['heureArr'], $_POST['prix'], $_POST['dateDep'], $numero_lieu_depart, $numero_lieu_arrivee);
+
+                echo "<div id=modalTriggerModif></div>";
+            }
+        }
+    }
+
+    public function rechercher(){
 
         $template = $this->getTwig()->load('index.html.twig');
         echo $template->render(array(
-            'conducteur' => $conducteur,
-            'connected' => $connected
         ));
     }
 
