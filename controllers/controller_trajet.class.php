@@ -27,7 +27,7 @@ class ControllerTrajet extends Controller{
                 $nbPassager = $_POST['nombre_passagers'];
                 $_SESSION["nombre_passagers"]=$nbPassager;
             } 
-    }
+
 
         $managerLieu = new LieuDao($this->getPdo());
         $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
