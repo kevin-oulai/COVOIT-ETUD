@@ -97,19 +97,6 @@ class EtudiantDao
         return false;
     }
 
-    public function estConducteur(?int $numero_etudiant): ?bool
-    {
-        $sql="SELECT COUNT(numero) FROM ETUDIANT WHERE numero = :numero AND numero_voiture != NULL";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->bindParam(":numero", $numero_etudiant);
-        $pdoStatement->execute();
-        $count = $pdoStatement->fetch();
-        if ($count[0] > 0) {
-            return true;
-        }
-        return false;
-    }
-
     public function aPosteAvis(?int $numero_etudiant): ?bool
     {
         $sql="SELECT COUNT(numero) FROM AVIS WHERE numero_commentateur = :numero";

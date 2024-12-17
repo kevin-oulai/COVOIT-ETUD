@@ -45,7 +45,7 @@
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
                                         <div class="card bg-gradient-primaire">
-                                            {% if voiture is defined %}
+                                            {% if CONDUCTEUR == 'true' %}
                                                 Nom : {{voiture.modele}}<br>
                                                 Marque : {{voiture.marque}}<br>
                                                 Nombre de places : {{voiture.nbPlace}}

@@ -18,7 +18,7 @@ class ControllerEtudiant extends Controller{
         }
 
         $managerVoiture = new VoitureDao($this->getPdo());
-        if($managerEtudiant->estConducteur($num_etudiant)) { // Verifier si l'étudiant est un conducteur
+        if($GLOBALS['CONDUCTEUR'] == 'true') { // Verifier si l'étudiant est un conducteur
             $managerNbTrajet = new EtudiantDao($this->getPdo());
             $nbTrajet = $managerNbTrajet->findNbTrajets($num_etudiant);
             $voiture = $managerVoiture->findMonEtudiant($num_etudiant);
