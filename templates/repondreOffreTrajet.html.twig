@@ -1,76 +1,59 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-
-	<h1>Répondre à une offre de trajet</h1>
-
+	{% for trajet in infoTrajet %}
 	<div class="container">
-		<div class="row">
-			<h2 class="col text-start">Date départ : --/--/----</h2>
-			<h2 class="col text-end">100€</h2>
-		</div>
-
+		
 		<div class="row row-cols-1 g-4">
         	
 			{# Informations du trajet #}
-			<div class="col d-flex justify-content-center">
-				<div class="card" style="width: 60rem">
+			<div class="col d-flex justify-content-center mt-xl">
+				<div class="card bg-gradient-secondary" style="width: 60rem">
                     <div class="row card-body">
-						<div class="col text-start ">
+						<div class="col" style = "display: inline-block;">
 							<h4>Informations conducteur</h4>
-							<h5>Théo Birembaux</h5>
-							<h5>20 ans</h5>
+							<h5>{{trajet.nom }} {{trajet.prenom}}</h5>
+							<h5>{{age}} ans</h5>
+							<img src="images/{{ trajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
+						</div>
+						<div class="col">
+							<h3 class="col text-center">Information du trajet :</h3>
+							<h4 class="col text-center">{{trajet.dateDep}}</h4>
+							<h4 class="col text-center">{{trajet.prix}}€</h4>
 						</div>
 						<div class="col text-end">
 							<h4>Informations voiture</h4>
-							<h5>Renault</h5>
-							<h5>Clio</h5>
-							<h5>3 places libres</h5>
+							<h5>{{trajet.marque}}</h5>
+							<h5>{{trajet.modele}}</h5>
+							<h5>{{trajet.nbPlace}} places libres</h5>
 						</div>
                     </div>
-					<hr>
 					<hr>
 					<div class="row">
 						<div class="row">
 							<div class="col text-center">
 								<h3 class="card-text">Heure de départ</h3>
-								<h2>12:00</h2>
+								<h2>{{trajet.heureDep}}</h2>
 								<h3 class="card-text">Heure d'arrivée</h3>
-								<h2>14:00</h2>
+								<h2>{{trajet.heureArr}}</h2>
 							</div>
 							<div class="col text-center">
-								<h3 class="card-text">Lieu de départ</h3>
-								<h2>Paris</h2>
-								<h3 class="card-text">Lieu de d'arrivée</h3>
-								<h2>Lyon</h2>
+								<h4 class="card-text">Lieu de départ</h4>
+								<h3>{{trajet.numRueDep}} {{trajet.nomRueDep}} {{trajet.villeDep}}</h3>
+								<h4 class="card-text">Lieu de d'arrivée</h4>
+								<h3>{{trajet.numRueArr}} {{trajet.nomRueArr}} {{trajet.villeArr}}</h3>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
-            {# Informations sur le futur passager #}
-			<div class="col d-flex justify-content-center">
-				<div class="card mb-3" style="width: 65rem">
-					<div class="row g-0">
-						<div class="col-md-4">
-							<h3 class="text-start" style="margin: 8%;">Rosalie Thibault</h3>
-						</div>
-						<div class="col-md-8">
-							<div class="card-body">
-								<form style="margin-top: 1.5%">
-                                    <input id="notePersoPassager" type="text" class="form-control" placeholder="Ajouter une note...">
-                                    <div class="form-text"><i>*Facultatif*</i></div>
-                                </form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
+	{% endfor %}
 			{# Bouton de validation #}
             <div class="col text-center">
-                <input type="submit" class="btn btn-primary" value="Payer"/>
+				<a href="?controleur=paiement&methode=afficher" class="btn btn-primary">Payer</a>
             </div>
+			<div class="text-center mt-5">
+				<a href="?controleur=&methode=" class="btn btn-danger">Retour</a>
+			</div>
 		</div>
 	</div>
 {% endblock %}

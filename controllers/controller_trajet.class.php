@@ -1,4 +1,5 @@
 <?php
+include "validationAvis.php";
 
 class ControllerTrajet extends Controller{
 
@@ -66,6 +67,9 @@ class ControllerTrajet extends Controller{
             $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             $infoFiltre = "PrixBas";
         }
+        if (empty($listeTrajet)) {
+            $infoFiltre = "aucunTrajet";
+        }
         $template = $this->getTwig()->load('pageTrajets.html.twig');
         
         echo $template->render(array(
@@ -74,6 +78,22 @@ class ControllerTrajet extends Controller{
         ));
     }
    
+    }
+
+    public function repondreOffre(){
+        $id = $_GET["id"];
+        $managerTrajet = new TrajetDao($this->getPdo());
+        $infoTrajet = $managerTrajet->infoRepOffre($id);        
+
+        $dateNaissance = $infoTrajet[0]['dateNaiss'];
+        $aujourdhui = date("Y-m-d");
+        $diff = date_diff(date_create($dateNaissance), date_create($aujourdhui));
+        $age = $diff->format('%y');
+        $template = $this->getTwig()->load('repondreOffreTrajet.html.twig');
+        echo $template->render(array(
+            'infoTrajet' => $infoTrajet,
+            'age' => $age
+        ));
     }
 
     public function listerParticipations(){
@@ -87,22 +107,47 @@ class ControllerTrajet extends Controller{
 
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $listeEtudiants = $managerEtudiant->findAllAssoc();
-
+        $twigparams = array('listeTrajets' => $listeTrajets, 'lieux' => $listeLieux, 'etudiants' => $listeEtudiants);
+        if(isset($listeErreurs)){
+            $twigparams['listeErreurs'] = $listeErreurs;
+        }
         $template = $this->getTwig()->load('mesParticipations.html.twig');
-        echo $template->render(array(
-            'listeTrajets' => $listeTrajets,
-            'lieux' => $listeLieux,
-            'etudiants' => $listeEtudiants
-        ));
+        echo $template->render($twigparams);
 
         if(isset($_GET['action'])){
             if($_GET['action'] == "poster"){
-                $concerne = $managerTrajet->getConducteur($_GET['id']);
-                $commentateur = $_SESSION['id'];
-                $datePost = date("Y-m-d h:i:s");
-                $managerAvis = new AvisDao($this->getPdo());
-                $managerAvis->insert($datePost, $_POST['message'], $_POST['note'], $concerne, $commentateur);
-                echo "<div id=modalTrigger></div>";
+                $listeErreurs = [];
+                if(validerCommentaire($_POST['message'],$listeErreurs) && validerNote($_POST['note'], $listeErreurs)) {
+                    $concerne = $managerTrajet->getConducteur($_GET['id']);
+                    $commentateur = $_SESSION['id'];
+                    $datePost = date("Y-m-d h:i:s");
+                    $managerAvis = new AvisDao($this->getPdo());
+                    $managerAvis->insert($datePost, $_POST['message'], $_POST['note'], $concerne, $commentateur);
+                    echo "<div id=modalTrigger></div>";
+                }
+                else{
+                    echo "<div class=\"modal fade\" id=errorModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true style=\"backdrop-filter: blur(2px)\">
+                            <div class=\"modal-dialog modal-dialog-centered\" role=document>
+                                <div class=\"modal-content bg-gradient-danger border-2\">
+                                <div class='modal-title ms-3 mt-4'>Attention !</div>
+                                <hr>
+                                    <div class=modal-body>
+                                        <p>Erreurs :</p>
+                                        <ul>";
+                                            foreach($listeErreurs as $erreur){
+                                                echo "<li>$erreur</li>";
+                                            }
+                                        echo "</ul>
+                                    </div>
+                                    <div class=modal-footer>
+                                        <button type=button class='btn btn-primary' onclick=\"location = 'index.php?controleur=trajet&methode=listerParticipations';\">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id=errorModalTrigger></div>";
+                                            
+                }
             }
         }
     }
@@ -204,7 +249,7 @@ class ControllerTrajet extends Controller{
                 $managerTrajet = new TrajetDao($this->getPdo());
 
                 // On récupère toutes les variables nécessaires à l'insertion d'un trajet
-                $numero_conducteur = 1; // A changer lorsque les variables de session serons mises en place.
+                $numero_conducteur = $_SESSION['id']; // A changer lorsque les variables de session serons mises en place.
                 $heureDep = $_POST["heureDep"];
                 $heureArr = $_POST["heureArr"];
                 $prix = $_POST["prix"];
