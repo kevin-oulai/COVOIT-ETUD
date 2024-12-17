@@ -1,5 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
+{% if STATUS == 'connected' %}
 <div class="container" style="height: 600px">
     <div class="login-container align-right">
         <ul class="list-group list-group-flush">
@@ -45,13 +46,15 @@
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
                                         <div class="card bg-gradient-primaire">
-                                            {% if CONDUCTEUR == 'true' %}
-                                                Nom : {{voiture.modele}}<br>
-                                                Marque : {{voiture.marque}}<br>
-                                                Nombre de places : {{voiture.nbPlace}}
-                                            {% else %}
-                                                <h6 class=" text-center">Vous n'avez pas de voiture.</h6>
-                                            {% endif %}
+                                            <div class="card-body">
+                                                {% if CONDUCTEUR == 'true' %}
+                                                    Nom : {{voiture.modele}}<br>
+                                                    Marque : {{voiture.marque}}<br>
+                                                    Nombre de places : {{voiture.nbPlace}}
+                                                {% else %}
+                                                    <h6 class=" text-center">Vous n'avez pas de voiture.</h6>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -240,5 +243,9 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
-    
+
+{% else %}
+    <body onLoad="alert(\'Membre non reconnu...\')">
+    <meta http-equiv="refresh" content="0;URL=connexion.php">
+{% endif %}
 {% endblock %}
