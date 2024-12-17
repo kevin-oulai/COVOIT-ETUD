@@ -20,9 +20,9 @@ function validerPrenom(string $prenom, array &$messageErreurs): bool
     }
 
     // 3. Longueur des chaines : vérifier la longueur minimal et maximal (entre 3 et 50)
-    if(strlen($prenom)<3 || strlen($prenom)>50)
+    if(strlen($prenom)< 2 || strlen($prenom)>50)
     {
-        $messageErreurs[] = "Le prénom doit comporter entre 3 et 50 charactères";
+        $messageErreurs[] = "Le prénom doit comporter entre 2 et 50 charactères";
         $valide = false;
     }
     // 4. Format de données : non pertinent
@@ -47,16 +47,16 @@ function validerNom(string $nom, array &$messageErreurs): bool
     }
 
     // 2. Type de données : vérifier que le prenom est une chaine de charactères
-    if(!is_string($prenom))
+    if(!is_string($nom))
     {
         $messageErreurs[] = "Le nom doit être une chaine de charatères";
         $valide = false;
     }
 
     // 3. Longueur des chaines : vérifier la longueur minimal et maximal (entre 1 et 100)
-    if(strlen($prenom)<1 || strlen($prenom)>100)
+    if(strlen($nom)<1 || strlen($nom)>100)
     {
-        $messageErreurs[] = "Le prénom doit comporter entre 1 et 100 charactères";
+        $messageErreurs[] = "Le nom doit comporter entre 1 et 100 charactères";
         $valide = false;
     }
     // 4. Format de données : non pertinent
@@ -95,7 +95,7 @@ function validerMail(string $email, array &$messageErreurs): bool
     }
     
     // 4. Format de données : vérifier le format de l'email
-    if(!filter_var($email,FILTRER_VALIDATE_EMAIL))
+    if(!filter_var($email,FILTER_VALIDATE_EMAIL))
     {
         $messageErreurs[] = "L'adresse email est invalide";
         $valide = false;
@@ -121,21 +121,21 @@ function validerTelephone($num, array &$messageErreurs): bool
     }
 
     // 2. Type de données : vérifier que le numero de telephone est une chaine de charactères
-    if(!is_string($email))
+    if(!is_string($num))
     {
         $messageErreurs[] = "Le numéro de téléphone doit être une chaine de charatères";
         $valide = false;
     }
 
     // 3. Longueur des chaines : vérifier la longueur minimal et maximal (10)
-    if(strlen($email)!=10)
+    if(strlen($num)!=10)
     {
         $messageErreurs[] = "Le numéro de téléphone doit comporter 10 charactères";
         $valide = false;
     }
     
     // 4. Format de données : vérifier le format du numéro de téléphone
-    if(!$email.isdigit())
+    if(!is_numeric($num))
     {
         $messageErreurs[] = "Le numéro de téléphone est invalide";
         $valide = false;
@@ -183,7 +183,7 @@ function validerDateDeNaissance($dateNaiss, array &$messageErreurs): bool
 
     // 5. Plages de valeurs : Vérifier que la date de naissance est comprise entre 1950 et 2006
     // Convertir les dates en timestamp UNIX pour faciliter les comparaisons
-    $timestamp = strtotime($date);
+    $timestamp = strtotime($dateNaiss);
     $dateMin = strtotime('1950-01-01');
     $dateMax = strtotime('2006-01-01');
 
@@ -219,7 +219,7 @@ function validerMdp($mdp,array &$messageErreurs)
     }
 
     // 3. Longueur des chaines : vérifier la longueur minimal et maximal (entre 8 et 255)
-    if(strlen($email)<8 || strlen($email)>255)
+    if(strlen($mdp)<8 || strlen($mdp)>255)
     {
         $messageErreurs[] = "Le mot de passe doit comporter entre 8 et 255 charactères";
         $valide = false;
