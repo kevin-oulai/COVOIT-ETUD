@@ -20,7 +20,7 @@
 }
 
 .bg-gradient-primaire {
-  background: linear-gradient(135deg, #bbd0ff 0%, #c5d7ff 100%);
+  background: linear-gradient(135deg, #CCDBFD 0%, #c5d7ff 100%);
 }
 
 .bg-gradient-secondaire {
@@ -12292,6 +12292,9 @@ body {
   border-radius: 0.375rem;
 }
 
+.hover:hover {
+  transform: scale(1.01);
+}
 
 .alert-success {
   background-color: #d1e7dd;
@@ -12300,6 +12303,4 @@ body {
   padding: 1rem;
   border-radius: 0.375rem;
 }
-
-
 /*# sourceMappingURL=styles.css.map */
