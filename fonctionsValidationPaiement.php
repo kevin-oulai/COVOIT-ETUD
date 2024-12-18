@@ -1,54 +1,54 @@
 <?php
 
-function validerNom(?string $nom, array &$messagesErreurs): bool
-{
-    $valide = true;
-    // 1. Champs obligatoires : vérifier la présence du champ
-    if (empty($nom)) {
-        $messagesErreurs[] = "Le nom est obligatoire.";
-        $valide = false;
+// function validerNom(?string $nom, array &$messagesErreurs): bool
+// {
+//     $valide = true;
+//     // 1. Champs obligatoires : vérifier la présence du champ
+//     if (empty($nom)) {
+//         $messagesErreurs[] = "Le nom est obligatoire.";
+//         $valide = false;
 
-    } else {
+//     } else {
 
-        // 2. Type de données : vérifier que le type de données est correct
-        if (!is_string($nom)) {
-            $messagesErreurs[] = "Le nom doit être une chaîne de caractères.";
-            $valide = false;
-        }
+//         // 2. Type de données : vérifier que le type de données est correct
+//         if (!is_string($nom)) {
+//             $messagesErreurs[] = "Le nom doit être une chaîne de caractères.";
+//             $valide = false;
+//         }
 
-        // 3. Longueur des chaînes : vérifier la longueur minimale et maximale
-        if (strlen($nom) < 2 || strlen($nom) > 50) {
-            $messagesErreurs[] = "Le nom doit contenir entre 2 et 50 caractères.";
-            $valide = false;
-        }
-    }
-    return $valide;
-}
+//         // 3. Longueur des chaînes : vérifier la longueur minimale et maximale
+//         if (strlen($nom) < 2 || strlen($nom) > 50) {
+//             $messagesErreurs[] = "Le nom doit contenir entre 2 et 50 caractères.";
+//             $valide = false;
+//         }
+//     }
+//     return $valide;
+// }
 
-function validerPrenom(?string $prenom, array &$messagesErreurs): bool
-{
-    $valide = true;
-    // 1. Champs obligatoires : vérifier la présence du champ
-    if (empty($prenom)) {
-        $messagesErreurs[] = "Le prénom est obligatoire.";
-        $valide = false;
+// function validerPrenom(?string $prenom, array &$messagesErreurs): bool
+// {
+//     $valide = true;
+//     // 1. Champs obligatoires : vérifier la présence du champ
+//     if (empty($prenom)) {
+//         $messagesErreurs[] = "Le prénom est obligatoire.";
+//         $valide = false;
 
-    } else {
+//     } else {
 
-        // 2. Type de données : vérifier que le type de données est correct
-        if (!is_string($prenom)) {
-            $messagesErreurs[] = "Le prénom doit être une chaîne de caractères.";
-            $valide = false;
-        }
+//         // 2. Type de données : vérifier que le type de données est correct
+//         if (!is_string($prenom)) {
+//             $messagesErreurs[] = "Le prénom doit être une chaîne de caractères.";
+//             $valide = false;
+//         }
 
-        // 3. Longueur des chaînes : vérifier la longueur minimale et maximale
-        if (strlen($prenom) < 2 || strlen($prenom) > 50) {
-            $messagesErreurs[] = "Le prénom doit contenir entre 2 et 50 caractères.";
-            $valide = false;
-        }
-    }
-    return $valide;
-}
+//         // 3. Longueur des chaînes : vérifier la longueur minimale et maximale
+//         if (strlen($prenom) < 2 || strlen($prenom) > 50) {
+//             $messagesErreurs[] = "Le prénom doit contenir entre 2 et 50 caractères.";
+//             $valide = false;
+//         }
+//     }
+//     return $valide;
+// }
 
 function validerNumeroCarte(?string $numeroCarte, array &$messagesErreurs): bool
 {

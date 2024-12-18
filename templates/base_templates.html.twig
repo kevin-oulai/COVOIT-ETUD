@@ -65,22 +65,26 @@
 <body class="bg-gradient-primary d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-header-color shadow">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <a href="index.php"><img src = "images/logoCovoit-etud.png" width="110" height="70" class = "nav-item"></a>
-            <a href="index.php"><li class = "nav-item position-absolute top-50 start-50 translate-middle"><img src="images/websiteName.png" width="220" height="70"></li></a>
+            <a href="index.php"><img src = "images/logoCovoit-etud.png" class = "col" width="110" height="70" class = "nav-item"></a>
+            <a href="index.php"><li class = "nav-item position-absolute top-50 start-50 translate-middle"><img src="images/websiteName.png" class = "col" id = "siteNameImage" style="max-width: 220px;" height="auto"></li></a>
         </ul>
-        <div class="container-fluid w-100 nav-item justify-content-md-end">
-            {% if STATUS == 'connected' %}
-                <a href="?controleur=trajet&methode=listerParticipations" class="me-5">Mes participations</a>
-                {% if CONDUCTEUR == 'true' %}
-                    <a href="?controleur=trajet&methode=listerMesTrajets" class="me-5">Mes trajets</a>
-                {% endif %}
-                <p class="row me-3 mt-3">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p>
-                <a href="index.php?controleur=etudiant&methode=afficher&id={{ CLIENT.numero }}" class = "row"><img src="images/{{ CLIENT.photoProfil }}" width="70" height="70" style="border-radius: 100%;"></a>
-            {% else %}
-                <a href="connexion.php" class="link-body-emphasis link-offset-2 link-underline link-underline-opacity-0"><p class="row me-3 mt-3">Se connecter</p></a>
+    <div class="navbar-nav ms-auto">
+        {% if STATUS == 'connected' %}
+            <a href="?controleur=trajet&methode=listerParticipations" class="nav-item me-5">Mes participations</a>
+            {% if CONDUCTEUR == 'true' %}
+                <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-item me-5">Mes trajets</a>
             {% endif %}
-        </div>
-    </nav>
+            <p class="nav-item me-3 mt-3">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p>
+            <a href="index.php?controleur=etudiant&methode=afficher&id={{ CLIENT.numero }}" class="nav-item">
+                <img src="images/{{ CLIENT.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
+            </a>
+        {% else %}
+            <a href="connexion.php" class="link-body-emphasis link-offset-2 link-underline link-underline-opacity-0">
+                <p class="nav-item me-3 mt-3">Se connecter</p>
+            </a>
+        {% endif %}
+    </div>
+</nav>
 
 {% block content %}
 {% endblock %}

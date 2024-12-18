@@ -59,6 +59,12 @@ $gradients: map-merge((
   }
 }
 
+@media (max-width: 780px) {
+  #siteNameImage {
+      display: none;
+  }
+}
+
 // Gradient Classes
 @each $gradient, $value in $gradients {
   @include bg-gradient(".bg-gradient-#{$gradient}", $value);
