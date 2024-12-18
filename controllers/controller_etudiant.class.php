@@ -65,6 +65,11 @@ class ControllerEtudiant extends Controller{
                 if($photoProfil == NULL) {
                     $photoProfil = $etudiant->getPhotoProfil();
                 }
+                $dir = "images"; // Nom du dossier contenant les photos
+                if(is_uploaded_file($photoProfil)){
+                    $name = rand(0,2147483647) . ".png";
+                    move_uploaded_file($photoProfil, "$dir/$name");
+                }
                 $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $photoProfil);
 
                 echo "<div id=modalTriggerModif></div>";
