@@ -64,27 +64,15 @@ class EtudiantDao
         return $etudiant;
     }
 
-    public function findConcerneParAvis(?int $numero_commentateur): ?Etudiant
-    {
-        $sql="SELECT * FROM ETUDIANT E JOIN AVIS A ON E.NUMERO = A.NUMERO_CONCERNE WHERE numero_commentateur= :numero_commentateur";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute(array(":numero_commentateur"=>$numero_commentateur));
-        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
-        $etudiant = $pdoStatement->fetch();
 
-        return $etudiant;
+    public function findAllAssoc(): ?array
+    {
+        $sql="SELECT * FROM ETUDIANT";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        return $pdoStatement->fetchAll();
     }
 
-    public function findCommentateurDAvis(?int $numero_concerne): ?Etudiant
-    {
-        $sql="SELECT * FROM ETUDIANT E JOIN AVIS A ON E.NUMERO = A.NUMERO_COMMENTATEUR WHERE numero_concerne= :numero_concerne";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute(array(":numero_concerne"=>$numero_concerne));
-        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
-        $etudiant = $pdoStatement->fetch();
-
-        return $etudiant;
-    }
 
     public function findNbTrajets(?int $numero_etudiant): ?INT
     {
@@ -136,7 +124,7 @@ class EtudiantDao
     }
     public function aRecuAvis(?int $numero_etudiant): ?bool
     {
-        $sql="SELECT COUNT(numero) FROM AVIS WHERE numero_concerne = :numero";
+        $sql = "SELECT COUNT(numero) FROM AVIS WHERE numero_concerne = :numero";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->bindParam(":numero", $numero_etudiant);
         $pdoStatement->execute();
@@ -146,7 +134,7 @@ class EtudiantDao
         }
         return false;
     }
-    
+
     public function verifMail(string $mail): bool
     {
         $resul = false;
@@ -162,7 +150,7 @@ class EtudiantDao
         return $resul;
     }
 
-    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image)
+    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image,string $dateNaiss, string $mdp)
     {
         $pdo = Bd::getInstance()->getConnexion();
         $query = "SELECT COUNT(numero) FROM ETUDIANT";
@@ -171,20 +159,33 @@ class EtudiantDao
         $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
         $nbNum[0]++;
 
-        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'1',(?),(?) )";
+        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'NULL',(?),(?) )";
 
-        $pwd = password_hash($_POST["pwd"],PASSWORD_DEFAULT);
-        $date = date($_POST["dateNaiss"]);
+        $pwd = password_hash($mdp,PASSWORD_DEFAULT);
+        $date = date($dateNaiss);
 
         $pdoStatement = $pdo->prepare($query);
         $pdoStatement->bindValue(1, $nbNum[0], PDO::PARAM_INT);
         $pdoStatement->bindValue(2, $nom, PDO::PARAM_STR);
         $pdoStatement->bindValue(3, $prenom, PDO::PARAM_STR);
-        $pdoStatement->bindValue(4,  $date, PDO::PARAM_STR);
+        $pdoStatement->bindValue(4, $date, PDO::PARAM_STR);
         $pdoStatement->bindValue(5, $mail, PDO::PARAM_STR);
         $pdoStatement->bindValue(6, $tel, PDO::PARAM_STR);
         $pdoStatement->bindValue(7, $image, PDO::PARAM_STR);
         $pdoStatement->bindValue(8, $pwd, PDO::PARAM_STR);
         $pdoStatement->execute();
+    }
+
+    public function update(?int $numero = null, ?string $nom = null,?string $prenom = null,?string $dateNaiss = null,?string $mail = null,?string $tel = null,?int $numVoiture = null,?string $image = null){
+        $query = $this->PDO->prepare("UPDATE ETUDIANT SET nom = :nom, prenom = :prenom, dateNaiss = :dateNaiss, adresseMail = :adresseMail, numTelephone = :numTelephone, numero_voiture = :numero_voiture, photoProfil = :photoProfil WHERE numero = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->bindParam(':nom', $nom);
+        $query->bindParam(':prenom', $prenom);
+        $query->bindParam(':dateNaiss', $dateNaiss);
+        $query->bindParam(':adresseMail', $mail);
+        $query->bindParam(':numTelephone', $tel);
+        $query->bindParam(':numero_voiture', $numVoiture);
+        $query->bindParam(':photoProfil', $image);
+        $query->execute();
     }
 }

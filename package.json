@@ -1,13 +1,12 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "tarteaucitronjs": "^1.19.0"
   },
   "scripts": {
     "build-css": "sass scss/custom.scss css/styles.css"
   },
   "devDependencies": {
-    "sass": "^1.81.0"
-  },
-
-  "scripts": { "build-css": "sass scss/custom.scss css/styles.css" }
+    "sass": "^1.83.0"
+  }
 }

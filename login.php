@@ -1,7 +1,6 @@
 <?php
 require_once 'include.php';
 
-
 // on teste si nos variables sont définies
  if (isset($_POST['login']) && isset($_POST['pwd'])) {
 
@@ -16,11 +15,18 @@ require_once 'include.php';
    if ($verifMDP) {
        // On indique globalement que nous sommes maintenant connectés
        $GLOBALS['STATUS'] = 'connected';
-       var_dump($GLOBALS['STATUS']);
        // on enregistre les paramètres de notre visiteur comme variables de session ($login et $pwd) (
        $_SESSION['login'] = $_POST['login'];
        $_SESSION['pwd'] = $_POST['pwd'];
+
+       $pdo = new PDO('mysql:host='. DB_HOST . ';dbname='. DB_NAME, DB_USER, DB_PASS);
+       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+       $managerEtudiant = new EtudiantDao($pdo);
+       $_SESSION['CLIENT'] = $managerEtudiant->find($result[1]);
+
        $_SESSION['id'] = $result[1];
+       $_SESSION['etudiant'] = $result[3];
        if(!is_null($result[2])){
            $_SESSION['voiture'] = $result[2];
        }

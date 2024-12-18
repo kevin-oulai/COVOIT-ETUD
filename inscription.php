@@ -1,6 +1,7 @@
 <?php 
 //ajout de l’autoload de composer
 require_once 'include.php';
+
 $pdo = Bd::getInstance()->getConnexion();
 $query = "SELECT COUNT(numero) FROM ETUDIANT";
 $pdoStatement = $pdo->prepare($query);
@@ -31,6 +32,6 @@ if(isset($_POST["Nom"]))
 }
 
     $template = $twig->load('inscription.html.twig');
-
     echo $template->render(array(
     ));
+
