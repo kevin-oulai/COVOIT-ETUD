@@ -15,8 +15,14 @@
             <a href=".?controleur=inscription&methode=afficher" class="text-center">Pas de compte ? Inscrivez-vous !</a><br>
             <a href="?controleur=connexion&methode=mdpOublie" class="text-center">Mot de passe oublié</a>
         </div>
-
     </form>
+    {% if reinitialisation is defined %}
+        {% if reinitialisation %}
+            <p class="alert-success text-center mt-2">Le mot de passe à été réinitialisé</p>
+        {% else %}
+            <p class="alert-danger">La réinitialisation s'est mal passée</p>
+        {% endif %}
+    {% endif %}
 </div>
 </div>
 {% endblock %}
