@@ -61,16 +61,14 @@ class ControllerEtudiant extends Controller{
                     // Récupération du numéro de voiture à partir des autres colonnes
                     $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
                 }
-                $photoProfil = $_POST['photoProfil'];
+                $photoProfil = $_FILES['photoProfil'];
                 if($photoProfil == NULL) {
-                    $photoProfil = $etudiant->getPhotoProfil();
+                    $photoValide = $etudiant->getPhotoProfil();
                 }
-                $dir = "images"; // Nom du dossier contenant les photos
-                if(is_uploaded_file($photoProfil)){
-                    $name = rand(0,2147483647) . ".png";
-                    move_uploaded_file($photoProfil, "$dir/$name");
+                else{
+                    $photoValide = validerUploadEtPdp($_FILES["photoProfil"], $messagesErreurs);
                 }
-                $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $photoProfil);
+                $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $photoValide);
 
                 echo "<div id=modalTriggerModif></div>";
             }
