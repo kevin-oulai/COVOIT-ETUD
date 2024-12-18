@@ -10,7 +10,7 @@
 <div class="d-flex justify-content-center align-items-center">
 <div class="login-container align-right" style="width: 350px;">
     <h2 class="text-center">Inscription</h2>
-    <form ENCTYPE='multipart/form-data' ACTION='?controleur=inscription&methode=afficher' METHOD='POST'>
+    <form ENCTYPE='multipart/form-data' ACTION='?controleur=inscription&methode=afficher' METHOD='POST' id="formInscription">
     <div class="row">
                   <div class="col-md-6 mb-4">
                     <div data-mdb-input-init class="form-outline">
@@ -68,7 +68,7 @@
 
                     <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE="S'abonner">
                     <div>
-                          <label for="mess">Pour plus d'informations, consultez notre <a href="">Politique de confidentialité</a>.</label>  
+                          <label for="mess">Pour plus d'informations, consultez notre <a href="politique_conf.php" id="lien">Politique de confidentialité</a>.</label>  
                     </div>
 
           </div>
@@ -95,8 +95,7 @@
 </div>
 
 
-
-
+<script src="scripts/sauvegarderInscription.js"></script>
 
 
 

@@ -86,7 +86,6 @@ class ControllerTrajet extends Controller{
         $id = $_GET["id"];
         $managerTrajet = new TrajetDao($this->getPdo());
         $infoTrajet = $managerTrajet->infoRepOffre($id);        
-
         $dateNaissance = $infoTrajet[0]['dateNaiss'];
         $aujourdhui = date("Y-m-d");
         $diff = date_diff(date_create($dateNaissance), date_create($aujourdhui));
