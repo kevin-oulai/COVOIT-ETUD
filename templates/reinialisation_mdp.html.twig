@@ -1,0 +1,19 @@
+{% extends "base_templates.html.twig" %}
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center" style="height: 600px;">
+        <div class="login-container align-right" style="width: 350px;">
+            <h2 class="text-center">Mot de passe oublié</h2>
+            <form ACTION='motdepasseoublie.php' METHOD='POST'>
+                <input name="email" type="username" class="form-control mb-3" placeholder="Adresse mail" required>
+                <div class="text-center">
+                    <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE='Envoyer le lien'>
+                </div>
+                </br>
+                <div class="text-center">
+                    <a href="connexion.php" class="text-center">Retour à la page de connexion</a><br>
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
