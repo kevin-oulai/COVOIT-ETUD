@@ -3,11 +3,12 @@
     <div class="d-flex justify-content-center align-items-center" style="height: 600px;">
         <div class="login-container align-right" style="width: 350px;">
             <h2 class="text-center mb-5">Réinitialiser votre mot de passe</h2>
-            <form ACTION='motdepasseoublie.php' METHOD='POST'>
-                <label for="email">Nouveau mot de passe</label>
+            <form ACTION='?controleur=connexion&methode=traiter_reinitialisation' METHOD='POST'>
+                <label for="pwd">Nouveau mot de passe</label>
                 <input name="pwd" type="password" class="form-control mb-3" required>
-                <label for="confirmationEmail">Confirmer le mot de passe</label>
+                <label for="confirmationPwd">Confirmer le mot de passe</label>
                 <input name="confirmationPwd" type="password" class="form-control mb-3" required>
+                <input type="hidden" name="token" value="{{ token }}">
                 <div class="text-center">
                     <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE='Reinitialiser le mot de passe'>
                 </div>

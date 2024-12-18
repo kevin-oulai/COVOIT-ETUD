@@ -45,7 +45,7 @@ class ControllerConnexion extends Controller{
                 $token = $etudiant->genererTokenReinitialisation();
 
                 // Simuler l'envoi d'un email en affichant un lien fictif
-                $lienReinitialisation = "index?controleur=connexion&methode=reinitialisation_mdp&token=$token";
+                $lienReinitialisation = "?controleur=connexion&methode=reinitialisation_mdp&token=$token";
 
                 echo "<h1>Lien de réinitialisation généré</h1>";
                 echo "<a href='$lienReinitialisation'>$lienReinitialisation</a>";
@@ -75,10 +75,10 @@ class ControllerConnexion extends Controller{
             exit;
         }
 
-// Récupération et nettoyage du token
+        // Récupération et nettoyage du token
         $token = htmlspecialchars($_GET['token']); // Nettoyage pour éviter des failles XSS
 
-// Vérification de la validité du token
+        // Vérification de la validité du token
         try
         {
             // Connexion à la base de données
@@ -119,11 +119,86 @@ class ControllerConnexion extends Controller{
         $template = $this->getTwig()->load('reinitialisation_mdp.html.twig');
 
         echo $template->render(array(
+            'token' => $token
         ));
     }
 
-    public function traiterReinitialisation(){
-        echo "";
+    public function traiter_reinitialisation(){
+        $password = $_POST['pwd'] ?? '';
+        $passwordConfirm = $_POST['confirmationPwd'] ?? '';
+        $token = $_POST['token'] ?? '';
+
+        // Validation des champs -- UTILISER FONCTION DE VALIDATION A LA PLACE
+        if (empty($password) || empty($passwordConfirm) || empty($token))
+        {
+            echo "<h1>Erreur</h1>";
+            echo "<p>Tous les champs sont requis.</p>";
+            echo '<a href="reinitialisation_mot_de_passe.php?token=' . htmlspecialchars($token) . '">Retour au formulaire</a>';
+            exit;
+        }
+
+        // Vérification de la correspondance des mots de passe
+        if ($password !== $passwordConfirm)
+        {
+            echo "<h1>Erreur</h1>";
+            echo "<p>Les mots de passe ne correspondent pas.</p>";
+            echo '<a href="reinitialisation_mot_de_passe.php?token=' . htmlspecialchars($token) . '">Retour au formulaire</a>';
+            exit;
+        }
+
+        try
+        {
+            // Connexion à la base de données
+            $baseDeDonnees = BD::getInstance();
+            $pdo = $baseDeDonnees->getConnexion();
+
+            // Vérification du token et récupération de l'utilisateur
+            $requete = $pdo->prepare(
+                'SELECT numero, expiration_token FROM ETUDIANT WHERE token_reinitialisation = :token'
+            );
+            $requete->execute(['token' => htmlspecialchars($token)]);
+            $etudiant = $requete->fetch(PDO::FETCH_ASSOC);
+
+            if (!$etudiant)
+            {
+                echo "<h1>Erreur</h1>";
+                echo "<p>Token invalide ou inexistant.</p>";
+                exit;
+            }
+
+            // Vérification de la validité temporelle du token
+            $expiration = strtotime($etudiant['expiration_token']);
+            if ($expiration < time())
+            {
+                echo "<h1>Erreur</h1>";
+                echo "<p>Le token a expiré. Veuillez demander un nouveau lien de réinitialisation.</p>";
+                exit;
+            }
+
+            // Hachage du nouveau mot de passe
+            $passwordHache = password_hash($password, PASSWORD_DEFAULT);
+
+            //Mise à jour du mot de passe en BD
+            $requete = $pdo->prepare(
+                'UPDATE ETUDIANT 
+                         SET motDePasse = :password, token_reinitialisation = NULL, expiration_token = NULL 
+                         WHERE numero = :numero'
+                            );
+            $requete->execute([
+                'password' => $passwordHache,
+                'numero' => $etudiant['numero'],
+            ]);
+
+            echo "<h1>Succès</h1>";
+            echo "<p>Votre mot de passe a été réinitialisé avec succès.</p>";
+            echo '<a href="authentification.html">Retour à la connexion</a>';
+        }
+        catch (Exception $e)
+        {
+            echo "<h1>Erreur</h1>";
+            echo "<p>Une erreur inattendue s'est produite. Veuillez réessayer plus tard.</p>";
+            exit;
+        }
     }
 
 }
