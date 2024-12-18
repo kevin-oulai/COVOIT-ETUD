@@ -146,7 +146,7 @@ class EtudiantDao
         $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
         $nbNum[0]++;
 
-        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'NULL',(?),(?) )";
+        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),NULL,(?),(?) )";
 
         $pwd = password_hash($mdp,PASSWORD_DEFAULT);
         $date = date($dateNaiss);
