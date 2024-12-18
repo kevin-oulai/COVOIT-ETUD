@@ -60,11 +60,11 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
-                                        <div class="card bg-gradient-primaire">
+                                        <div class="card bg-gradient-primaire container text-center">
                                             {% if listeBadge is defined %}
-                                                <div class="card-body">
+                                                <div class="card-body row">
                                                     {% for badge in listeBadge %}
-                                                        <div>
+                                                        <div class="col">
                                                             <img src = "images/{{badge.image}}" width="60" height="60"> <br>
                                                             {{badge.titre}}
                                                         </div>
