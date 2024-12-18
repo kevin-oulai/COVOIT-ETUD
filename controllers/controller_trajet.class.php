@@ -84,13 +84,18 @@ class ControllerTrajet extends Controller{
     }
 
     public function repondreOffre(){
+        // On récupère l'id du trajet
         $id = $_GET["id"];
         $managerTrajet = new TrajetDao($this->getPdo());
-        $infoTrajet = $managerTrajet->infoRepOffre($id);        
+        $infoTrajet = $managerTrajet->infoRepOffre($id); 
+        
+        // Calcul de l'age
         $dateNaissance = $infoTrajet[0]['dateNaiss'];
         $aujourdhui = date("Y-m-d");
         $diff = date_diff(date_create($dateNaissance), date_create($aujourdhui));
         $age = $diff->format('%y');
+
+        // On affiche la page de réponse à l'offre
         $template = $this->getTwig()->load('repondreOffreTrajet.html.twig');
         echo $template->render(array(
             'infoTrajet' => $infoTrajet,

@@ -46,11 +46,11 @@
 					</div>
 				</div>
 			</div>
-	{% endfor %}
 			{# Bouton de validation #}
             <div class="col text-center">
-				<a href="?controleur=paiement&methode=afficher" class="btn btn-primary">Payer</a>
+				<a href="?controleur=paiement&methode=afficher&idTrajet={{trajet.numero}}" class="btn btn-primary">Payer</a>
             </div>
+	{% endfor %}
 			<div class="text-center mt-5">
 				<a href="?controleur=&methode=" class="btn btn-danger">Retour</a>
 			</div>

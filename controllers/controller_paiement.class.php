@@ -1,6 +1,4 @@
 <?php
-include("fonctionsValidationPaiement.php");
-
 class ControllerPaiement extends Controller
 {
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader)
@@ -10,6 +8,7 @@ class ControllerPaiement extends Controller
     public function afficher()
     {
         $formulaireRempli = (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["num_carte"]) && isset($_POST["date_exp"]) && isset($_POST["cvc"]));
+        $idTrajet = $_GET["idTrajet"];
 
         $nom = "";
         $prenom = "";
@@ -40,9 +39,12 @@ class ControllerPaiement extends Controller
 
                 echo $template->render(array(
                     'messagesErreurs' => $messagesErreurs,
-                    'paiementValide' => false
+                    'paiementValide' => false,
+                    'idTrajet' => $idTrajet
                 ));
             } else {
+
+                // Traitements sur la base de données
                 $template = $this->getTwig()->load('pagePaiement.html.twig');
 
                 echo $template->render(array(
@@ -54,8 +56,14 @@ class ControllerPaiement extends Controller
             $template = $this->getTwig()->load('pagePaiement.html.twig');
 
             echo $template->render(array(
-                'paiementValide' => false
+                'paiementValide' => false,
+                'idTrajet' => $idTrajet
             ));
         }
+    }
+
+    public function ajouterPassagerTrajet($idTrajet)
+    {
+
     }
 }

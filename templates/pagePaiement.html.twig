@@ -1,6 +1,7 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
 	<h1>Page de paiement</h1>
+	<h1>{{idTrajet}}</h1>
 	{% if STATUS == 'connected' %}
 		{% if paiementValide %}
 			<h1>Paiement validé</h1>
@@ -27,7 +28,7 @@ window.location.href = "index.php";
 					<div class="card-body">
 						<h5 class="card-title text-center">Formulaire de paiement</h5>
 						<div class="card-text">
-							<form action="?controleur=paiement&methode=afficher" method="POST" novalidate>
+							<form action="?controleur=paiement&methode=afficher&idTrajet={{idTrajet}}" method="POST" novalidate>
 								<div class="row gx-2">
 									<div class="col">Nom
 										<input type="text" class="form-control" name="nom" placeholder="..." required/>
