@@ -1,5 +1,4 @@
 <?php
-include "validationAvis.php";
 
 class ControllerTrajet extends Controller{
 
@@ -175,59 +174,85 @@ class ControllerTrajet extends Controller{
                 $managerTrajet->delete($_GET['id']);
                 echo "<div id=modalTriggerSuppr></div>";
             }
-            elseif ($_GET['action'] == "modifier"){
+            elseif ($_GET['action'] == "modifier") {
+                $listeErreurs = array();
+                if (validationPlageHoraire($_POST["heureDep"], $_POST["heureArr"], date("Y-m-d", strtotime($_POST['dateDep'])), $listeErreurs) && validationPrix($_POST["prix"], $listeErreurs) && validationLieuDepart($_POST["lieu_depart"], $listeErreurs) && validationLieuArrivee($_POST["lieu_arrivee"], $listeErreurs) && validationDateDep(date("Y-m-d", strtotime($_POST['dateDep'])), $listeErreurs)) {
 
-                $lieuDepart = $_POST["lieu_depart"];
-                $lieuArrivee = $_POST["lieu_arrivee"];
+                    $lieuDepart = $_POST["lieu_depart"];
+                    $lieuArrivee = $_POST["lieu_arrivee"];
 
-                $expLieuDepart = explode(" ", $lieuDepart);
-                $expLieuArrivee = explode(" ", $lieuArrivee);
+                    $expLieuDepart = explode(" ", $lieuDepart);
+                    $expLieuArrivee = explode(" ", $lieuArrivee);
 
-                // On récupere le numéro de rue qui est le premier élément de la liste explosée de l'adresse
-                $numRueDep = $expLieuDepart[0];
-                $numRueArr = $expLieuArrivee[0];
+                    // On récupere le numéro de rue qui est le premier élément de la liste explosée de l'adresse
+                    $numRueDep = $expLieuDepart[0];
+                    $numRueArr = $expLieuArrivee[0];
 
-                // On récupere la ville qui est le dernier élément de la liste explosée de l'adresse
-                $villeDep = $expLieuDepart[sizeof($expLieuDepart) - 1];
-                $villeArr = $expLieuArrivee[sizeof($expLieuArrivee) - 1];
+                    // On récupere la ville qui est le dernier élément de la liste explosée de l'adresse
+                    $villeDep = $expLieuDepart[sizeof($expLieuDepart) - 1];
+                    $villeArr = $expLieuArrivee[sizeof($expLieuArrivee) - 1];
 
-                //Initialisation des noms de rue
-                $nomRueDep = "";
-                $nomRueArr = "";
+                    //Initialisation des noms de rue
+                    $nomRueDep = "";
+                    $nomRueArr = "";
 
-                // On parcours et concatene toutes les parties de l'adresse sauf le numéro de rue et la ville pour avoir uniquement le nom de rue
-                foreach ($expLieuDepart as $part) {
-                    if ($part != $numRueDep && $part != $villeDep && $part) {
-                        $nomRueDep .= $part . " ";
+                    // On parcours et concatene toutes les parties de l'adresse sauf le numéro de rue et la ville pour avoir uniquement le nom de rue
+                    foreach ($expLieuDepart as $part) {
+                        if ($part != $numRueDep && $part != $villeDep && $part) {
+                            $nomRueDep .= $part . " ";
+                        }
                     }
-                }
-                foreach ($expLieuArrivee as $part) {
-                    if ($part != $numRueArr && $part != $villeArr) {
-                        $nomRueArr .= $part . " ";
+                    foreach ($expLieuArrivee as $part) {
+                        if ($part != $numRueArr && $part != $villeArr) {
+                            $nomRueArr .= $part . " ";
+                        }
                     }
+
+                    // On retire une virgule parasite
+                    $nomRueDep = substr($nomRueDep, 0, strlen($nomRueDep) - 2);
+                    $nomRueArr = substr($nomRueArr, 0, strlen($nomRueArr) - 2);
+
+                    // On regarde si le lieu de départ existe, si ce n'est pas le cas on l'insere dans la bd
+                    if (!$managerLieu->existe($numRueDep, $nomRueDep, $villeDep)) {
+                        $managerLieu->insert($numRueDep, $nomRueDep, $villeDep);
+                    }
+
+                    // On regarde si le lieu d'arrivée existe, si ce n'est pas le cas on l'insere dans la bd
+                    if (!$managerLieu->existe($numRueArr, $nomRueArr, $villeArr)) {
+                        $managerLieu->insert($numRueArr, $nomRueArr, $villeArr);
+                    }
+
+                    // Récupération des numéros de trajet à partir des autres colonnes
+                    $numero_lieu_depart = $managerLieu->findNum($numRueDep, $nomRueDep, $villeDep);
+                    $numero_lieu_arrivee = $managerLieu->findNum($numRueArr, $nomRueArr, $villeArr);
+
+                    $managerTrajet->update($_GET['id'], $_POST['heureDep'], $_POST['heureArr'], $_POST['prix'], $_POST['dateDep'], $numero_lieu_depart, $numero_lieu_arrivee);
+
+                    echo "<div id=modalTriggerModif></div>";
                 }
+                else{
+                    echo "<div class=\"modal fade\" id=errorModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true style=\"backdrop-filter: blur(2px)\">
+                                <div class=\"modal-dialog modal-dialog-centered\" role=document>
+                                    <div class=\"modal-content bg-gradient-danger border-2\">
+                                    <div class='modal-title ms-3 mt-4'>Attention !</div>
+                                    <hr>
+                                        <div class=modal-body>
+                                            <p>Erreurs :</p>
+                                            <ul>";
+                    foreach($listeErreurs as $erreur){
+                        echo "<li>$erreur</li>";
+                    }
+                    echo "</ul>
+                                        </div>
+                                        <div class=modal-footer>
+                                            <button type=button class='btn btn-primary' onclick=\"location = 'index.php?controleur=trajet&methode=listerMesTrajets';\">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id=errorModalTrigger></div>";
 
-                // On retire une virgule parasite
-                $nomRueDep = substr($nomRueDep, 0, strlen($nomRueDep) - 2);
-                $nomRueArr = substr($nomRueArr, 0, strlen($nomRueArr) - 2);
-
-                // On regarde si le lieu de départ existe, si ce n'est pas le cas on l'insere dans la bd
-                if (!$managerLieu->existe($numRueDep, $nomRueDep, $villeDep)) {
-                    $managerLieu->insert($numRueDep, $nomRueDep, $villeDep);
                 }
-
-                // On regarde si le lieu d'arrivée existe, si ce n'est pas le cas on l'insere dans la bd
-                if (!$managerLieu->existe($numRueArr, $nomRueArr, $villeArr)) {
-                    $managerLieu->insert($numRueArr, $nomRueArr, $villeArr);
-                }
-
-                // Récupération des numéros de trajet à partir des autres colonnes
-                $numero_lieu_depart = $managerLieu->findNum($numRueDep, $nomRueDep, $villeDep);
-                $numero_lieu_arrivee = $managerLieu->findNum($numRueArr, $nomRueArr, $villeArr);
-
-                $managerTrajet->update($_GET['id'],$_POST['heureDep'], $_POST['heureArr'], $_POST['prix'], $_POST['dateDep'], $numero_lieu_depart, $numero_lieu_arrivee);
-
-                echo "<div id=modalTriggerModif></div>";
             }
         }
     }
@@ -243,76 +268,108 @@ class ControllerTrajet extends Controller{
     {
         if (isset($_SESSION['login']) || isset($_SESSION['pwd'])) {
             $template = $this->getTwig()->load('proposerTrajet.html.twig');
+            $listeErreurs = array();
 
             echo $template->render(array());
 
-            if (isset($_POST["heureDep"]) && isset($_POST["heureArr"]) && isset($_POST["prix"]) && isset($_POST["nbPlace"])) {
-                // On initialise les managers qui nous serons utiles
-                $managerLieu = new LieuDao($this->getPdo());
-                $managerTrajet = new TrajetDao($this->getPdo());
+            if(isset($_GET['action'])){
+                if($_GET['action'] == "enregistrer"){
 
-                // On récupère toutes les variables nécessaires à l'insertion d'un trajet
-                $numero_conducteur = $_SESSION['id']; // A changer lorsque les variables de session serons mises en place.
-                $heureDep = $_POST["heureDep"];
-                $heureArr = $_POST["heureArr"];
-                $prix = $_POST["prix"];
-                $nbPlace = $_POST["nbPlace"];
-                $lieuDepart = $_POST["lieuDepart"];
-                $lieuArrivee = $_POST["lieuArrivee"];
+                    // On initialise les managers qui nous serons utiles
+                    $managerLieu = new LieuDao($this->getPdo());
+                    $managerTrajet = new TrajetDao($this->getPdo());
 
-                // On explose la chaine de carateres en se basant sur les espaces
-                // pour récupérer ensuite séparément le numéro de rue, le nom de rue et la ville
-                $expLieuDepart = explode(" ", $lieuDepart);
-                $expLieuArrivee = explode(" ", $lieuArrivee);
+                    $numero_conducteur = $_SESSION['id'];
+                    if(validationPlageHoraire($_POST["heureDep"], $_POST["heureArr"],date("Y-m-d", strtotime($_POST['dateDep'] )), $listeErreurs) && validationPrix($_POST["prix"], $listeErreurs) && validationNbPlaces($_POST["nbPlace"], $listeErreurs) && validationLieuDepart($_POST["lieuDepart"], $listeErreurs) && validationLieuArrivee($_POST["lieuArrivee"], $listeErreurs) && validationDateDep(date("Y-m-d", strtotime($_POST['dateDep'] )), $listeErreurs)){
 
-                // On récupere le numéro de rue qui est le premier élément de la liste explosée de l'adresse
-                $numRueDep = $expLieuDepart[0];
-                $numRueArr = $expLieuArrivee[0];
+                        // On récupère toutes les variables nécessaires à l'insertion d'un trajet
+                        $heureDep = $_POST["heureDep"];
+                        $heureArr = $_POST["heureArr"];
+                        $prix = $_POST["prix"];
+                        $nbPlace = $_POST["nbPlace"];
+                        $lieuDepart = $_POST["lieuDepart"];
+                        $lieuArrivee = $_POST["lieuArrivee"];
+                        $dateDep = date("Y-m-d", strtotime($_POST['dateDep']));
 
-                // On récupere la ville qui est le dernier élément de la liste explosée de l'adresse
-                $villeDep = $expLieuDepart[sizeof($expLieuDepart) - 1];
-                $villeArr = $expLieuArrivee[sizeof($expLieuArrivee) - 1];
+                        // On explose la chaine de carateres en se basant sur les espaces
+                        // pour récupérer ensuite séparément le numéro de rue, le nom de rue et la ville
+                        $expLieuDepart = explode(" ", $lieuDepart);
+                        $expLieuArrivee = explode(" ", $lieuArrivee);
 
-                //Initialisation des noms de rue
-                $nomRueDep = "";
-                $nomRueArr = "";
+                        // On récupere le numéro de rue qui est le premier élément de la liste explosée de l'adresse
+                        $numRueDep = $expLieuDepart[0];
+                        $numRueArr = $expLieuArrivee[0];
 
-                // On parcours et concatene toutes les parties de l'adresse sauf le numéro de rue et la ville pour avoir uniquement le nom de rue
-                foreach ($expLieuDepart as $part) {
-                    if ($part != $numRueDep && $part != $villeDep && $part) {
-                        $nomRueDep .= $part . " ";
+                        // On récupere la ville qui est le dernier élément de la liste explosée de l'adresse
+                        $villeDep = $expLieuDepart[sizeof($expLieuDepart) - 1];
+                        $villeArr = $expLieuArrivee[sizeof($expLieuArrivee) - 1];
+
+                        //Initialisation des noms de rue
+                        $nomRueDep = "";
+                        $nomRueArr = "";
+
+                        // On parcours et concatene toutes les parties de l'adresse sauf le numéro de rue et la ville pour avoir uniquement le nom de rue
+                        foreach ($expLieuDepart as $part) {
+                            if ($part != $numRueDep && $part != $villeDep && $part) {
+                                $nomRueDep .= $part . " ";
+                            }
+                        }
+                        foreach ($expLieuArrivee as $part) {
+                            if ($part != $numRueArr && $part != $villeArr) {
+                                $nomRueArr .= $part . " ";
+                            }
+                        }
+
+                        // On retire une virgule parasite
+                        $nomRueDep = substr($nomRueDep, 0, strlen($nomRueDep) - 2);
+                        $nomRueArr = substr($nomRueArr, 0, strlen($nomRueArr) - 2);
+
+                        // On regarde si le lieu de départ existe, si ce n'est pas le cas on l'insere dans la bd
+                        if (!$managerLieu->existe($numRueDep, $nomRueDep, $villeDep)) {
+                            $managerLieu->insert($numRueDep, $nomRueDep, $villeDep);
+                        }
+
+                        // On regarde si le lieu d'arrivée existe, si ce n'est pas le cas on l'insere dans la bd
+                        if (!$managerLieu->existe($numRueArr, $nomRueArr, $villeArr)) {
+                            $managerLieu->insert($numRueArr, $nomRueArr, $villeArr);
+                        }
+
+                        // Récupération des numéros de trajet à partir des autres colonnes
+                        $numero_lieu_depart = $managerLieu->findNum($numRueDep, $nomRueDep, $villeDep);
+                        $numero_lieu_arrivee = $managerLieu->findNum($numRueArr, $nomRueArr, $villeArr);
+
+                        // Insertion du trajet dans la BD
+                        $managerTrajet->insert($heureDep, $heureArr, $prix,$dateDep, $nbPlace, $numero_conducteur, $numero_lieu_depart, $numero_lieu_arrivee);
+
+                        echo "<div id=modalTrigger></div>";
+                    }
+                    else{
+                        echo "<div class=\"modal fade\" id=errorModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true style=\"backdrop-filter: blur(2px)\">
+                                <div class=\"modal-dialog modal-dialog-centered\" role=document>
+                                    <div class=\"modal-content bg-gradient-danger border-2\">
+                                    <div class='modal-title ms-3 mt-4'>Attention !</div>
+                                    <hr>
+                                        <div class=modal-body>
+                                            <p>Erreurs :</p>
+                                            <ul>";
+                        foreach($listeErreurs as $erreur){
+                            echo "<li>$erreur</li>";
+                        }
+                        echo "</ul>
+                                        </div>
+                                        <div class=modal-footer>
+                                            <button type=button class='btn btn-primary' onclick=\"location = 'index.php?controleur=trajet&methode=enregistrer';\">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id=errorModalTrigger></div>";
+
                     }
                 }
-                foreach ($expLieuArrivee as $part) {
-                    if ($part != $numRueArr && $part != $villeArr) {
-                        $nomRueArr .= $part . " ";
-                    }
-                }
-
-                // On retire une virgule parasite
-                $nomRueDep = substr($nomRueDep, 0, strlen($nomRueDep) - 2);
-                $nomRueArr = substr($nomRueArr, 0, strlen($nomRueArr) - 2);
-
-                // On regarde si le lieu de départ existe, si ce n'est pas le cas on l'insere dans la bd
-                if (!$managerLieu->existe($numRueDep, $nomRueDep, $villeDep)) {
-                    $managerLieu->insert($numRueDep, $nomRueDep, $villeDep);
-                }
-
-                // On regarde si le lieu d'arrivée existe, si ce n'est pas le cas on l'insere dans la bd
-                if (!$managerLieu->existe($numRueArr, $nomRueArr, $villeArr)) {
-                    $managerLieu->insert($numRueArr, $nomRueArr, $villeArr);
-                }
-
-                // Récupération des numéros de trajet à partir des autres colonnes
-                $numero_lieu_depart = $managerLieu->findNum($numRueDep, $nomRueDep, $villeDep);
-                $numero_lieu_arrivee = $managerLieu->findNum($numRueArr, $nomRueArr, $villeArr);
-
-                // Insertion du trajet dans la BD
-                $managerTrajet->insert($heureDep, $heureArr, $prix, $nbPlace, $numero_conducteur, $numero_lieu_depart, $numero_lieu_arrivee);
-
-                echo "<div id=modalTrigger></div>";
             }
         }
+
         else{
             echo '<meta http-equiv="refresh" content="0;URL=index.php">';
         }

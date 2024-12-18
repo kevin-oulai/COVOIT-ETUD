@@ -9,7 +9,10 @@ require_once 'include.php';
    $pdoStatement = $pdo->prepare($query);
    $pdoStatement->execute();
    $result = $pdoStatement->fetch(PDO::FETCH_NUM);
-   $verifMDP = password_verify($_POST['pwd'],$result[0]);
+   $verifMDP = false;
+   if(!empty($result)) {
+       $verifMDP = password_verify($_POST['pwd'], $result[0]);
+   }
 
    // on vérifie les informations saisies
    if ($verifMDP) {
@@ -26,7 +29,6 @@ require_once 'include.php';
        $_SESSION['CLIENT'] = $managerEtudiant->find($result[1]);
 
        $_SESSION['id'] = $result[1];
-       $_SESSION['etudiant'] = $result[3];
        if(!is_null($result[2])){
            $_SESSION['voiture'] = $result[2];
        }

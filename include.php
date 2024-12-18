@@ -31,3 +31,5 @@ require_once 'modeles/voiture.dao.php';
 
 //Ajout des validations de formulaires
 require_once 'templates/fonctionValidation/validationInscription.php';
+include "validationAvis.php";
+include "validationTrajet.php";
