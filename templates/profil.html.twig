@@ -1,7 +1,7 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
 {% if STATUS == 'connected' %}
-<div class="container" style="height: 600px">
+<div class="container">
     <div class="login-container align-right">
         <ul class="list-group list-group-flush">
             <li class="list-group-item" style="background-color: rgba(0,0,0,0);"><h2 class="text-center">Profil</h2>
@@ -61,26 +61,26 @@
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
                                         <div class="card bg-gradient-primaire container text-center">
+                                            <div class="card-body row">
                                             {% if listeBadge is defined %}
-                                                <div class="card-body row">
                                                     {% for badge in listeBadge %}
                                                         <div class="col">
                                                             <img src = "images/{{badge.image}}" width="60" height="60"> <br>
                                                             {{badge.titre}}
                                                         </div>
                                                     {% endfor %}
-                                                </div>
                                             {% else %}
                                                 <h6 class=" text-center">Vous ne possédez pas de badge.</h6>
                                             {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
                                         <div class="card bg-gradient-primaire">
+                                            <div class="card-body">
                                             {% if listeAvisDonnes is defined %}
-                                                <div class="card-body">
                                                     {% for avisDonnes in listeAvisDonnes %}
                                                         <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
@@ -95,18 +95,18 @@
                                                             </div>
                                                         </div>
                                                     {% endfor %}
-                                                </div>
                                             {% else %}
                                                 <h6 class=" text-center">Vous n'avez pas donné d'avis.</h6>
                                             {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
                                         <div class="card bg-gradient-primaire">
+                                            <div class="card-body">
                                             {% if listeAvisReçus is defined %}
-                                                <div class="card-body">
                                                     {% for avisReçus in listeAvisReçus %}
                                                         <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
@@ -121,10 +121,10 @@
                                                             </div>
                                                         </div>
                                                     {% endfor %}
-                                                </div>
                                             {% else %}
                                                 <h6 class=" text-center">Vous n'avez pas reçu d'avis.</h6>
                                             {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

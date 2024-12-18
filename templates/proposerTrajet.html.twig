@@ -1,5 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
+{% if STATUS == 'connected' %}
 
 
     <h1 class="fs-1 text-center mt-xxl">Enregistrer un trajet</h1>
@@ -50,4 +51,8 @@
             }
         });
     </script>
+{% else %}
+    <body onLoad="alert(\'Membre non reconnu...\')">
+    <meta http-equiv="refresh" content="0;URL=connexion.php">
+{% endif %}
 {% endblock %}
