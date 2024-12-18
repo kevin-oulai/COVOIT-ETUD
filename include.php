@@ -14,6 +14,7 @@ require_once 'controllers/controller_etudiant.class.php';
 require_once 'controllers/controller_inscription.class.php';
 require_once 'controllers/controller_avis.class.php';
 require_once 'controllers/controller_factory.class.php';
+require_once 'controllers/controller_paiement.class.php';
 
 //Ajout des modeles
 require_once 'modeles/avis.class.php';
