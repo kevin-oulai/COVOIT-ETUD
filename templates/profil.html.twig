@@ -83,7 +83,6 @@
                                             {% if listeAvisDonnes is defined %}
                                                 {% set firstItem = listeAvisDonnes|first %}
                                                     {% if firstItem %}
-                                                        <button type="button" class="btn btn-secondary read-more-avis-donnes-btn" style="margin-bottom: 2%;" onclick="toggleAvisDonnes()">Voir plus</button>
                                                         <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
@@ -96,6 +95,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    {% set listeDonnes = listeAvisDonnes|length %}
+                                                        {% if listeDonnes > 1 %}
                                                         <div class="more-avis-donnes" style="display: none;">
                                                             {% for avisDonnes in listeAvisDonnes|slice(1) %}
                                                                 <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
@@ -112,6 +113,10 @@
                                                                 </div>
                                                             {% endfor %}
                                                         </div>
+                                                            <div class=" text-center">
+                                                                <button type="button" class="btn btn-secondary read-more-avis-donnes-btn" onclick="toggleAvisDonnes()">Voir plus</button>
+                                                            </div>
+                                                        {% endif %}
                                                     {% endif %}
                                             {% else %}
                                                 <h6 class=" text-center">Vous n'avez pas donné d'avis.</h6>
@@ -127,7 +132,6 @@
                                             {% if listeAvisReçus is defined %}
                                                 {% set firstItem = listeAvisReçus|first %}
                                                     {% if firstItem %}
-                                                        <button type="button" class="btn btn-secondary read-more-avis-reçus-btn" style="margin-bottom: 2%;" onclick="toggleAvisReçus()">Voir plus</button>
                                                         <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
@@ -140,6 +144,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    {% set listeReçus = listeAvisReçus|length %}
+                                                        {% if listeReçus > 1 %}
                                                         <div class="more-avis-reçus" style="display: none;">
                                                             {% for avisReçus in listeAvisReçus|slice(1) %}
                                                                 <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
@@ -156,6 +162,10 @@
                                                                 </div>
                                                             {% endfor %}
                                                         </div>
+                                                        <div class=" text-center">
+                                                            <button type="button" class="btn btn-secondary read-more-avis-reçus-btn" onclick="toggleAvisReçus()">Voir plus</button>
+                                                        </div>
+                                                        {% endif %}
                                                     {% endif %}
                                             {% else %}
                                                 <h6 class=" text-center">Vous n'avez pas reçu d'avis.</h6>
