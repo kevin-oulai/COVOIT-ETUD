@@ -1,6 +1,5 @@
 <?php
-// Démarrage de la session (si nécessaire pour conserver des informations utilisateur)
-session_start();
+require_once 'include.php';
 
 // Vérification de la présence du token dans l'URL
 if (!isset($_GET['token']))
@@ -51,5 +50,7 @@ catch (Exception $e)
 }
 
 // Si le token est valide, afficher le formulaire pour définir un nouveau mot de passe
-?>
-<input>
+$template = $twig->load('reinitialisation_mdp.html.twig');
+
+echo $template->render(array(
+));
