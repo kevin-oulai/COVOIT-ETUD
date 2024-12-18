@@ -43,8 +43,10 @@ class ControllerPaiement extends Controller
                     'idTrajet' => $idTrajet
                 ));
             } else {
+                // Quand le paiement est valide, j'ajoute le passager au trajet dans
+                
 
-                // Traitements sur la base de données
+
                 $template = $this->getTwig()->load('pagePaiement.html.twig');
 
                 echo $template->render(array(

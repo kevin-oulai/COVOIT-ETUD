@@ -1,15 +1,11 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-	<h1>Page de paiement</h1>
-	<h1>{{idTrajet}}</h1>
 	{% if STATUS == 'connected' %}
 		{% if paiementValide %}
 			<h1>Paiement validé</h1>
 
 			<div class="alert alert-success text-center" role="alert" style="width: 18rem; margin: auto; margin-top: 1%;">
-				<p>
-					<b>Votre paiement a bien été validé.</b>
-				</p>
+				<p><b>Votre paiement a bien été validé.</b></p>
 				<hr>
 				<p>Vous allez être redirigé vers la page d'accueil...</p>
 			</div>
@@ -17,9 +13,7 @@
 
 			{# Redirection automatique vers la page d'accueil #}
 			<script>
-				setTimeout(function () {
-window.location.href = "index.php";
-}, 5000);
+				setTimeout(function () { window.location.href = "index.php"; }, 5000);
 			</script>
 
 		{% else %}
@@ -28,7 +22,7 @@ window.location.href = "index.php";
 					<div class="card-body">
 						<h5 class="card-title text-center">Formulaire de paiement</h5>
 						<div class="card-text">
-							<form action="?controleur=paiement&methode=afficher&idTrajet={{idTrajet}}" method="POST" novalidate>
+							<form action="?controleur=paiement&methode=afficher&idTrajet={{idTrajet}}" method="POST">
 								<div class="row gx-2">
 									<div class="col">Nom
 										<input type="text" class="form-control" name="nom" placeholder="..." required/>
@@ -78,21 +72,20 @@ window.location.href = "index.php";
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
+			{# Auto-formatage des champs de saisie #}
 			<script>
-				// Auto-formatage des champs de saisie
-$(document).ready(function () {
-$('input[name="num_carte"]').mask('0000 0000 0000 0000');
-$('input[name="date_exp"]').mask('00/00');
-$('input[name="cvc"]').mask('000');
-});
+				$(document).ready(function () { 
+					$('input[name="num_carte"]').mask('0000 0000 0000 0000'); 
+					$('input[name="date_exp"]').mask('00/00'); 
+					$('input[name="cvc"]').mask('000'); 
+				});
 			</script>
 		{% endif %}
 	{% else %}
 		<div class="alert alert-danger text-center" role="alert" style="width: 18rem; margin: auto; margin-top: 1%;">
-			<p>
-				<b>Vous devez être connecté pour accéder à cette page.</b>
-			</p>
-			<button type="button" class="btn btn-primary" onclick="window.location.href ='connexion.php'">Se connecter</button>
+			<p><b>Vous devez être connecté pour accéder à cette page.</b></p>
+			<hr>
+			<button type="button" class="btn btn-primary" onclick="window.location.href ='connexion.php'">Se Connecter</button>
 		</div>
 	{% endif %}
 {% endblock %}
