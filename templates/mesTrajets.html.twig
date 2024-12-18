@@ -1,5 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
+{% if STATUS == 'connected' %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Vos trajets</h1>
     <div class="container mt-5 text-center">
         <div class="container mb-5">
@@ -246,4 +247,8 @@
             }
         });
     </script>
+{% else %}
+    <body onLoad="alert(\'Membre non reconnu...\')">
+    <meta http-equiv="refresh" content="0;URL=connexion.php">
+{% endif %}
 {% endblock %}
