@@ -9,88 +9,89 @@ class ControllerConnexion extends Controller{
         $template = $this->getTwig()->load('connexion.html.twig');
 
         if(isset($_GET['origin'])){
-            if($_GET['origin'] == "reinitialisationMdp"){
+            if($_GET['origin'] == "reinitialisationMdp") {
                 $password = $_POST['pwd'] ?? '';
                 $passwordConfirm = $_POST['confirmationPwd'] ?? '';
                 $token = $_POST['token'] ?? '';
                 $valide = true;
+                $listeErreurs = array();
 
-                // Validation des champs -- UTILISER FONCTION DE VALIDATION A LA PLACE
-                if (empty($password) || empty($passwordConfirm) || empty($token))
-                {
-//                    echo "<h1>Erreur</h1>";
-//                    echo "<p>Tous les champs sont requis.</p>";
-//                    echo '<a href="reinitialisation_mot_de_passe.php?token=' . htmlspecialchars($token) . '">Retour au formulaire</a>';
-//                    exit;
+                // Validation des champs
+                if (empty($token)) {
+                    $listeErreurs[] = 'token invalide.';
                     $valide = false;
                 }
 
                 // Vérification de la correspondance des mots de passe
-                if ($password !== $passwordConfirm)
-                {
-//                    echo "<h1>Erreur</h1>";
-//                    echo "<p>Les mots de passe ne correspondent pas.</p>";
-//                    echo '<a href="reinitialisation_mot_de_passe.php?token=' . htmlspecialchars($token) . '">Retour au formulaire</a>';
-//                    exit;
+                if (($password !== $passwordConfirm)) {
+                    $listeErreurs[] = 'Les mots de passes ne correspondent pas.';
                     $valide = false;
                 }
 
-                try
-                {
-                    // Connexion à la base de données
-                    $baseDeDonnees = BD::getInstance();
-                    $pdo = $baseDeDonnees->getConnexion();
+                if(!validerMdp($password, $listeErreurs)){
+                    $valide = false;
+                }
 
-                    // Vérification du token et récupération de l'utilisateur
-                    $requete = $pdo->prepare(
-                        'SELECT numero, expiration_token FROM ETUDIANT WHERE token_reinitialisation = :token'
-                    );
-                    $requete->execute(['token' => htmlspecialchars($token)]);
-                    $etudiant = $requete->fetch(PDO::FETCH_ASSOC);
+                if ($valide){
+                    try {
+                        // Connexion à la base de données
+                        $baseDeDonnees = BD::getInstance();
+                        $pdo = $baseDeDonnees->getConnexion();
 
-                    if (!$etudiant)
-                    {
-//                        echo "<h1>Erreur</h1>";
-//                        echo "<p>Token invalide ou inexistant.</p>";
-//                        exit;
-                        echo $template->render(array(
-                            'reinitialisation' => $valide
-                        ));
-                    }
+                        // Vérification du token et récupération de l'utilisateur
+                        $requete = $pdo->prepare(
+                            'SELECT numero, expiration_token FROM ETUDIANT WHERE token_reinitialisation = :token'
+                        );
+                        $requete->execute(['token' => htmlspecialchars($token)]);
+                        $etudiant = $requete->fetch(PDO::FETCH_ASSOC);
 
-                    // Vérification de la validité temporelle du token
-                    $expiration = strtotime($etudiant['expiration_token']);
-                    if ($expiration < time())
-                    {
-//                        echo "<h1>Erreur</h1>";
-//                        echo "<p>Le token a expiré. Veuillez demander un nouveau lien de réinitialisation.</p>";
-//                        exit;
+                        if (!$etudiant) {
+                            $listeErreurs[] = 'le token invalide';
+                            $valide = false;
+                        }
+
+                        // Vérification de la validité temporelle du token
+                        if ($valide) {
+                            $expiration = strtotime($etudiant['expiration_token']);
+                            if ($expiration < time()) {
+                                $listeErreurs[] = 'le token à expiré';
+                                $valide = false;
+                            }
+                        }
+                        if ($valide) {
+                            // Hachage du nouveau mot de passe
+                            $passwordHache = password_hash($password, PASSWORD_DEFAULT);
+
+                            //Mise à jour du mot de passe en BD
+                            $requete = $pdo->prepare(
+                                'UPDATE ETUDIANT 
+                                 SET motDePasse = :password, token_reinitialisation = NULL, expiration_token = NULL 
+                                 WHERE numero = :numero'
+                            );
+                            $requete->execute([
+                                'password' => $passwordHache,
+                                'numero' => $etudiant['numero'],
+                            ]);
+                        }
+                    } catch (Exception $e) {
+                        $listeErreurs[] = $e->getMessage();
                         $valide = false;
                     }
-
-                    // Hachage du nouveau mot de passe
-                    $passwordHache = password_hash($password, PASSWORD_DEFAULT);
-
-                    //Mise à jour du mot de passe en BD
-                    $requete = $pdo->prepare(
-                        'UPDATE ETUDIANT 
-                         SET motDePasse = :password, token_reinitialisation = NULL, expiration_token = NULL 
-                         WHERE numero = :numero'
-                    );
-                    $requete->execute([
-                        'password' => $passwordHache,
-                        'numero' => $etudiant['numero'],
-                    ]);
+                    echo $template->render(array(
+                        'reinitialisation' => $valide
+                    ));
                 }
-                catch (Exception $e)
-                {
-//                    echo "<h1>Erreur</h1>";
-//                    echo "<p>Une erreur inattendue s'est produite. Veuillez réessayer plus tard.</p>";
-//                    exit;
-                    $valide = false;
+                else{
+                    $url = '<meta http-equiv="refresh" content="0;URL=?controleur=connexion&methode=reinitialisation_mdp&token=' . $token;
+                    foreach($listeErreurs as $erreur){
+                        $url .= '&erreur=' . $erreur;
+                    }
+                    $url .= '">';
+                    echo $url;
                 }
+            }
+            else{
                 echo $template->render(array(
-                    'reinitialisation' => $valide
                 ));
             }
         }
@@ -155,12 +156,14 @@ class ControllerConnexion extends Controller{
     }
 
     public function reinitialisation_mdp(){
+        $erreur = "";
+        if(isset($_GET['erreur'])){
+            $erreur = $_GET['erreur'];
+        }
         // Vérification de la présence du token dans l'URL
         if (!isset($_GET['token']))
         {
-            echo "<h1>Erreur</h1>";
-            echo "<p>Token de réinitialisation manquant.</p>";
-            exit;
+            $erreur = 'token inexistant';
         }
 
         // Récupération et nettoyage du token
@@ -182,32 +185,26 @@ class ControllerConnexion extends Controller{
 
             if (!$etudiant)
             {
-                echo "<h1>Erreur</h1>";
-                echo "<p>Token invalide ou inexistant.</p>";
-                exit;
+                $erreur = 'token invalide.';
             }
 
             // Vérification de la date d'expiration du token
             $expiration = strtotime($etudiant['expiration_token']);
             if ($expiration < time())
             {
-                echo "<h1>Erreur</h1>";
-                echo "<p>Le token a expiré. Veuillez demander un nouveau lien de réinitialisation.</p>";
-                exit;
+                $erreur = 'token expiré.';
             }
         }
         catch (Exception $e)
         {
-            echo "<h1>Erreur</h1>";
-            echo "<p>Une erreur inattendue s'est produite : " . $e->getMessage() . "</p>";
-            exit;
+            $erreur = $e->getMessage();
         }
 
         // Si le token est valide, afficher le formulaire pour définir un nouveau mot de passe
         $template = $this->getTwig()->load('reinitialisation_mdp.html.twig');
-
         echo $template->render(array(
-            'token' => $token
+            'token' => $token,
+            'erreur' => $erreur
         ));
     }
 }

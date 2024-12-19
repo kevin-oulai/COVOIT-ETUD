@@ -13,6 +13,9 @@
                     <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE='Reinitialiser le mot de passe'>
                 </div>
             </form>
+            {% if erreur is not empty %}
+                <p class="alert-danger mt-3 text-center">{{ erreur }}</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
