@@ -42,6 +42,6 @@ require_once 'include.php';
        session_destroy();
        echo '<body onLoad="alert(\'Membre non reconnu...\')">';
        // puis on le redirige vers la page d'accueil
-       echo '<meta http-equiv="refresh" content="0;URL=connexion.php">';
+       echo '<meta http-equiv="refresh" content="0;URL=?controleur=connexion&methode=afficher">';
    }
 }
