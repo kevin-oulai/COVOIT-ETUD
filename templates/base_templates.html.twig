@@ -65,7 +65,7 @@
 <body class="bg-gradient-primary d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-header-color shadow">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <a href="index.php"><img src = "images/logoCovoit-etud.png" width="110" height="70" class = "nav-item"></a>
+            <a href="index.php"><img src = "images/transparent-logo.png" width="70" height="70" class = "nav-item"></a>
             <a href="index.php"><li class = "nav-item position-absolute top-50 start-50 translate-middle"><img src="images/websiteName.png" width="220" height="70"></li></a>
         </ul>
         <div class="container-fluid w-100 nav-item justify-content-md-end">
@@ -77,7 +77,7 @@
                 <p class="row me-3 mt-3">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p>
                 <a href="index.php?controleur=etudiant&methode=afficher&id={{ CLIENT.numero }}" class = "row"><img src="images/{{ CLIENT.photoProfil }}" width="70" height="70" style="border-radius: 100%;"></a>
             {% else %}
-                <a href="connexion.php" class="link-body-emphasis link-offset-2 link-underline link-underline-opacity-0"><p class="row me-3 mt-3">Se connecter</p></a>
+                <a href="?controleur=connexion&methode=afficher" class="link-body-emphasis link-offset-2 link-underline link-underline-opacity-0"><p class="row me-3 mt-3">Se connecter</p></a>
             {% endif %}
         </div>
     </nav>
