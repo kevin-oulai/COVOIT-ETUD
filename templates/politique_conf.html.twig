@@ -1,0 +1,79 @@
+{% extends "base_templates.html.twig" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politique de Confidentialité - Covoit Etud</title>
+  <style>
+
+  </style>
+</head>
+<body>
+
+  <div class="container" style="margin-top: 50px;" >
+    <div class="card">
+      <div class="card-body" >
+        <h5 class="card-title">Politique de Confidentialité</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Covoit Etud - Covoiturage entre étudiants</h6>
+
+        <p><strong>Introduction</strong></p>
+        <p>Bienvenue sur <strong>Covoit Etud</strong> (ci-après "nous", "notre", ou "le Service"). Nous nous engageons à protéger votre vie privée et à respecter la confidentialité des données personnelles que vous nous fournissez. Cette politique explique comment nous collectons, utilisons et protégeons vos informations personnelles dans le cadre de l'utilisation de notre service de covoiturage entre étudiants.</p>
+
+        <p><strong>1. Informations que nous collectons</strong></p>
+        <p>Nous collectons plusieurs types d'informations afin de fournir et améliorer notre Service :</p>
+        <ul>
+          <li><strong>Informations personnelles</strong> : Nom, adresse e-mail, numéro de téléphone, université, photo de profil, etc.</li>
+          <li><strong>Informations sur le véhicule</strong> : Marque, modèle, couleur, nombre de places disponibles, etc.</li>
+          <li><strong>Informations sur les trajets</strong> : Horaires, points de départ et d'arrivée, trajets partagés avec d'autres étudiants.</li>
+          <li><strong>Informations de paiement</strong> : Informations nécessaires pour effectuer des transactions.</li>
+          <li><strong>Données de géolocalisation</strong> : Données de localisation pour proposer ou trouver un trajet.</li>
+        </ul>
+
+        <p><strong>2. Comment nous utilisons vos informations</strong></p>
+        <ul>
+          <li>Fournir et personnaliser notre Service de covoiturage.</li>
+          <li>Communiquer avec vous concernant vos trajets et mises à jour de votre compte.</li>
+          <li>Améliorer notre Service en fonction des retours des utilisateurs.</li>
+          <li>Assurer la sécurité de la plateforme et prévenir toute fraude.</li>
+        </ul>
+
+        <p><strong>3. Partage des informations</strong></p>
+        <p>Nous ne vendons ni ne louons vos informations personnelles à des tiers. Cependant, nous pouvons partager vos informations dans les situations suivantes :</p>
+        <ul>
+          <li><strong>Prestataires de services tiers</strong> : Partage d'informations avec des partenaires pour le paiement, l'hébergement, etc.</li>
+          <li><strong>Respect des obligations légales</strong> : Divulgation si requis par la loi ou pour protéger nos droits.</li>
+        </ul>
+
+        <p><strong>4. Sécurité des données</strong></p>
+        <p>Nous mettons en œuvre des mesures pour protéger vos données personnelles. Cependant, aucune méthode de transmission sur Internet n'est entièrement sécurisée, et nous ne pouvons garantir une sécurité absolue.</p>
+
+        <p><strong>5. Vos droits</strong></p>
+        <p>Conformément à la législation applicable, vous disposez de plusieurs droits concernant vos informations personnelles :</p>
+        <ul>
+          <li>Droit d'accès à vos données.</li>
+          <li>Droit de rectification des informations incorrectes.</li>
+          <li>Droit à l'effacement de vos informations.</li>
+          <li>Droit d'opposition à certains traitements.</li>
+        </ul>
+
+        <p><strong>6. Conservation des données</strong></p>
+        <p>Nous conservons vos informations aussi longtemps que nécessaire pour remplir les objectifs pour lesquels elles ont été collectées.</p>
+
+        <p><strong>7. Modifications de la Politique de Confidentialité</strong></p>
+        <p>Nous nous réservons le droit de modifier cette politique à tout moment. Toute modification sera publiée sur cette page avec la date de révision mise à jour.</p>
+
+        <p><strong>8. Contact</strong></p>
+        <p>Pour toute question, veuillez nous contacter à l'adresse : <a href="mailto:contact@covoit-etud.com">contact@covoit-etud.com</a></p>
+      </div>
+    </div>
+  </div>
+<div class="text-center">
+  <button onclick="window.location.href ='.?controleur=inscription&methode=afficher';" class="btn btn-primary btn-sm mt-3">Retour</button>
+</div>
+
+</body>
+</html>
+
+{% endblock %}

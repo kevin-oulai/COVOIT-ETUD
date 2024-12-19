@@ -1,0 +1,21 @@
+{% extends "base_templates.html.twig" %}
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center" style="height: 600px;">
+        <div class="login-container align-right" style="width: 350px;">
+            <h2 class="text-center mb-5">Réinitialiser votre mot de passe</h2>
+            <form ACTION='?controleur=connexion&methode=afficher&origin=reinitialisationMdp' METHOD='POST'>
+                <label for="pwd">Nouveau mot de passe</label>
+                <input name="pwd" type="password" class="form-control mb-3" required>
+                <label for="confirmationPwd">Confirmer le mot de passe</label>
+                <input name="confirmationPwd" type="password" class="form-control mb-3" required>
+                <input type="hidden" name="token" value="{{ token }}">
+                <div class="text-center">
+                    <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE='Reinitialiser le mot de passe'>
+                </div>
+            </form>
+            {% if erreur is not empty %}
+                <p class="alert-danger mt-3 text-center">{{ erreur }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -72,6 +72,14 @@ class TrajetDao{
         return $trajet;
     }
 
+    public function findAll(): array{
+        $sql="SELECT * FROM TRAJET";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $trajets = $pdoStatement->fetchAll();
+        return $trajets;
+    }
 
     public function findAllByConducteur(int $numero): array{
         $sql="SELECT * FROM TRAJET WHERE numero_conducteur = :numero_conducteur";
@@ -145,21 +153,20 @@ class TrajetDao{
 
     public function infoRepOffre(int $numero): array
     {
-        $requete = "SELECT V.modele, V.marque, V.nbPlace, E.nom, E.prenom, E.dateNaiss, E.photoProfil, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace, L1.ville AS villeArr, L1.numRue AS numRueArr, L1.nomRue AS nomRueArr, L2.ville AS villeDep, L2.numRue AS numRueDep, L2.nomRue AS nomRueDep FROM TRAJET T LEFT JOIN LIEU L1 ON L1.numero = T.numero_lieu_arrivee LEFT JOIN LIEU L2 ON L2.numero = T.numero_lieu_depart JOIN ETUDIANT E ON E.numero = T.numero_conducteur JOIN VOITURE V ON V.numero = E.numero_voiture WHERE " . $numero . " = T.numero;";
+        $requete = "SELECT V.modele, V.marque, V.nbPlace, E.nom, E.prenom, E.dateNaiss, E.photoProfil, T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace, L1.ville AS villeArr, L1.numRue AS numRueArr, L1.nomRue AS nomRueArr, L2.ville AS villeDep, L2.numRue AS numRueDep, L2.nomRue AS nomRueDep FROM TRAJET T LEFT JOIN LIEU L1 ON L1.numero = T.numero_lieu_arrivee LEFT JOIN LIEU L2 ON L2.numero = T.numero_lieu_depart JOIN ETUDIANT E ON E.numero = T.numero_conducteur JOIN VOITURE V ON V.numero = E.numero_voiture WHERE " . $numero . " = T.numero;";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->execute();
         $infoTrajet = $pdoStatement->fetchAll();
         return $infoTrajet;
     }
         
-    public function insert(?string $heureDep = null,?string $heureArr = null,?int $prix = null,?int $nbPlace = null,?int $numero_conducteur = null,?int $numero_lieu_depart = null,?int $numero_lieu_arrivee = null): void
+    public function insert(?string $heureDep = null,?string $heureArr = null,?int $prix = null,?string $dateDep = null,?int $nbPlace = null,?int $numero_conducteur = null,?int $numero_lieu_depart = null,?int $numero_lieu_arrivee = null): void
     {
         $sql = "SELECT COUNT(numero) FROM TRAJET";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute();
         $newNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
         $newNum[0]++;
-        $dateDep = "2024-11-06";
         $query = $this->PDO->prepare("INSERT INTO TRAJET(numero,heureDep, heureArr, prix, dateDep, nbPlace, numero_conducteur, numero_lieu_depart, numero_lieu_arrivee) VALUES (:numero, :heureDep, :heureArr, :prix, :dateDep, :nbPlace, :numero_conducteur, :numero_lieu_depart, :numero_lieu_arrivee)");
         $query->bindParam(':numero', $newNum[0]);
         $query->bindParam(':heureDep', $heureDep);

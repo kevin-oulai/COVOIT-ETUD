@@ -1,0 +1,90 @@
+{% extends "base_templates.html.twig" %}
+{% block content %}
+	{% if STATUS == 'connected' %}
+		{% if paiementValide %}
+			<h1>Paiement validé</h1>
+
+			<div class="alert alert-success text-center" role="alert" style="width: 18rem; margin: auto; margin-top: 1%;">
+				<p><b>Votre paiement a bien été validé.</b></p>
+				<hr>
+				<p>Vous allez être redirigé vers la page d'accueil...</p>
+			</div>
+
+			{# Redirection automatique vers la page d'accueil #}
+			<script>
+				setTimeout(function () { window.location.href = "index.php"; }, 5000);
+			</script>
+
+		{% else %}
+			<div class="container d-flex justify-content-center">
+				<div class="card" style="width: 32rem">
+					<div class="card-body">
+						<h5 class="card-title text-center">Formulaire de paiement</h5>
+						<div class="card-text">
+							<form action="?controleur=paiement&methode=afficher&idTrajet={{idTrajet}}" method="POST">
+								<div class="row gx-2">
+									<div class="col">Nom
+										<input type="text" class="form-control" name="nom" placeholder="..." required/>
+									</div>
+									<div class="col">Prénom
+										<input type="text" class="form-control" name="prenom" placeholder="..." required/>
+									</div>
+								</div>
+
+								<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
+									<div class="col">Numéro de carte
+										<input type="text" class="form-control" name="num_carte" placeholder="..." pattern="[^a-zA-Z]+" size="17" minlength="16" maxlength="16" required/>
+									</div>
+								</div>
+
+								<div class="row gx-2">
+									<div class="col">Date d'expiration
+										<input type="text" class="form-control" name="date_exp" placeholder="../.." pattern="\d{2}\/\d{2}" class="form-control" required/>
+									</div>
+									<div class="col">CVC
+										<input type="text" class="form-control" name="cvc" placeholder="..." pattern="[^a-zA-Z]+" size="4" minlength="3" maxlength="3" required/>
+									</div>
+								</div>
+
+								<div class="card-body text-center">
+									<img class="card-img-bottom" src="images/cb.png" style="width: 95%;">
+								</div>
+								<div class="text-center">
+									<input type="submit" class="btn btn-primary" value="Valider">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{% if messagesErreurs != null %}
+				<div class="alert alert-danger text-center" role="alert" style="width: 18rem; margin: auto; margin-top: 1%;">
+					{% for message in messagesErreurs %}
+						<p>{{ message }}</p>
+					{% endfor %}
+				</div>
+			{% endif %}
+
+
+			{# Importation de JQuery pour la mise en forme automatique de l'entrée utilisateur (masque) #}
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+			{# Auto-formatage des champs de saisie #}
+			<script>
+				$(document).ready(function () { 
+					$('input[name="num_carte"]').mask('0000 0000 0000 0000'); 
+					$('input[name="date_exp"]').mask('00/00'); 
+					$('input[name="cvc"]').mask('000'); 
+				});
+			</script>
+		{% endif %}
+	{% else %}
+		<div class="alert alert-danger text-center" role="alert" style="width: 18rem; margin: auto; margin-top: 1%;">
+			<p><b>Vous devez être connecté pour accéder à cette page.</b></p>
+			<hr>
+			<button type="button" class="btn btn-primary" onclick="window.location.href ='connexion.php'">Se Connecter</button>
+		</div>
+	{% endif %}
+{% endblock %}

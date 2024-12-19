@@ -5,11 +5,14 @@ require_once 'include.php';
  if (isset($_POST['login']) && isset($_POST['pwd'])) {
 
    $pdo = Bd::getInstance()->getConnexion();
-   $query = "SELECT motDePasse, numero, numero_voiture FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
+   $query = "SELECT motDePasse, numero, numero_voiture, salt FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
    $pdoStatement = $pdo->prepare($query);
    $pdoStatement->execute();
    $result = $pdoStatement->fetch(PDO::FETCH_NUM);
-   $verifMDP = password_verify($_POST['pwd'],$result[0]);
+   $verifMDP = false;
+   if(!empty($result)) {
+       $verifMDP = password_verify($result[3] . $_POST['pwd'], $result[0]);
+   }
 
    // on vérifie les informations saisies
    if ($verifMDP) {
@@ -26,7 +29,6 @@ require_once 'include.php';
        $_SESSION['CLIENT'] = $managerEtudiant->find($result[1]);
 
        $_SESSION['id'] = $result[1];
-       $_SESSION['etudiant'] = $result[3];
        if(!is_null($result[2])){
            $_SESSION['voiture'] = $result[2];
        }
@@ -40,6 +42,6 @@ require_once 'include.php';
        session_destroy();
        echo '<body onLoad="alert(\'Membre non reconnu...\')">';
        // puis on le redirige vers la page d'accueil
-       echo '<meta http-equiv="refresh" content="0;URL=connexion.php">';
+       echo '<meta http-equiv="refresh" content="0;URL=?controleur=connexion&methode=afficher">';
    }
 }
