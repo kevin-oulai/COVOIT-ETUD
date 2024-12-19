@@ -12,8 +12,28 @@
                 <div class="text-center">
                     <a href="?controleur=connexion&methode=afficher" class="text-center">Retour à la page de connexion</a><br>
                 </div>
-
             </form>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script>
+        $(function(){
+            $('#linkModal').modal({
+                show:true,
+                backdrop:'static'
+            });
+            if($('#linkModalTrigger').length){
+                $('#linkModal').modal('show');
+            }
+        });
+        $(function(){
+            $('#errorModal').modal({
+                show:true,
+                backdrop:'static'
+            });
+            if($('#errorModalTrigger').length){
+                $('#errorModal').modal('show');
+            }
+        });
+    </script>
 {% endblock %}

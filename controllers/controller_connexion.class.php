@@ -103,7 +103,7 @@ class ControllerConnexion extends Controller{
 
     public function mdpOublie(){
         $template = $this->getTwig()->load('motdepasseoublie.html.twig');
-
+        $listeErreurs = array();
         echo $template->render(array(
         ));
 
@@ -118,10 +118,7 @@ class ControllerConnexion extends Controller{
             // Vérifier que la chaîne récupérée a bien la forme d'un email
             if (!filter_var($email, FILTER_VALIDATE_EMAIL))
             {
-                echo "<h1>Erreur</h1>";
-                echo "<p>Adresse email invalide.</p>";
-                echo '<a href="">Retourner au formulaire</a>';
-                exit;
+                $listeErreurs[] = 'Adresse mail invalide.';
             }
 
             try
@@ -136,21 +133,55 @@ class ControllerConnexion extends Controller{
                 // Simuler l'envoi d'un email en affichant un lien fictif
                 $lienReinitialisation = "?controleur=connexion&methode=reinitialisation_mdp&token=$token";
 
-                echo "<h1>Lien de réinitialisation généré</h1>";
-                echo "<a href='$lienReinitialisation'>$lienReinitialisation</a>";
+                echo "<div class=\"modal fade\" id=linkModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true style=\"backdrop-filter: blur(2px)\">
+                                <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=document>
+                                    <div class=\"modal-content bg-gradient-primary border-2\">
+                                    <div class='modal-title ms-3 mt-4'>Réinitialisation</div>
+                                    <hr>
+                                        <div class='modal-body text-break'>
+                                            <p>Votre lien de réinitialisation : </p>
+                                            <a href='$lienReinitialisation'>$lienReinitialisation</a>
+                                        </div>
+                                        <div class=modal-footer>
+                                            <button type=button class='btn btn-primary' onclick=\"location = '$lienReinitialisation';\">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id=linkModalTrigger></div>";
             }
             catch (Exception $e)
             {
                 // Gestion des erreurs (par exemple, utilisateur introuvable)
-                echo "<h1>Erreur</h1>";
-                echo "<p>{$e->getMessage()}</p>";
-                echo '<a href="mot_de_passe_oublie.html">Retourner au formulaire</a>';
+                $listeErreurs[] = $e->getMessage();
+            }
+            if(!empty($listeErreurs)){
+                echo "<div class=\"modal fade\" id=errorModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true style=\"backdrop-filter: blur(2px)\">
+                                <div class=\"modal-dialog modal-dialog-centered\" role=document>
+                                    <div class=\"modal-content bg-gradient-danger border-2\">
+                                    <div class='modal-title ms-3 mt-4'>Attention !</div>
+                                    <hr>
+                                        <div class=modal-body>
+                                            <p>Erreurs :</p>
+                                            <ul>";
+                foreach($listeErreurs as $erreur){
+                    echo "<li>$erreur</li>";
+                }
+                echo "</ul>
+                                        </div>
+                                        <div class=modal-footer>
+                                            <button type=button class='btn btn-primary' onclick=\"location = 'index.php?controleur=trajet&methode=enregistrer';\">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id=errorModalTrigger></div>";
             }
         }
         else
         {
             // Si le fichier est accédé directement sans soumission du formulaire
-            // echo "<meta http-equiv='refresh' content='0;url=motdepasseoublie.php' />";
+             //echo "<meta http-equiv='refresh' content='0;url=?controleur=connexion&methode=afficher' />";
             exit;
         }
     }
