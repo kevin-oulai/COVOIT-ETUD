@@ -224,14 +224,22 @@ function validerPdp($pdp, array &$messageErreurs)
     // 5. Plages de valeurs : non pertinent pour un fichier
 
     // 6. Fichiers uploadé : vérifier la taille et le type
-    $typeAutorises = ['jpeg', 'png', 'jpg', 'images/PNG', 'images/JPG', 'images/JPEG'];
+    $typeAutorises = ['image/jpeg', 'image/png']; // Types MIME valides en minuscules
 
     // Vérification du type MIME réel pour contrer les falsifications d'extension
     $typeMimeReel = mime_content_type($pdp['tmp_name']);
-    if (!in_array($typeMimeReel, $typeAutorises)) {
-        $messageErreurs[] = "Le fichier doit être au format JPG ou PNG";
+    if (!in_array(strtolower($typeMimeReel), $typeAutorises)) {
+        $messageErreurs[] = "Le fichier doit être au format JPG ou PNG.";
         $valide = false;
     }
+
+    // Vérification de l'extension de fichier (au cas où le type MIME est mal retourné)
+    $extensionFichier = strtolower(pathinfo($pdp['name'], PATHINFO_EXTENSION));
+    if (!in_array($extensionFichier, ['jpg', 'jpeg', 'png'])) {
+        $messageErreurs[] = "Le fichier doit être au format JPG ou PNG.";
+        $valide = false;
+    }
+
 
     // Vérification du poids du fichier
     $tailleMaxAutoriseeEnOctets = 2 * 1024 * 1024; //2Mo

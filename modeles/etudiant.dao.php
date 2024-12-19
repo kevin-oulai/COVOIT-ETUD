@@ -137,7 +137,7 @@ class EtudiantDao
         return $resul;
     }
 
-    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image,string $dateNaiss, string $mdp)
+    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image,string $dateNaiss, string $mdp, string $salt)
     {
         $pdo = Bd::getInstance()->getConnexion();
         $query = "SELECT COUNT(numero) FROM ETUDIANT";
@@ -146,7 +146,7 @@ class EtudiantDao
         $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
         $nbNum[0]++;
 
-        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse) VALUES ((?),(?),(?),(?),(?),(?),'NULL',(?),(?) )";
+        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse,token_reinitialisation,expiration_token,salt) VALUES ((?),(?),(?),(?),(?),(?),NULL,(?),(?),NULL,NULL,(?) )";
 
         $pwd = password_hash($mdp,PASSWORD_DEFAULT);
         $date = date($dateNaiss);
@@ -160,6 +160,7 @@ class EtudiantDao
         $pdoStatement->bindValue(6, $tel, PDO::PARAM_STR);
         $pdoStatement->bindValue(7, $image, PDO::PARAM_STR);
         $pdoStatement->bindValue(8, $pwd, PDO::PARAM_STR);
+        $pdoStatement->bindValue(9, $salt, PDO::PARAM_STR);
         $pdoStatement->execute();
     }
 
