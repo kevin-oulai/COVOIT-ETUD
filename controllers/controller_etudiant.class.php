@@ -66,7 +66,7 @@ class ControllerEtudiant extends Controller{
                     $photoValide = $etudiant->getPhotoProfil();
                 }
                 else{
-                    $photoValide = validerUploadEtPdp($_FILES["photoProfil"], $messagesErreurs);
+                    $photoValide = validerUploadEtPdp($photoProfil, $messagesErreurs);
                 }
                 $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $photoValide);
 
