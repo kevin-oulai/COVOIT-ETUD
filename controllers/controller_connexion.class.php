@@ -60,7 +60,12 @@ class ControllerConnexion extends Controller{
                         }
                         if ($valide) {
                             // Hachage du nouveau mot de passe
-                            $passwordHache = password_hash($password, PASSWORD_DEFAULT);
+                            $requeteSalt = $pdo->prepare("SELECT salt FROM ETUDIANT WHERE numero = :numero;");
+                            $requeteSalt->bindParam('numero', $etudiant["numero"]);
+                            $requeteSalt->execute();
+                            $salt = $requeteSalt->fetch(PDO::FETCH_ASSOC)['salt'];
+
+                            $passwordHache = password_hash($salt.$password, PASSWORD_DEFAULT);
 
                             //Mise à jour du mot de passe en BD
                             $requete = $pdo->prepare(
