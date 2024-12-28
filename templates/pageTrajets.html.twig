@@ -27,12 +27,12 @@
                                 <p class="card-title fs-4 btn-group">{{ trajet.numRueArr }} {{ trajet.nomRueArr }}, {{ trajet.villeArr }}</p>
                             </div>
                         <div class="input-group">
-                            <p class="card-title fs-4 btn-group">{{ trajet.heureDep }} - {{ trajet.heureArr }}</p>
+                            <p class="card-title fs-4 btn-group">{{ trajet.heureDep|date("H:i") }} - {{ trajet.heureArr|date("H:i") }}</p>
                         </div>
                     </div>
 
                     <div class="text-end">
-                        <p> le {{ trajet.dateDep }}</p>
+                        <p> le {{ trajet.dateDep|date("d/m/Y") }}</p>
                     </div>
 
                     <div class="btn-toolbar justify-content-between mt-5">

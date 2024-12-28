@@ -88,7 +88,7 @@
                                                         <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
-                                                                    Le {{firstItem.datePost}}<br>
+                                                                    Le {{firstItem.datePost|date("d/m/Y H:i")}}<br>
                                                                     Par le passager :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
                                                                     Note : {{firstItem.note}}
                                                                 </div>
@@ -104,7 +104,7 @@
                                                                 <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                                     <div class="row gx-5 card-body">
                                                                         <div class="col-5">
-                                                                            Le {{ avisDonnes.datePost }}<br>
+                                                                            Le {{ avisDonnes.datePost|date("d/m/Y H:i") }}<br>
                                                                             Par le passager :<br>{{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
                                                                             Note : {{ avisDonnes.note }}
                                                                         </div>
@@ -137,7 +137,7 @@
                                                         <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
-                                                                    Le {{firstItem.datePost}}<br>
+                                                                    Le {{firstItem.datePost|date("d/m/Y H:i")}}<br>
                                                                     Par le passager :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
                                                                     Note : {{firstItem.note}}
                                                                 </div>
@@ -153,7 +153,7 @@
                                                                 <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                                     <div class="row gx-5 card-body">
                                                                         <div class="col-5">
-                                                                            Le {{ avisReçus.datePost }}<br>
+                                                                            Le {{ avisReçus.datePost|date("d/m/Y H:i") }}<br>
                                                                             Par le passager :<br>{{ avisReçus.nomEtudiant }} {{ avisReçus.prenomEtudiant }}<br>
                                                                             Note : {{ avisReçus.note }}
                                                                         </div>
