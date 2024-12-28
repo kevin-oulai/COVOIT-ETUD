@@ -16,7 +16,7 @@
 * @date    14/11/2024
 
 */
-
+#[\AllowDynamicProperties]
 class Etudiant {
     //attributs
     /**
