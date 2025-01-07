@@ -27,7 +27,7 @@
                             <div class="row gx-3">
                                 <div class="col-4">Nom : {{etudiant.nom}}</div><br>
                                 <div class="col-4">Prenom : {{etudiant.prenom}}</div><br>
-                                <div class="col-4">Date de naissance : {{etudiant.dateNaiss}}</div><br><br>
+                                <div class="col-4">Date de naissance : {{etudiant.dateNaiss|date("d/m/Y")}}</div><br><br>
                                 {% if nbTrajet is defined %}
                                     <div class="col-12">Nombre de trajets total : {{nbTrajet}}</div></li>
                                 {% else %}

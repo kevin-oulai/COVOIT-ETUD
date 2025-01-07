@@ -620,7 +620,7 @@ function validationLieuDepart($lieuDep, &$messagesErreur): bool
     //    - Type string
 //    - Longueur
 //    - Format 'Nombre, string, string'
-    if (!preg_match('/^[0-9]{1,3}\s[a-zA-Z\s]+,[a-zA-Z\s]+$/', $lieuDep) && $valide == true) {
+    if (!preg_match('/^[0-9]{1,3}\s[a-zA-Z\sé]+,[a-zA-Z\sé]+$/', $lieuDep) && $valide == true) {
         $valide = false;
         $messagesErreur[] = 'Format de lieu (de départ) invalide';
     }
@@ -640,7 +640,7 @@ function validationLieuArrivee($lieuArr, &$messagesErreur): bool
     //    - Type string
 //    - Longueur
 //    - Format 'Nombre, string, string'
-    if (!preg_match('/^[0-9]{1,3}\s[a-zA-Z\s]+,[a-zA-Z\s]+$/', $lieuArr) && $valide == true) {
+    if (!preg_match('/^[0-9]{1,3}\s[a-zA-Z\sé]+,[a-zA-Z\sé]+$/', $lieuArr) && $valide == true) {
         $valide = false;
         $messagesErreur[] = 'Format de lieu (d\'arrivée) invalide';
     }
