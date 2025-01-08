@@ -210,4 +210,23 @@ class Etudiant {
 
         return $token;
     }
+
+    public function verifEmail()
+    {
+        $baseDeDonnees = BD::getInstance();
+        $pdo = $baseDeDonnees->getConnexion();
+
+        $sql="SELECT COUNT(*) FROM ETUDIANT WHERE adressemail = :mail";
+        $pdoStatement = $pdo->prepare($sql);
+        var_dump($this->adresseMail);
+        $pdoStatement->execute(array(":mail"=>$this->adresseMail));
+        $pdoStatement->setFetchMode(PDO::FETCH_NUM);
+        $count = $pdoStatement->fetch();
+        echo "$count[0]";
+        if($count[0]<1)
+        {
+            return true;
+        }
+        return false;
+    }
 }
