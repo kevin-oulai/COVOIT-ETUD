@@ -6,12 +6,14 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item" style="background-color: rgba(0,0,0,0);"><h2 class="text-center">Profil</h2>
                 <div class ="text-center">
-                <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
+                {% if CLIENT.numero == etudiant.numero %}
+                    <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
                     <div class="row justify-content-end custom-line">
                         <div class="col-2">
                             <button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
                         </div>
                     </div>
+                {% endif %}
             </li>
                 </div>
             <form action="index.php?controleur=etudiant&methode=afficher" class="input-group">
@@ -25,7 +27,7 @@
                             <div class="row gx-3">
                                 <div class="col-4">Nom : {{etudiant.nom}}</div><br>
                                 <div class="col-4">Prenom : {{etudiant.prenom}}</div><br>
-                                <div class="col-4">Date de naissance : {{etudiant.dateNaiss}}</div><br><br>
+                                <div class="col-4">Date de naissance : {{etudiant.dateNaiss|date("d/m/Y")}}</div><br><br>
                                 {% if nbTrajet is defined %}
                                     <div class="col-12">Nombre de trajets total : {{nbTrajet}}</div></li>
                                 {% else %}
@@ -65,7 +67,7 @@
                                             {% if listeBadge is defined %}
                                                     {% for badge in listeBadge %}
                                                         <div class="col">
-                                                            <img src = "images/{{badge.image}}" width="60" height="60"> <br>
+                                                            <img src = "images/{{badge.image}}" width="60" height="60" style="border-radius: 100%;"> <br>
                                                             {{badge.titre}}
                                                         </div>
                                                     {% endfor %}
@@ -86,7 +88,7 @@
                                                         <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
-                                                                    Le {{firstItem.datePost}}<br>
+                                                                    Le {{firstItem.datePost|date("d/m/Y H:i")}}<br>
                                                                     Par le passager :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
                                                                     Note : {{firstItem.note}}
                                                                 </div>
@@ -102,7 +104,7 @@
                                                                 <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                                     <div class="row gx-5 card-body">
                                                                         <div class="col-5">
-                                                                            Le {{ avisDonnes.datePost }}<br>
+                                                                            Le {{ avisDonnes.datePost|date("d/m/Y H:i") }}<br>
                                                                             Par le passager :<br>{{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
                                                                             Note : {{ avisDonnes.note }}
                                                                         </div>
@@ -135,7 +137,7 @@
                                                         <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
-                                                                    Le {{firstItem.datePost}}<br>
+                                                                    Le {{firstItem.datePost|date("d/m/Y H:i")}}<br>
                                                                     Par le passager :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
                                                                     Note : {{firstItem.note}}
                                                                 </div>
@@ -151,7 +153,7 @@
                                                                 <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                                     <div class="row gx-5 card-body">
                                                                         <div class="col-5">
-                                                                            Le {{ avisReçus.datePost }}<br>
+                                                                            Le {{ avisReçus.datePost|date("d/m/Y H:i") }}<br>
                                                                             Par le passager :<br>{{ avisReçus.nomEtudiant }} {{ avisReçus.prenomEtudiant }}<br>
                                                                             Note : {{ avisReçus.note }}
                                                                         </div>

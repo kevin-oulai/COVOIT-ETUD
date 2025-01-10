@@ -73,12 +73,12 @@ class VoitureDao {
         return $voiture;
     }
 
-    public function findMonEtudiant(int $numero_etudiant): Voiture
+    public function findMonEtudiant(int $numero_etudiant): Etudiant
     {
         $sql="SELECT * FROM VOITURE V JOIN ETUDIANT E ON V.NUMERO = E.NUMERO_VOITURE WHERE E.numero= :numero_etudiant";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute(array(":numero_etudiant"=>$numero_etudiant));
-        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Voiture');
+        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
         $voiture = $pdoStatement->fetch();
 
         return $voiture;
