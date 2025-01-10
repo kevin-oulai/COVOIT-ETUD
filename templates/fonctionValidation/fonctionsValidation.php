@@ -1,4 +1,5 @@
 <?php
+require_once "include.php";
 
 function validerNom(?string $nom, array &$messagesErreurs): bool
 {
@@ -79,8 +80,14 @@ function validerMail(string $email, array &$messageErreurs): bool
         $valide = false;
     }
 
-    // 5. Plages de valeurs : non pertinent
-
+    // 5. Plages de valeurs : 
+    $etudiant= new Etudiant(null,null,null,null,$email);
+    $mailDispo = $etudiant->verifEmail();
+    if($mailDispo == false)
+    {
+        $valide = false;
+        $messageErreurs[] = "L'adresse email déjà éxistanttt";
+    }
     // 6. Fichiers uploadé : non pertinent
 
     return $valide;

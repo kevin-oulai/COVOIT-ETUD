@@ -122,20 +122,6 @@ class EtudiantDao
         return false;
     }
 
-    public function verifMail(string $mail): bool
-    {
-        $resul = false;
-        $sql="SELECT COUNT(*) FROM ETUDIANT WHERE adressemail = :mail";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute(array(":mail"=>$mail));
-        $pdoStatement->setFetchMode(PDO::FETCH_NUM);
-        $count = $pdoStatement->fetch();
-        if($count[0]<1)
-        {
-            $resul = true;
-        }
-        return $resul;
-    }
 
     public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image,string $dateNaiss, string $mdp, string $salt)
     {
@@ -148,7 +134,6 @@ class EtudiantDao
 
         $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse,token_reinitialisation,expiration_token,salt) VALUES ((?),(?),(?),(?),(?),(?),NULL,(?),(?),NULL,NULL,(?) )";
 
-        $pwd = password_hash($mdp,PASSWORD_DEFAULT);
         $date = date($dateNaiss);
 
         $pdoStatement = $pdo->prepare($query);
@@ -159,7 +144,7 @@ class EtudiantDao
         $pdoStatement->bindValue(5, $mail, PDO::PARAM_STR);
         $pdoStatement->bindValue(6, $tel, PDO::PARAM_STR);
         $pdoStatement->bindValue(7, $image, PDO::PARAM_STR);
-        $pdoStatement->bindValue(8, $pwd, PDO::PARAM_STR);
+        $pdoStatement->bindValue(8, $mdp, PDO::PARAM_STR);
         $pdoStatement->bindValue(9, $salt, PDO::PARAM_STR);
         $pdoStatement->execute();
     }
