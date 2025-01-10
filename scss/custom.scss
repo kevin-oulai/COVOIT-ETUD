@@ -3,6 +3,7 @@
 // Include any default variable overrides here (though functions won't be available)
 // Required
 @import "../node_modules/bootstrap/scss/functions";
+
 $primary: #4357BD;
 $header-color: #abc4ff;
 
@@ -110,7 +111,6 @@ $gradients: map-merge((
 @import "../node_modules/bootstrap/scss/buttons";
 @import "../node_modules/bootstrap/scss/card";
 @import "../node_modules/bootstrap/scss/alert";
-@import "../node_modules/bootstrap/scss/";
 
 
 
