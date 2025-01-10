@@ -16,7 +16,7 @@
 * @date    14/11/2024
 
 */
-
+#[\AllowDynamicProperties]
 class Etudiant {
     //attributs
     /**
@@ -173,5 +173,60 @@ class Etudiant {
     public function setPhotoProfil(?string $photoProfil): void
     {
         $this->photoProfil = $photoProfil;
+    }
+
+    public function genererTokenReinitialisation(): string
+    {
+        // Connexion à la base de données
+        $baseDeDonnees = BD::getInstance();
+        $pdo = $baseDeDonnees->getConnexion();
+
+        // Vérification de l'existence de l'utilisateur
+        $requete = $pdo->prepare('SELECT numero FROM ETUDIANT WHERE adresseMail = :email');
+        $requete->execute(['email' => $this->adresseMail]);
+        $etudiant = $requete->fetch(PDO::FETCH_ASSOC);
+
+        if (!$etudiant)
+        {
+                throw new Exception("Utilisateur introuvable");
+        }
+
+        // Génération d'un token unique
+        $token = bin2hex(random_bytes(32));
+
+        // Le token sera valide pendant 1 heure à partir de sa génération :
+        $dateExpiration = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+        // Mémorisation du token et de sa date d'expiration en BD
+        $requete = $pdo->prepare(
+            'UPDATE ETUDIANT SET token_reinitialisation = :token, expiration_token = :expiration 
+             WHERE adresseMail = :email'
+        );
+        $requete->execute([
+            'token' => $token,
+            'expiration' => $dateExpiration,
+            'email' => $this->adresseMail,
+        ]);
+
+        return $token;
+    }
+
+    public function verifEmail()
+    {
+        $baseDeDonnees = BD::getInstance();
+        $pdo = $baseDeDonnees->getConnexion();
+
+        $sql="SELECT COUNT(*) FROM ETUDIANT WHERE adressemail = :mail";
+        $pdoStatement = $pdo->prepare($sql);
+        var_dump($this->adresseMail);
+        $pdoStatement->execute(array(":mail"=>$this->adresseMail));
+        $pdoStatement->setFetchMode(PDO::FETCH_NUM);
+        $count = $pdoStatement->fetch();
+        echo "$count[0]";
+        if($count[0]<1)
+        {
+            return true;
+        }
+        return false;
     }
 }

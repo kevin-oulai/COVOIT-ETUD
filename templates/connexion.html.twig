@@ -1,10 +1,17 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
+{% if STATUS == 'connected' %}
+	{# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
+	<script>
+		window.location.href = "index.php";
+	</script>
+{% else %}
+	{# Sinon, afficher le formulaire de connexion #}
 <link rel='stylesheet' type='text/css' href='node_modules/bootstrap/dist/css/bootstrap.css'>
 <div class="d-flex justify-content-center align-items-center" style="height: 600px;">
 <div class="login-container align-right" style="width: 350px;">
     <h2 class="text-center">Connectez-vous</h2>
-    <form ACTION='login.php' METHOD='POST'>
+    <form ACTION='.?controleur=connexion&methode=login' METHOD='POST'>
         <input name="login" type="username" class="form-control mb-3" placeholder="Adresse mail" required>
         <input name="pwd" type="password" class="form-control mb-3" placeholder="Mot de passe" required>
         <div class="text-center">
@@ -12,10 +19,18 @@
         </div>
         </br>
         <div class="text-center">
-            <a href="?controleur=inscription&methode=afficher" class = "text-center">Pas de compte ? Inscrivez-vous !</a>
+            <a href=".?controleur=inscription&methode=afficher" class="text-center">Pas de compte ? Inscrivez-vous !</a><br>
+            <a href="?controleur=connexion&methode=mdpOublie" class="text-center">Mot de passe oublié</a>
         </div>
-
     </form>
+    {% if reinitialisation is defined %}
+        {% if reinitialisation %}
+            <p class="alert-success text-center mt-2">Le mot de passe à été réinitialisé</p>
+        {% else %}
+            <p class="alert-danger text-center mt-2">La réinitialisation s'est mal passée</p>
+        {% endif %}
+    {% endif %}
 </div>
 </div>
+{% endif %}
 {% endblock %}

@@ -18,7 +18,7 @@ class ControllerEtudiant extends Controller{
         }
 
         $managerVoiture = new VoitureDao($this->getPdo());
-        if($managerEtudiant->estConducteur($num_etudiant)) { // Verifier si l'étudiant est un conducteur
+        if($GLOBALS['CONDUCTEUR'] == 'true') { // Verifier si l'étudiant est un conducteur
             $managerNbTrajet = new EtudiantDao($this->getPdo());
             $nbTrajet = $managerNbTrajet->findNbTrajets($num_etudiant);
             $voiture = $managerVoiture->findMonEtudiant($num_etudiant);
@@ -53,7 +53,6 @@ class ControllerEtudiant extends Controller{
                     $marque = $_POST['marque'];
                     $nbPlace = $_POST['nbPlace'];
 
-                    var_dump($_POST);
                     // On regarde si la voiture de départ existe, si ce n'est pas le cas on l'insere dans la bd
                     if (!$managerVoiture->existe($modele, $marque, $nbPlace)) {
                         $managerVoiture->insert($modele, $marque, $nbPlace);
@@ -62,8 +61,30 @@ class ControllerEtudiant extends Controller{
                     // Récupération du numéro de voiture à partir des autres colonnes
                     $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
                 }
-                $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $_POST['photoProfil']);
-
+                $photoProfil = $_FILES['photoProfil'];
+                if($photoProfil == NULL) {
+                    $photoProfil = $etudiant->getPhotoProfil();
+                    $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $photoProfil);
+                }
+                else{
+                    $photoValide = validerUploadEtPdp($photoProfil, $messagesErreurs);
+                    if(!empty($messagesErreurs)) {
+                        $template = $this->getTwig()->load('profil.html.twig');
+        
+                        echo $template->render(array(
+                            'erreurs'=> $messagesErreurs,
+                        ));
+                    } 
+                    else {
+                        $dir = "images"; // Nom du dossier contenant les photos
+                        if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
+                            $photoValide = rand(0, 2147483647) . ".png";
+                            move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$photoValide");
+                        }
+                        $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $photoValide);
+                    }
+                }
+                
                 echo "<div id=modalTriggerModif></div>";
             }
         }

@@ -1,5 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
+{% if STATUS == 'connected' %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Vos participations</h1>
     <div class="container mt-5 text-center">
         {% for trajet in listeTrajets %}
@@ -32,12 +33,12 @@
                             {% endfor %}
                         </div>
                         <div class="input-group">
-                            <p class="card-title fs-4 btn-group">{{ trajet.heureDep }} - {{ trajet.heureArr }}</p>
+                            <p class="card-title fs-4 btn-group">{{ trajet.heureDep|date("H:i") }} - {{ trajet.heureArr|date("H:i") }}</p>
                         </div>
                     </div>
 
                     <div class="text-end">
-                        <p> le {{ trajet.dateDep }}</p>
+                        <p> le {{ trajet.dateDep|date("d/m/Y") }}</p>
                     </div>
 
                     <div class="btn-toolbar justify-content-between mt-5">
@@ -129,4 +130,8 @@
             }
         });
     </script>
+{% else %}
+    <body onLoad="alert(\'Membre non reconnu...\')">
+    <meta http-equiv="refresh" content="0;URL=connexion.php">
+{% endif %}
 {% endblock %}
