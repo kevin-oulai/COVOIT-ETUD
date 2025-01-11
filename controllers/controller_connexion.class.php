@@ -17,7 +17,7 @@ class ControllerConnexion extends Controller{
         parent::__construct($twig, $loader);
     }
     /**
-     * Affiche la page connexion et vérifie si le login et le mot de passe correspondent
+     * @brief Affiche la page connexion et vérifie si le login et le mot de passe correspondent
      *
      * @return void
      */
@@ -268,7 +268,7 @@ class ControllerConnexion extends Controller{
         ));
     }
     /**
-     * Ouvre une session si l'étudiant à réussi à se connecter
+     * @brief Ouvre une session si l'étudiant à réussi à se connecter
      *
      * @return void
      */

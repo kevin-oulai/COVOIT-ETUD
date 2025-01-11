@@ -16,14 +16,7 @@ class ControllerTrajet extends Controller{
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
         parent::__construct($twig, $loader);
     }
-    /**
-     * @brief
-     *
-     * @return void
-     */
-    public function afficher(){
-        echo "Afficher le trajet";
-    }
+
     /**
      * @brief permet d'afficher la page qui liste les trajets d'une recherche
      *
@@ -119,7 +112,7 @@ class ControllerTrajet extends Controller{
         ));
     }
     /**
-     * @brief permet d'afficher la page qui affiche les participation d'un utilisateur
+     * @brief permet d'afficher la page qui affiche les participations d'un utilisateur
      *
      * @return void
      */
@@ -179,7 +172,7 @@ class ControllerTrajet extends Controller{
         }
     }
     /**
-     * @brief permet d'afficher la page qui liste les trajet d'un conducteur
+     * @brief permet d'afficher la page qui liste les trajets créés par l'utilisateur
      *
      * @return void
      */

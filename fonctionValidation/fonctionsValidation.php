@@ -5,7 +5,7 @@ require_once "include.php";
 * @file    fonctionsValidation.php
 * @author  Thibault ROSALIE, Théo BIREMBAUX
 
-* @brief   Classe Avis pour représenter l'avis d'un étudiant passager.
+* @brief   Fonctions de validation de formulaires, côté serveur.
 *
 * @details Ce fichier contient les fonctions de validation des données au niveau
 * du serveur. Ces fonctions permettent de vérifier la cohérence des données sur 
@@ -16,7 +16,7 @@ require_once "include.php";
 */
 
 /**
- * @brief vérifie la cohérence du nom
+ * @brief Vérifie la cohérence du nom
  *
  * @param string|null $nom
  * @param array $messagesErreurs
@@ -569,7 +569,7 @@ function validerCodeSecurite(?string $codeSecurite, array &$messagesErreurs): bo
 /**
  * @brief vérifie la cohérence de la note entrée
  *
- * @param string|null $nomBanque
+ * @param string|null $note
  * @param array $messagesErreurs
  * @return bool
  */
@@ -600,7 +600,7 @@ function validerNote(string $note, array &$messagesErreurs): bool
 /**
  * @brief vérifie la cohérence du commentaire entré
  *
- * @param string|null $nomBanque
+ * @param string|null $commentaire
  * @param array $messagesErreurs
  * @return bool
  */

@@ -1,0 +1,795 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>COVOIT&#39;ETUD: Référence du fichier fonctionValidation/fonctionsValidation.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">COVOIT&#39;ETUD<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">Application web responsive de covoiturage entre étudiants</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.11.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_af41cfead714c78ebdf872b21edae7b9.html">fonctionValidation</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier fonctionsValidation.php</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Fonctions de validation de formulaires, côté serveur.  
+<a href="#details">Plus de détails...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:abec2290362e009c8d59bb0f7cb7ea833" id="r_abec2290362e009c8d59bb0f7cb7ea833"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abec2290362e009c8d59bb0f7cb7ea833">validerNom</a> (?string $nom, array &amp;$messagesErreurs)</td></tr>
+<tr class="memdesc:abec2290362e009c8d59bb0f7cb7ea833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vérifie la cohérence du nom.  <br /></td></tr>
+<tr class="separator:abec2290362e009c8d59bb0f7cb7ea833"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1e7ac823ada961ee6810be88ceefd21" id="r_af1e7ac823ada961ee6810be88ceefd21"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1e7ac823ada961ee6810be88ceefd21">validerPrenom</a> (?string $prenom, array &amp;$messagesErreurs)</td></tr>
+<tr class="memdesc:af1e7ac823ada961ee6810be88ceefd21"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du prénom  <br /></td></tr>
+<tr class="separator:af1e7ac823ada961ee6810be88ceefd21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36f0d0e0ffdacdb0eb9bc8a0083ecd30" id="r_a36f0d0e0ffdacdb0eb9bc8a0083ecd30"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36f0d0e0ffdacdb0eb9bc8a0083ecd30">validerMail</a> (string $email, array &amp;$messageErreurs)</td></tr>
+<tr class="memdesc:a36f0d0e0ffdacdb0eb9bc8a0083ecd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du mail  <br /></td></tr>
+<tr class="separator:a36f0d0e0ffdacdb0eb9bc8a0083ecd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada070e6882226d70ba65d24668461346" id="r_ada070e6882226d70ba65d24668461346"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada070e6882226d70ba65d24668461346">validerTelephone</a> (?string $num, array &amp;$messageErreurs)</td></tr>
+<tr class="memdesc:ada070e6882226d70ba65d24668461346"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du nom  <br /></td></tr>
+<tr class="separator:ada070e6882226d70ba65d24668461346"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89b5eddde3d9e5ff739c6dce7c4c982a" id="r_a89b5eddde3d9e5ff739c6dce7c4c982a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89b5eddde3d9e5ff739c6dce7c4c982a">validerDateDeNaissance</a> (string $dateNaiss, array &amp;$messageErreurs)</td></tr>
+<tr class="memdesc:a89b5eddde3d9e5ff739c6dce7c4c982a"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence de la date de naissance  <br /></td></tr>
+<tr class="separator:a89b5eddde3d9e5ff739c6dce7c4c982a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa83f525831ef998c3ad0505032c3888f" id="r_aa83f525831ef998c3ad0505032c3888f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa83f525831ef998c3ad0505032c3888f">validerMdp</a> (string $mdp, array &amp;$messageErreurs)</td></tr>
+<tr class="memdesc:aa83f525831ef998c3ad0505032c3888f"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du mot de passe  <br /></td></tr>
+<tr class="separator:aa83f525831ef998c3ad0505032c3888f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d6d75704300a66b50eec74c0117316f" id="r_a5d6d75704300a66b50eec74c0117316f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d6d75704300a66b50eec74c0117316f">validerPdp</a> (array $pdp, array &amp;$messageErreurs)</td></tr>
+<tr class="memdesc:a5d6d75704300a66b50eec74c0117316f"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence de la photo de profil  <br /></td></tr>
+<tr class="separator:a5d6d75704300a66b50eec74c0117316f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee669de1ba0fe83985238c3f1f55089f" id="r_aee669de1ba0fe83985238c3f1f55089f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee669de1ba0fe83985238c3f1f55089f">validerUploadEtPdp</a> (array $pdp, array &amp;$messageErreurs)</td></tr>
+<tr class="memdesc:aee669de1ba0fe83985238c3f1f55089f"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du téléchargement de la photo de profil  <br /></td></tr>
+<tr class="separator:aee669de1ba0fe83985238c3f1f55089f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24117cf8204105320da14326e641f4e7" id="r_a24117cf8204105320da14326e641f4e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24117cf8204105320da14326e641f4e7">validerNumeroCarte</a> (?string $numeroCarte, array &amp;$messagesErreurs)</td></tr>
+<tr class="memdesc:a24117cf8204105320da14326e641f4e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du numéro de carte de crédit  <br /></td></tr>
+<tr class="separator:a24117cf8204105320da14326e641f4e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd3f43b75d4ddb19d58d89fd6a01561c" id="r_acd3f43b75d4ddb19d58d89fd6a01561c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd3f43b75d4ddb19d58d89fd6a01561c">validerDateExpiration</a> (?string $dateExpiration, array &amp;$messagesErreurs)</td></tr>
+<tr class="memdesc:acd3f43b75d4ddb19d58d89fd6a01561c"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence de la date d'expiration  <br /></td></tr>
+<tr class="separator:acd3f43b75d4ddb19d58d89fd6a01561c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c9f328d9328b35b60cbf1f14bd77c24" id="r_a9c9f328d9328b35b60cbf1f14bd77c24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c9f328d9328b35b60cbf1f14bd77c24">validerCodeSecurite</a> (?string $codeSecurite, array &amp;$messagesErreurs)</td></tr>
+<tr class="memdesc:a9c9f328d9328b35b60cbf1f14bd77c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du code de sécurité  <br /></td></tr>
+<tr class="separator:a9c9f328d9328b35b60cbf1f14bd77c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25ffeeb549f92c66d09a83015e6c4afc" id="r_a25ffeeb549f92c66d09a83015e6c4afc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25ffeeb549f92c66d09a83015e6c4afc">validerNote</a> (string $note, array &amp;$messagesErreurs)</td></tr>
+<tr class="memdesc:a25ffeeb549f92c66d09a83015e6c4afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence de la note entrée  <br /></td></tr>
+<tr class="separator:a25ffeeb549f92c66d09a83015e6c4afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adea9bd2cada63504a8c1e47b2b09bfdf" id="r_adea9bd2cada63504a8c1e47b2b09bfdf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adea9bd2cada63504a8c1e47b2b09bfdf">validerCommentaire</a> (string $commentaire, array &amp;$messagesErreurs)</td></tr>
+<tr class="memdesc:adea9bd2cada63504a8c1e47b2b09bfdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du commentaire entré  <br /></td></tr>
+<tr class="separator:adea9bd2cada63504a8c1e47b2b09bfdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef8d0fe6ae721a9a9e15f24ef890b01c" id="r_aef8d0fe6ae721a9a9e15f24ef890b01c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef8d0fe6ae721a9a9e15f24ef890b01c">validationPlageHoraire</a> ($heureDep, $heureArr, $dateDep, &amp;$messagesErreur)</td></tr>
+<tr class="memdesc:aef8d0fe6ae721a9a9e15f24ef890b01c"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la plage horaire définie  <br /></td></tr>
+<tr class="separator:aef8d0fe6ae721a9a9e15f24ef890b01c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a144a2dd7765aaba6ace0273bd5075891" id="r_a144a2dd7765aaba6ace0273bd5075891"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a144a2dd7765aaba6ace0273bd5075891">validationPrix</a> ($prix, &amp;$messagesErreur)</td></tr>
+<tr class="memdesc:a144a2dd7765aaba6ace0273bd5075891"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du prix  <br /></td></tr>
+<tr class="separator:a144a2dd7765aaba6ace0273bd5075891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca06a2131676972745e3bbface7be345" id="r_aca06a2131676972745e3bbface7be345"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca06a2131676972745e3bbface7be345">validationNbPlaces</a> ($nbPlaces, &amp;$messagesErreur)</td></tr>
+<tr class="memdesc:aca06a2131676972745e3bbface7be345"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du nombre de places  <br /></td></tr>
+<tr class="separator:aca06a2131676972745e3bbface7be345"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84220a757ef48a54fda8e2c8a31d007e" id="r_a84220a757ef48a54fda8e2c8a31d007e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84220a757ef48a54fda8e2c8a31d007e">validationLieuDepart</a> ($lieuDep, &amp;$messagesErreur)</td></tr>
+<tr class="memdesc:a84220a757ef48a54fda8e2c8a31d007e"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du lieu de départ  <br /></td></tr>
+<tr class="separator:a84220a757ef48a54fda8e2c8a31d007e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab26493f5e6d2eaf792fa1f5c7475900b" id="r_ab26493f5e6d2eaf792fa1f5c7475900b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab26493f5e6d2eaf792fa1f5c7475900b">validationLieuArrivee</a> ($lieuArr, &amp;$messagesErreur)</td></tr>
+<tr class="memdesc:ab26493f5e6d2eaf792fa1f5c7475900b"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence du lieu d'arrivée  <br /></td></tr>
+<tr class="separator:ab26493f5e6d2eaf792fa1f5c7475900b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a800bb5698e21a5400aed2ba8953ad65f" id="r_a800bb5698e21a5400aed2ba8953ad65f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a800bb5698e21a5400aed2ba8953ad65f">validationDateDep</a> ($dateDep, &amp;$messagesErreur)</td></tr>
+<tr class="memdesc:a800bb5698e21a5400aed2ba8953ad65f"><td class="mdescLeft">&#160;</td><td class="mdescRight">vérifie la cohérence de la date de départ  <br /></td></tr>
+<tr class="separator:a800bb5698e21a5400aed2ba8953ad65f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5766efd703cef0e00bfc06b3f3acbe0e" id="r_a5766efd703cef0e00bfc06b3f3acbe0e"><td class="memItemLeft" align="right" valign="top">global&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5766efd703cef0e00bfc06b3f3acbe0e">$pdo</a> = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS)</td></tr>
+<tr class="separator:a5766efd703cef0e00bfc06b3f3acbe0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Fonctions de validation de formulaires, côté serveur. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Thibault ROSALIE, Théo BIREMBAUX</dd></dl>
+<p>Ce fichier contient les fonctions de validation des données au niveau du serveur. Ces fonctions permettent de vérifier la cohérence des données sur les formulaires présents sur l'application.</p>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>10/01/2025 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a800bb5698e21a5400aed2ba8953ad65f" name="a800bb5698e21a5400aed2ba8953ad65f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a800bb5698e21a5400aed2ba8953ad65f">&#9670;&#160;</a></span>validationDateDep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validationDateDep </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$dateDep</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreur</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence de la date de départ </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$dateDep</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="ab26493f5e6d2eaf792fa1f5c7475900b" name="ab26493f5e6d2eaf792fa1f5c7475900b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab26493f5e6d2eaf792fa1f5c7475900b">&#9670;&#160;</a></span>validationLieuArrivee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validationLieuArrivee </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$lieuArr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreur</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du lieu d'arrivée </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$lieuArr</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="a84220a757ef48a54fda8e2c8a31d007e" name="a84220a757ef48a54fda8e2c8a31d007e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84220a757ef48a54fda8e2c8a31d007e">&#9670;&#160;</a></span>validationLieuDepart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validationLieuDepart </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$lieuDep</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreur</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du lieu de départ </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$lieuDep</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="aca06a2131676972745e3bbface7be345" name="aca06a2131676972745e3bbface7be345"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca06a2131676972745e3bbface7be345">&#9670;&#160;</a></span>validationNbPlaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validationNbPlaces </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$nbPlaces</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreur</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du nombre de places </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$nbPlaces</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="aef8d0fe6ae721a9a9e15f24ef890b01c" name="aef8d0fe6ae721a9a9e15f24ef890b01c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef8d0fe6ae721a9a9e15f24ef890b01c">&#9670;&#160;</a></span>validationPlageHoraire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validationPlageHoraire </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$heureDep</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$heureArr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$dateDep</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreur</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la plage horaire définie </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$dateDep</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="a144a2dd7765aaba6ace0273bd5075891" name="a144a2dd7765aaba6ace0273bd5075891"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a144a2dd7765aaba6ace0273bd5075891">&#9670;&#160;</a></span>validationPrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validationPrix </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$prix</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreur</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du prix </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$prix</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="a9c9f328d9328b35b60cbf1f14bd77c24" name="a9c9f328d9328b35b60cbf1f14bd77c24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c9f328d9328b35b60cbf1f14bd77c24">&#9670;&#160;</a></span>validerCodeSecurite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerCodeSecurite </td>
+          <td>(</td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$codeSecurite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du code de sécurité </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$codeSecurite</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="adea9bd2cada63504a8c1e47b2b09bfdf" name="adea9bd2cada63504a8c1e47b2b09bfdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adea9bd2cada63504a8c1e47b2b09bfdf">&#9670;&#160;</a></span>validerCommentaire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerCommentaire </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$commentaire</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du commentaire entré </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$commentaire</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="a89b5eddde3d9e5ff739c6dce7c4c982a" name="a89b5eddde3d9e5ff739c6dce7c4c982a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89b5eddde3d9e5ff739c6dce7c4c982a">&#9670;&#160;</a></span>validerDateDeNaissance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerDateDeNaissance </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$dateNaiss</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messageErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence de la date de naissance </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$dateNaiss</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messageErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="acd3f43b75d4ddb19d58d89fd6a01561c" name="acd3f43b75d4ddb19d58d89fd6a01561c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd3f43b75d4ddb19d58d89fd6a01561c">&#9670;&#160;</a></span>validerDateExpiration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerDateExpiration </td>
+          <td>(</td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$dateExpiration</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence de la date d'expiration </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$dateExpiration</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="a36f0d0e0ffdacdb0eb9bc8a0083ecd30" name="a36f0d0e0ffdacdb0eb9bc8a0083ecd30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36f0d0e0ffdacdb0eb9bc8a0083ecd30">&#9670;&#160;</a></span>validerMail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerMail </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$email</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messageErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du mail </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$email</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messageErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="aa83f525831ef998c3ad0505032c3888f" name="aa83f525831ef998c3ad0505032c3888f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa83f525831ef998c3ad0505032c3888f">&#9670;&#160;</a></span>validerMdp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerMdp </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$mdp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messageErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du mot de passe </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$mdp</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messageErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="abec2290362e009c8d59bb0f7cb7ea833" name="abec2290362e009c8d59bb0f7cb7ea833"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abec2290362e009c8d59bb0f7cb7ea833">&#9670;&#160;</a></span>validerNom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerNom </td>
+          <td>(</td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$nom</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérifie la cohérence du nom. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$nom</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="a25ffeeb549f92c66d09a83015e6c4afc" name="a25ffeeb549f92c66d09a83015e6c4afc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25ffeeb549f92c66d09a83015e6c4afc">&#9670;&#160;</a></span>validerNote()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerNote </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$note</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence de la note entrée </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$note</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="a24117cf8204105320da14326e641f4e7" name="a24117cf8204105320da14326e641f4e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24117cf8204105320da14326e641f4e7">&#9670;&#160;</a></span>validerNumeroCarte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerNumeroCarte </td>
+          <td>(</td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$numeroCarte</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du numéro de carte de crédit </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$numeroCarte</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="a5d6d75704300a66b50eec74c0117316f" name="a5d6d75704300a66b50eec74c0117316f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d6d75704300a66b50eec74c0117316f">&#9670;&#160;</a></span>validerPdp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerPdp </td>
+          <td>(</td>
+          <td class="paramtype">array</td>          <td class="paramname"><span class="paramname"><em>$pdp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messageErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence de la photo de profil </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$pdp</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messageErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="af1e7ac823ada961ee6810be88ceefd21" name="af1e7ac823ada961ee6810be88ceefd21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1e7ac823ada961ee6810be88ceefd21">&#9670;&#160;</a></span>validerPrenom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerPrenom </td>
+          <td>(</td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$prenom</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messagesErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du prénom </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$prenom</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messagesErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="ada070e6882226d70ba65d24668461346" name="ada070e6882226d70ba65d24668461346"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada070e6882226d70ba65d24668461346">&#9670;&#160;</a></span>validerTelephone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerTelephone </td>
+          <td>(</td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$num</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messageErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du nom </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$num</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messageErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a id="aee669de1ba0fe83985238c3f1f55089f" name="aee669de1ba0fe83985238c3f1f55089f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee669de1ba0fe83985238c3f1f55089f">&#9670;&#160;</a></span>validerUploadEtPdp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">validerUploadEtPdp </td>
+          <td>(</td>
+          <td class="paramtype">array</td>          <td class="paramname"><span class="paramname"><em>$pdp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array &amp;</td>          <td class="paramname"><span class="paramname"><em>$messageErreurs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vérifie la cohérence du téléchargement de la photo de profil </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$pdp</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$messageErreurs</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a id="a5766efd703cef0e00bfc06b3f3acbe0e" name="a5766efd703cef0e00bfc06b3f3acbe0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5766efd703cef0e00bfc06b3f3acbe0e">&#9670;&#160;</a></span>$pdo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>
