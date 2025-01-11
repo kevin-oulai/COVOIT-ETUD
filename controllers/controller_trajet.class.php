@@ -1,15 +1,34 @@
 <?php
+/**
+* @file    controller_trajet.class.php
+* @author  Galles Titouan
 
+* @brief   Classe ControllerTrajet s'occupe de gérer l'ouverture des vues concernant les pages de trajet
+*     
+*/
 class ControllerTrajet extends Controller{
-
+        /**
+     * @brief Permet de créer l'instance du controller
+     *
+     * @param Twig\Environment $twig
+     * @param Twig\Loader\FilesystemLoader $loader
+     */
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
         parent::__construct($twig, $loader);
     }
-
+    /**
+     * @brief
+     *
+     * @return void
+     */
     public function afficher(){
         echo "Afficher le trajet";
     }
-
+    /**
+     * @brief permet d'afficher la page qui liste les trajets d'une recherche
+     *
+     * @return void
+     */
     public function lister(){
         $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
         if ($criteria === '') {
@@ -21,9 +40,7 @@ class ControllerTrajet extends Controller{
                 $_SESSION["date"]=$date;
                 $nbPassager = $_POST['nombre_passagers'];
                 $_SESSION["nombre_passagers"]=$nbPassager;
-            } 
-
-
+            }
         $managerLieu = new LieuDao($this->getPdo());
         $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
         $numTrajet2 = $managerLieu->findNumByVille($_SESSION["arrivee"]);
@@ -77,7 +94,11 @@ class ControllerTrajet extends Controller{
     }
    
     }
-
+    /**
+     * @brief permet d'afficher et gerer la page repondre à une offre 
+     *
+     * @return void
+     */
     public function repondreOffre(){
         // On récupère l'id du trajet
         $id = $_GET["id"];
@@ -97,7 +118,11 @@ class ControllerTrajet extends Controller{
             'age' => $age
         ));
     }
-
+    /**
+     * @brief permet d'afficher la page qui affiche les participation d'un utilisateur
+     *
+     * @return void
+     */
     public function listerParticipations(){
         $numero_etudiant = $_SESSION['id'];
 
@@ -153,7 +178,11 @@ class ControllerTrajet extends Controller{
             }
         }
     }
-
+    /**
+     * @brief permet d'afficher la page qui liste les trajet d'un conducteur
+     *
+     * @return void
+     */
     public function listerMesTrajets(){
         $template = $this->getTwig()->load('mesTrajets.html.twig');
         $managerTrajet = new TrajetDao($this->getPdo());
@@ -256,14 +285,22 @@ class ControllerTrajet extends Controller{
             }
         }
     }
-
+    /**
+     * @brief permet d'afficher la page d'accueil pour rechercher un trajet
+     *
+     * @return void
+     */
     public function rechercher(){
 
         $template = $this->getTwig()->load('index.html.twig');
         echo $template->render(array(
         ));
     }
-
+    /**
+     * @brief afficher la page qui permet d'enregistrer un trajet 
+     *
+     * @return void
+     */
     public function enregistrer()
     {
         if (isset($_SESSION['login']) || isset($_SESSION['pwd'])) {

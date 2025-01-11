@@ -10,7 +10,6 @@
 *          
 * @version 0.1
 * @date    14/11/2024
-
 */
 
 class Badge {

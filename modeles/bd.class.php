@@ -1,13 +1,17 @@
 <?php
-
 /**
- * @brief Classe Bd pour gérer la connexion à la base de données
- * 
- * @details Cette classe permet de gérer la connexion à la base de données
- * 
- * La connexion est représenté par l'objet PDO de PHP
- */
+* @file    bd.class.php
+* @author  Thibault ROSALIE
 
+* @brief Classe Bd pour gérer la connexion à la base de données
+* 
+* @details Cette classe permet de gérer la connexion à la base de données
+* 
+* La connexion est représenté par l'objet PDO de PHP
+
+* @version 0.1
+* @date    14/11/2024
+*/
 class Bd {
 
     // Attributs

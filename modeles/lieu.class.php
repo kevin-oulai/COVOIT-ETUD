@@ -1,10 +1,16 @@
 <?php
 /**
- * @brief Classe Lieu pour représenter un lieu de départ ou d'arrivée
- * 
- * @details Cette classe permet de gérer les informations d'un lieu, telles 
- * que son numéro, son numéro de rue, son nom de rue et sa ville.
- */
+* @file    lieu.class.php
+* @author  Thibault ROSALIE
+
+* @brief Classe Lieu pour représenter un lieu de départ ou d'arrivée
+* 
+* @details Cette classe permet de gérer les informations d'un lieu, telles 
+* que son numéro, son numéro de rue, son nom de rue et sa ville.
+
+* @version 0.1
+* @date    14/11/2024
+*/
 class Lieu {
     // Attributs
     /**

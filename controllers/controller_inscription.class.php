@@ -1,12 +1,31 @@
 <?php
+/**
+* @file    controller_inscription.class.php
+* @author  Birembaux Théo
 
+* @brief   Classe ControllerInscription s'occupe de gérer l'ouverture des vues concernant la page d'inscription
+*     
+*/
 class ControllerInscription extends Controller
 {
+    /**
+     * @brief Permet de créer l'instance du controller
+     *
+     * @param Twig\Environment $twig
+     * @param Twig\Loader\FilesystemLoader $loader
+     */
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader)
     {
         parent::__construct($twig, $loader);
     }
 
+    /**
+     * @brief Permet d'afficher la page d'inscription
+     * 
+     * @details Appelle la fonction pour ajouter l'étudiant et s'occupe du salage
+     *
+     * @return void
+     */
     public function afficher()
     {
         if (isset($_POST["Nom"]) && isset($_POST["Prenom"]) && isset($_POST["mail"]) && isset($_POST["tel"])) {

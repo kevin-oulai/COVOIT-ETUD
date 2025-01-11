@@ -1,12 +1,17 @@
 <?php
-
 /**
- * @brief Classe VoitureDao pour gérer les voitures dans la base de données
- * 
- * @details Cette classe permet de gérer les voitures dans la base de données
- * 
- * La connexion est représenté par l'objet PDO de PHP
- */
+* @file    voiture.dao.php
+* @author  Thibault ROSALIE
+
+* @brief Classe VoitureDao pour gérer les voitures dans la base de données
+* 
+* @details Cette classe permet de gérer les voitures dans la base de données
+* 
+* La connexion est représenté par l'objet PDO de PHP
+
+* @version 0.1
+* @date    14/11/2024
+*/
 
 class VoitureDao {
 
@@ -50,7 +55,12 @@ class VoitureDao {
     {
         $this->PDO = $PDO;
     }
-
+    /**
+     * @brief retourne toutes les informations de la voiture grace a son numero
+     *
+     * @param integer $numero
+     * @return Voiture
+     */
     public function find(int $numero): Voiture
     {
         $sql="SELECT * FROM VOITURE WHERE numero= :numero";
@@ -61,7 +71,12 @@ class VoitureDao {
 
         return $voiture;
     }
-
+    /**
+     * @brief retourne toutes les informations de la voiture d'un etudiant
+     *
+     * @param integer $numero
+     * @return Voiture
+     */
     public function findByEtudiant(int $numero): Voiture
     {
         $sql="SELECT * FROM VOITURE WHERE numero in (SELECT numero_voiture FROM ETUDIANT WHERE numero = :numero)";
@@ -72,7 +87,12 @@ class VoitureDao {
 
         return $voiture;
     }
-
+    /**
+     * @brief retourne toutes les informations de la voiture d'un etudiant
+     *
+     * @param integer $numero_etudiant
+     * @return Etudiant
+     */
     public function findMonEtudiant(int $numero_etudiant): Etudiant
     {
         $sql="SELECT * FROM VOITURE V JOIN ETUDIANT E ON V.NUMERO = E.NUMERO_VOITURE WHERE E.numero= :numero_etudiant";
@@ -83,7 +103,14 @@ class VoitureDao {
 
         return $voiture;
     }
-
+    /**
+     * @brief retourne le numero de la voiture correspondant au parametres de la fonction
+     *
+     * @param string|null $modele
+     * @param string|null $marque
+     * @param string|null $nbPlace
+     * @return integer
+     */
     public function findNum(?string $modele = null,?string $marque = null,?string $nbPlace = null): int
     {
         $sql="SELECT numero FROM VOITURE WHERE modele= :modele AND marque= :marque AND nbPlace= :nbPlace";
@@ -94,7 +121,14 @@ class VoitureDao {
 
         return $num;
     }
-
+    /**
+     * @brief verifie si une voiture existe
+     *
+     * @param string|null $modele
+     * @param string|null $marque
+     * @param string|null $nbPlace
+     * @return boolean
+     */
     public function existe(?string $modele = null,?string $marque = null,?string $nbPlace = null): bool
     {
         $sql="SELECT count(*) FROM VOITURE WHERE modele= :modele AND marque= :marque AND nbPlace= :nbPlace";
@@ -107,7 +141,14 @@ class VoitureDao {
         }
         return false;
     }
-
+    /**
+     * @brief permet d'inserer une nouvelle voiture dans la base de données
+     *
+     * @param string|null $modele
+     * @param string|null $marque
+     * @param string|null $nbPlace
+     * @return void
+     */
     public function insert(?string $modele = null,?string $marque = null,?string $nbPlace = null): void
     {
         $sql = "SELECT COUNT(numero) FROM VOITURE";
