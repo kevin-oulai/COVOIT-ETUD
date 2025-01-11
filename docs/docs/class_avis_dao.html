@@ -24,7 +24,6 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
-  <td id="projectlogo"><img alt="Logo" src="logo covoit-etud petit.png"/></td>
   <td id="projectalign">
    <div id="projectname">COVOIT&#39;ETUD<span id="projectnumber">&#160;0.1</span>
    </div>
@@ -95,11 +94,32 @@ $(function(){ initResizable(false); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Fonctions membres publiques</h2></td></tr>
 <tr class="memitem:a547eaaa1e35bdd4cab1800ac47b3a3b0" id="r_a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a547eaaa1e35bdd4cab1800ac47b3a3b0">__construct</a> (?PDO $pdo=null)</td></tr>
+<tr class="memdesc:a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur de la classe <a class="el" href="class_voiture_dao.html">VoitureDao</a>.  <br /></td></tr>
 <tr class="separator:a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af708fa20ff0c04a5a9bd8badd63e632c" id="r_af708fa20ff0c04a5a9bd8badd63e632c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af708fa20ff0c04a5a9bd8badd63e632c">getPDO</a> ()</td></tr>
+<tr class="memdesc:af708fa20ff0c04a5a9bd8badd63e632c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne l'objet PDO de connexion à la base de données.  <br /></td></tr>
 <tr class="separator:af708fa20ff0c04a5a9bd8badd63e632c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb45af1ee15fb8d441d2b23cd6b0c879" id="r_adb45af1ee15fb8d441d2b23cd6b0c879"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb45af1ee15fb8d441d2b23cd6b0c879">setPDO</a> (?PDO $PDO)</td></tr>
+<tr class="memdesc:adb45af1ee15fb8d441d2b23cd6b0c879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifie l'objet PDO de connexion à la base de données.  <br /></td></tr>
 <tr class="separator:adb45af1ee15fb8d441d2b23cd6b0c879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b7ce1c7567ab968a8ffe35cf8bf376a" id="r_a4b7ce1c7567ab968a8ffe35cf8bf376a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b7ce1c7567ab968a8ffe35cf8bf376a">find</a> (?int $numero)</td></tr>
+<tr class="memdesc:a4b7ce1c7567ab968a8ffe35cf8bf376a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trouve un avis dans la base de données.  <br /></td></tr>
+<tr class="separator:a4b7ce1c7567ab968a8ffe35cf8bf376a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a05d444e1fb4bcde4474b4efaf09a7" id="r_a71a05d444e1fb4bcde4474b4efaf09a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71a05d444e1fb4bcde4474b4efaf09a7">findAllConcerne</a> (?int $numero_concerne)</td></tr>
+<tr class="memdesc:a71a05d444e1fb4bcde4474b4efaf09a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trouve tous les avis dans la base de données.  <br /></td></tr>
+<tr class="separator:a71a05d444e1fb4bcde4474b4efaf09a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63f265871c9f3ca97c86a9d12919094e" id="r_a63f265871c9f3ca97c86a9d12919094e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63f265871c9f3ca97c86a9d12919094e">findAllCommentateur</a> (?int $numero_commentateur)</td></tr>
+<tr class="memdesc:a63f265871c9f3ca97c86a9d12919094e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trouve tous les avis dans la base de données.  <br /></td></tr>
+<tr class="separator:a63f265871c9f3ca97c86a9d12919094e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93171181b36e426b89186445f72614df" id="r_a93171181b36e426b89186445f72614df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93171181b36e426b89186445f72614df">insert</a> ($datePost, $message, $note, $concerne, $commentateur)</td></tr>
+<tr class="memdesc:a93171181b36e426b89186445f72614df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insère un avis dans la base de données.  <br /></td></tr>
+<tr class="separator:a93171181b36e426b89186445f72614df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95d241e6daa60c67e2b6deed7e1590f6" id="r_a95d241e6daa60c67e2b6deed7e1590f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95d241e6daa60c67e2b6deed7e1590f6">findConcerne</a> (?int $numero_concerne)</td></tr>
+<tr class="memdesc:a95d241e6daa60c67e2b6deed7e1590f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne un avis via son numéro.  <br /></td></tr>
+<tr class="separator:a95d241e6daa60c67e2b6deed7e1590f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a119347e9b97218e314d1ed02f362515f" id="r_a119347e9b97218e314d1ed02f362515f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a119347e9b97218e314d1ed02f362515f">findCommentateur</a> (?int $numero_commentateur)</td></tr>
+<tr class="memdesc:a119347e9b97218e314d1ed02f362515f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne un commentateur via son numéro.  <br /></td></tr>
+<tr class="separator:a119347e9b97218e314d1ed02f362515f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
 <a id="a547eaaa1e35bdd4cab1800ac47b3a3b0" name="a547eaaa1e35bdd4cab1800ac47b3a3b0"></a>
@@ -117,9 +137,135 @@ Fonctions membres publiques</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Constructeur de la classe <a class="el" href="class_voiture_dao.html">VoitureDao</a>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">PDO&#160;|&#160;null</td><td class="paramname">$pdo</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <h2 class="groupheader">Documentation des fonctions membres</h2>
+<a id="a4b7ce1c7567ab968a8ffe35cf8bf376a" name="a4b7ce1c7567ab968a8ffe35cf8bf376a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b7ce1c7567ab968a8ffe35cf8bf376a">&#9670;&#160;</a></span>find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">find </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trouve un avis dans la base de données. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int&#160;|&#160;null</td><td class="paramname">$numero</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Avis|null </dd></dl>
+
+</div>
+</div>
+<a id="a63f265871c9f3ca97c86a9d12919094e" name="a63f265871c9f3ca97c86a9d12919094e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63f265871c9f3ca97c86a9d12919094e">&#9670;&#160;</a></span>findAllCommentateur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findAllCommentateur </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero_commentateur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trouve tous les avis dans la base de données. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>array </dd></dl>
+
+</div>
+</div>
+<a id="a71a05d444e1fb4bcde4474b4efaf09a7" name="a71a05d444e1fb4bcde4474b4efaf09a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71a05d444e1fb4bcde4474b4efaf09a7">&#9670;&#160;</a></span>findAllConcerne()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findAllConcerne </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero_concerne</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trouve tous les avis dans la base de données. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>array </dd></dl>
+
+</div>
+</div>
+<a id="a119347e9b97218e314d1ed02f362515f" name="a119347e9b97218e314d1ed02f362515f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a119347e9b97218e314d1ed02f362515f">&#9670;&#160;</a></span>findCommentateur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findCommentateur </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero_commentateur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retourne un commentateur via son numéro. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$numero_commentateur</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="class_avis.html">Avis</a> </dd></dl>
+
+</div>
+</div>
+<a id="a95d241e6daa60c67e2b6deed7e1590f6" name="a95d241e6daa60c67e2b6deed7e1590f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95d241e6daa60c67e2b6deed7e1590f6">&#9670;&#160;</a></span>findConcerne()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findConcerne </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero_concerne</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retourne un avis via son numéro. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$numero_concerne</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="class_avis.html">Avis</a> </dd></dl>
+
+</div>
+</div>
 <a id="af708fa20ff0c04a5a9bd8badd63e632c" name="af708fa20ff0c04a5a9bd8badd63e632c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af708fa20ff0c04a5a9bd8badd63e632c">&#9670;&#160;</a></span>getPDO()</h2>
 
@@ -134,6 +280,58 @@ Fonctions membres publiques</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retourne l'objet PDO de connexion à la base de données. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>PDO|null </dd></dl>
+
+</div>
+</div>
+<a id="a93171181b36e426b89186445f72614df" name="a93171181b36e426b89186445f72614df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93171181b36e426b89186445f72614df">&#9670;&#160;</a></span>insert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">insert </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$datePost</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$note</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$concerne</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$commentateur</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insère un avis dans la base de données. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$datePost</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$message</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$note</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$concerne</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$commentateur</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
 
 </div>
 </div>
@@ -151,6 +349,15 @@ Fonctions membres publiques</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Modifie l'objet PDO de connexion à la base de données. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">PDO&#160;|&#160;null</td><td class="paramname">$PDO</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
 
 </div>
 </div>

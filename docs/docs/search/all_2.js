@@ -1,9 +1,12 @@
 var searchData=
 [
-  ['badge_0',['Badge',['../class_badge.html',1,'']]],
-  ['badge_2eclass_2ephp_1',['badge.class.php',['../badge_8class_8php.html',1,'']]],
-  ['badge_2edao_2ephp_2',['badge.dao.php',['../badge_8dao_8php.html',1,'']]],
-  ['badgedao_3',['BadgeDao',['../class_badge_dao.html',1,'']]],
-  ['bd_4',['Bd',['../class_bd.html',1,'']]],
-  ['bd_2eclass_2ephp_5',['bd.class.php',['../bd_8class_8php.html',1,'']]]
+  ['afficher_0',['afficher',['../class_controller_connexion.html#a78427cce4ef24caf78ccd7a8556c1d26',1,'ControllerConnexion\afficher()'],['../class_controller_etudiant.html#a78427cce4ef24caf78ccd7a8556c1d26',1,'ControllerEtudiant\afficher()'],['../class_controller_inscription.html#a78427cce4ef24caf78ccd7a8556c1d26',1,'ControllerInscription\afficher()'],['../class_controller_paiement.html#a78427cce4ef24caf78ccd7a8556c1d26',1,'ControllerPaiement\afficher()']]],
+  ['ajouterpassagertrajet_1',['ajouterPassagerTrajet',['../class_controller_paiement.html#a31bd2714db97e3c3d62fb7ad86b87cb2',1,'ControllerPaiement']]],
+  ['ajoutetudiant_2',['ajoutEtudiant',['../class_etudiant_dao.html#a0b8c3bf5d6ca204668a539f8d30ddb9a',1,'EtudiantDao']]],
+  ['aposteavis_3',['aPosteAvis',['../class_etudiant_dao.html#a23e779a50ec4d64bcb45cd692347c93f',1,'EtudiantDao']]],
+  ['arecuavis_4',['aRecuAvis',['../class_etudiant_dao.html#ac0865333c5e3308a2d23088a28ad944f',1,'EtudiantDao']]],
+  ['avis_5',['Avis',['../class_avis.html',1,'']]],
+  ['avis_2eclass_2ephp_6',['avis.class.php',['../avis_8class_8php.html',1,'']]],
+  ['avis_2edao_2ephp_7',['avis.dao.php',['../avis_8dao_8php.html',1,'']]],
+  ['avisdao_8',['AvisDao',['../class_avis_dao.html',1,'']]]
 ];
