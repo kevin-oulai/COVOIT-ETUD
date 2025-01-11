@@ -32,4 +32,4 @@ require_once 'modeles/voiture.class.php';
 require_once 'modeles/voiture.dao.php';
 
 //Ajout des validations de formulaires
-require_once 'templates/fonctionValidation/fonctionsValidation.php';
+require_once 'fonctionValidation/fonctionsValidation.php';

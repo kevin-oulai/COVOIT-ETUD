@@ -1,10 +1,16 @@
 <?php
 /**
- * @brief Classe Voiture pour représenter la voiture d'un étudiant conducteur
- * 
- * @details Cette classe permet de gérer les informations d'une voiture, telles 
- * que son numéro, son nom, sa marque et le nombre de places disponibles.
- */
+* @file    voiture.class.php
+* @author  Thibault ROSALIE
+
+* @brief Classe Voiture pour représenter la voiture d'un étudiant conducteur
+* 
+* @details Cette classe permet de gérer les informations d'une voiture, telles 
+* que son numéro, son nom, sa marque et le nombre de places disponibles.
+
+* @version 0.1
+* @date    14/11/2024
+*/
 class Voiture {
 
     // Attributs

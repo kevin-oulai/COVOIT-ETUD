@@ -1,10 +1,26 @@
 <?php
+/**
+* @file    controller_connexion.class.php
+* @author  Birembaux Théo
 
+* @brief   Classe ControllerConnexion s'occupe de gérer l'ouverture des vues concernant la page de connexion
+*     
+*/
 class ControllerConnexion extends Controller{
+    /**
+     * @brief Permet de créer l'instance du controller
+     *
+     * @param Twig\Environment $twig
+     * @param Twig\Loader\FilesystemLoader $loader
+     */
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
         parent::__construct($twig, $loader);
     }
-
+    /**
+     * @brief Affiche la page connexion et vérifie si le login et le mot de passe correspondent
+     *
+     * @return void
+     */
     public function afficher(){
         $template = $this->getTwig()->load('connexion.html.twig');
 
@@ -105,7 +121,11 @@ class ControllerConnexion extends Controller{
             ));
         }
     }
-
+    /**
+     * @brief permet d'afficher la page qui gere la reinitialisation du mot de passe lorsqu'il est oublié
+     *
+     * @return void
+     */
     public function mdpOublie(){
         $template = $this->getTwig()->load('motdepasseoublie.html.twig');
         $listeErreurs = array();
@@ -190,7 +210,11 @@ class ControllerConnexion extends Controller{
             exit;
         }
     }
-
+    /**
+     * @brief Affiche le formulaire pour changer le mot de passe
+     *
+     * @return void
+     */
     public function reinitialisation_mdp(){
         $erreur = "";
         if(isset($_GET['erreur'])){
@@ -243,7 +267,11 @@ class ControllerConnexion extends Controller{
             'erreur' => $erreur
         ));
     }
-
+    /**
+     * @brief Ouvre une session si l'étudiant à réussi à se connecter
+     *
+     * @return void
+     */
     public function login()
     {
         if (isset($_POST['login']) && isset($_POST['pwd'])) {

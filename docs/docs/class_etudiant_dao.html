@@ -24,7 +24,6 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
-  <td id="projectlogo"><img alt="Logo" src="logo covoit-etud petit.png"/></td>
   <td id="projectalign">
    <div id="projectname">COVOIT&#39;ETUD<span id="projectnumber">&#160;0.1</span>
    </div>
@@ -91,14 +90,11 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">Référence de la classe EtudiantDao</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Classe <a class="el" href="class_etudiant_dao.html" title="Classe EtudiantDao pour gérer les étudiants dans la base de données.">EtudiantDao</a> pour gérer les étudiants dans la base de données.  
- <a href="#details">Plus de détails...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Fonctions membres publiques</h2></td></tr>
 <tr class="memitem:a547eaaa1e35bdd4cab1800ac47b3a3b0" id="r_a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a547eaaa1e35bdd4cab1800ac47b3a3b0">__construct</a> (?PDO $pdo=null)</td></tr>
-<tr class="memdesc:a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur de la classe <a class="el" href="class_etudiant_dao.html" title="Classe EtudiantDao pour gérer les étudiants dans la base de données.">EtudiantDao</a>.  <br /></td></tr>
+<tr class="memdesc:a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur de la classe <a class="el" href="class_trajet_dao.html">TrajetDao</a>.  <br /></td></tr>
 <tr class="separator:a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af708fa20ff0c04a5a9bd8badd63e632c" id="r_af708fa20ff0c04a5a9bd8badd63e632c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af708fa20ff0c04a5a9bd8badd63e632c">getPDO</a> ()</td></tr>
 <tr class="memdesc:af708fa20ff0c04a5a9bd8badd63e632c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne l'objet PDO de connexion à la base de données.  <br /></td></tr>
@@ -106,15 +102,32 @@ Fonctions membres publiques</h2></td></tr>
 <tr class="memitem:adb45af1ee15fb8d441d2b23cd6b0c879" id="r_adb45af1ee15fb8d441d2b23cd6b0c879"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb45af1ee15fb8d441d2b23cd6b0c879">setPDO</a> (?PDO $PDO)</td></tr>
 <tr class="memdesc:adb45af1ee15fb8d441d2b23cd6b0c879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifie l'objet PDO de connexion à la base de données.  <br /></td></tr>
 <tr class="separator:adb45af1ee15fb8d441d2b23cd6b0c879"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade2ae37671b372a5bc60140e8b5f21ce" id="r_ade2ae37671b372a5bc60140e8b5f21ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade2ae37671b372a5bc60140e8b5f21ce">find</a> (int $numero)</td></tr>
-<tr class="memdesc:ade2ae37671b372a5bc60140e8b5f21ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne un étudiant à partir de son numéro.  <br /></td></tr>
-<tr class="separator:ade2ae37671b372a5bc60140e8b5f21ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b7ce1c7567ab968a8ffe35cf8bf376a" id="r_a4b7ce1c7567ab968a8ffe35cf8bf376a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b7ce1c7567ab968a8ffe35cf8bf376a">find</a> (?int $numero)</td></tr>
+<tr class="memdesc:a4b7ce1c7567ab968a8ffe35cf8bf376a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne un étudiant à partir de son numéro.  <br /></td></tr>
+<tr class="separator:a4b7ce1c7567ab968a8ffe35cf8bf376a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a584ce41683cc8dfa9f035be21416074d" id="r_a584ce41683cc8dfa9f035be21416074d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a584ce41683cc8dfa9f035be21416074d">findAllAssoc</a> ()</td></tr>
+<tr class="memdesc:a584ce41683cc8dfa9f035be21416074d"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne toutes les informations des étudiants  <br /></td></tr>
+<tr class="separator:a584ce41683cc8dfa9f035be21416074d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe287431dbbeab9b2ad10e8951944737" id="r_abe287431dbbeab9b2ad10e8951944737"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe287431dbbeab9b2ad10e8951944737">findNbTrajets</a> (?int $numero_etudiant)</td></tr>
+<tr class="memdesc:abe287431dbbeab9b2ad10e8951944737"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne le nombre de trajet n'un étudiant  <br /></td></tr>
+<tr class="separator:abe287431dbbeab9b2ad10e8951944737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac72f6137555d47fef34d3a65ad9c75d8" id="r_ac72f6137555d47fef34d3a65ad9c75d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac72f6137555d47fef34d3a65ad9c75d8">possedeBadge</a> (?int $numero_etudiant)</td></tr>
+<tr class="memdesc:ac72f6137555d47fef34d3a65ad9c75d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne vrai si l'etudiant a un badge  <br /></td></tr>
+<tr class="separator:ac72f6137555d47fef34d3a65ad9c75d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23e779a50ec4d64bcb45cd692347c93f" id="r_a23e779a50ec4d64bcb45cd692347c93f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23e779a50ec4d64bcb45cd692347c93f">aPosteAvis</a> (?int $numero_etudiant)</td></tr>
+<tr class="memdesc:a23e779a50ec4d64bcb45cd692347c93f"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne vrai si l'etudiant a commenté  <br /></td></tr>
+<tr class="separator:a23e779a50ec4d64bcb45cd692347c93f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0865333c5e3308a2d23088a28ad944f" id="r_ac0865333c5e3308a2d23088a28ad944f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0865333c5e3308a2d23088a28ad944f">aRecuAvis</a> (?int $numero_etudiant)</td></tr>
+<tr class="memdesc:ac0865333c5e3308a2d23088a28ad944f"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne vrai si l'etudiant a reçu un avis  <br /></td></tr>
+<tr class="separator:ac0865333c5e3308a2d23088a28ad944f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b8c3bf5d6ca204668a539f8d30ddb9a" id="r_a0b8c3bf5d6ca204668a539f8d30ddb9a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b8c3bf5d6ca204668a539f8d30ddb9a">ajoutEtudiant</a> (string $nom, string $prenom, string $mail, string $tel, string $image, string $dateNaiss, string $mdp, string $salt)</td></tr>
+<tr class="memdesc:a0b8c3bf5d6ca204668a539f8d30ddb9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet d'ajouter un étudiant à la bd avec les informations en paramètre.  <br /></td></tr>
+<tr class="separator:a0b8c3bf5d6ca204668a539f8d30ddb9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f954aa14fbc9cbcf22fd2d7258d6f1b" id="r_a9f954aa14fbc9cbcf22fd2d7258d6f1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f954aa14fbc9cbcf22fd2d7258d6f1b">update</a> (?int $numero=null, ?string $nom=null,?string $prenom=null,?string $dateNaiss=null,?string $mail=null,?string $tel=null,?int $numVoiture=null,?string $image=null)</td></tr>
+<tr class="memdesc:a9f954aa14fbc9cbcf22fd2d7258d6f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">permet de modifier le profil d'un étudiant  <br /></td></tr>
+<tr class="separator:a9f954aa14fbc9cbcf22fd2d7258d6f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
-<div class="textblock"><p>Classe <a class="el" href="class_etudiant_dao.html" title="Classe EtudiantDao pour gérer les étudiants dans la base de données.">EtudiantDao</a> pour gérer les étudiants dans la base de données. </p>
-<p>Cette classe permet de gérer les étudiants dans la base de données</p>
-<p>La connexion est représenté par l'objet PDO de PHP </p>
-</div><h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
+<h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
 <a id="a547eaaa1e35bdd4cab1800ac47b3a3b0" name="a547eaaa1e35bdd4cab1800ac47b3a3b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a547eaaa1e35bdd4cab1800ac47b3a3b0">&#9670;&#160;</a></span>__construct()</h2>
 
@@ -130,7 +143,7 @@ Fonctions membres publiques</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructeur de la classe <a class="el" href="class_etudiant_dao.html" title="Classe EtudiantDao pour gérer les étudiants dans la base de données.">EtudiantDao</a>. </p>
+<p>Constructeur de la classe <a class="el" href="class_trajet_dao.html">TrajetDao</a>. </p>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
     <tr><td class="paramtype">PDO&#160;|&#160;null</td><td class="paramname">$pdo</td><td></td></tr>
@@ -141,8 +154,127 @@ Fonctions membres publiques</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Documentation des fonctions membres</h2>
-<a id="ade2ae37671b372a5bc60140e8b5f21ce" name="ade2ae37671b372a5bc60140e8b5f21ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade2ae37671b372a5bc60140e8b5f21ce">&#9670;&#160;</a></span>find()</h2>
+<a id="a0b8c3bf5d6ca204668a539f8d30ddb9a" name="a0b8c3bf5d6ca204668a539f8d30ddb9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b8c3bf5d6ca204668a539f8d30ddb9a">&#9670;&#160;</a></span>ajoutEtudiant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ajoutEtudiant </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$nom</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$prenom</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$mail</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$tel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$dateNaiss</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$mdp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$salt</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Permet d'ajouter un étudiant à la bd avec les informations en paramètre. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$nom</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$prenom</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$mail</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$tel</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$image</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$dateNaiss</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$mdp</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$salt</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a23e779a50ec4d64bcb45cd692347c93f" name="a23e779a50ec4d64bcb45cd692347c93f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23e779a50ec4d64bcb45cd692347c93f">&#9670;&#160;</a></span>aPosteAvis()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">aPosteAvis </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero_etudiant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne vrai si l'etudiant a commenté </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$numero_etudiant</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>boolean|null </dd></dl>
+
+</div>
+</div>
+<a id="ac0865333c5e3308a2d23088a28ad944f" name="ac0865333c5e3308a2d23088a28ad944f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0865333c5e3308a2d23088a28ad944f">&#9670;&#160;</a></span>aRecuAvis()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">aRecuAvis </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero_etudiant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne vrai si l'etudiant a reçu un avis </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$numero_etudiant</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>boolean|null </dd></dl>
+
+</div>
+</div>
+<a id="a4b7ce1c7567ab968a8ffe35cf8bf376a" name="a4b7ce1c7567ab968a8ffe35cf8bf376a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b7ce1c7567ab968a8ffe35cf8bf376a">&#9670;&#160;</a></span>find()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -150,7 +282,7 @@ Fonctions membres publiques</h2></td></tr>
         <tr>
           <td class="memname">find </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>$numero</em></span></td><td>)</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -164,6 +296,52 @@ Fonctions membres publiques</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="class_etudiant.html">Etudiant</a> </dd></dl>
+
+</div>
+</div>
+<a id="a584ce41683cc8dfa9f035be21416074d" name="a584ce41683cc8dfa9f035be21416074d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a584ce41683cc8dfa9f035be21416074d">&#9670;&#160;</a></span>findAllAssoc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findAllAssoc </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne toutes les informations des étudiants </p>
+<dl class="section return"><dt>Renvoie</dt><dd>array|null </dd></dl>
+
+</div>
+</div>
+<a id="abe287431dbbeab9b2ad10e8951944737" name="abe287431dbbeab9b2ad10e8951944737"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe287431dbbeab9b2ad10e8951944737">&#9670;&#160;</a></span>findNbTrajets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findNbTrajets </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero_etudiant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne le nombre de trajet n'un étudiant </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$numero_etudiant</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>INT|null </dd></dl>
 
 </div>
 </div>
@@ -187,6 +365,32 @@ Fonctions membres publiques</h2></td></tr>
 
 </div>
 </div>
+<a id="ac72f6137555d47fef34d3a65ad9c75d8" name="ac72f6137555d47fef34d3a65ad9c75d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac72f6137555d47fef34d3a65ad9c75d8">&#9670;&#160;</a></span>possedeBadge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">possedeBadge </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero_etudiant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne vrai si l'etudiant a un badge </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$numero_etudiant</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>boolean|null </dd></dl>
+
+</div>
+</div>
 <a id="adb45af1ee15fb8d441d2b23cd6b0c879" name="adb45af1ee15fb8d441d2b23cd6b0c879"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb45af1ee15fb8d441d2b23cd6b0c879">&#9670;&#160;</a></span>setPDO()</h2>
 
@@ -206,6 +410,73 @@ Fonctions membres publiques</h2></td></tr>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
     <tr><td class="paramtype">PDO&#160;|&#160;null</td><td class="paramname">$PDO</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a9f954aa14fbc9cbcf22fd2d7258d6f1b" name="a9f954aa14fbc9cbcf22fd2d7258d6f1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f954aa14fbc9cbcf22fd2d7258d6f1b">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">update </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numero</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$nom</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$prenom</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$dateNaiss</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$mail</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$tel</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numVoiture</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$image</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>permet de modifier le profil d'un étudiant </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$numero</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$nom</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$prenom</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$dateNaiss</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$mail</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$tel</td><td></td></tr>
+    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$numVoiture</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$image</td><td></td></tr>
   </table>
   </dd>
 </dl>

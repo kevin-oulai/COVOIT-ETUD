@@ -24,7 +24,6 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
-  <td id="projectlogo"><img alt="Logo" src="logo covoit-etud petit.png"/></td>
   <td id="projectalign">
    <div id="projectname">COVOIT&#39;ETUD<span id="projectnumber">&#160;0.1</span>
    </div>
@@ -91,14 +90,11 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">Référence de la classe LieuDao</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Classe <a class="el" href="class_lieu_dao.html" title="Classe LieuDao pour gérer les lieux dans la base de données.">LieuDao</a> pour gérer les lieux dans la base de données.  
- <a href="#details">Plus de détails...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Fonctions membres publiques</h2></td></tr>
 <tr class="memitem:a547eaaa1e35bdd4cab1800ac47b3a3b0" id="r_a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a547eaaa1e35bdd4cab1800ac47b3a3b0">__construct</a> (?PDO $pdo=null)</td></tr>
-<tr class="memdesc:a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur de la classe <a class="el" href="class_lieu_dao.html" title="Classe LieuDao pour gérer les lieux dans la base de données.">LieuDao</a>.  <br /></td></tr>
+<tr class="memdesc:a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur de la classe <a class="el" href="class_trajet_dao.html">TrajetDao</a>.  <br /></td></tr>
 <tr class="separator:a547eaaa1e35bdd4cab1800ac47b3a3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af708fa20ff0c04a5a9bd8badd63e632c" id="r_af708fa20ff0c04a5a9bd8badd63e632c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af708fa20ff0c04a5a9bd8badd63e632c">getPDO</a> ()</td></tr>
 <tr class="memdesc:af708fa20ff0c04a5a9bd8badd63e632c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne l'objet PDO de connexion à la base de données.  <br /></td></tr>
@@ -106,12 +102,32 @@ Fonctions membres publiques</h2></td></tr>
 <tr class="memitem:adb45af1ee15fb8d441d2b23cd6b0c879" id="r_adb45af1ee15fb8d441d2b23cd6b0c879"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb45af1ee15fb8d441d2b23cd6b0c879">setPDO</a> (?PDO $PDO)</td></tr>
 <tr class="memdesc:adb45af1ee15fb8d441d2b23cd6b0c879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifie l'objet PDO de connexion à la base de données.  <br /></td></tr>
 <tr class="separator:adb45af1ee15fb8d441d2b23cd6b0c879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade2ae37671b372a5bc60140e8b5f21ce" id="r_ade2ae37671b372a5bc60140e8b5f21ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade2ae37671b372a5bc60140e8b5f21ce">find</a> (int $numero)</td></tr>
+<tr class="memdesc:ade2ae37671b372a5bc60140e8b5f21ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne toutes les informations d'un lieu via son numero  <br /></td></tr>
+<tr class="separator:ade2ae37671b372a5bc60140e8b5f21ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a584ce41683cc8dfa9f035be21416074d" id="r_a584ce41683cc8dfa9f035be21416074d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a584ce41683cc8dfa9f035be21416074d">findAllAssoc</a> ()</td></tr>
+<tr class="memdesc:a584ce41683cc8dfa9f035be21416074d"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne toutes les informations de tout les trajets  <br /></td></tr>
+<tr class="separator:a584ce41683cc8dfa9f035be21416074d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f828339080f594161914bcb2b3d06a4" id="r_a7f828339080f594161914bcb2b3d06a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f828339080f594161914bcb2b3d06a4">existe</a> (int $numRue, string $nomRue, string $ville)</td></tr>
+<tr class="memdesc:a7f828339080f594161914bcb2b3d06a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">verifie si un lieu existe ou pas  <br /></td></tr>
+<tr class="separator:a7f828339080f594161914bcb2b3d06a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adca341de28cc029dd4a84bba8e69336f" id="r_adca341de28cc029dd4a84bba8e69336f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adca341de28cc029dd4a84bba8e69336f">insert</a> (?int $numRue=null,?string $nomRue=null,?string $ville=null)</td></tr>
+<tr class="memdesc:adca341de28cc029dd4a84bba8e69336f"><td class="mdescLeft">&#160;</td><td class="mdescRight">permet d'inserer un lieu dans la base de données  <br /></td></tr>
+<tr class="separator:adca341de28cc029dd4a84bba8e69336f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae466df4ebe2b78e2ce56f7cc79e0b0d4" id="r_ae466df4ebe2b78e2ce56f7cc79e0b0d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae466df4ebe2b78e2ce56f7cc79e0b0d4">findNum</a> (?int $numRue=null,?string $nomRue=null,?string $ville=null)</td></tr>
+<tr class="memdesc:ae466df4ebe2b78e2ce56f7cc79e0b0d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne le numero d'un lieu grace aux parametres de la fonction  <br /></td></tr>
+<tr class="separator:ae466df4ebe2b78e2ce56f7cc79e0b0d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b4bed00dfbadc5baec818e940fb0898" id="r_a3b4bed00dfbadc5baec818e940fb0898"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b4bed00dfbadc5baec818e940fb0898">hydrate</a> (array $tableauAssoc)</td></tr>
+<tr class="memdesc:a3b4bed00dfbadc5baec818e940fb0898"><td class="mdescLeft">&#160;</td><td class="mdescRight">permet de remplir un lieu avec les informations du tableau  <br /></td></tr>
+<tr class="separator:a3b4bed00dfbadc5baec818e940fb0898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae459ccc748352d1ea084aeebf039ba5" id="r_aae459ccc748352d1ea084aeebf039ba5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae459ccc748352d1ea084aeebf039ba5">hydrateAll</a> ($tableau)</td></tr>
+<tr class="memdesc:aae459ccc748352d1ea084aeebf039ba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">permet de remplir plusieurs lieux avec les informations du tableau  <br /></td></tr>
+<tr class="separator:aae459ccc748352d1ea084aeebf039ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc42e48e78f6b0d827c5ae0ee36fd479" id="r_adc42e48e78f6b0d827c5ae0ee36fd479"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc42e48e78f6b0d827c5ae0ee36fd479">findNumByVille</a> (string $ville)</td></tr>
+<tr class="memdesc:adc42e48e78f6b0d827c5ae0ee36fd479"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne le numero des lieux correspondant a une ville  <br /></td></tr>
+<tr class="separator:adc42e48e78f6b0d827c5ae0ee36fd479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
-<div class="textblock"><p>Classe <a class="el" href="class_lieu_dao.html" title="Classe LieuDao pour gérer les lieux dans la base de données.">LieuDao</a> pour gérer les lieux dans la base de données. </p>
-<p>Cette classe permet de gérer les lieux dans la base de données</p>
-<p>La connexion est représenté par l'objet PDO de PHP </p>
-</div><h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
+<h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
 <a id="a547eaaa1e35bdd4cab1800ac47b3a3b0" name="a547eaaa1e35bdd4cab1800ac47b3a3b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a547eaaa1e35bdd4cab1800ac47b3a3b0">&#9670;&#160;</a></span>__construct()</h2>
 
@@ -127,7 +143,7 @@ Fonctions membres publiques</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructeur de la classe <a class="el" href="class_lieu_dao.html" title="Classe LieuDao pour gérer les lieux dans la base de données.">LieuDao</a>. </p>
+<p>Constructeur de la classe <a class="el" href="class_trajet_dao.html">TrajetDao</a>. </p>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
     <tr><td class="paramtype">PDO&#160;|&#160;null</td><td class="paramname">$pdo</td><td></td></tr>
@@ -138,6 +154,152 @@ Fonctions membres publiques</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Documentation des fonctions membres</h2>
+<a id="a7f828339080f594161914bcb2b3d06a4" name="a7f828339080f594161914bcb2b3d06a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f828339080f594161914bcb2b3d06a4">&#9670;&#160;</a></span>existe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">existe </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>$numRue</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$nomRue</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$ville</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>verifie si un lieu existe ou pas </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer</td><td class="paramname">$numRue</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$nomRue</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ville</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>boolean </dd></dl>
+
+</div>
+</div>
+<a id="ade2ae37671b372a5bc60140e8b5f21ce" name="ade2ae37671b372a5bc60140e8b5f21ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade2ae37671b372a5bc60140e8b5f21ce">&#9670;&#160;</a></span>find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">find </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>$numero</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne toutes les informations d'un lieu via son numero </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer</td><td class="paramname">$numero</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="class_lieu.html">Lieu</a> </dd></dl>
+
+</div>
+</div>
+<a id="a584ce41683cc8dfa9f035be21416074d" name="a584ce41683cc8dfa9f035be21416074d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a584ce41683cc8dfa9f035be21416074d">&#9670;&#160;</a></span>findAllAssoc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findAllAssoc </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne toutes les informations de tout les trajets </p>
+<dl class="section return"><dt>Renvoie</dt><dd>array|null </dd></dl>
+
+</div>
+</div>
+<a id="ae466df4ebe2b78e2ce56f7cc79e0b0d4" name="ae466df4ebe2b78e2ce56f7cc79e0b0d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae466df4ebe2b78e2ce56f7cc79e0b0d4">&#9670;&#160;</a></span>findNum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findNum </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numRue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$nomRue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$ville</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne le numero d'un lieu grace aux parametres de la fonction </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$numRue</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$nomRue</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$ville</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>integer </dd></dl>
+
+</div>
+</div>
+<a id="adc42e48e78f6b0d827c5ae0ee36fd479" name="adc42e48e78f6b0d827c5ae0ee36fd479"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc42e48e78f6b0d827c5ae0ee36fd479">&#9670;&#160;</a></span>findNumByVille()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">findNumByVille </td>
+          <td>(</td>
+          <td class="paramtype">string</td>          <td class="paramname"><span class="paramname"><em>$ville</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne le numero des lieux correspondant a une ville </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$ville</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>array|null </dd></dl>
+
+</div>
+</div>
 <a id="af708fa20ff0c04a5a9bd8badd63e632c" name="af708fa20ff0c04a5a9bd8badd63e632c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af708fa20ff0c04a5a9bd8badd63e632c">&#9670;&#160;</a></span>getPDO()</h2>
 
@@ -155,6 +317,95 @@ Fonctions membres publiques</h2></td></tr>
 
 <p>Retourne l'objet PDO de connexion à la base de données. </p>
 <dl class="section return"><dt>Renvoie</dt><dd>PDO|null </dd></dl>
+
+</div>
+</div>
+<a id="a3b4bed00dfbadc5baec818e940fb0898" name="a3b4bed00dfbadc5baec818e940fb0898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b4bed00dfbadc5baec818e940fb0898">&#9670;&#160;</a></span>hydrate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hydrate </td>
+          <td>(</td>
+          <td class="paramtype">array</td>          <td class="paramname"><span class="paramname"><em>$tableauAssoc</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>permet de remplir un lieu avec les informations du tableau </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$tableauAssoc</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Lieu|null </dd></dl>
+
+</div>
+</div>
+<a id="aae459ccc748352d1ea084aeebf039ba5" name="aae459ccc748352d1ea084aeebf039ba5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae459ccc748352d1ea084aeebf039ba5">&#9670;&#160;</a></span>hydrateAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hydrateAll </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>$tableau</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>permet de remplir plusieurs lieux avec les informations du tableau </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">[type]</td><td>$tableau </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>array|null </dd></dl>
+
+</div>
+</div>
+<a id="adca341de28cc029dd4a84bba8e69336f" name="adca341de28cc029dd4a84bba8e69336f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adca341de28cc029dd4a84bba8e69336f">&#9670;&#160;</a></span>insert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">insert </td>
+          <td>(</td>
+          <td class="paramtype">?int</td>          <td class="paramname"><span class="paramname"><em>$numRue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$nomRue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">?string</td>          <td class="paramname"><span class="paramname"><em>$ville</em></span><span class="paramdefsep"> = </span><span class="paramdefval">null</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>permet d'inserer un lieu dans la base de données </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer&#160;|&#160;null</td><td class="paramname">$numRue</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$nomRue</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$ville</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
 
 </div>
 </div>

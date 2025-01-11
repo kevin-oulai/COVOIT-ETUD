@@ -17,7 +17,7 @@
 */
 
 class Avis {
-    //atrtibuts
+    //attributs
     /**
      * @brief Numero de l'avis.
      * @var integer|null
