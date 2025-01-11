@@ -27,7 +27,7 @@
                             <div class="row gx-3">
                                 <div class="col-4">Nom : {{etudiant.nom}}</div><br>
                                 <div class="col-4">Prenom : {{etudiant.prenom}}</div><br>
-                                <div class="col-4">Date de naissance : {{etudiant.dateNaiss}}</div><br><br>
+                                <div class="col-4">Date de naissance : {{etudiant.dateNaiss|date("d/m/Y")}}</div><br><br>
                                 {% if nbTrajet is defined %}
                                     <div class="col-12">Nombre de trajets total : {{nbTrajet}}</div></li>
                                 {% else %}
@@ -88,8 +88,8 @@
                                                         <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
-                                                                    Le {{firstItem.datePost}}<br>
-                                                                    Pour le conducteur :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
+                                                                    Le {{firstItem.datePost|date("d/m/Y H:i")}}<br>
+                                                                    Par le passager :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
                                                                     Note : {{firstItem.note}}
                                                                 </div>
                                                                 <div class="col-7">
@@ -104,8 +104,8 @@
                                                                 <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                                     <div class="row gx-5 card-body">
                                                                         <div class="col-5">
-                                                                            Le {{ avisDonnes.datePost }}<br>
-                                                                            Pour le conducteur :<br>{{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
+                                                                            Le {{ avisDonnes.datePost|date("d/m/Y H:i") }}<br>
+                                                                            Par le passager :<br>{{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
                                                                             Note : {{ avisDonnes.note }}
                                                                         </div>
                                                                         <div class="col-7">
@@ -137,7 +137,7 @@
                                                         <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
-                                                                    Le {{firstItem.datePost}}<br>
+                                                                    Le {{firstItem.datePost|date("d/m/Y H:i")}}<br>
                                                                     Par le passager :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
                                                                     Note : {{firstItem.note}}
                                                                 </div>
@@ -153,7 +153,7 @@
                                                                 <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
                                                                     <div class="row gx-5 card-body">
                                                                         <div class="col-5">
-                                                                            Le {{ avisReçus.datePost }}<br>
+                                                                            Le {{ avisReçus.datePost|date("d/m/Y H:i") }}<br>
                                                                             Par le passager :<br>{{ avisReçus.nomEtudiant }} {{ avisReçus.prenomEtudiant }}<br>
                                                                             Note : {{ avisReçus.note }}
                                                                         </div>

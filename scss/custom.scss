@@ -3,6 +3,7 @@
 // Include any default variable overrides here (though functions won't be available)
 // Required
 @import "../node_modules/bootstrap/scss/functions";
+
 $primary: #4357BD;
 $header-color: #abc4ff;
 
@@ -56,6 +57,44 @@ $gradients: map-merge((
 @mixin bg-gradient($parent, $gradient) {
   #{$parent} {
     background: $gradient;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 780px) {
+  #siteNameImage {
+    display: none;
+  }
+
+  .form-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .input-group {
+    display: flex !important; 
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .form-control {
+    width: 100% !important;     
+    box-sizing: border-box !important;  
+    padding: 10px !important;  
+    font-size: 16px !important;          
+  }
+
+  .btn-search {
+    width: 100% !important;   
+    padding: 10px !important;   
+    font-size: 16px !important;         
+    box-sizing: border-box !important;   
   }
 }
 
@@ -303,6 +342,12 @@ padding-right: ($spacer * 2.5);}
 
 }
 
+.square-700 {
+  width: 100%;
+  max-width: 700px;  /* Limite la largeur maximale de l'image à 700px */
+  height: auto;
+  
+}
 .hover:hover{
   transform: scale(1.01);
 }

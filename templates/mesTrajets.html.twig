@@ -28,11 +28,11 @@
                                 {% endfor %}
                                 </div>
                             <div class="input-group">
-                                <p class="card-title fs-4 btn-group">{{ trajet.heureDep }} - {{ trajet.heureArr }}</p>
+                                <p class="card-title fs-4 btn-group">{{ trajet.heureDep|date("H:i") }} - {{ trajet.heureArr|date("H:i") }}</p>
                             </div>
                         </div>
                         <div class="text-end">
-                            <p> le {{ trajet.dateDep }}</p>
+                            <p> le {{ trajet.dateDep|date("d/m/Y") }}</p>
                         </div>
                         <div class="btn-toolbar justify-content-between mt-5">
                             <div class="btn-group">
@@ -74,7 +74,7 @@
                                     {% endfor %}
                                 </div>
                                 <p class="fw-semibold text-align-center">
-                                    le {{ trajet.dateDep }} à {{ trajet.heureDep }}
+                                    le {{ trajet.dateDep|date("d/m/Y") }} à {{ trajet.heureDep|date("H:i") }}
                                 </p>
                                 {% for reservations in listeReservations %}
                                     {% if reservations.numero == trajet.numero %}

@@ -16,7 +16,6 @@ class Trajet {
      * @var integer|null
      */
     private int|null $numero;
-
     /**
      * @brief Heure de départ du trajet
      *

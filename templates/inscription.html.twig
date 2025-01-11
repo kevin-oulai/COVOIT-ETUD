@@ -39,7 +39,7 @@
         {% if erreurs != null %}
           <div class="alert alert-danger" role="alert">
               {% for e in erreurs %}
-               <p>{{ e }}</p>
+                <p>{{ e }}</p>
               {% endfor %} 
           </div>
         {% endif %}
@@ -55,31 +55,24 @@
             <h4>Abonnez vous à notre NewsLetter</h4>
             <h5>pour ne rater aucune acualité</h5>
             <img src = "images/logoCovoit-etud.png" width="260" height="190" > <br>
-
           <div>
               <input type="checkbox"  name="acceptMail" />
               <label for="mail">J'accepte de recevoir vos e-mails.</label>
           </div>
-          
           <div>
               <input type="checkbox" name="Poltique"  required />
               <label for="politique">Je confirme avoir pris connaissance de votre politique de confidentialité.</label> 
           </div>
-
-                    <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE="S'abonner">
-                    <div>
-                          <label for="mess">Pour plus d'informations, consultez notre <a href="politique_conf.php" id="lien">Politique de confidentialité</a>.</label>  
-                    </div>
-
+              <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE="S'abonner">
+              <div>
+                <label for="mess">Pour plus d'informations, consultez notre <a href="">Politique de confidentialité</a>.</label>  
+              </div>
           </div>
-
         </div>
       </div>
     </div>
-            </div>
-
-
-    </form>
+</div>
+</form>
 
 <!-- Button trigger modal -->
 <div class="text-center">
