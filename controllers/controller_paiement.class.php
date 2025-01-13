@@ -1,10 +1,29 @@
 <?php
+/**
+ * @file    controller_paiement.class.php
+ * @author  Theo BIREMBAUX, Kevin OULAI
+
+ * @brief Classe ControllerPaiement traite les informations envoyées et gére l'ouverture des vues concernant la page de paiement
+ *
+ * @details Cette classe permet de traiter les actions de l'utilisateur, modifier les données des modèles et des vues
+ *
+ * @version 0.1
+ * @date    11/01/2025
+ */
+
 class ControllerPaiement extends Controller
 {
+    /**
+     * @brief Permet de créer l'instance du controller
+     *
+     * @param Twig\Environment $twig
+     * @param Twig\Loader\FilesystemLoader $loader
+     */
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader)
     {
         parent::__construct($twig, $loader);
     }
+
     public function afficher()
     {
         $formulaireRempli = (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["num_carte"]) && isset($_POST["date_exp"]) && isset($_POST["cvc"]));

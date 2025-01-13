@@ -1,21 +1,31 @@
 <?php
-
 /**
- * @brief Classe EtudiantDao pour gérer les étudiants dans la base de données
- * 
- * @details Cette classe permet de gérer les étudiants dans la base de données
- * 
- * La connexion est représenté par l'objet PDO de PHP
- */
+* @file    etudiant.dao.php
+* @author  Thibault ROSALIE
+
+* @brief Classe EtudiantDao pour gérer les étudiants dans la base de données
+* 
+* @details Cette classe permet de gérer les étudiants dans la base de données
+* 
+* La connexion est représenté par l'objet PDO de PHP
+
+* @version 0.1
+* @date    14/11/2024
+*/
 
 class EtudiantDao
 {
     // Attributs
+    /**
+     * @brief Objet PDO de connexion à la base de données
+     *
+     * @var PDO|null
+     */
     private ?PDO $PDO;
 
     // Constructeur
     /**
-     * @brief Constructeur de la classe EtudiantDao
+     * @brief Constructeur de la classe TrajetDao
      *
      * @param PDO|null $pdo
      */
@@ -64,7 +74,11 @@ class EtudiantDao
         return $etudiant;
     }
 
-
+    /**
+     * @brief retourne toutes les informations des étudiants
+     *
+     * @return array|null
+     */
     public function findAllAssoc(): ?array
     {
         $sql="SELECT * FROM ETUDIANT";
@@ -73,7 +87,12 @@ class EtudiantDao
         return $pdoStatement->fetchAll();
     }
 
-
+    /**
+     * @brief retourne le nombre de trajet n'un étudiant
+     *
+     * @param integer|null $numero_etudiant
+     * @return INT|null
+     */
     public function findNbTrajets(?int $numero_etudiant): ?INT
     {
         $sql="SELECT COUNT(T.NUMERO) FROM TRAJET T JOIN ETUDIANT E ON T.NUMERO_CONDUCTEUR = E.NUMERO WHERE E.numero= $numero_etudiant";
@@ -83,7 +102,12 @@ class EtudiantDao
 
         return $nbTrajet;
     }
-
+    /**
+     * @brief retourne vrai si l'etudiant a un badge
+     *
+     * @param integer|null $numero_etudiant
+     * @return boolean|null
+     */
     public function possedeBadge(?int $numero_etudiant): ?bool
     {
         $sql="SELECT COUNT(numero_badge) FROM OBTENIR WHERE numero_etudiant = :numero ";
@@ -96,7 +120,12 @@ class EtudiantDao
         }
         return false;
     }
-
+    /**
+     * @brief retourne vrai si l'etudiant a commenté
+     *
+     * @param integer|null $numero_etudiant
+     * @return boolean|null
+     */
     public function aPosteAvis(?int $numero_etudiant): ?bool
     {
         $sql="SELECT COUNT(numero) FROM AVIS WHERE numero_commentateur = :numero";
@@ -109,6 +138,12 @@ class EtudiantDao
         }
         return false;
     }
+    /**
+     * @brief retourne vrai si l'etudiant a reçu un avis
+     * 
+     * @param integer|null $numero_etudiant
+     * @return boolean|null
+     */
     public function aRecuAvis(?int $numero_etudiant): ?bool
     {
         $sql = "SELECT COUNT(numero) FROM AVIS WHERE numero_concerne = :numero";
@@ -122,7 +157,19 @@ class EtudiantDao
         return false;
     }
 
-
+    /**
+     * @brief Permet d'ajouter un étudiant à la bd avec les informations en paramètre.
+     *
+     * @param string $nom
+     * @param string $prenom
+     * @param string $mail
+     * @param string $tel
+     * @param string $image
+     * @param string $dateNaiss
+     * @param string $mdp
+     * @param string $salt
+     * @return void
+     */
     public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image,string $dateNaiss, string $mdp, string $salt)
     {
         $pdo = Bd::getInstance()->getConnexion();
@@ -148,7 +195,19 @@ class EtudiantDao
         $pdoStatement->bindValue(9, $salt, PDO::PARAM_STR);
         $pdoStatement->execute();
     }
-
+    /**
+     * @brief permet de modifier le profil d'un étudiant
+     *
+     * @param integer|null $numero
+     * @param string|null $nom
+     * @param string|null $prenom
+     * @param string|null $dateNaiss
+     * @param string|null $mail
+     * @param string|null $tel
+     * @param integer|null $numVoiture
+     * @param string|null $image
+     * @return void
+     */
     public function update(?int $numero = null, ?string $nom = null,?string $prenom = null,?string $dateNaiss = null,?string $mail = null,?string $tel = null,?int $numVoiture = null,?string $image = null){
         $query = $this->PDO->prepare("UPDATE ETUDIANT SET nom = :nom, prenom = :prenom, dateNaiss = :dateNaiss, adresseMail = :adresseMail, numTelephone = :numTelephone, numero_voiture = :numero_voiture, photoProfil = :photoProfil WHERE numero = :numero");
         $query->bindParam(':numero', $numero);

@@ -47,6 +47,10 @@ CREATE TABLE `ETUDIANT` (
   numTelephone varchar(10) DEFAULT NULL,
   numero_voiture int(5) NOT NULL,
   photoDeProfil varchar(99) DEFAULT "photoProfilParDefaut.png",
+  motDePasse varchar(999) NOT NULL,
+  token_reinitialisation varchar(250) DEFAULT NULL,
+  expiration_token datetime DEFAULT NULL,
+  salt varchar(255) NOT NULL,
   CONSTRAINT Fk_voiture FOREIGN KEY (numero_voiture) REFERENCES VOITURE(numero)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -93,7 +97,7 @@ CREATE TABLE BADGE (
 --
 CREATE TABLE AVIS (
 	numero int(5) NOT NULL PRIMARY KEY,
-    datePost DATE NOT NULL,
+    datePost datetime NOT NULL,
     message varchar(50) NOT NULL,
 	note int(2) DEFAULT NULL,
 	numero_concerne int(5) NOT NULL,
@@ -148,15 +152,15 @@ INSERT INTO LIEU (numero, numRue, nomRue, ville) VALUES
 
 -- --------------------------------------------------------
 
-INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPlace`, `numero_conducteur`, numero_lieu_depart, numero_lieu_arrivee) VALUES
+INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPlace`, `numero_conducteur`, 'numero_lieu_depart', 'numero_lieu_arrivee') VALUES
 (1, '7:30', '15:00', 30, '2024-11-06', 4, 2, 1, 3),
 (2, '17:30', '18:00', 15, '2024-11-06', 3, 1, 2, 3),
 (3, '10:30', '13:00', 20, '2024-11-06', 2, 3, 2, 1);
 
-INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPlace`, `numero_conducteur`, numero_lieu_depart, numero_lieu_arrivee) VALUES
+INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPlace`, `numero_conducteur`, 'numero_lieu_depart', 'numero_lieu_arrivee') VALUES
 (4, '10:30', '14:00', 20, '2024-11-06', 2, 3, 2, 1);
 
-INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPlace`, `numero_conducteur`, numero_lieu_depart, numero_lieu_arrivee) VALUES
+INSERT INTO `TRAJET` (`numero`, `heureDep`, `heureArr`, `prix`, `dateDep`, `nbPlace`, `numero_conducteur`, 'numero_lieu_depart', 'numero_lieu_arrivee') VALUES
 (5, '11:30', '14:00', 20, '2024-11-06', 2, 1, 2, 1);
 
 -- --------------------------------------------------------
@@ -167,10 +171,10 @@ INSERT INTO AVIS (numero, message, note, numero_concerne, numero_commentateur) V
 
 INSERT INTO AVIS (numero, message, note, numero_concerne, numero_commentateur) VALUES
 (3,'Excellent pilote', 5, 2, 3),
-(4,'Conduit avec la mentalité "On a qu\'une vie"', 1, 2, 3),
+(4,'Conduit avec la mentalité "On a qu une vie"', 1, 2, 3),
 (5,'A obtenu son permis dans un Kinder Surprise !!!', 1, 2, 3),
 (6, 'Conduite assurée', 4, 5, 1),
-(7, 'Bon trajet.. Si c\'était une course de rallye!', 1, 5, 1),
+(7, 'Bon trajet.. Si c était une course de rallye!', 1, 5, 1),
 (8,'Conduite assurée et consciencieuse', 4, 5, 1);
 
 -- --------------------------------------------------------

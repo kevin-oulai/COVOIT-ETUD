@@ -1,10 +1,31 @@
 <?php
+/**
+ * @file    controller_etudiant.class.php
+ * @author  Theo BIREMBAUX, Kevin OULAI
+
+ * @brief Classe ControllerEtudiant traite les informations envoyées et gére l'ouverture des vues concernant les étudiants
+ *
+ * @details Cette classe permet de traiter les actions de l'utilisateur, modifier les données des modèles et des vues
+ *
+ * @version 0.1
+ * @date    11/01/2025
+ */
 
 class ControllerEtudiant extends Controller{
+        /**
+     * @brief Permet de créer l'instance du controller
+     *
+     * @param Twig\Environment $twig
+     * @param Twig\Loader\FilesystemLoader $loader
+     */
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
         parent::__construct($twig, $loader);
     }
-
+    /**
+     * @brief Affiche la page de profil d'un utilisateur
+     *
+     * @return void
+     */
     public function afficher(){
         $num_etudiant = $_GET['id'];
         $managerEtudiant = new EtudiantDao($this->getPdo());
