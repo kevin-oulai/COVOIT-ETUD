@@ -290,7 +290,6 @@ class Etudiant {
 
         $sql="SELECT COUNT(*) FROM ETUDIANT WHERE adressemail = :mail";
         $pdoStatement = $pdo->prepare($sql);
-        var_dump($this->adresseMail);
         $pdoStatement->execute(array(":mail"=>$this->adresseMail));
         $pdoStatement->setFetchMode(PDO::FETCH_NUM);
         $count = $pdoStatement->fetch();
