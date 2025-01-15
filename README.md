@@ -99,6 +99,8 @@ Bootstrap
 JavaScript
 YAML
 
+Documentation : https://kevin-oulai.github.io/COVOIT-ETUD/docs
+
 Utilisation
 Pour utiliser les fonctionalité de l'application il faut créer un compte.
 Puis si vous êtes conducteur vous pouvez proposer un trajet ou alors si vous ne possedez pas de voiture répondre à une offre de trajet
