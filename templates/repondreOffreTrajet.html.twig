@@ -13,7 +13,7 @@
 							<h4>Informations conducteur</h4>
 							<h5>{{trajet.nom }} {{trajet.prenom}}</h5>
 							<h5>{{age}} ans</h5>
-							<img src="images/{{ trajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
+							<a href="index.php?controleur=etudiant&methode=afficher&id={{ trajet.numConducteur }}"><img src="images/{{ trajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;"></a>
 						</div>
 						<div class="col">
 							<h3 class="col text-center">Information du trajet :</h3>
