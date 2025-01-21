@@ -118,13 +118,11 @@ class ControllerTrajet extends Controller{
      */
     public function listerParticipations(){
         $numero_etudiant = $_SESSION['id'];
-
         $managerTrajet = new TrajetDao($this->getPdo());
         $listeTrajets = $managerTrajet->findAllByPassager($numero_etudiant);
 
         $managerLieu = new LieuDao($this->getPdo());
         $listeLieux = $managerLieu->findAllAssoc();
-
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $listeEtudiants = $managerEtudiant->findAllAssoc();
         $twigparams = array('listeTrajets' => $listeTrajets, 'lieux' => $listeLieux, 'etudiants' => $listeEtudiants);
