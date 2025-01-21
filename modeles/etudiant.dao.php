@@ -172,28 +172,19 @@ class EtudiantDao
      */
     public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image,string $dateNaiss, string $mdp, string $salt)
     {
-        $pdo = Bd::getInstance()->getConnexion();
-        $query = "SELECT COUNT(numero) FROM ETUDIANT";
-        $pdoStatement = $pdo->prepare($query);
-        $pdoStatement->execute();
-        $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
-        $nbNum[0]++;
-
-        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse,token_reinitialisation,expiration_token,salt) VALUES ((?),(?),(?),(?),(?),(?),NULL,(?),(?),NULL,NULL,(?) )";
-
+        $query = $this->PDO->prepare("INSERT INTO ETUDIANT(nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse,token_reinitialisation,expiration_token,salt) VALUES ()")
         $date = date($dateNaiss);
 
-        $pdoStatement = $pdo->prepare($query);
-        $pdoStatement->bindValue(1, $nbNum[0], PDO::PARAM_INT);
-        $pdoStatement->bindValue(2, $nom, PDO::PARAM_STR);
-        $pdoStatement->bindValue(3, $prenom, PDO::PARAM_STR);
-        $pdoStatement->bindValue(4, $date, PDO::PARAM_STR);
-        $pdoStatement->bindValue(5, $mail, PDO::PARAM_STR);
-        $pdoStatement->bindValue(6, $tel, PDO::PARAM_STR);
-        $pdoStatement->bindValue(7, $image, PDO::PARAM_STR);
-        $pdoStatement->bindValue(8, $mdp, PDO::PARAM_STR);
-        $pdoStatement->bindValue(9, $salt, PDO::PARAM_STR);
-        $pdoStatement->execute();
+        $query->bindParam(':nom', $nom);
+        $query->bindParam(':prenom', $prenom);
+        $query->bindParam(':mail', $mail);
+        $query->bindParam(':tel', $tel);
+        $query->bindParam(':image', $image);
+        $query->bindParam(':dateNaiss', $dateNaiss);
+        $query->bindParam(':mdp', $mdp);
+        $query->bindParam(':salt', $salt);
+
+        $query->execute();
     }
     /**
      * @brief permet de modifier le profil d'un étudiant

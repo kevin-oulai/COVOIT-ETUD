@@ -151,16 +151,12 @@ class VoitureDao {
      */
     public function insert(?string $modele = null,?string $marque = null,?string $nbPlace = null): void
     {
-        $sql = "SELECT COUNT(numero) FROM VOITURE";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute();
-        $newNum = $pdoStatement->fetch(PDO::FETCH_NUM);
-        $newNum[0]++;
-        $query = $this->PDO->prepare("INSERT INTO VOITURE(numero, modele, marque, nbPlace) VALUES (:numero, :modele, :marque, :nbPlace)");
-        $query->bindParam(':numero', $newNum[0]);
+        $query = $this->PDO->prepare("INSERT INTO VOITURE(modele, marque, nbPlace) VALUES (:modele, :marque, :nbPlace)");
+
         $query->bindParam(':modele', $modele);
         $query->bindParam(':marque', $marque);
         $query->bindParam(':nbPlace', $nbPlace);
+
         $query->execute();
     }
 }
