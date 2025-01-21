@@ -81,6 +81,7 @@ class ControllerTrajet extends Controller{
         $template = $this->getTwig()->load('pageTrajets.html.twig');
         
         echo $template->render(array(
+            'nbPassager' => $nbPassager,
             'listeTrajet' => $listeTrajet,
             'infoFiltre' => $infoFiltre
         ));
@@ -97,6 +98,9 @@ class ControllerTrajet extends Controller{
         $id = $_GET["id"];
         $managerTrajet = new TrajetDao($this->getPdo());
         $infoTrajet = $managerTrajet->infoRepOffre($id); 
+
+        // On récupère le nombre de passagers qui veulent prendre un trajet
+        $nbPassager=$_SESSION["nombre_passagers"];
         
         // Calcul de l'age
         $dateNaissance = $infoTrajet[0]['dateNaiss'];
@@ -107,6 +111,7 @@ class ControllerTrajet extends Controller{
         // On affiche la page de réponse à l'offre
         $template = $this->getTwig()->load('repondreOffreTrajet.html.twig');
         echo $template->render(array(
+            'nbPassager' => $nbPassager,
             'infoTrajet' => $infoTrajet,
             'age' => $age
         ));
