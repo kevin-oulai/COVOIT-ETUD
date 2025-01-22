@@ -370,7 +370,6 @@ class ControllerTrajet extends Controller{
 
                         // Insertion du trajet dans la BD
                         $managerTrajet->insert($heureDep, $heureArr, $prix,$dateDep, $nbPlace, $numero_conducteur, $numero_lieu_depart, $numero_lieu_arrivee);
-
                         echo "<div id=modalTrigger></div>";
                     }
                     else{
