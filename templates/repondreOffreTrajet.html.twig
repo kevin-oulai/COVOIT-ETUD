@@ -18,7 +18,11 @@
 						<div class="col">
 							<h3 class="col text-center">Information du trajet :</h3>
 							<h4 class="col text-center">{{trajet.dateDep|date("d/m/Y")}}</h4>
-							<h4 class="col text-center">{{trajet.prix}}€ (x {{nbPassager}})</h4>
+                        {% if nbPassager == 1 %}
+                            <h4 class="col text-center">{{trajet.prix}}€</h4>
+                        {% else %}
+                            <h4 class="col text-center">{{trajet.prix}}€ (x {{nbPassager}})</h4>
+                        {% endif %}
 						</div>
 						<div class="col text-end">
 							<h4>Informations voiture</h4>
