@@ -25,6 +25,6 @@ $twig->addExtension(new \Twig\Extension\DebugExtension());
 $twig->addExtension(new IntlExtension());
 
 // Ajout de variables globales
-$twig->addGlobal('STATUS', $GLOBALS['STATUS']);
-$twig->addGlobal('CONDUCTEUR', $GLOBALS['CONDUCTEUR']);
-$twig->addGlobal('CLIENT', $GLOBALS['CLIENT']);
+if(isset($_SESSION['CLIENT'])){
+    $twig->addGlobal('CLIENT', $_SESSION['CLIENT']);
+}

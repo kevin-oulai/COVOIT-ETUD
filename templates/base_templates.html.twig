@@ -70,9 +70,9 @@
             <a href="index.php"><li class = "nav-item position-absolute top-50 start-50 translate-middle"><img src="images/websiteName.png" class = "col" id = "siteNameImage" style="max-width: 220px;" height="auto"></li></a>
         </ul>
     <div class="navbar-nav ms-auto">
-        {% if STATUS == 'connected' %}
+        {% if CLIENT is defined %}
             <a href="?controleur=trajet&methode=listerParticipations" class="nav-item me-4 mt-4">Mes participations</a>
-            {% if CONDUCTEUR == 'true' %}
+            {% if CLIENT.numeroVoiture != Null %}
                 <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-item me-4 mt-4">Mes trajets</a>
             {% endif %}
             <p class="nav-item me-4 mt-4">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p>
