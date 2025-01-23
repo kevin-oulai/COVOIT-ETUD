@@ -64,24 +64,29 @@ class ControllerTrajet extends Controller{
         $listeNum2 = $listeNum2 . ")";
         
         $managerTrajet = new TrajetDao($this->getPdo());
+        $managerLieu = new LieuDao($this->getPDO());
         //$listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $date, $nbPassager);
         if ($criteria === '') {
-            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeTrajet = $managerTrajet->findTrajetParHeure($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeLieu = $managerLieu->findAllRue();
             $infoFiltre = "departTot";
-        }elseif ($criteria === 'departTot') {
-            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+        }
+        elseif ($criteria === 'departTot') {
+            $listeTrajet = $managerTrajet->findTrajetParHeure($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeLieu = $managerLieu->findAllRue();
             $infoFiltre = "departTot";
         } elseif ($criteria === 'prixBas') {
-            $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeTrajet = $managerTrajet->findTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeLieu = $managerLieu->findAllRue();
             $infoFiltre = "PrixBas";
         }
         if (empty($listeTrajet)) {
             $infoFiltre = "aucunTrajet";
         }
         $template = $this->getTwig()->load('pageTrajets.html.twig');
-        
         echo $template->render(array(
             'listeTrajet' => $listeTrajet,
+            'listeLieu' => $listeLieu,
             'infoFiltre' => $infoFiltre
         ));
     }
