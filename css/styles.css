@@ -20,7 +20,8 @@
     display: flex !important;
     flex-direction: column !important;
     gap: 10px !important;
-    width: 100% !important;
+    width: 130% !important;
+    margin-left: -15% !important;
   }
   .form-control {
     width: 100% !important;
