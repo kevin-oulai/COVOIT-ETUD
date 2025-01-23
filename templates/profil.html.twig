@@ -9,7 +9,7 @@
                 {% if CLIENT.numero == etudiant.numero %}
                     <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
                     <div class="row justify-content-end custom-line">
-                        <div class="col-2">
+                        <div class="col-4">
                             <button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
                         </div>
                     </div>
@@ -18,11 +18,11 @@
                 </div>
             <form action="index.php?controleur=etudiant&methode=afficher" class="input-group">
                 <div class="container overflow-hidden">
-                    <div class="row gx-5">
-                        <div class="col-1" style="margin-right: 3%; margin-top: 3%; margin-left: 1%;">
+                    <div class="row gx-3 gap-4">
+                        <div class="g-col-2" style="margin-right: 3%; margin-top: 3%; margin-left: 1%;">
                             <img src = "images/{{etudiant.photoProfil}}" width="100" height="100"  style="border-radius: 100%;">
                         </div>
-                        <div class="col-10">
+                        <div class="g-col-9">
                             <li class="list-group-item"><h4>A Propos de vous</h4>
                             <div class="row gx-3">
                                 <div class="col-4">Nom : {{etudiant.nom}}</div><br>
@@ -35,9 +35,9 @@
                                 {% endif %}
                                 <div>
                                     <br><li class="list-group-item"><h4>Informations personnelles</h4>
-                                    <div class="row gx-3">
+                                    <div class="row gx-3 gap-4">
                                         <div class="col-6">Adresse mail : {{etudiant.adresseMail}}<br></div>
-                                        <div class="col-6">Numero de téléphone : {{etudiant.numTelephone}}</div>
+                                        <div class="col-4">Numero de téléphone : {{etudiant.numTelephone}}</div>
                                     </li>
                                     </div><br>
                                 </div>
@@ -63,7 +63,7 @@
                                 <div class="col-6">
                                     <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
                                         <div class="card bg-gradient-primaire container text-center">
-                                            <div class="card-body row">
+                                            <div class="card-body row column-gap-3">
                                             {% if listeBadge is defined %}
                                                     {% for badge in listeBadge %}
                                                         <div class="col">
@@ -78,7 +78,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6" id = "avis">
                                     <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
                                         <div class="card bg-gradient-primaire">
                                             <div class="card-body avis">
@@ -127,7 +127,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6" id = "avis">
                                     <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
                                         <div class="card bg-gradient-primaire">
                                             <div class="card-body">

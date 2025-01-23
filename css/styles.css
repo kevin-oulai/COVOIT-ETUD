@@ -9,6 +9,9 @@
   #siteNameImage {
     display: none;
   }
+  #avis {
+    width: 100%;
+  }
   .form-container {
     width: 100%;
     padding: 0;
