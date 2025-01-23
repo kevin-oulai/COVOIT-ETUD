@@ -68,12 +68,15 @@ class ControllerTrajet extends Controller{
         if ($criteria === '') {
             $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             $infoFiltre = "departTot";
+            $nbPassager=$_SESSION["nombre_passagers"];
         }elseif ($criteria === 'departTot') {
             $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             $infoFiltre = "departTot";
+            $nbPassager=$_SESSION["nombre_passagers"];
         } elseif ($criteria === 'prixBas') {
             $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             $infoFiltre = "PrixBas";
+            $nbPassager=$_SESSION["nombre_passagers"];
         }
         if (empty($listeTrajet)) {
             $infoFiltre = "aucunTrajet";
