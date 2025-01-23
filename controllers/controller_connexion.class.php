@@ -154,26 +154,103 @@ class ControllerConnexion extends Controller{
 
                 // Génération du token de réinitialisation
                 $token = $etudiant->genererTokenReinitialisation();
+                $to = $email;
+                $subject = "Reinitialisation de votre mot de passe";
+                $message = "<!DOCTYPE html>
+<html lang='fr'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Réinitialisation de Mot de Passe</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #6b97fd;
+          margin: 0;
+          padding: 0;
+      }
+      .container {
+          width: 100%;
+          max-width: 600px;
+          margin: 20px auto;
+          background-color: #c5d7ff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+      .header {
+          text-align: center;
+          color: #333333;
+      }
+      .content {
+          font-size: 16px;
+          color: #555555;
+          line-height: 1.5;
+      }
+      .button {
+          display: inline-block;
+          padding: 12px 24px;
+          background-color: #4357BD;
+          color: white !important;
+          text-decoration: none;
+          border-radius: 7px;
+          margin-top: 20px;
+          text-align: center;
+      }
+      
+      .button:hover{
+        text-decoration: none;
+      }
+      
+      .footer {
+          font-size: 14px;
+          color: #777777;
+          text-align: center;
+          margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='container'>
+      <div class='header'>
+        <h2>Réinitialisation de votre mot de passe</h2>
+      </div>
+      <div class='content'>
+        <p>Bonjour,</p>
+        <p>
+          Nous avons reçu une demande pour réinitialiser le mot de passe associé
+          à votre compte. Si vous êtes à l'origine de cette demande, veuillez
+          cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe :
+        </p>
+        <a
+          href='http://lakartxela.iutbayonne.univ-pau.fr/~koulai001/SAE/COVOIT-ETUD/?controleur=connexion&methode=reinitialisation_mdp&token=$token'
+          class='button'
+          >Réinitialiser mon mot de passe</a
+        >
+        <p>
+          Si vous n'avez pas fait cette demande, ignorez simplement ce message.
+          Votre mot de passe restera inchangé.
+        </p>
+        <p>Cordialement, <br />L'équipe de COVOIT'ETUD</p>
+      </div>
+      <div class='footer'>
+        <p>
+          Si vous avez des questions, contactez notre support à
+          <a href='mailto:covoit-etud@gmail.com'>covoit-etud@gmail.com</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>";
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                $headers .= 'From: <covoit-etud@gmail.com>' . "\r\n";
 
-                // Simuler l'envoi d'un email en affichant un lien fictif
-                $lienReinitialisation = "?controleur=connexion&methode=reinitialisation_mdp&token=$token";
+                // Envoi de l'email
+                mail($to, $subject, $message, $headers);
 
-                echo "<div class=\"modal fade\" id=linkModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true style=\"backdrop-filter: blur(2px)\">
-                                <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=document>
-                                    <div class=\"modal-content bg-gradient-primary border-2\">
-                                    <div class='modal-title ms-3 mt-4'>Réinitialisation</div>
-                                    <hr>
-                                        <div class='modal-body text-break'>
-                                            <p>Votre lien de réinitialisation : </p>
-                                            <a href='$lienReinitialisation'>$lienReinitialisation</a>
-                                        </div>
-                                        <div class=modal-footer>
-                                            <button type=button class='btn btn-primary' onclick=\"location = '$lienReinitialisation';\">OK</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id=linkModalTrigger></div>";
+                echo "<div id=sentModalTrigger></div>";
+
             }
             catch (Exception $e)
             {
@@ -205,8 +282,6 @@ class ControllerConnexion extends Controller{
         }
         else
         {
-            // Si le fichier est accédé directement sans soumission du formulaire
-             //echo "<meta http-equiv='refresh' content='0;url=?controleur=connexion&methode=afficher' />";
             exit;
         }
     }
