@@ -12095,6 +12095,10 @@ textarea.form-control-lg {
   --bs-alert-link-color: var(--bs-primary-text-emphasis);
 }
 
+.tab-content {
+  display: none;
+}
+
 .mycolor {
   color: #4357BD;
 }

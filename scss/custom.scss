@@ -112,7 +112,9 @@ $gradients: map-merge((
 @import "../node_modules/bootstrap/scss/card";
 @import "../node_modules/bootstrap/scss/alert";
 
-
+.tab-content{
+  display:none;
+}
 
 .mycolor {
   color: $primary;
