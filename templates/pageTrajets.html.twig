@@ -40,7 +40,7 @@
                             <p class="card-text fs-5">Nombre de places : {{ trajet.nbPlace }}</p>
                         </div>
                         <div class="input-group">
-                            <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : {{ trajet.prix }} €</p>
+                            <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : <del style="color: red; "> {{ trajet.prix }} €</del> <b>{{ trajet.prix*0.7 }} €</b></p>
                         </div>
                     </div>
                 </div>

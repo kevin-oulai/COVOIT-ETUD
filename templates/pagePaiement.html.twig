@@ -1,6 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-	{% if STATUS == 'connected' %}
+	{% if CLIENT is defined %}
 		{% if paiementValide %}
 			<h1>Paiement validé</h1>
 
