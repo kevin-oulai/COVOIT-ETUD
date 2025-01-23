@@ -12,7 +12,6 @@ require_once 'controllers/controller.class.php';
 require_once 'controllers/controller_trajet.class.php';
 require_once 'controllers/controller_etudiant.class.php';
 require_once 'controllers/controller_inscription.class.php';
-require_once 'controllers/controller_avis.class.php';
 require_once 'controllers/controller_factory.class.php';
 require_once 'controllers/controller_paiement.class.php';
 require_once 'controllers/controller_connexion.class.php';
@@ -36,3 +35,4 @@ require_once 'templates/fonctionValidation/fonctionsValidation.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+

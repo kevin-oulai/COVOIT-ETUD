@@ -1,7 +1,7 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
 
-        <div class="px-5">
+        <div class="form-container px-5">
             <form action="?controleur=trajet&methode=lister" method="post" class="input-group mt-xl px-xl" autocomplete="off">
                 <input type="text" placeholder="Depart" name="depart" id="depart" class="form-control m-1 rounded" required>
                 <input type="text" placeholder="Arrivee" name="arrivee" id="arrivee" class="form-control m-1 rounded" required>
@@ -13,29 +13,62 @@
             </form>
         </div>
         <main class="container-fluid mt-xxl fs-4 fw-bold lh-sm">
-            {% if CONDUCTEUR == 'true' %}
+            {% if CLIENT.numeroVoiture != NULL %}
                 <button id="ajout" class="btn btn-primary">+</button>
             {% endif %}
-            <div class="text-align-left ps-xl-5 me-xxl container-fluid">
-                <div class="row">
-                    <h1 class="fw-bolder fs-2 mb-3 col">Le saviez-vous ?</h1>
-                </div>
-                <div class="row">
-                    <p class="col">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras risus odio, egestas quis accumsan sed, placerat et arcu. Praesent eleifend maximus nisi, eget lacinia sem euismod et. Cras egestas sit amet turpis ut pellentesque. Fusce maximus, nisi in auctor suscipit, elit libero rutrum erat, quis porttitor risus ligula et eros. Praesent sapien enim, condimentum id pulvinar nec, porttitor ultrices turpis. Aliquam lectus ligula, lacinia efficitur luctus nec, euismod vel lectus. Vivamus nisl tellus, sagittis ac lobortis eu, mollis ac lectus. Pellentesque ullamcorper tortor sed auctor mattis. Morbi sed imperdiet nisi, quis pulvinar urna. Ut congue fermentum justo sit amet eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec eu hendrerit turpis. Nullam elit leo, finibus sit amet cursus non, sodales quis mi. Ut vel ultricies turpis, sodales egestas dui. Nulla rhoncus lectus quis nisl hendrerit, eget hendrerit ante vulputate.
-                    </p>
-                    <img src="images/placeholder.png" class="col">
+            <div class="container-fluid">
+                <div class="row d-flex align-items-center">
+                    <!-- Texte à gauche sur grands écrans, au-dessus sur petits écrans -->
+                    <div class="col-12 col-md-6 order-md-1 order-2">
+                        <h1 class="fw-bolder fs-2 mb-3">Le saviez-vous ?</h1>
+                        <p>
+                            <ul>
+                                <li style="opacity:0.7;">En France, les transports représentent 12,10% du budget moyen, soit 114€ par mois pour une personne seule ! (<a href="https://www.numbeo.com/" target="_blank">Numbeo.com</a>)</li>
+                            </ul>
+                            <ul>
+                                <li style="opacity:0.7;">Plus d'un million de trajets ont été effectués en covoiturage par plateformes en mars 2023 (x 3,5 par rapport à mars 2022). (<a href="https://www.ecologie.gouv.fr/" target="_blank">ecologie.gouv.fr</a>)</li>
+                            </ul>
+                            <ul>
+                                <li style="opacity:0.7;">Rejoignez les plus de 300 000 personnes ont effectué du covoiturage par plateforme en 2022 (comme conducteur ou passager) ! (<a href="https://www.ecologie.gouv.fr/" target="_blank">ecologie.gouv.fr</a>)</li>
+                            </ul>
+                            <ul>
+                                <i style="font-size: smaller; opacity:0.7;">Le Gouvernement s’est fixé un objectif ambitieux : tripler le nombre de trajets réalisés en covoiturage du quotidien d’ici 2027 pour atteindre les 3 millions.</i>
+                            </ul>
+                        </p>
+                    </div>
+                    
+                    <!-- Image à droite sur grands écrans, disparaît sur petits écrans -->
+                    <div class="col-12 col-md-6 order-md-2 order-1 d-none d-md-block">
+                        <img src="images/assets/ecology-icon.png" class="square-300" alt="Image écologique" style = "margin-left: 20%;">
+                    </div>
                 </div>
             </div>
-            <div class="text-align-right mt-xxl mb-3 ps-5 pe-xl-5 container-fluid">
-                <div class="row">
-                    <h1 class="fw-bolder fs-2 col">Fait écologique</h1>
-                </div>
-                <div class="row">
-                    <img src="images/image-ecologie.png" class="col square-500">
-                    <p class="col">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras risus odio, egestas quis accumsan sed, placerat et arcu. Praesent eleifend maximus nisi, eget lacinia sem euismod et. Cras egestas sit amet turpis ut pellentesque. Fusce maximus, nisi in auctor suscipit, elit libero rutrum erat, quis porttitor risus ligula et eros. Praesent sapien enim, condimentum id pulvinar nec, porttitor ultrices turpis. Aliquam lectus ligula, lacinia efficitur luctus nec, euismod vel lectus. Vivamus nisl tellus, sagittis ac lobortis eu, mollis ac lectus. Pellentesque ullamcorper tortor sed auctor mattis. Morbi sed imperdiet nisi, quis pulvinar urna. Ut congue fermentum justo sit amet eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec eu hendrerit turpis. Nullam elit leo, finibus sit amet cursus non, sodales quis mi. Ut vel ultricies turpis, sodales egestas dui. Nulla rhoncus lectus quis nisl hendrerit, eget hendrerit ante vulputate.
-                    </p>
+            </br>
+            <div class="container-fluid" style="width: 90vw">
+                <div class="row d-flex align-items-center justify-content-lg-evenly">
+                    <!-- Titre et texte à droite sur grands écrans, au-dessus sur petits écrans -->
+                    <div class="order-md-2 order-1">
+                        <h1 class="fw-bolder fs-2 mb-5 mt-5 text-center">Un petit point écologique</h1>
+                        <div class="row facts-container">
+                            <div class="col">
+                                <img src="images/assets/leaves-icon.png" style="width: 80px; height:80px">
+                            <p class="mt-2">
+                                Le covoiturage contribue significativement à la réduction de l’empreinte carbone. <p style="opacity:0.7;">En partageant un trajet, les passagers et conducteurs diminuent le nombre de véhicules en circulation, ce qui se traduit par une baisse des émissions de gaz à effet de serre : grâce au covoiturage, 4,5 millions de tonnes de CO2 /an peuvent être économisées ! (<a href="https://www.ecologie.gouv.fr/" target="_blank">ecologie.gouv.fr</a>)</p>
+                            </p>
+                            </div>
+                            <div class="col">
+                                <img src="images/assets/car-icon.png" style="width: 80px; height:80px">
+                            <p class="mt-2">
+                                En optant pour le covoiturage<p style="opacity:0.7;">Vous participez activement à la transition écologique en réduisant votre contribution individuelle à la pollution. Chaque déplacement partagé représente une avancée vers une mobilité durable et respectueuse de l’environnement. En outre, le covoiturage quotidien permet de limiter l’usure des infrastructures routières et de diminuer les nuisances sonores.</p>
+                            </p>
+                            </div>
+                            <div class="col">
+                                <img src="images/assets/building-icon.png" style="width: 80px; height:80px">
+                            <p class="mt-2">
+                                Les plateformes de covoiturage bénéficient également du soutien des pouvoirs publics et des entreprises. <p style="opacity:0.7;">Des mesures incitatives, telles que des subventions ou des réductions fiscales, encouragent l’adoption de ces solutions de mobilité durable.</p>
+                            </div>
+                        </p>
+                    </div>
                 </div>
             </div>
         </main>

@@ -1,13 +1,17 @@
 <?php
-
 /**
+* @file    trajet.class.php
+* @author  Thibault ROSALIE
+
  * @brief Classe Trajet pour représenter un trajet entre deux lieux
  * 
  * @details Cette classe permet de gérer les informations d'un trajet, telles 
  * que son numéro, son heure de départ, son heure d'arrivée, son prix, sa date de départ, 
  * le nombre de places disponibles et le numéro du conducteur.
- */
 
+* @version 0.1
+* @date    14/11/2024
+*/
 class Trajet {
     // Attributs
     /**
@@ -233,22 +237,40 @@ class Trajet {
     {
         $this->numero_conducteur = $numero_conducteur;
     }
-
+    /**
+     * @brief Renvoie le numéro du lieu de départ
+     *
+     * @return integer|null
+     */
     public function getNumeroLieuDepart(): ?int
     {
         return $this->numero_lieu_depart;
     }
-
+    /**
+     * @brief Assigne un numéro pour un lieu de départ
+     *
+     * @param integer|null $numero_lieu_depart
+     * @return void
+     */
     public function setNumeroLieuDepart(?int $numero_lieu_depart): void
     {
         $this->numero_lieu_depart = $numero_lieu_depart;
     }
-
+    /**
+     * @brief Renvoie un numéro de lieu d'arrivé
+     *
+     * @return integer|null
+     */
     public function getNumeroLieuArrivee(): ?int
     {
         return $this->numero_lieu_arrivee;
     }
-
+    /**
+     * @brief Assigne un numéro de lieu d'arrivé
+     *
+     * @param integer|null $numero_lieu_arrivee
+     * @return void
+     */
     public function setNumeroLieuArrivee(?int $numero_lieu_arrivee): void
     {
         $this->numero_lieu_arrivee = $numero_lieu_arrivee;

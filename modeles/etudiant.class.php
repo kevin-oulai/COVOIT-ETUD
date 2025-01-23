@@ -1,6 +1,6 @@
 <?php
 /**
-* @file    avis.class.php
+* @file    etudiant.class.php
 * @author  Candice Dutournier
 
 * @brief   Classe Etudiant pour représenter les étudiants.
@@ -14,8 +14,8 @@
 *          
 * @version 0.1
 * @date    14/11/2024
-
 */
+
 #[\AllowDynamicProperties]
 class Etudiant {
     //attributs
@@ -104,77 +104,144 @@ class Etudiant {
     {
         $this->numero = $numero;
     }
-
+    /**
+     * @brief retourne le nom d'un étudiant
+     *
+     * @return string|null
+     */
     public function getNom(): ?string
     {
         return $this->nom;
     }
-
+    /**
+     * @brief Assigne un nouveau nom a l'étudiant
+     *
+     * @param string|null $nom
+     * @return void
+     */
     public function setNom(?string $nom): void
     {
         $this->nom = $nom;
     }
-
+    /**
+     * retourne le prénom de l'étudiant
+     *
+     * @return string|null
+     */
     public function getPrenom(): ?string
     {
         return $this->prenom;
     }
-
+    /**
+     * @brief Assigne un nouveau prénom a l'étudiant
+     *
+     * @param string|null $prenom
+     * @return void
+     */
     public function setPrenom(?string $prenom): void
     {
         $this->prenom = $prenom;
     }
-
+    /**
+     * @brief retourne la date de naissance de l'étudiant
+     *
+     * @return string|null
+     */
     public function getDateNaiss(): ?string
     {
         return $this->dateNaiss;
     }
-
+    /**
+     * @brief Assigne une date de naissance a l'étudiant
+     *
+     * @param string|null $dateNaiss
+     * @return void
+     */
     public function setDateNaiss(?string $dateNaiss): void
     {
         $this->dateNaiss = $dateNaiss;
     }
-
+    /**
+     * @brief retourne l'adresse mail de l'étudiant
+     *
+     * @return string|null
+     */
     public function getAdresseMail(): ?string
     {
         return $this->adresseMail;
     }
-
+    /**
+     * @brief Assigne une nouvelle adresse mail a l'étudiant
+     *
+     * @param string|null $adresseMail
+     * @return void
+     */
     public function setAdresseMail(?string $adresseMail): void
     {
         $this->adresseMail = $adresseMail;
     }
-
+    /**
+     * @brief retourne le numéro de téléphone de l'étudiant
+     *
+     * @return string|null
+     */
     public function getNumTelephone(): ?string
     {
         return $this->numTelephone;
     }
-
+    /**
+     * @brief Assigne un nouveau numero de téléphone de l'étudiant
+     *
+     * @param string|null $numTelephone
+     * @return void
+     */
     public function setNumTelephone(?string $numTelephone): void
     {
         $this->numTelephone = $numTelephone;
     }
-
+    /**
+     * @brief retourne le numero de la voiture de l'étudiant
+     *
+     * @return integer|null
+     */
     public function getNumeroVoiture(): ?int
     {
         return $this->numero_voiture;
     }
-
+    /**
+     * @brief Assigne un nouveau numero a la voiture de l'étudiant
+     *
+     * @param integer|null $numero_voiture
+     * @return void
+     */
     public function setNumeroVoiture(?int $numero_voiture): void
     {
         $this->numero_voiture = $numero_voiture;
     }
-
+    /**
+     * @brief retourne la photo de profil de l'étudiant
+     *
+     * @return string|null
+     */
     public function getPhotoProfil(): ?string
     {
         return $this->photoProfil;
     }
-
+    /**
+     * @brief Assigne une nouvelle photo de profil a l'étudiant
+     *
+     * @param string|null $photoProfil
+     * @return void
+     */
     public function setPhotoProfil(?string $photoProfil): void
     {
         $this->photoProfil = $photoProfil;
     }
-
+    /**
+     * @brief Génère un token de reinitialisation
+     *
+     * @return string
+     */
     public function genererTokenReinitialisation(): string
     {
         // Connexion à la base de données
@@ -209,5 +276,28 @@ class Etudiant {
         ]);
 
         return $token;
+    }
+
+    /**
+     * @brief vérifie si le mail existe déjà dans la bd
+     *
+     * @return void
+     */
+    public function verifEmail()
+    {
+        $baseDeDonnees = BD::getInstance();
+        $pdo = $baseDeDonnees->getConnexion();
+
+        $sql="SELECT COUNT(*) FROM ETUDIANT WHERE adressemail = :mail";
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(array(":mail"=>$this->adresseMail));
+        $pdoStatement->setFetchMode(PDO::FETCH_NUM);
+        $count = $pdoStatement->fetch();
+        echo "$count[0]";
+        if($count[0]<1)
+        {
+            return true;
+        }
+        return false;
     }
 }

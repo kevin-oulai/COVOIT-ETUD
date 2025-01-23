@@ -1,10 +1,31 @@
 <?php
+/**
+ * @file    controller_etudiant.class.php
+ * @author  Theo BIREMBAUX, Kevin OULAI
+
+ * @brief Classe ControllerEtudiant traite les informations envoyées et gére l'ouverture des vues concernant les étudiants
+ *
+ * @details Cette classe permet de traiter les actions de l'utilisateur, modifier les données des modèles et des vues
+ *
+ * @version 0.1
+ * @date    11/01/2025
+ */
 
 class ControllerEtudiant extends Controller{
+        /**
+     * @brief Permet de créer l'instance du controller
+     *
+     * @param Twig\Environment $twig
+     * @param Twig\Loader\FilesystemLoader $loader
+     */
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
         parent::__construct($twig, $loader);
     }
-
+    /**
+     * @brief Affiche la page de profil d'un utilisateur
+     *
+     * @return void
+     */
     public function afficher(){
         $num_etudiant = $_GET['id'];
         $managerEtudiant = new EtudiantDao($this->getPdo());
@@ -18,7 +39,7 @@ class ControllerEtudiant extends Controller{
         }
 
         $managerVoiture = new VoitureDao($this->getPdo());
-        if($GLOBALS['CONDUCTEUR'] == 'true') { // Verifier si l'étudiant est un conducteur
+        if($_SESSION['CLIENT']->getNumeroVoiture() != null) { // Verifier si l'étudiant est un conducteur
             $managerNbTrajet = new EtudiantDao($this->getPdo());
             $nbTrajet = $managerNbTrajet->findNbTrajets($num_etudiant);
             $voiture = $managerVoiture->findMonEtudiant($num_etudiant);
@@ -61,7 +82,13 @@ class ControllerEtudiant extends Controller{
                     // Récupération du numéro de voiture à partir des autres colonnes
                     $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
                 }
-                $photoProfil = $_FILES['photoProfil'];
+
+                if (isset($_FILES["photoProfil"])) {
+                    $photoProfil = $_FILES["photoProfil"];
+                } else {
+                    $photoProfil = NULL;
+                }
+                
                 if($photoProfil == NULL) {
                     $photoProfil = $etudiant->getPhotoProfil();
                     $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $photoProfil);

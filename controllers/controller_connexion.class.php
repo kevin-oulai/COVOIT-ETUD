@@ -1,10 +1,26 @@
 <?php
+/**
+* @file    controller_connexion.class.php
+* @author  Birembaux Théo
 
+* @brief   Classe ControllerConnexion s'occupe de gérer l'ouverture des vues concernant la page de connexion
+*     
+*/
 class ControllerConnexion extends Controller{
+    /**
+     * @brief Permet de créer l'instance du controller
+     *
+     * @param Twig\Environment $twig
+     * @param Twig\Loader\FilesystemLoader $loader
+     */
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
         parent::__construct($twig, $loader);
     }
-
+    /**
+     * @brief Affiche la page connexion et vérifie si le login et le mot de passe correspondent
+     *
+     * @return void
+     */
     public function afficher(){
         $template = $this->getTwig()->load('connexion.html.twig');
 
@@ -105,7 +121,11 @@ class ControllerConnexion extends Controller{
             ));
         }
     }
-
+    /**
+     * @brief permet d'afficher la page qui gere la reinitialisation du mot de passe lorsqu'il est oublié
+     *
+     * @return void
+     */
     public function mdpOublie(){
         $template = $this->getTwig()->load('motdepasseoublie.html.twig');
         $listeErreurs = array();
@@ -265,7 +285,11 @@ class ControllerConnexion extends Controller{
             exit;
         }
     }
-
+    /**
+     * @brief Affiche le formulaire pour changer le mot de passe
+     *
+     * @return void
+     */
     public function reinitialisation_mdp(){
         $erreur = "";
         if(isset($_GET['erreur'])){
@@ -317,5 +341,44 @@ class ControllerConnexion extends Controller{
             'token' => $token,
             'erreur' => $erreur
         ));
+    }
+    /**
+     * @brief Ouvre une session si l'étudiant à réussi à se connecter
+     *
+     * @return void
+     */
+    public function login()
+    {
+        if (isset($_POST['login']) && isset($_POST['pwd'])) {
+
+            $pdo = Bd::getInstance()->getConnexion();
+            $query = "SELECT motDePasse, numero, salt FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
+            $pdoStatement = $pdo->prepare($query);
+            $pdoStatement->execute();
+            $result = $pdoStatement->fetch(PDO::FETCH_NUM);
+            $verifMDP = false;
+            if(!empty($result)) {
+                $verifMDP = password_verify($result[2] . $_POST['pwd'], $result[0]);
+            }
+
+            // on vérifie les informations saisies
+            if ($verifMDP) {
+                $pdo = new PDO('mysql:host='. DB_HOST . ';dbname='. DB_NAME, DB_USER, DB_PASS);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+         
+                $managerEtudiant = new EtudiantDao($pdo);
+                $_SESSION['CLIENT'] = $managerEtudiant->find($result[1]);
+         
+                $_SESSION['id'] = $result[1];
+                //on redirige notre visiteur vers une page de notre section membre
+                echo "<meta http-equiv='refresh' content='0;url=index.php' />";
+             }
+            else {
+                session_destroy();
+                echo '<body onLoad="alert(\'Membre non reconnu...\')">';
+                // puis on le redirige vers la page d'accueil
+                //echo '<meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">';
+            }
+         }
     }
 }

@@ -1,21 +1,31 @@
 <?php
-
 /**
- * @brief Classe LieuDao pour gérer les lieux dans la base de données
- * 
- * @details Cette classe permet de gérer les lieux dans la base de données
- * 
- * La connexion est représenté par l'objet PDO de PHP
- */
+* @file    lieu.dao.php
+* @author  Thibault ROSALIE
+
+* @brief Classe LieuDao pour gérer les lieux dans la base de données
+* 
+* @details Cette classe permet de gérer les lieux dans la base de données
+* 
+* La connexion est représenté par l'objet PDO de PHP
+
+* @version 0.1
+* @date    14/11/2024
+*/
 
 class LieuDao{
 
     // Attributs
+    /**
+     * @brief Objet PDO de connexion à la base de données
+     *
+     * @var PDO|null
+     */
     private ?PDO $PDO;
 
     // Constructeur
     /**
-     * @brief Constructeur de la classe LieuDao
+     * @brief Constructeur de la classe TrajetDao
      *
      * @param PDO|null $pdo
      */
@@ -45,7 +55,12 @@ class LieuDao{
     {
         $this->PDO = $PDO;
     }
-
+    /**
+     * @brief retourne toutes les informations d'un lieu via son numero
+     *
+     * @param integer $numero
+     * @return Lieu
+     */
     public function find(int $numero): Lieu
     {
         $sql="SELECT * FROM LIEU WHERE numero= :numero";
@@ -56,6 +71,11 @@ class LieuDao{
 
         return $lieu;
     }
+    /**
+     * @brief retourne toutes les informations de tout les trajets
+     *
+     * @return array|null
+     */
     public function findAllAssoc(): ?array
     {
         $sql="SELECT * FROM LIEU";
@@ -65,7 +85,14 @@ class LieuDao{
         $lieux = $pdoStatement->fetchAll();
         return $lieux;
     }
-
+    /**
+     * @brief verifie si un lieu existe ou pas
+     *
+     * @param integer $numRue
+     * @param string $nomRue
+     * @param string $ville
+     * @return boolean
+     */
     public function existe(int $numRue, string $nomRue, string $ville): bool
     {
         $sql="SELECT count(*) FROM LIEU WHERE numRue= :numRue AND nomRue= :nomRue AND ville= :ville";
@@ -78,22 +105,32 @@ class LieuDao{
         }
         return false;
     }
-
+    /**
+     * @brief permet d'inserer un lieu dans la base de données
+     *
+     * @param integer|null $numRue
+     * @param string|null $nomRue
+     * @param string|null $ville
+     * @return void
+     */
     public function insert(?int $numRue = null,?string $nomRue = null,?string $ville = null): void
     {
-        $sql = "SELECT COUNT(numero) FROM LIEU";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute();
-        $newNum = $pdoStatement->fetch(PDO::FETCH_NUM);
-        $newNum[0]++;
-        $query = $this->PDO->prepare("INSERT INTO LIEU(numero, numRue, nomRue, ville) VALUES (:numero, :numRue, :nomRue, :ville)");
-        $query->bindParam(':numero', $newNum[0]);
+        $query = $this->PDO->prepare("INSERT INTO LIEU(numRue, nomRue, ville) VALUES (:numRue, :nomRue, :ville)");
+
         $query->bindParam(':numRue', $numRue);
         $query->bindParam(':nomRue', $nomRue);
         $query->bindParam(':ville', $ville);
+        
         $query->execute();
     }
-
+    /**
+     * @brief retourne le numero d'un lieu grace aux parametres de la fonction
+     *
+     * @param integer|null $numRue
+     * @param string|null $nomRue
+     * @param string|null $ville
+     * @return integer
+     */
     public function findNum(?int $numRue = null,?string $nomRue = null,?string $ville = null): int
     {
         $sql="SELECT numero FROM LIEU WHERE numRue= :numRue AND nomRue= :nomRue AND ville= :ville";
@@ -104,7 +141,12 @@ class LieuDao{
 
         return $num;
     }
-
+    /**
+     * @brief permet de remplir un lieu avec les informations du tableau
+     *
+     * @param array $tableauAssoc
+     * @return Lieu|null
+     */
     public function hydrate(array $tableauAssoc): ?Lieu
     {
         $lieu = new Lieu();
@@ -114,7 +156,12 @@ class LieuDao{
         $lieu->setVille($tableauAssoc['ville']);
         return $lieu;
     }
-
+    /**
+     * @brief permet de remplir plusieurs lieux avec les informations du tableau
+     *
+     * @param [type] $tableau
+     * @return array|null
+     */
     public function hydrateAll($tableau): ?array{
         $lieux = [];
         foreach($tableau as $tableauAssoc){
@@ -123,7 +170,12 @@ class LieuDao{
         }
         return $lieux;
     }
-
+    /**
+     * @brief retourne le numero des lieux correspondant a une ville
+     *
+     * @param string $ville
+     * @return array|null
+     */
     public function findNumByVille(string $ville): ?array
     {
         $sql="SELECT numero FROM LIEU WHERE ville= :ville";

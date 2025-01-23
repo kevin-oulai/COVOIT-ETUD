@@ -167,10 +167,10 @@ INSERT INTO AVIS (numero, message, note, numero_concerne, numero_commentateur) V
 
 INSERT INTO AVIS (numero, message, note, numero_concerne, numero_commentateur) VALUES
 (3,'Excellent pilote', 5, 2, 3),
-(4,'Conduit avec la mentalité "On a qu\'une vie"', 1, 2, 3),
+(4,'Conduit avec la mentalité "On a qu une vie"', 1, 2, 3),
 (5,'A obtenu son permis dans un Kinder Surprise !!!', 1, 2, 3),
 (6, 'Conduite assurée', 4, 5, 1),
-(7, 'Bon trajet.. Si c\'était une course de rallye!', 1, 5, 1),
+(7, 'Bon trajet.. Si c était une course de rallye!', 1, 5, 1),
 (8,'Conduite assurée et consciencieuse', 4, 5, 1);
 
 -- --------------------------------------------------------

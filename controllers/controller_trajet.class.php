@@ -1,20 +1,28 @@
 <?php
+/**
+* @file    controller_trajet.class.php
+* @author  Galles Titouan
 
+* @brief   Classe ControllerTrajet s'occupe de gérer l'ouverture des vues concernant les pages de trajet
+*     
+*/
 class ControllerTrajet extends Controller{
-
+        /**
+     * @brief Permet de créer l'instance du controller
+     *
+     * @param Twig\Environment $twig
+     * @param Twig\Loader\FilesystemLoader $loader
+     */
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
         parent::__construct($twig, $loader);
     }
 
-    public function afficher(){
-        echo "Afficher le trajet";
-    }
-
+    /**
+     * @brief permet d'afficher la page qui liste les trajets d'une recherche
+     *
+     * @return void
+     */
     public function lister(){
-        $depart = $_POST['depart'];
-        $arrivee = $_POST['arrivee'];
-        $date = $_POST['date'];
-        $nbPassager = $_POST['nombre_passagers'];
         $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
         if ($criteria === '') {
                 $depart = $_POST['depart'];
@@ -25,9 +33,7 @@ class ControllerTrajet extends Controller{
                 $_SESSION["date"]=$date;
                 $nbPassager = $_POST['nombre_passagers'];
                 $_SESSION["nombre_passagers"]=$nbPassager;
-            } 
-
-
+            }
         $managerLieu = new LieuDao($this->getPdo());
         $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
         $numTrajet2 = $managerLieu->findNumByVille($_SESSION["arrivee"]);
@@ -81,7 +87,11 @@ class ControllerTrajet extends Controller{
     }
    
     }
-
+    /**
+     * @brief permet d'afficher et gerer la page repondre à une offre 
+     *
+     * @return void
+     */
     public function repondreOffre(){
         // On récupère l'id du trajet
         $id = $_GET["id"];
@@ -101,9 +111,13 @@ class ControllerTrajet extends Controller{
             'age' => $age
         ));
     }
-
+    /**
+     * @brief permet d'afficher la page qui affiche les participations d'un utilisateur
+     *
+     * @return void
+     */
     public function listerParticipations(){
-        $numero_etudiant = $_SESSION['id'];
+        $numero_etudiant = $_SESSION["CLIENT"]->getNumero();
 
         $managerTrajet = new TrajetDao($this->getPdo());
         $listeTrajets = $managerTrajet->findAllByPassager($numero_etudiant);
@@ -125,7 +139,7 @@ class ControllerTrajet extends Controller{
                 $listeErreurs = [];
                 if(validerCommentaire($_POST['message'],$listeErreurs) && validerNote($_POST['note'], $listeErreurs)) {
                     $concerne = $managerTrajet->getConducteur($_GET['id']);
-                    $commentateur = $_SESSION['id'];
+                    $commentateur = $_SESSION["CLIENT"]->getNumero();
                     $datePost = date("Y-m-d h:i:s");
                     $managerAvis = new AvisDao($this->getPdo());
                     $managerAvis->insert($datePost, $_POST['message'], $_POST['note'], $concerne, $commentateur);
@@ -157,7 +171,11 @@ class ControllerTrajet extends Controller{
             }
         }
     }
-
+    /**
+     * @brief permet d'afficher la page qui liste les trajets créés par l'utilisateur
+     *
+     * @return void
+     */
     public function listerMesTrajets(){
         $template = $this->getTwig()->load('mesTrajets.html.twig');
         $managerTrajet = new TrajetDao($this->getPdo());
@@ -165,7 +183,7 @@ class ControllerTrajet extends Controller{
 
         $lieux = $managerLieu->findAllAssoc();
 
-        $listeMesTrajets = $managerTrajet->findAllByConducteur($_SESSION["id"]);
+        $listeMesTrajets = $managerTrajet->findAllByConducteur($_SESSION["CLIENT"]->getNumero());
         $listeDesReservations = $managerTrajet->getAllNombreReservations();
         echo $template->render(array(
             "listeTrajets" => $listeMesTrajets,
@@ -260,17 +278,25 @@ class ControllerTrajet extends Controller{
             }
         }
     }
-
+    /**
+     * @brief permet d'afficher la page d'accueil pour rechercher un trajet
+     *
+     * @return void
+     */
     public function rechercher(){
 
         $template = $this->getTwig()->load('index.html.twig');
         echo $template->render(array(
         ));
     }
-
+    /**
+     * @brief afficher la page qui permet d'enregistrer un trajet 
+     *
+     * @return void
+     */
     public function enregistrer()
     {
-        if (isset($_SESSION['login']) || isset($_SESSION['pwd'])) {
+        if (isset($_SESSION["CLIENT"])) {
             $template = $this->getTwig()->load('proposerTrajet.html.twig');
             $listeErreurs = array();
 
@@ -283,7 +309,7 @@ class ControllerTrajet extends Controller{
                     $managerLieu = new LieuDao($this->getPdo());
                     $managerTrajet = new TrajetDao($this->getPdo());
 
-                    $numero_conducteur = $_SESSION['id'];
+                    $numero_conducteur = $_SESSION["CLIENT"]->getNumero();
                     if(validationPlageHoraire($_POST["heureDep"], $_POST["heureArr"],date("Y-m-d", strtotime($_POST['dateDep'] )), $listeErreurs) && validationPrix($_POST["prix"], $listeErreurs) && validationNbPlaces($_POST["nbPlace"], $listeErreurs) && validationLieuDepart($_POST["lieuDepart"], $listeErreurs) && validationLieuArrivee($_POST["lieuArrivee"], $listeErreurs) && validationDateDep(date("Y-m-d", strtotime($_POST['dateDep'] )), $listeErreurs)){
 
                         // On récupère toutes les variables nécessaires à l'insertion d'un trajet
@@ -344,7 +370,6 @@ class ControllerTrajet extends Controller{
 
                         // Insertion du trajet dans la BD
                         $managerTrajet->insert($heureDep, $heureArr, $prix,$dateDep, $nbPlace, $numero_conducteur, $numero_lieu_depart, $numero_lieu_arrivee);
-
                         echo "<div id=modalTrigger></div>";
                     }
                     else{
