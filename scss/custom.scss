@@ -356,3 +356,16 @@ padding-right: ($spacer * 2.5);}
 .hover:hover{
   transform: scale(1.01);
 }
+
+ #map {
+   height: 250px;
+   width: 600px;
+   box-shadow: 0 4px 7px rgba(0,0,0,0.3);
+ }
+
+
+@media (max-width: 780px) {
+  #map {
+    display: none;
+  }
+}

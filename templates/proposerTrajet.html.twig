@@ -17,8 +17,9 @@
                 </div>
                 <div data-mdb-input-init class="form-outline mt-5">
 {#                            // Thibault -> regex stp#}
-                    <label>Lieu de départ</label><input name="lieuDepart" type="text" pattern="^[0-9]{1,3}\s[a-zA-Z\s\u00C0-\u017F]+,[a-zA-Z\s-]+$" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
-                    <label>Lieu d'arrivée</label><input name="lieuArrivee" type="text" pattern="^[0-9]{1,3}\s[a-zA-Z\s\u00C0-\u017F]+,[a-zA-Z\s-]+$" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
+                    <label>Lieu de départ</label><input id="lieuDepart" name="lieuDepart" type="text" pattern="^[0-9]{1,3}\s[a-zA-Z\s\u00C0-\u017F]+,[a-zA-Z\s-]+$" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
+                    <label>Lieu d'arrivée</label><input id="lieuArrivee" name="lieuArrivee" type="text" pattern="^[0-9]{1,3}\s[a-zA-Z\s\u00C0-\u017F]+,[a-zA-Z\s-]+$" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
+                    <button id="btnMap">Voir sur la map</button>
                 </div>
                 <div data-mdb-input-init class="form-outline mt-5">
                     <label>Date de départ</label><input name="dateDep" type="date" value="now" class="form-control">
@@ -28,6 +29,7 @@
                 </div>
             </form>
         </div>
+        <div class="ms-5" id="map"></div>
     </main>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
@@ -42,7 +44,9 @@
             </div>
         </div>
     </div>
+    <!-- Leaflet JS for map -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         $(function(){
             $('#myModal').modal({
@@ -62,6 +66,115 @@
                 $('#errorModal').modal('show');
             }
         });
+
+        // Initialisation de la map
+        var map = L.map('map').setView([51.505, -0.09], 13);  // Default center coordinates
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // OpenRouteService API Key
+        const orsApiKey = '5b3ce3597851110001cf62484a61d9e32bdd4abdb099d663b6ca1f99';
+
+        // Variables pour enregistrer les anciens trajets
+        var routeLayer = null;
+        var markers = [];
+
+        // Fonction pour gérer l'envoi du formulaire et des requetes AJAX
+        document.getElementById("btnMap").addEventListener("click", function(event) {
+            event.preventDefault();  // Eviter de submit le formulaire normalement
+
+            // Récupérer les adresses
+            var lieuDepart = document.getElementById("lieuDepart").value;
+            var lieuArrivee = document.getElementById("lieuArrivee").value;
+
+            // Creer le formulaire qu'on va envoyer par AJAX
+            var formData = new FormData();
+            formData.append('lieuDepart', lieuDepart);
+            formData.append('lieuArrivee', lieuArrivee);
+
+            // Envoi de la requete AJAX au fichier geocode.php
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'geocode.php', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+
+                    // Si OK, on update la map
+                    if (response.status === 'success') {
+                        var lat1 = response.location1.lat;
+                        var lng1 = response.location1.lng;
+                        var lat2 = response.location2.lat;
+                        var lng2 = response.location2.lng;
+
+                        // On se place entre les deux localisations
+                        map.setView([(lat1 + lat2) / 2, (lng1 + lng2) / 2], 13);
+
+                        // On enleves les anciens pins
+                        markers.forEach(function(marker) {
+                            map.removeLayer(marker);
+                        });
+                        markers = [];
+
+                        // On ajoute les pins pour les nouvelles adresses
+                        var marker1 = L.marker([lat1, lng1]).addTo(map)
+                            .bindPopup('lieuDepart : ' + response.location1.address);
+                        markers.push(marker1);  // On le stocke pour pouvoir le remove plus tard
+
+                        var marker2 = L.marker([lat2, lng2]).addTo(map)
+                            .bindPopup('lieuArrivee : ' + response.location2.address);
+                        markers.push(marker2);  // On le stocke pour pouvoir le remove plus tard
+
+                        // On enleve les anciennes routes
+                        if (routeLayer) {
+                            map.removeLayer(routeLayer);
+                        }
+
+                        // On fait une requete à l'API OpenRouteService pour récup la route
+                        var routeUrl = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${orsApiKey}&start=${lng1},${lat1}&end=${lng2},${lat2}`;
+
+                        fetch(routeUrl)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.features.length > 0) {
+                                    // Ligne qui a la forme de la route
+                                    var routeGeoJson = data.features[0].geometry;
+                                    var dist = data.features[0].properties.summary.distance;
+                                    var distKm = dist / 1000;
+
+                                    let prixTotalCons = distToPrice(distKm)[0][0] + distToPrice(distKm)[0][1];
+                                    let argentRecuCons = distToPrice(distKm)[0][0];
+
+                                    let prixTotalMin = distToPrice(distKm)[1][0] + distToPrice(distKm)[1][1];
+                                    let argentRecuMin = distToPrice(distKm)[1][0];
+
+                                    let prixTotalMax = distToPrice(distKm)[2][0] + distToPrice(distKm)[2][1];
+                                    let argentRecuMax = distToPrice(distKm)[2][0];
+
+                                    // On l'ajoute à la map
+                                    routeLayer = L.geoJSON(routeGeoJson, {
+                                        style: { color: 'blue', weight: 5, opacity: 0.7 }
+                                    }).addTo(map);
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error fetching route:", error);
+                            });
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            };
+            xhr.send(formData);
+        });
+
+        function distToPrice(dist){
+            if(dist < 10){
+                return [[Math.round(dist * 0.12 * 100) / 100, Math.round(dist*0.03 * 100) / 100],[Math.round(dist * 0.09 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.15 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
+            }
+            return [[Math.round(dist * 0.07 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.05 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.1 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
+        }
     </script>
 {% else %}
     <meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">
