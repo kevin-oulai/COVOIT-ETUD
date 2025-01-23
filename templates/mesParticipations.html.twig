@@ -23,9 +23,10 @@
                         <div class="btn-group">
                             {% for lieu in lieux %}
                                 {% if lieu.numero == trajet.numero_lieu_depart %}
-                                    <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }} → </p>
+                                    <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }} </p>
                                 {% endif %}
                             {% endfor %}
+                            <p class="card-title fs-4 btn-group"> → </p>
                             {% for lieu in lieux %}
                                 {% if lieu.numero == trajet.numero_lieu_arrivee %}
                                     <p class="card-title fs-4 btn-group">‎ {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
