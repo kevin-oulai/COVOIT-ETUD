@@ -96,6 +96,11 @@ $gradients: map-merge((
     font-size: 16px !important;         
     box-sizing: border-box !important;   
   }
+
+  .facts-container{
+    display: flex !important;
+    flex-direction: column !important;
+  }
 }
 
 // Gradient Classes

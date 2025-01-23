@@ -39,7 +39,7 @@ class ControllerEtudiant extends Controller{
         }
 
         $managerVoiture = new VoitureDao($this->getPdo());
-        if($GLOBALS['CONDUCTEUR'] == 'true') { // Verifier si l'étudiant est un conducteur
+        if($_SESSION['CLIENT']->getNumeroVoiture() != null) { // Verifier si l'étudiant est un conducteur
             $managerNbTrajet = new EtudiantDao($this->getPdo());
             $nbTrajet = $managerNbTrajet->findNbTrajets($num_etudiant);
             $voiture = $managerVoiture->findMonEtudiant($num_etudiant);
@@ -82,7 +82,13 @@ class ControllerEtudiant extends Controller{
                     // Récupération du numéro de voiture à partir des autres colonnes
                     $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
                 }
-                $photoProfil = $_FILES['photoProfil'];
+
+                if (isset($_FILES["photoProfil"])) {
+                    $photoProfil = $_FILES["photoProfil"];
+                } else {
+                    $photoProfil = NULL;
+                }
+                
                 if($photoProfil == NULL) {
                     $photoProfil = $etudiant->getPhotoProfil();
                     $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['adresseMail'], $_POST['numTelephone'], $numero_voiture, $photoProfil);

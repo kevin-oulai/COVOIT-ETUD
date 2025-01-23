@@ -31,6 +31,10 @@
     font-size: 16px !important;
     box-sizing: border-box !important;
   }
+  .facts-container {
+    display: flex !important;
+    flex-direction: column !important;
+  }
 }
 .bg-gradient-chill {
   background: linear-gradient(135deg, #09e485 0%, #0291e3 100%);
