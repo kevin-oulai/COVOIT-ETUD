@@ -82,8 +82,9 @@ class LieuDao{
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute();
         $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
-        $lieux = $pdoStatement->fetchAll();
-        return $lieux;
+        $tableau = $pdoStatement->fetchAll();
+        $lieu = $this->hydrateAll($tableau);
+        return $lieu;
     }
     /**
      * @brief verifie si un lieu existe ou pas
@@ -191,14 +192,4 @@ class LieuDao{
         return $lieu;
     }
 
-    public function findAllRue()
-    {
-        $sql = "SELECT numero, numRue, nomRue, ville FROM LIEU";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute();
-        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
-        $tableau = $pdoStatement->fetchAll();
-        $lieu = $this->hydrateAll($tableau);
-        return $lieu;
-    }
 }
