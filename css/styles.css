@@ -12340,4 +12340,9 @@ body {
   transform: scale(1.01);
 }
 
+.messageErreur {
+  color: red;
+  font-style: italic;
+}
+
 /*# sourceMappingURL=styles.css.map */

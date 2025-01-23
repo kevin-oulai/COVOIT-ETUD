@@ -351,3 +351,8 @@ padding-right: ($spacer * 2.5);}
 .hover:hover{
   transform: scale(1.01);
 }
+
+.messageErreur{
+  color: red;
+  font-style: italic;
+}
