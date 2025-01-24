@@ -12,3 +12,5 @@ function verifierAdresse(id){
         champ.classList.add("invalid-input");
     }
 }
+
+function checkForm(){}

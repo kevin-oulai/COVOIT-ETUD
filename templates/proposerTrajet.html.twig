@@ -25,7 +25,11 @@
                     </div>
                     <div class="col">
                         <div class="row ms-1">
-                        <label>Prix</label><input name="prix" type="number" class="form-control">
+                            <label>Prix</label>
+                            <div class="input-group">
+                                <input name="prix" type="number" class="input-prix form-control" onkeyup="updateRealPrice()">
+                                <span class="input-group-text" id="realPrice"></span>
+                            </div>
                         <label>Nombre de places</label><input name="nbPlace" type="number" class="form-control">
                         </div>
                     </div>
@@ -34,7 +38,7 @@
                     <label>Date de départ</label><input name="dateDep" type="date" value="now" class="form-control">
                 </div>
                 <div class="mt-3 row">
-                    <input type="Submit" value="Enregistrer le trajet" class="btn btn-primary">
+                    <input type="Submit" onclick="checkForm()" value="Enregistrer le trajet" class="btn-submit btn btn-primary">
                 </div>
             </form>
         </div>
@@ -53,6 +57,7 @@
             </div>
         </div>
     </div>
+    <div class="dist-storer"></div>
     <!-- Leaflet JS for map -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -156,7 +161,7 @@
                                     var dist = data.features[0].properties.summary.distance;
                                     var distKm = dist / 1000;
                                     var duree = data.features[0].properties.summary.duration;
-
+                                    document.querySelector(".dist-storer").innerHTML = distKm;;
                                     console.log(duree + " seconds or " + duree / 60 + " minutes or " + duree / 3600 + " hours");
 
                                     let prixTotalCons = distToPrice(distKm)[0][0] + distToPrice(distKm)[0][1];
@@ -190,6 +195,18 @@
                 return [[Math.round(dist * 0.12 * 100) / 100, Math.round(dist*0.03 * 100) / 100],[Math.round(dist * 0.09 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.15 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
             }
             return [[Math.round(dist * 0.07 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.05 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.1 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
+        }
+
+        function calculPrixReel(prix){
+            let total = prix + (prix*(3/15));
+            return total;
+        }
+
+        function updateRealPrice(){
+            let dist = document.querySelector(".dist-storer").innerHTML;
+            let argentRecu = document.querySelector(".input-prix").value;
+            let prix = calculPrixReel(argentRecu);
+            document.querySelector("#realPrice").innerHTML = prix;
         }
     </script>
 {% else %}
