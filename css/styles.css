@@ -4,13 +4,20 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+@media (max-width: 1300px) {
+  #ecology {
+    width: 50%;
+  }
+}
 @media (max-width: 780px) {
   #siteNameImage {
     display: none;
   }
   #avis {
     width: 100%;
+  }
+  #ecology {
+    display: none;
   }
   .form-container {
     width: 100%;
