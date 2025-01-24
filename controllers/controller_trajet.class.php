@@ -68,12 +68,15 @@ class ControllerTrajet extends Controller{
         if ($criteria === '') {
             $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             $infoFiltre = "departTot";
+            $nbPassager=$_SESSION["nombre_passagers"];
         }elseif ($criteria === 'departTot') {
             $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             $infoFiltre = "departTot";
+            $nbPassager=$_SESSION["nombre_passagers"];
         } elseif ($criteria === 'prixBas') {
             $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             $infoFiltre = "PrixBas";
+            $nbPassager=$_SESSION["nombre_passagers"];
         }
         if (empty($listeTrajet)) {
             $infoFiltre = "aucunTrajet";
@@ -81,6 +84,7 @@ class ControllerTrajet extends Controller{
         $template = $this->getTwig()->load('pageTrajets.html.twig');
         
         echo $template->render(array(
+            'nbPassager' => $nbPassager,
             'listeTrajet' => $listeTrajet,
             'infoFiltre' => $infoFiltre
         ));
@@ -97,6 +101,10 @@ class ControllerTrajet extends Controller{
         $id = $_GET["id"];
         $managerTrajet = new TrajetDao($this->getPdo());
         $infoTrajet = $managerTrajet->infoRepOffre($id); 
+
+        // On récupère le nombre de passagers qui veulent prendre un trajet et le numéro de l'étudiant qui fait la recherche
+        $nbPassager=$_SESSION["nombre_passagers"];
+        $numEtudiant=$GLOBALS['CLIENT'];
         
         // Calcul de l'age
         $dateNaissance = $infoTrajet[0]['dateNaiss'];
@@ -107,6 +115,8 @@ class ControllerTrajet extends Controller{
         // On affiche la page de réponse à l'offre
         $template = $this->getTwig()->load('repondreOffreTrajet.html.twig');
         echo $template->render(array(
+            'nbPassager' => $nbPassager,
+            'numEtudiant' => $numEtudiant,
             'infoTrajet' => $infoTrajet,
             'age' => $age
         ));
