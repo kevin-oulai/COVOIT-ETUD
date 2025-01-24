@@ -215,7 +215,7 @@ function validerDateDeNaissance(string $dateNaiss, array &$messageErreurs): bool
 
     // Vérifier que le timestamp de la date est bien dans les bornes spécifiques
     if ($timestamp < $dateMin || $dateMax > $dateMax) {
-        $messageErreurs[] = "La date de naissance est bien entre le 1er janvier 1950 et le 1er janvier 2006";
+        $messageErreurs[] = "La date de naissance doit être entre le 1er janvier 1950 et le 1er janvier 2006";
         $valide = false;
     }
 
@@ -661,7 +661,7 @@ function validationPlageHoraire($heureDep, $heureArr, $dateDep, &$messagesErreur
     }
 
     $managerTrajet = new TrajetDao($pdo);
-    $trajets = $managerTrajet->findAllByConducteur($GLOBALS['CLIENT']->getNumero());
+    $trajets = $managerTrajet->findAllByConducteur($_SESSION['CLIENT']->getNumero());
     foreach ($trajets as $trajet) {
         if ((($trajet['heureDep'] > $heureDep && $trajet['heureDep'] < $heureArr) || ($trajet['heureArr'] > $heureDep && $trajet['heureArr'] < $heureArr) || ($trajet['heureDep'] < $heureDep && $trajet['heureArr'] > $heureArr)) && $valide == true && $trajet['dateDep'] == $dateDep) {
             $valide = false;
@@ -730,7 +730,7 @@ function validationNbPlaces($nbPlaces, &$messagesErreur): bool
 //    - Aucun format
 //    - Plage 1 - Nombre de place de la voiture de l'utilisateur
     $managerVoiture = new VoitureDao($pdo);
-    $voiture = $managerVoiture->findByEtudiant($GLOBALS['CLIENT']->getNumero());
+    $voiture = $managerVoiture->findByEtudiant($_SESSION['CLIENT']->getNumero());
     $nbPlacesMax = $voiture->getNbPlace();
     if (($nbPlaces < 1 || $nbPlaces > $nbPlacesMax) && $valide == true) {
         $valide = false;

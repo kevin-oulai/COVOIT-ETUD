@@ -45,6 +45,7 @@
                         {% else %}
                             <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : {{ trajet.prix }} € (x {{nbPassager}})</p>
                         {% endif %}
+                            <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : <del style="color: red; "> {{ trajet.prix }} €</del> <b>{{ trajet.prix*0.7 }} €</b></p>
                         </div>
                     </div>
                 </div>

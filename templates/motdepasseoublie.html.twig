@@ -3,10 +3,10 @@
     <div class="d-flex justify-content-center align-items-center" style="height: 600px;">
         <div class="login-container align-right" style="width: 350px;">
             <h2 class="text-center">Mot de passe oublié</h2>
-            <form ACTION='?controleur=connexion&methode=mdpOublie' METHOD='POST'>
+            <form id="form" ACTION='?controleur=connexion&methode=mdpOublie' METHOD='POST'>
                 <input name="email" type="username" class="form-control mb-3" placeholder="Adresse mail" required>
                 <div class="text-center">
-                    <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE='Envoyer le lien'>
+                    <button id="btnSendLink" class="btn btn-primary" onclick="chargerBouton()">Envoyer un mail</button>
                 </div>
                 </br>
                 <div class="text-center">
@@ -15,8 +15,34 @@
             </form>
         </div>
     </div>
+
+    <div class="modal fade" id=sentModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true style="backdrop-filter: blur(2px)">
+        <div class="modal-dialog modal-dialog-centered" role=document>
+            <div class="modal-content bg-gradient-primary border-2">
+                <div class='modal-title ms-3 mt-4'>Le mail de réinitialisation à bien été envoyé</div>
+                    <hr>
+                    <div class=modal-body>
+                        <h3>Réinitialisation de mot de passe</h3>
+                        <p>Un e-mail de réinitialisation de mot de passe a été envoyé à l'adresse que vous avez fournie. Veuillez vérifier votre <b>boîte de réception</b> pour suivre les instructions et <b>réinitialiser votre mot de passe</b>.</p>
+                        <hr>
+                        <p class="mb-0"><i>Si vous ne trouvez pas l'e-mail dans votre boîte de réception, pensez à vérifier votre dossier de courriers indésirables (spam).</i></p>
+                    </div>
+                <div class=modal-footer>
+                    <button type=button class='btn btn-primary' onclick="location = '.';">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script>
+        function chargerBouton() {
+            let bouton = document.getElementById("btnSendLink");
+            bouton.innerHTML = "<div class=spinner></div>";
+            bouton.disabled = true;
+            document.getElementById("form").submit();
+        }
+
         $(function(){
             $('#linkModal').modal({
                 show:true,
@@ -33,6 +59,16 @@
             });
             if($('#errorModalTrigger').length){
                 $('#errorModal').modal('show');
+            }
+        });
+
+        $(function(){
+            $('#sentModal').modal({
+                show:true,
+                backdrop:'static'
+            });
+            if($('#sentModalTrigger').length){
+                $('#sentModal').modal('show');
             }
         });
     </script>

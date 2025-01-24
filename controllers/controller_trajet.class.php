@@ -127,14 +127,12 @@ class ControllerTrajet extends Controller{
      * @return void
      */
     public function listerParticipations(){
-        $numero_etudiant = $_SESSION['id'];
-
+        $numero_etudiant = $_SESSION["CLIENT"]->getNumero();
         $managerTrajet = new TrajetDao($this->getPdo());
         $listeTrajets = $managerTrajet->findAllByPassager($numero_etudiant);
 
         $managerLieu = new LieuDao($this->getPdo());
         $listeLieux = $managerLieu->findAllAssoc();
-
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $listeEtudiants = $managerEtudiant->findAllAssoc();
         $twigparams = array('listeTrajets' => $listeTrajets, 'lieux' => $listeLieux, 'etudiants' => $listeEtudiants);
@@ -149,7 +147,7 @@ class ControllerTrajet extends Controller{
                 $listeErreurs = [];
                 if(validerCommentaire($_POST['message'],$listeErreurs) && validerNote($_POST['note'], $listeErreurs)) {
                     $concerne = $managerTrajet->getConducteur($_GET['id']);
-                    $commentateur = $_SESSION['id'];
+                    $commentateur = $_SESSION["CLIENT"]->getNumero();
                     $datePost = date("Y-m-d h:i:s");
                     $managerAvis = new AvisDao($this->getPdo());
                     $managerAvis->insert($datePost, $_POST['message'], $_POST['note'], $concerne, $commentateur);
@@ -193,7 +191,7 @@ class ControllerTrajet extends Controller{
 
         $lieux = $managerLieu->findAllAssoc();
 
-        $listeMesTrajets = $managerTrajet->findAllByConducteur($_SESSION["id"]);
+        $listeMesTrajets = $managerTrajet->findAllByConducteur($_SESSION["CLIENT"]->getNumero());
         $listeDesReservations = $managerTrajet->getAllNombreReservations();
         echo $template->render(array(
             "listeTrajets" => $listeMesTrajets,
@@ -306,7 +304,7 @@ class ControllerTrajet extends Controller{
      */
     public function enregistrer()
     {
-        if (isset($_SESSION['login']) || isset($_SESSION['pwd'])) {
+        if (isset($_SESSION["CLIENT"])) {
             $template = $this->getTwig()->load('proposerTrajet.html.twig');
             $listeErreurs = array();
 
@@ -319,7 +317,7 @@ class ControllerTrajet extends Controller{
                     $managerLieu = new LieuDao($this->getPdo());
                     $managerTrajet = new TrajetDao($this->getPdo());
 
-                    $numero_conducteur = $_SESSION['id'];
+                    $numero_conducteur = $_SESSION["CLIENT"]->getNumero();
                     if(validationPlageHoraire($_POST["heureDep"], $_POST["heureArr"],date("Y-m-d", strtotime($_POST['dateDep'] )), $listeErreurs) && validationPrix($_POST["prix"], $listeErreurs) && validationNbPlaces($_POST["nbPlace"], $listeErreurs) && validationLieuDepart($_POST["lieuDepart"], $listeErreurs) && validationLieuArrivee($_POST["lieuArrivee"], $listeErreurs) && validationDateDep(date("Y-m-d", strtotime($_POST['dateDep'] )), $listeErreurs)){
 
                         // On récupère toutes les variables nécessaires à l'insertion d'un trajet
@@ -380,7 +378,6 @@ class ControllerTrajet extends Controller{
 
                         // Insertion du trajet dans la BD
                         $managerTrajet->insert($heureDep, $heureArr, $prix,$dateDep, $nbPlace, $numero_conducteur, $numero_lieu_depart, $numero_lieu_arrivee);
-
                         echo "<div id=modalTrigger></div>";
                     }
                     else{

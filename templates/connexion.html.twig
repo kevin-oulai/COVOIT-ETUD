@@ -12,10 +12,16 @@
 <div class="login-container align-right" style="width: 350px;">
     <h2 class="text-center">Connectez-vous</h2>
     <form ACTION='.?controleur=connexion&methode=login' METHOD='POST'>
-        <input name="login" type="username" class="form-control mb-3" placeholder="Adresse mail" required>
-        <input name="pwd" type="password" class="form-control mb-3" placeholder="Mot de passe" required>
+        <div name="champSaisieMail" class="mb-3">
+            <input name="login" type="username" class="form-control" placeholder="Adresse mail" onkeyup="verifLogin();" required>
+            <div name="erreurLogin" class="messageErreur"></div>
+        </div>
+        <div name="champSaisieMdp" class="mb-3">
+            <input name="pwd" type="password" class="form-control" placeholder="Mot de passe" onkeyup="verifMDP();" required>
+            <div name="erreurMdp" class="messageErreur"></div>
+        </div>
         <div class="text-center">
-            <INPUT class="btn btn-primary" TYPE='SUBMIT' VALUE='Se connecter'>
+            <input class="btn btn-primary" TYPE='SUBMIT' VALUE='Se connecter'>
         </div>
         </br>
         <div class="text-center">
@@ -32,5 +38,6 @@
     {% endif %}
 </div>
 </div>
+<script src="scripts/scriptValidationForm.js"></script>
 {% endif %}
 {% endblock %}
