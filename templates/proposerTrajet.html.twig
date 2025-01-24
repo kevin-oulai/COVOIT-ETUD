@@ -1,6 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if STATUS == 'connected' %}
+{% if CLIENT is defined %}
 
 
     <h1 class="fs-1 text-center mt-5">Enregistrer un trajet</h1>
@@ -64,7 +64,6 @@
         });
     </script>
 {% else %}
-    <body onLoad="alert(\'Membre non reconnu...\')">
-    <meta http-equiv="refresh" content="0;URL=connexion.php">
+    <meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">
 {% endif %}
 {% endblock %}
