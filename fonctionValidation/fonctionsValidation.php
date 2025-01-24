@@ -215,7 +215,7 @@ function validerDateDeNaissance(string $dateNaiss, array &$messageErreurs): bool
 
     // Vérifier que le timestamp de la date est bien dans les bornes spécifiques
     if ($timestamp < $dateMin || $dateMax > $dateMax) {
-        $messageErreurs[] = "La date de naissance est bien entre le 1er janvier 1950 et le 1er janvier 2006";
+        $messageErreurs[] = "La date de naissance doit être entre le 1er janvier 1950 et le 1er janvier 2006";
         $valide = false;
     }
 
