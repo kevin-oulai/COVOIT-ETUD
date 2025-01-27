@@ -74,6 +74,8 @@ class EtudiantDao
         return $etudiant;
     }
 
+    
+
     /**
      * @brief retourne toutes les informations des étudiants
      *
@@ -84,8 +86,9 @@ class EtudiantDao
         $sql="SELECT * FROM ETUDIANT";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
         $tableau = $pdoStatement->fetchAll();
-        $infoEtud = hydrateAll($tableau);
+        $infoEtud = $this->hydrateAll($tableau);
         return $infoEtud; 
     }
 
@@ -95,6 +98,15 @@ class EtudiantDao
         return $etudiant;
     }
 
+    public function hydrateAll($tableau): ?array{
+        $etudiants = [];
+        foreach($tableau as $tableauAssoc){
+            $etudiant = $this->hydrate($tableauAssoc);
+            $etudiants[] = $etudiant;
+        }
+        return $etudiants;
+    }
+    
     /**
      * @brief retourne le nombre de trajet n'un étudiant
      *
