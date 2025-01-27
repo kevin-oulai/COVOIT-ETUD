@@ -11,7 +11,7 @@
                     <div class="row card-body">
 						<div class="col" style = "display: inline-block;">
 							<h4>Informations conducteur</h4>
-							<h5>{{trajet.nom }} {{trajet.prenom}}</h5>
+							<h5>{{infoConducteur.nom }} {{infoConducteur.prenom}}</h5>
 							<h5>{{age}} ans</h5>
 							<img src="images/{{ trajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
 						</div>
@@ -38,9 +38,18 @@
 							</div>
 							<div class="col text-center">
 								<h4 class="card-text">Lieu de départ</h4>
-								<h3>{{trajet.numRueDep}} {{trajet.nomRueDep}} {{trajet.villeDep}}</h3>
+								{% for lieu in listeLieu %}
+                                    {% if lieu.numero == trajet.numeroLieuDepart %}
+								<h3>{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</h3>
+									{% endif %}
+                                {% endfor %}
+
 								<h4 class="card-text">Lieu de d'arrivée</h4>
-								<h3>{{trajet.numRueArr}} {{trajet.nomRueArr}} {{trajet.villeArr}}</h3>
+								{% for lieu in listeLieu %}
+                                    {% if lieu.numero == trajet.numeroLieuArrivee %}
+								<h3>{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</h3>
+								{% endif %}
+                                {% endfor %}
 							</div>
 						</div>
 					</div>

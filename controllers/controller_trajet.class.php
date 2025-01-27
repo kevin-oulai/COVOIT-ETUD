@@ -104,15 +104,21 @@ class ControllerTrajet extends Controller{
         $infoTrajet = $managerTrajet->infoRepOffre($id); 
         
         // Calcul de l'age
-        $dateNaissance = $infoTrajet[0]['dateNaiss'];
+        $managerEtudiant = new EtudiantDao($this->getPdo());
+        $infoConducteur = $managerEtudiant->find($infoTrajet[0]->getNumeroConducteur());
+        $dateNaissance = $infoConducteur->getDateNaiss();
         $aujourdhui = date("Y-m-d");
         $diff = date_diff(date_create($dateNaissance), date_create($aujourdhui));
         $age = $diff->format('%y');
 
+        $managerLieu = new LieuDao($this->getPdo());
+        $listeLieu = $managerLieu->findAllAssoc();
         // On affiche la page de réponse à l'offre
         $template = $this->getTwig()->load('repondreOffreTrajet.html.twig');
         echo $template->render(array(
             'infoTrajet' => $infoTrajet,
+            'infoConducteur' => $infoConducteur,
+            'listeLieu' => $listeLieu,
             'age' => $age
         ));
     }
