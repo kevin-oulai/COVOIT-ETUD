@@ -79,11 +79,12 @@ class LieuDao{
     public function findAllAssoc(): ?array
     {
         $sql="SELECT * FROM LIEU";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute();
-        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
-        $lieux = $pdoStatement->fetchAll();
-        return $lieux;
+        $pdoStatement = $this->PDO->prepare($sql); 
+        $pdoStatement->execute(); 
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC); 
+        $tableau = $pdoStatement->fetchAll(); 
+        $lieu = $this->hydrateAll($tableau); 
+        return $lieu;
     }
     /**
      * @brief verifie si un lieu existe ou pas
@@ -149,11 +150,7 @@ class LieuDao{
      */
     public function hydrate(array $tableauAssoc): ?Lieu
     {
-        $lieu = new Lieu();
-        $lieu->setNumero($tableauAssoc['numero']);
-        $lieu->setNumRue($tableauAssoc['numRue']);
-        $lieu->setNomRue($tableauAssoc['nomRue']);
-        $lieu->setVille($tableauAssoc['ville']);
+        $lieu = new Lieu($tableauAssoc['numero'], $tableauAssoc['numRue'], $tableauAssoc['nomRue'], $tableauAssoc['ville']);
         return $lieu;
     }
     /**

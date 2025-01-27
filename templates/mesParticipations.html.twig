@@ -35,12 +35,12 @@
                         <div class="btn-toolbar justify-content-between">
                             <div class="btn-group">
                                 {% for lieu in lieux %}
-                                    {% if lieu.numero == trajet.numero_lieu_depart %}
+                                    {% if lieu.numero == trajet.numeroLieuDepart %}
                                         <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }} → </p>
                                     {% endif %}
                                 {% endfor %}
                                 {% for lieu in lieux %}
-                                    {% if lieu.numero == trajet.numero_lieu_arrivee %}
+                                    {% if lieu.numero == trajet.numeroLieuArrivee %}
                                         <p class="card-title fs-4 btn-group">‎ {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
                                     {% endif %}
                                 {% endfor %}

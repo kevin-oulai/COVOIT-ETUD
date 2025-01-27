@@ -84,7 +84,15 @@ class EtudiantDao
         $sql="SELECT * FROM ETUDIANT";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute();
-        return $pdoStatement->fetchAll();
+        $tableau = $pdoStatement->fetchAll();
+        $infoEtud = hydrateAll($tableau);
+        return $infoEtud; 
+    }
+
+    public function hydrate(array $tableauAssoc): ?Etudiant
+    {
+        $etudiant = new Etudiant($tableauAssoc['numero'], $tableauAssoc['nom'], $tableauAssoc['prenom'], $tableauAssoc['dateNaiss'], $tableauAssoc['adresseMail'], $tableauAssoc['numTelephone'], $tableauAssoc['numero_voiture'], $tableauAssoc['photoProfil']);
+        return $etudiant;
     }
 
     /**
