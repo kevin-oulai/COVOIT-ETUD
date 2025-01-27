@@ -9,6 +9,11 @@
     width: 50%;
   }
 }
+@media (max-width: 1199px) {
+  #avis {
+    width: 100%;
+  }
+}
 @media (max-width: 780px) {
   #siteNameImage {
     display: none;
