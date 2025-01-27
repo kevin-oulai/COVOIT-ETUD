@@ -63,7 +63,7 @@ class ControllerPaiement extends Controller
                 ));
             } else {
                 // Quand le paiement est valide, j'ajoute le passager au trajet dans la table Choisir                
-                $numEtudiant = $GLOBALS['CLIENT']->getNumero(); // Récupération du numéro de l'étudiant connecté
+                $numEtudiant = $_SESSION['CLIENT']->getNumero(); // Récupération du numéro de l'étudiant connecté
 
                 // Ajout du passager au trajet
                 $pdo = $this->getPdo();

@@ -82,15 +82,16 @@ class ControllerEtudiant extends Controller{
                     // Récupération du numéro de voiture à partir des autres colonnes
                     $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
                 }
-                $photoProfil = $_FILES['image'];
 
-                if($photoProfil == NULL) {
+                $messagesErreurs = [];
+
+                if(!is_uploaded_file($_FILES["image"]["tmp_name"])) {
                     $photoProfil = $etudiant->getPhotoProfil();
                     $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $photoProfil);
                 }
                 else{
-                    $photoValide = validerUploadEtPdp($photoProfil, $messagesErreurs);
-                    if(!empty($messagesErreurs)) {
+                    $photoProfil = $_FILES["image"]["tmp_name"];
+                    if(!validerUploadEtPdp($_FILES["image"], $messagesErreurs)) {
                         $template = $this->getTwig()->load('profil.html.twig');
         
                         echo $template->render(array(
@@ -99,11 +100,9 @@ class ControllerEtudiant extends Controller{
                     } 
                     else {
                         $dir = "images"; // Nom du dossier contenant les photos
-                        if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
-                            $photoValide = rand(0, 2147483647) . ".png";
-                            move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$photoValide");
-                        }
-                        $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $photoValide);
+                        $nomPhoto = rand(0, 2147483647) . ".png";
+                        move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$nomPhoto");
+                        $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
                     }
                 }
                 

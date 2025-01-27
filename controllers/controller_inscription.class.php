@@ -55,7 +55,7 @@ class ControllerInscription extends Controller
                         $name = rand(0, 2147483647) . ".png";
                         move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$name");
                     }
-                    $managerEtudiant->ajoutEtudiant($_POST["Nom"], $_POST["Prenom"], $_POST["mail"], $_POST["tel"], $name, $_POST["dateNaiss"], $pwd,$salt);
+                    $managerEtudiant->insert($_POST["Nom"], $_POST["Prenom"], $_POST["mail"], $_POST["tel"], $name, $_POST["dateNaiss"], $pwd,$salt);
                     $template = $this->getTwig()->load('connexion.html.twig');
 
                     echo $template->render(array(

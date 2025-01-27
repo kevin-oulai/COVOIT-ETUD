@@ -193,7 +193,7 @@
                             <h1 class='modal-title fs-5' id='fModifierLabel_{{ etudiant.numero }}'>Modifier mon profil</h1>
                             <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
                         </div>
-                        <form action="index.php?controleur=etudiant&methode=afficher&action=modifier&id={{ etudiant.numero }}" method="post">
+                        <form enctype='multipart/form-data' action="index.php?controleur=etudiant&methode=afficher&action=modifier&id={{ etudiant.numero }}" method="post">
                         <div class='modal-body'>
 
                             <p class="fw-bold text-align-left input-group">
@@ -234,7 +234,7 @@
                             <p class="fw-bold text-align-center input">
                                 <div class="btn-group">
                                     <label class="fw-bold">Photo de profil
-                                    <input name="image" class="form-control" type="file" value="{{ etudiant.photoProfil }}" onchange="verifPdp();"></label> 
+                                    <input name="image" class="form-control" type="file" accept="image/*" value="{{ etudiant.photoProfil }}" onchange="verifPdp();"></label>
                                     <div name="erreurPhoto" class="messageErreur"></div>
                                 </div>
                             </p>

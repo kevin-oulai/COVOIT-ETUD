@@ -104,7 +104,7 @@ class ControllerTrajet extends Controller{
 
         // On récupère le nombre de passagers qui veulent prendre un trajet et le numéro de l'étudiant qui fait la recherche
         $nbPassager=$_SESSION["nombre_passagers"];
-        $numEtudiant=$GLOBALS['CLIENT'];
+        $numEtudiant=$_SESSION['CLIENT'];
         
         // Calcul de l'age
         $dateNaissance = $infoTrajet[0]['dateNaiss'];

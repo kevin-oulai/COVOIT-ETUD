@@ -12338,6 +12338,12 @@ body {
   border-radius: 0.375rem;
 }
 
+.square-700 {
+  width: 100%;
+  max-width: 700px; /* Limite la largeur maximale de l'image à 700px */
+  height: auto;
+}
+
 .hover:hover {
   transform: scale(1.01);
 }
@@ -12365,5 +12371,6 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
 
 /*# sourceMappingURL=styles.css.map */
