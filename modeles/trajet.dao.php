@@ -215,15 +215,16 @@ class TrajetDao{
      * @brief retourne toutes les informations necessaire sur la page de reponse a une offre
      *
      * @param integer $numero
-     * @return array
+     * @return arrayss
      */
-    public function infoRepOffre(int $numero): array
+    public function findTrajet(int $numero): Trajet
     {
         $requete = "SELECT T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace, T.numero_conducteur, T.numero_lieu_depart,T.numero_lieu_arrivee FROM TRAJET T WHERE " . $numero . " = T.numero;";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->execute();
-        $tableau = $pdoStatement->fetchAll();
-        $infoTrajet = $this->hydrateAll($tableau);
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $pdoStatement->fetch();
+        $infoTrajet = $this->hydrate($tableau);
         return $infoTrajet;
     }
     /**
