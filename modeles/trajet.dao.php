@@ -66,7 +66,8 @@ class TrajetDao{
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->bindValue(":numero", $numero);
         $pdoStatement->execute();
-        $listeTrajets = $pdoStatement->fetchAll();
+        $tableau = $pdoStatement->fetchAll();
+        $listeTrajets = $this->hydrateAll($tableau);
         return $listeTrajets;
     }
     /**
@@ -146,15 +147,15 @@ class TrajetDao{
      */
     public function hydrate(array $tableauAssoc): ?Trajet
     {
-        $trajet = new Trajet();
-        $trajet->setNumero($tableauAssoc['numero']);
-        $trajet->setHeureDep($tableauAssoc['heureDep']);
-        $trajet->setHeureArr($tableauAssoc['heureArr']);
-        $trajet->setPrix($tableauAssoc['prix']);
-        $trajet->setDateDep($tableauAssoc['dateDep']);
-        $trajet->setNbPlace($tableauAssoc['nbPlace']);
-        $trajet->setNumeroConducteur($tableauAssoc['numero_conducteur']);
-        $trajet->setNumeroConducteur($tableauAssoc['numero_conducteur']);
+        $trajet = new Trajet($tableauAssoc['numero'], $tableauAssoc['heureDep'], $tableauAssoc['heureArr'], $tableauAssoc['prix'], $tableauAssoc['dateDep'], $tableauAssoc['nbPlace'], $tableauAssoc['numero_conducteur'], $tableauAssoc['numero_lieu_depart'], $tableauAssoc['numero_lieu_arrivee']);
+        // $trajet->setNumero($tableauAssoc['numero']);
+        // $trajet->setHeureDep($tableauAssoc['heureDep']);
+        // $trajet->setHeureArr($tableauAssoc['heureArr']);
+        // $trajet->setPrix($tableauAssoc['prix']);
+        // $trajet->setDateDep($tableauAssoc['dateDep']);
+        // $trajet->setNbPlace($tableauAssoc['nbPlace']);
+        // $trajet->setNumeroConducteur($tableauAssoc['numero_conducteur']);
+        // $trajet->setNumeroConducteur($tableauAssoc['numero_conducteur']);
         return $trajet;
     }
     /**
@@ -166,8 +167,7 @@ class TrajetDao{
     public function hydrateAll($tableau): ?array{
         $trajets = [];
         foreach($tableau as $tableauAssoc){
-            $trajets = $this->hydrate($tableauAssoc);
-            $trajets[] = $trajets;
+            $trajets[] = $this->hydrate($tableauAssoc);
         }
         return $trajets;
     }
@@ -288,4 +288,16 @@ class TrajetDao{
         $pdoStatement->setFetchMode(PDO::FETCH_NUM);
         return $pdoStatement->fetch()[0];
     }
+
+    public function findAllRue() 
+    { 
+        $sql = "SELECT numero, numRue, nomRue, ville FROM LIEU"; 
+        $pdoStatement = $this->PDO->prepare($sql); 
+        $pdoStatement->execute(); 
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC); 
+        $tableau = $pdoStatement->fetchAll(); 
+        $lieu = $this->hydrateAll($tableau); 
+        return $lieu; 
+
+    } 
 }
