@@ -379,6 +379,22 @@ padding-right: ($spacer * 2.5);}
   transition: all 0.1s ease-in-out;
 }
 
+.pop-animation{
+
+}
+
+@keyframes pop-out {
+  0% {
+    transform: scale(0%);
+  }
+  90% {
+    transform: scale(110%);
+  }
+  100% {
+    transform: scale(100%);
+  }
+}
+
 @media (max-width: 1000px) {
   #map {
     display: none;

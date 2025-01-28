@@ -21,11 +21,11 @@ function verifierPrix(id){
     let valid = true;
 
     if(value < parseFloat(champ.min)){
-        document.querySelector("."+id+"MessageErreur").innerHTML = "Saisir un prix supérieur à "  + champ.min;
+        champ.value = champ.min;
         valid = false;
     }
     else if(value > parseFloat(champ.max)){
-        document.querySelector("."+id+"MessageErreur").innerHTML = "Saisir un prix inférieur à " + champ.max;
+        champ.value = champ.max;
         valid = false;
     }
 
@@ -45,5 +45,4 @@ function checkFirstPart(){
         // Afficher la deuxieme partie du formulaire
         document.querySelector(".form-part-2").style.opacity = 100;
     }
-
 }

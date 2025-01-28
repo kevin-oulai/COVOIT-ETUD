@@ -12366,6 +12366,17 @@ body {
   transition: all 0.1s ease-in-out;
 }
 
+@keyframes pop-out {
+  0% {
+    transform: scale(0%);
+  }
+  90% {
+    transform: scale(110%);
+  }
+  100% {
+    transform: scale(100%);
+  }
+}
 @media (max-width: 1000px) {
   #map {
     display: none;
