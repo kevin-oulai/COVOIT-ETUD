@@ -64,17 +64,22 @@ class ControllerTrajet extends Controller{
         $listeNum2 = $listeNum2 . ")";
         
         $managerTrajet = new TrajetDao($this->getPdo());
+        $managerLieu = new LieuDao($this->getPDO());
         //$listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $date, $nbPassager);
         if ($criteria === '') {
-            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeTrajet = $managerTrajet->findTrajetParHeure($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeLieu = $managerLieu->findAllAssoc();
             $infoFiltre = "departTot";
-            $nbPassager=$_SESSION["nombre_passagers"];
-        }elseif ($criteria === 'departTot') {
-            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+
+        }
+        elseif ($criteria === 'departTot') {
+            $listeTrajet = $managerTrajet->findTrajetParHeure($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeLieu = $managerLieu->findAllAssoc();
             $infoFiltre = "departTot";
             $nbPassager=$_SESSION["nombre_passagers"];
         } elseif ($criteria === 'prixBas') {
-            $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeTrajet = $managerTrajet->findTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeLieu = $managerLieu->findAllAssoc();
             $infoFiltre = "PrixBas";
             $nbPassager=$_SESSION["nombre_passagers"];
         }
@@ -82,10 +87,10 @@ class ControllerTrajet extends Controller{
             $infoFiltre = "aucunTrajet";
         }
         $template = $this->getTwig()->load('pageTrajets.html.twig');
-        
         echo $template->render(array(
             'nbPassager' => $nbPassager,
             'listeTrajet' => $listeTrajet,
+            'listeLieu' => $listeLieu,
             'infoFiltre' => $infoFiltre
         ));
     }
@@ -100,24 +105,29 @@ class ControllerTrajet extends Controller{
         // On récupère l'id du trajet
         $id = $_GET["id"];
         $managerTrajet = new TrajetDao($this->getPdo());
-        $infoTrajet = $managerTrajet->infoRepOffre($id); 
-
-        // On récupère le nombre de passagers qui veulent prendre un trajet et le numéro de l'étudiant qui fait la recherche
-        $nbPassager=$_SESSION["nombre_passagers"];
-        $numEtudiant=$GLOBALS['CLIENT'];
+        $infoTrajet = $managerTrajet->findTrajet($id); 
         
+        $managerVoiture = new VoitureDao($this->getPdo());
+        $infoVoiture = $managerVoiture->find($infoTrajet->getNumeroConducteur());
         // Calcul de l'age
-        $dateNaissance = $infoTrajet[0]['dateNaiss'];
+        $managerEtudiant = new EtudiantDao($this->getPdo());
+        $infoConducteur = $managerEtudiant->find($infoTrajet->getNumeroConducteur());
+        $dateNaissance = $infoConducteur->getDateNaiss();
         $aujourdhui = date("Y-m-d");
         $diff = date_diff(date_create($dateNaissance), date_create($aujourdhui));
         $age = $diff->format('%y');
 
+        $managerLieu = new LieuDao($this->getPdo());
+        $listeLieu = $managerLieu->findAllAssoc();
         // On affiche la page de réponse à l'offre
         $template = $this->getTwig()->load('repondreOffreTrajet.html.twig');
         echo $template->render(array(
             'nbPassager' => $nbPassager,
             'numEtudiant' => $numEtudiant,
             'infoTrajet' => $infoTrajet,
+            'infoConducteur' => $infoConducteur,
+            'infoVoiture'  => $infoVoiture,
+            'listeLieu' => $listeLieu,
             'age' => $age
         ));
     }

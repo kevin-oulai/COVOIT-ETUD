@@ -84,6 +84,7 @@ class LieuDao{
         $pdoStatement->setFetchMode(PDO::FETCH_ASSOC); 
         $tableau = $pdoStatement->fetchAll(); 
         $lieu = $this->hydrateAll($tableau); 
+
         return $lieu;
     }
     /**
@@ -183,4 +184,5 @@ class LieuDao{
 
         return $lieu;
     }
+
 }

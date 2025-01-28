@@ -83,7 +83,6 @@ class ControllerEtudiant extends Controller{
                     $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
                 }
                 $photoProfil = $_FILES['image'];
-
                 if($photoProfil == NULL) {
                     $photoProfil = $etudiant->getPhotoProfil();
                     $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $photoProfil);

@@ -147,15 +147,7 @@ class TrajetDao{
      */
     public function hydrate(array $tableauAssoc): ?Trajet
     {
-        $trajet = new Trajet($tableauAssoc['numero'], $tableauAssoc['heureDep'], $tableauAssoc['heureArr'], $tableauAssoc['prix'], $tableauAssoc['dateDep'], $tableauAssoc['nbPlace'], $tableauAssoc['numero_conducteur'], $tableauAssoc['numero_lieu_depart'], $tableauAssoc['numero_lieu_arrivee']);
-        // $trajet->setNumero($tableauAssoc['numero']);
-        // $trajet->setHeureDep($tableauAssoc['heureDep']);
-        // $trajet->setHeureArr($tableauAssoc['heureArr']);
-        // $trajet->setPrix($tableauAssoc['prix']);
-        // $trajet->setDateDep($tableauAssoc['dateDep']);
-        // $trajet->setNbPlace($tableauAssoc['nbPlace']);
-        // $trajet->setNumeroConducteur($tableauAssoc['numero_conducteur']);
-        // $trajet->setNumeroConducteur($tableauAssoc['numero_conducteur']);
+        $trajet = new Trajet($tableauAssoc['numero'],$tableauAssoc['heureDep'],$tableauAssoc['heureArr'],$tableauAssoc['prix'],$tableauAssoc['dateDep'],$tableauAssoc['nbPlace'],$tableauAssoc['numero_conducteur'],$tableauAssoc['numero_lieu_depart'],$tableauAssoc['numero_lieu_arrivee']);
         return $trajet;
     }
     /**
@@ -181,13 +173,15 @@ class TrajetDao{
      * @param integer $nbPassager
      * @return array
      */
-    public function listeTrajetTrieeParHeureDep(string $num_lieu_depart, string $num_lieu_arrivee, string $date, int $nbPassager): array
+    public function findTrajetParHeure(string $num_lieu_depart, string $num_lieu_arrivee, string $date, int $nbPassager): array
     {
-        $requete = "SELECT T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace, L1.ville AS villeArr, L1.numRue AS numRueArr, L1.nomRue AS nomRueArr, L2.ville AS villeDep, L2.numRue AS numRueDep, L2.nomRue AS nomRueDep FROM TRAJET T LEFT JOIN LIEU L1 ON L1.numero = T.numero_lieu_arrivee LEFT JOIN LIEU L2 ON L2.numero = T.numero_lieu_depart WHERE numero_lieu_depart IN " . $num_lieu_depart . " AND numero_lieu_arrivee IN " . $num_lieu_arrivee . " AND dateDep = ? AND nbPlace > " . $nbPassager . " ORDER BY T.heureDep ASC";
+        $requete = "SELECT T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace,T.numero_conducteur, T.numero_lieu_depart, T.numero_lieu_arrivee FROM TRAJET T WHERE numero_lieu_depart IN " . $num_lieu_depart . " AND numero_lieu_arrivee IN " . $num_lieu_arrivee . " AND dateDep = ? AND nbPlace > " . $nbPassager . " ORDER BY T.heureDep ASC";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->bindValue(1, $date, PDO::PARAM_STR);
         $pdoStatement->execute();
-        $listeTrajet = $pdoStatement->fetchAll();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $pdoStatement->fetchAll();
+        $listeTrajet = $this->hydrateAll($tableau);
         return $listeTrajet;
     }
     /**
@@ -199,27 +193,31 @@ class TrajetDao{
      * @param integer $nbPassager
      * @return array
      */
-    public function listeTrajetTrieeParPrix(string $num_lieu_depart, string $num_lieu_arrivee, string $date, int $nbPassager): array
+    public function findTrajetTrieeParPrix(string $num_lieu_depart, string $num_lieu_arrivee, string $date, int $nbPassager): array
     {
-        $requete = "SELECT T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace, L1.ville AS villeArr, L1.numRue AS numRueArr, L1.nomRue AS nomRueArr, L2.ville AS villeDep, L2.numRue AS numRueDep, L2.nomRue AS nomRueDep FROM TRAJET T LEFT JOIN LIEU L1 ON L1.numero = T.numero_lieu_arrivee LEFT JOIN LIEU L2 ON L2.numero = T.numero_lieu_depart WHERE numero_lieu_depart IN " . $num_lieu_depart . " AND numero_lieu_arrivee IN " . $num_lieu_arrivee . " AND dateDep = ? AND nbPlace > " . $nbPassager . " ORDER BY T.prix ASC" ;
+        $requete = "SELECT T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep,T.numero_conducteur, T.nbPlace, T.numero_lieu_depart, T.numero_lieu_arrivee FROM TRAJET T WHERE numero_lieu_depart IN " . $num_lieu_depart . " AND numero_lieu_arrivee IN " . $num_lieu_arrivee . " AND dateDep = ? AND nbPlace > " . $nbPassager . " ORDER BY T.prix ASC" ;
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->bindValue(1, $date, PDO::PARAM_STR);
         $pdoStatement->execute();
-        $listeTrajet = $pdoStatement->fetchAll();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $pdoStatement->fetchAll();
+        $listeTrajet = $this->hydrateAll($tableau);
         return $listeTrajet;
     }
     /**
      * @brief retourne toutes les informations necessaire sur la page de reponse a une offre
      *
      * @param integer $numero
-     * @return array
+     * @return arrayss
      */
-    public function infoRepOffre(int $numero): array
+    public function findTrajet(int $numero): Trajet
     {
-        $requete = "SELECT V.modele, V.marque, V.nbPlace, E.numero as numConducteur, E.nom, E.prenom, E.dateNaiss, E.photoProfil, T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace, L1.ville AS villeArr, L1.numRue AS numRueArr, L1.nomRue AS nomRueArr, L2.ville AS villeDep, L2.numRue AS numRueDep, L2.nomRue AS nomRueDep FROM TRAJET T LEFT JOIN LIEU L1 ON L1.numero = T.numero_lieu_arrivee LEFT JOIN LIEU L2 ON L2.numero = T.numero_lieu_depart JOIN ETUDIANT E ON E.numero = T.numero_conducteur JOIN VOITURE V ON V.numero = E.numero_voiture WHERE " . $numero . " = T.numero;";
+        $requete = "SELECT T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace, T.numero_conducteur, T.numero_lieu_depart,T.numero_lieu_arrivee FROM TRAJET T WHERE " . $numero . " = T.numero;";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->execute();
-        $infoTrajet = $pdoStatement->fetchAll();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $pdoStatement->fetch();
+        $infoTrajet = $this->hydrate($tableau);
         return $infoTrajet;
     }
     /**

@@ -77,6 +77,7 @@ class Trajet {
      * @param integer|null $nbPlace
      * @param integer|null $numero_conducteur
      */
+
     public function __construct(?int $numero = null,?string $heureDep = null,?string $heureArr = null,?int $prix = null,?string $dateDep = null,?int $nbPlace = null,?int $numero_conducteur = null, ?int $numero_lieu_depart = null, ?int $numero_lieu_arrivee = null)
     {
         $this->setNumero($numero);
