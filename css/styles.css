@@ -24,6 +24,10 @@
   #ecology {
     display: none;
   }
+  #btn-ajouter {
+    display: flex !important;
+    justify-content: center;
+  }
   .form-container {
     width: 100%;
     padding: 0;
