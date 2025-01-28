@@ -22,7 +22,7 @@
                         <div class="btn-toolbar justify-content-between right">
                             <div class="btn-group">
                                 {% for etudiant in etudiants %}
-                                    {% if etudiant.numero == trajet.numero_conducteur %}
+                                    {% if etudiant.numero == trajet.numeroConducteur %}
                                         <a class="text-decoration-none" href="index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}">
                                         <img class="pdp-sm" src="images/{{ etudiant.photoProfil }}">
                                         <p class="card-title fs-5 btn-group ms-2 mt-2" style="color: black;">{{ etudiant.prenom }} {{ etudiant.nom }}</p>
@@ -63,10 +63,11 @@
                             </div>
                         </div>
                     </div>
+                    {% if "now"|date("Y-m-d") > trajet.dateDep %}
                     <div class="card-footer text-align-right">
-                        <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'{% if "now"|date("Y-m-d") < trajet.dateDep %} disabled {% endif %}>Laisser un avis</button>
+                        <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'>Laisser un avis</button>
                     </div>
-                    
+                    {% endif %}
                 </div>
 
             <!-- Fenetre modale avis -->
@@ -112,7 +113,7 @@
                         <div class="btn-toolbar justify-content-between right">
                             <div class="btn-group">
                                 {% for etudiant in etudiants %}
-                                    {% if etudiant.numero == trajet.numero_conducteur %}
+                                    {% if etudiant.numero == trajet.numeroConducteur %}
                                         <a class="text-decoration-none" href="index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}">
                                         <img class="pdp-sm" src="images/{{ etudiant.photoProfil }}">
                                         <p class="card-title fs-5 btn-group ms-2 mt-2" style="color: black;">{{ etudiant.prenom }} {{ etudiant.nom }}</p>
@@ -125,12 +126,12 @@
                         <div class="btn-toolbar justify-content-between">
                             <div class="btn-group">
                                 {% for lieu in lieux %}
-                                    {% if lieu.numero == trajet.numero_lieu_depart %}
+                                    {% if lieu.numero == trajet.numeroLieuDepart %}
                                         <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }} → </p>
                                     {% endif %}
                                 {% endfor %}
                                 {% for lieu in lieux %}
-                                    {% if lieu.numero == trajet.numero_lieu_arrivee %}
+                                    {% if lieu.numero == trajet.numeroLieuArrivee %}
                                         <p class="card-title fs-4 btn-group">‎ {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
                                     {% endif %}
                                 {% endfor %}
