@@ -7,46 +7,47 @@
     <main class="d-flex justify-content-center align-items-center mt-3">
         <div class="" style="width: 350px;">
             <form action="index.php?controleur=trajet&methode=enregistrer&action=enregistrer" method="post" class="me-3">
-                <div class="mt-5 row">
+                <div class="mt-5 row form-part-1">
                     {#                            // Thibault -> regex stp#}
                     <label>Lieu de départ</label><input id="lieuDepart" name="lieuDepart" type="text" onkeyup="verifierAdresse('lieuDepart')" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
                     <p class="fst-italic lieuDepartMessageErreur" style="color:red;"></p>
                     <label>Lieu d'arrivée</label><input id="lieuArrivee" name="lieuArrivee" type="text" onkeyup="verifierAdresse('lieuArrivee')" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
                     <p class="fst-italic lieuArriveeMessageErreur" style="color:red;"></p>
-                    <button id="btnMap" class="mt-3 btn btn-primary">Voir sur la carte</button>
+                    <button id="btnMap" class="mt-3 btn btn-primary"  onclick="checkFirstPart()">Voir sur la carte et continuer</button>
                     <p class="fst-italic erreurExistanceLieu" style="color:red;"></p>
                 </div>
-                <div class="mt-3 row">
-                    <div class="col">
-                        <div class="row">
-                            <label>Heure de départ</label><input name="heureDep" type="time" class="form-control col">
-                            <label>Heure d'arrivée</label><input name="heureArr" type="time" class="form-control col">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row ms-1">
-                            <label>Prix</label>
-                            <div class="input-group">
-                                <input id="prix" name="prix" type="number" class="input-prix form-control" onchange="verifierPrix('prix')">
-                                <span class="input-group-text" id="realPrice"></span>
+                <div class="form-part-2" style="opacity: 0;">
+                    <div class="mt-3 row">
+                        <div class="col">
+                            <div class="row">
+                                <label>Heure de départ</label><input name="heureDep" type="time" class="form-control col">
+                                <p class="fst-italic heureDepMessageErreur" style="color:red;"></p>
+                                <label>Heure d'arrivée</label><input name="heureArr" type="time" class="form-control col">
                             </div>
-                                <p class="fst-italic prixMessageErreur" style="color:red;"></p>
-                        <label>Nombre de places</label><input name="nbPlace" type="number" class="form-control">
+                        </div>
+                        <div class="col">
+                            <div class="row ms-1">
+                                <label>Prix</label>
+                                <div class="input-group">
+                                    <input id="prix" name="prix" type="number" class="input-prix form-control" onchange="verifierPrix('prix')">
+                                    <span class="input-group-text" id="realPrice"></span>
+                                </div>
+                                    <p class="fst-italic prixMessageErreur" style="color:red;"></p>
+                            <label>Nombre de places</label><input name="nbPlace" type="number" class="form-control">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mt-3 row">
-                    <label>Date de départ</label><input name="dateDep" type="date" value="now" class="form-control">
-                </div>
-                <div class="mt-3 row">
-                    <input type="Submit" onclick="checkForm()" value="Enregistrer le trajet" class="btn-submit btn btn-primary">
+                    <div class="mt-3 row">
+                        <label>Date de départ</label><input name="dateDep" type="date" value="now" class="form-control">
+                    </div>
+                    <div class="mt-3 row">
+                        <input type="Submit" id='btnEnregistrer' onclick="checkForm('btnEnregistrer')" value="Enregistrer le trajet" class="btn-submit btn btn-primary">
+                    </div>
                 </div>
 
 {#                Infos de l'api à passer#}
                 <div hidden>
-                    <input type="text" value="test">
-                    <input type="text" value="test">
-                    <input type="text" value="test">
+                    <input class="dist-storer" name="dist" type="text">
                 </div>
 
             </form>
@@ -66,7 +67,6 @@
             </div>
         </div>
     </div>
-    <div class="dist-storer"></div>
     <!-- Leaflet JS for map -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -139,9 +139,6 @@
                         var lat2 = response.location2.lat;
                         var lng2 = response.location2.lng;
 
-                        // On se place entre les deux localisations
-                        map.setView([(lat1 + lat2) / 2, (lng1 + lng2) / 2], 13);
-
                         // On enleves les anciens pins
                         markers.forEach(function(marker) {
                             map.removeLayer(marker);
@@ -174,16 +171,13 @@
                                     var dist = data.features[0].properties.summary.distance;
                                     var distKm = dist / 1000;
                                     var duree = data.features[0].properties.summary.duration;
-                                    document.querySelector(".dist-storer").innerHTML = distKm;;
+                                    document.querySelector(".dist-storer").value = distKm;
                                     console.log(duree + " seconds or " + duree / 60 + " minutes or " + duree / 3600 + " hours");
 
-                                    let prixTotalCons = distToPrice(distKm)[0][0] + distToPrice(distKm)[0][1];
                                     let argentRecuCons = distToPrice(distKm)[0][0];
 
-                                    let prixTotalMin = distToPrice(distKm)[1][0] + distToPrice(distKm)[1][1];
                                     let argentRecuMin = distToPrice(distKm)[1][0];
 
-                                    let prixTotalMax = distToPrice(distKm)[2][0] + distToPrice(distKm)[2][1];
                                     let argentRecuMax = distToPrice(distKm)[2][0];
 
                                     setPrixBornes('prix', argentRecuCons, argentRecuMin, argentRecuMax);
@@ -192,6 +186,9 @@
                                     routeLayer = L.geoJSON(routeGeoJson, {
                                         style: { color: 'blue', weight: 5, opacity: 0.7 }
                                     }).addTo(map);
+
+                                    // On se place entre les deux localisations
+                                    map.setView([(lat1 + lat2) / 2, (lng1 + lng2) / 2], adjustZoom(distKm));
                                 }
                             })
                             .catch(error => {
@@ -204,6 +201,28 @@
             };
             xhr.send(formData);
         });
+
+        function adjustZoom(dist){
+            if (dist < 2){
+                return 16
+            }
+            if (dist < 5){
+                return 14
+            }
+            if (dist < 10) {
+                return 12
+            }
+            if (dist < 75){
+                return 10
+            }
+            if (dist < 150){
+                return 7
+            }
+            if (dist > 200){
+                return 5
+            }
+            return 18 - dist/10
+        }
 
         function setPrixBornes(id, cons, min, max){
             let champ = document.getElementById(id)
@@ -228,7 +247,6 @@
         }
 
         function updateRealPrice(){
-            let dist = document.querySelector(".dist-storer").innerHTML;
             let argentRecu = document.querySelector(".input-prix").value;
             let prix = calculPrixReel(argentRecu);
             document.querySelector("#realPrice").innerHTML = prix;

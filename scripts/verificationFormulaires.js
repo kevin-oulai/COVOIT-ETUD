@@ -5,11 +5,13 @@ function verifierAdresse(id){
         document.querySelector("."+id+"MessageErreur").innerHTML = "";
         champ.classList.remove("invalid-input");
         champ.classList.add("valid-input");
+        return true;
     }
     else{
         document.querySelector("."+id+"MessageErreur").innerHTML = "Veuillez respecter le format d'adresse (ex : 1 Rue Paul, Paris)";
         champ.classList.remove("valid-input");
         champ.classList.add("invalid-input");
+        return false;
     }
 }
 
@@ -19,12 +21,10 @@ function verifierPrix(id){
     let valid = true;
 
     if(value < parseFloat(champ.min)){
-        console.log("Inf");
         document.querySelector("."+id+"MessageErreur").innerHTML = "Saisir un prix supérieur à "  + champ.min;
         valid = false;
     }
     else if(value > parseFloat(champ.max)){
-        console.log("Sup");
         document.querySelector("."+id+"MessageErreur").innerHTML = "Saisir un prix inférieur à " + champ.max;
         valid = false;
     }
@@ -38,5 +38,12 @@ function verifierPrix(id){
         champ.classList.remove("invalid-input");
         champ.classList.add("valid-input");
     }
+    return valid;
 }
-function checkForm(){}
+function checkFirstPart(){
+    if(verifierAdresse('lieuDepart') && verifierAdresse('lieuArrivee')){
+        // Afficher la deuxieme partie du formulaire
+        document.querySelector(".form-part-2").style.opacity = 100;
+    }
+
+}
