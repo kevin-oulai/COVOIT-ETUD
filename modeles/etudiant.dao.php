@@ -93,15 +93,7 @@ class EtudiantDao
      * @param integer|null $numero_etudiant
      * @return INT|null
      */
-    public function findNbTrajets(?int $numero_etudiant): ?INT
-    {
-        $sql="SELECT COUNT(T.NUMERO) FROM TRAJET T JOIN ETUDIANT E ON T.NUMERO_CONDUCTEUR = E.NUMERO WHERE E.numero= $numero_etudiant";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute();
-        $nbTrajet = $pdoStatement->fetchColumn();
 
-        return $nbTrajet;
-    }
     /**
      * @brief retourne vrai si l'etudiant a un badge
      *

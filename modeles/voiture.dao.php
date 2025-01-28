@@ -93,13 +93,15 @@ class VoitureDao {
      * @param integer $numero_etudiant
      * @return Etudiant
      */
-    public function findMonEtudiant(int $numero_etudiant): Etudiant
+    public function findMonEtudiant(int $numero_etudiant): Voiture
     {
         $sql="SELECT * FROM VOITURE V JOIN ETUDIANT E ON V.NUMERO = E.NUMERO_VOITURE WHERE E.numero= :numero_etudiant";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute(array(":numero_etudiant"=>$numero_etudiant));
         $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
-        $voiture = $pdoStatement->fetch();
+        $tableau = $pdoStatement->fetch();
+        $voiture = $this->hydrate($tableau);
+
 
         return $voiture;
     }
@@ -162,5 +164,19 @@ class VoitureDao {
         $query->bindParam(':marque', $marque);
         $query->bindParam(':nbPlace', $nbPlace);
         $query->execute();
+    }
+
+    public function hydrate(array $tableauAssoc): ?Voiture
+    {
+        $voiture = new Voiture($tableauAssoc['numero'],$tableauAssoc['modele'],$tableauAssoc['marque'],$tableauAssoc['nbplace']);
+        return $trajet;
+    }
+
+    public function hydrateAll($tableau): ?array{
+        $trajets = [];
+        foreach($tableau as $tableauAssoc){
+            $trajets[] = $this->hydrate($tableauAssoc);
+        }
+        return $trajets;
     }
 }

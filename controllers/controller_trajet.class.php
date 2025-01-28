@@ -103,6 +103,8 @@ class ControllerTrajet extends Controller{
         $managerTrajet = new TrajetDao($this->getPdo());
         $infoTrajet = $managerTrajet->infoRepOffre($id); 
         
+        $managerVoiture = new VoitureDao($this->getPdo());
+        $infoVoiture = $managerVoiture->find($infoTrajet[0]->getNumeroConducteur());
         // Calcul de l'age
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $infoConducteur = $managerEtudiant->find($infoTrajet[0]->getNumeroConducteur());
@@ -118,6 +120,7 @@ class ControllerTrajet extends Controller{
         echo $template->render(array(
             'infoTrajet' => $infoTrajet,
             'infoConducteur' => $infoConducteur,
+            'infoVoiture'  => $infoVoiture,
             'listeLieu' => $listeLieu,
             'age' => $age
         ));
