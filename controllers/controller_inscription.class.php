@@ -37,7 +37,6 @@ class ControllerInscription extends Controller
             $telValide = validerTelephone($_POST["tel"], $messagesErreurs);
             $mdpValide = validerMdp($_POST["pwd"], $messagesErreurs);
             $photoValide = validerUploadEtPdp($_FILES["image"], $messagesErreurs);
-            echo "test";
 
             if(!empty($messagesErreurs)) {
                 $template = $this->getTwig()->load('inscription.html.twig');

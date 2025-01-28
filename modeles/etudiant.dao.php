@@ -170,28 +170,20 @@ class EtudiantDao
      * @param string $salt
      * @return void
      */
-    public function ajoutEtudiant(string $nom,string $prenom,string $mail,string $tel, string $image,string $dateNaiss, string $mdp)
+    public function insert(string $nom, string $prenom, string $mail, string $tel, string $image, string $dateNaiss, string $mdp)
     {
-        $pdo = Bd::getInstance()->getConnexion();
-        $query = "SELECT COUNT(numero) FROM ETUDIANT";
-        $pdoStatement = $pdo->prepare($query);
-        $pdoStatement->execute();
-        $nbNum = $pdoStatement->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
-        $nbNum[0]++;
-
-        $query = "INSERT INTO ETUDIANT(numero,nom,prenom,dateNaiss,adresseMail,numTelephone,numero_voiture,photoProfil,motDePasse,token_reinitialisation,expiration_token,null) VALUES ((?),(?),(?),(?),(?),(?),NULL,(?),(?),NULL,NULL,(?) )";
-
         $date = date($dateNaiss);
-        $pdoStatement = $pdo->prepare($query);
-        $pdoStatement->bindValue(1, $nbNum[0], PDO::PARAM_INT);
-        $pdoStatement->bindValue(2, $nom, PDO::PARAM_STR);
-        $pdoStatement->bindValue(3, $prenom, PDO::PARAM_STR);
-        $pdoStatement->bindValue(4, $date, PDO::PARAM_STR);
-        $pdoStatement->bindValue(5, $mail, PDO::PARAM_STR);
-        $pdoStatement->bindValue(6, $tel, PDO::PARAM_STR);
-        $pdoStatement->bindValue(7, $image, PDO::PARAM_STR);
-        $pdoStatement->bindValue(8, $mdp, PDO::PARAM_STR);
-        $pdoStatement->execute();
+        $query = $this->PDO->prepare("INSERT INTO ETUDIANT(nom, prenom, dateNaiss, adresseMail, numTelephone, numero_voiture, photoProfil, motDePasse, token_reinitialisation, expiration_token) VALUES (:nom, :prenom, :dateNaiss, :mail, :tel, NULL, :image, :mdp, NULL, NULL)");
+
+        $query->bindParam(':nom', $nom);
+        $query->bindParam(':prenom', $prenom);
+        $query->bindParam(':dateNaiss', $date);
+        $query->bindParam(':mail', $mail);
+        $query->bindParam(':tel', $tel);
+        $query->bindParam(':image', $image);
+        $query->bindParam(':mdp', $mdp);
+
+        $query->execute();
     }
     /**
      * @brief permet de modifier le profil d'un étudiant
