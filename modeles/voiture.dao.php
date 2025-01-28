@@ -158,18 +158,4 @@ class VoitureDao {
 
         $query->execute();
     }
-
-    public function hydrate(array $tableauAssoc): ?Voiture
-    {
-        $voiture = new Voiture($tableauAssoc['numero'],$tableauAssoc['modele'],$tableauAssoc['marque'],$tableauAssoc['nbplace']);
-        return $trajet;
-    }
-
-    public function hydrateAll($tableau): ?array{
-        $trajets = [];
-        foreach($tableau as $tableauAssoc){
-            $trajets[] = $this->hydrate($tableauAssoc);
-        }
-        return $trajets;
-    }
 }

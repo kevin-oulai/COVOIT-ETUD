@@ -92,6 +92,15 @@ class EtudiantDao
         return $infoEtud; 
     }
 
+    public function findNbTrajets(?int $numero_etudiant): ?INT 
+    { 
+        $sql="SELECT COUNT(T.NUMERO) FROM TRAJET T JOIN ETUDIANT E ON T.NUMERO_CONDUCTEUR = E.NUMERO WHERE E.numero= $numero_etudiant"; 
+        $pdoStatement = $this->PDO->prepare($sql); 
+        $pdoStatement->execute(); 
+        $nbTrajet = $pdoStatement->fetchColumn(); 
+        return $nbTrajet; 
+    } 
+
     public function hydrate(array $tableauAssoc): ?Etudiant
     {
         $etudiant = new Etudiant($tableauAssoc['numero'], $tableauAssoc['nom'], $tableauAssoc['prenom'], $tableauAssoc['dateNaiss'], $tableauAssoc['adresseMail'], $tableauAssoc['numTelephone'], $tableauAssoc['numero_voiture'], $tableauAssoc['photoProfil']);

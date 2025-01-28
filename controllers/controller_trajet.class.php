@@ -102,6 +102,8 @@ class ControllerTrajet extends Controller{
      * @return void
      */
     public function repondreOffre(){
+        $nbPassager = $_SESSION["nombre_passagers"];
+        $numEtudiant = $_SESSION['CLIENT'];
         // On récupère l'id du trajet
         $id = $_GET["id"];
         $managerTrajet = new TrajetDao($this->getPdo());
