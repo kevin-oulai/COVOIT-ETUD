@@ -1,7 +1,7 @@
 let floatingButton = document.getElementById("ajout");
 floatingButton.addEventListener("mouseover", function (){
     this.style.width = "200px";
-    this.innerText = "Enregistrer un trajet";
+    this.innerText = "Ajouter un trajet";
 })
 
 floatingButton.addEventListener("mouseout", defaultButton);

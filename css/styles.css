@@ -12266,17 +12266,17 @@ body {
 }
 
 .carteTrajet {
-  width: 1300px;
-  margin-left: 75px;
-  margin-top: 50px;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 20%;
 }
 
 .formulaireFiltre {
-  position: absolute;
+  position: relative;
   border-radius: 30px;
   border: solid;
-  right: 20px;
-  top: 150px; /* distance depuis le haut de la page */
+  right: -5%;
+  top: 30%; /* distance depuis le haut de la page */
   width: 300px; /* largeur du rectangle */
   height: auto; /* hauteur initiale */
   background-color: rgb(211, 211, 211); /* couleur du rectangle */
@@ -12372,5 +12372,5 @@ body {
   100% {
     transform: rotate(360deg);
   }
-
+}
 /*# sourceMappingURL=styles.css.map */
