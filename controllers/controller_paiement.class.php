@@ -63,14 +63,17 @@ class ControllerPaiement extends Controller
                 ));
             } else {
                 // Quand le paiement est valide, j'ajoute le passager au trajet dans la table Choisir                
-                $numEtudiant = $GLOBALS['CLIENT']->getNumero(); // Récupération du numéro de l'étudiant connecté
-
+                $numEtudiant = $_SESSION['CLIENT']->getNumero(); // Récupération du numéro de l'étudiant connecté
+                $nbPassager = $_SESSION["nombre_passagers"];
                 // Ajout du passager au trajet
                 $pdo = $this->getPdo();
                 $query = $pdo->prepare("INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES (:idTrajet, :numEtudiant)");
                 $query->bindParam(':idTrajet', $idTrajet);
                 $query->bindParam(':numEtudiant', $numEtudiant);
-                $query->execute();
+                for ($i=0; $i < $nbPassager; $i++) { 
+                    $query->execute();
+                }
+                
 
                 $template = $this->getTwig()->load('pagePaiement.html.twig');
 

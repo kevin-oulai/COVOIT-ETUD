@@ -175,7 +175,7 @@ class TrajetDao{
      */
     public function findTrajetParHeure(string $num_lieu_depart, string $num_lieu_arrivee, string $date, int $nbPassager): array
     {
-        $requete = "SELECT T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace,T.numero_conducteur, T.numero_lieu_depart, T.numero_lieu_arrivee FROM TRAJET T WHERE numero_lieu_depart IN " . $num_lieu_depart . " AND numero_lieu_arrivee IN " . $num_lieu_arrivee . " AND dateDep = ? AND nbPlace > " . $nbPassager . " ORDER BY T.heureDep ASC";
+        $requete = "SELECT T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace,T.numero_conducteur, T.numero_lieu_depart, T.numero_lieu_arrivee FROM TRAJET T WHERE numero_lieu_depart IN " . $num_lieu_depart . " AND numero_lieu_arrivee IN " . $num_lieu_arrivee . " AND dateDep = ? AND nbPlace >= " . $nbPassager . " ORDER BY T.heureDep ASC";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->bindValue(1, $date, PDO::PARAM_STR);
         $pdoStatement->execute();
