@@ -79,11 +79,12 @@ class LieuDao{
     public function findAllAssoc(): ?array
     {
         $sql="SELECT * FROM LIEU";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute();
-        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
-        $tableau = $pdoStatement->fetchAll();
-        $lieu = $this->hydrateAll($tableau);
+        $pdoStatement = $this->PDO->prepare($sql); 
+        $pdoStatement->execute(); 
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC); 
+        $tableau = $pdoStatement->fetchAll(); 
+        $lieu = $this->hydrateAll($tableau); 
+
         return $lieu;
     }
     /**
@@ -116,16 +117,12 @@ class LieuDao{
      */
     public function insert(?int $numRue = null,?string $nomRue = null,?string $ville = null): void
     {
-        $sql = "SELECT COUNT(numero) FROM LIEU";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute();
-        $newNum = $pdoStatement->fetch(PDO::FETCH_NUM);
-        $newNum[0]++;
-        $query = $this->PDO->prepare("INSERT INTO LIEU(numero, numRue, nomRue, ville) VALUES (:numero, :numRue, :nomRue, :ville)");
-        $query->bindParam(':numero', $newNum[0]);
+        $query = $this->PDO->prepare("INSERT INTO LIEU(numRue, nomRue, ville) VALUES (:numRue, :nomRue, :ville)");
+
         $query->bindParam(':numRue', $numRue);
         $query->bindParam(':nomRue', $nomRue);
         $query->bindParam(':ville', $ville);
+        
         $query->execute();
     }
     /**
@@ -154,11 +151,7 @@ class LieuDao{
      */
     public function hydrate(array $tableauAssoc): ?Lieu
     {
-        $lieu = new Lieu($tableauAssoc['numero'],$tableauAssoc['numRue'],$tableauAssoc['nomRue'],$tableauAssoc['ville']);
-        // $lieu->setNumero($tableauAssoc['numero']);
-        // $lieu->setNumRue($tableauAssoc['numRue']);
-        // $lieu->setNomRue($tableauAssoc['nomRue']);
-        // $lieu->setVille($tableauAssoc['ville']);
+        $lieu = new Lieu($tableauAssoc['numero'], $tableauAssoc['numRue'], $tableauAssoc['nomRue'], $tableauAssoc['ville']);
         return $lieu;
     }
     /**

@@ -294,7 +294,6 @@ class Etudiant {
         $pdoStatement->execute(array(":mail"=>$this->adresseMail));
         $pdoStatement->setFetchMode(PDO::FETCH_NUM);
         $count = $pdoStatement->fetch();
-        echo "$count[0]";
         if($count[0]<1)
         {
             return true;

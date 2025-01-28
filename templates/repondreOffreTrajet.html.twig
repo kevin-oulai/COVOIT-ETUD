@@ -55,7 +55,11 @@
 			</div>
 			{# Bouton de validation #}
             <div class="col text-center">
+			{% if trajet.numConducteur == trajet.numEtudiant %}
+				<h4>Vous ne pouvez pas réserver votre propre trajet.</h4>
+			{% else %}
 				<a href="?controleur=paiement&methode=afficher&idTrajet={{trajet.numero}}" class="btn btn-primary">Payer</a>
+			{% endif %}
             </div>
 			<div class="text-center mt-5">
 				<a href="?controleur=&methode=" class="btn btn-danger">Retour</a>

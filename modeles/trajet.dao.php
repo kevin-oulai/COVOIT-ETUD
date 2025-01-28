@@ -66,7 +66,8 @@ class TrajetDao{
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->bindValue(":numero", $numero);
         $pdoStatement->execute();
-        $listeTrajets = $pdoStatement->fetchAll();
+        $tableau = $pdoStatement->fetchAll();
+        $listeTrajets = $this->hydrateAll($tableau);
         return $listeTrajets;
     }
     /**
@@ -147,14 +148,6 @@ class TrajetDao{
     public function hydrate(array $tableauAssoc): ?Trajet
     {
         $trajet = new Trajet($tableauAssoc['numero'],$tableauAssoc['heureDep'],$tableauAssoc['heureArr'],$tableauAssoc['prix'],$tableauAssoc['dateDep'],$tableauAssoc['nbPlace'],$tableauAssoc['numero_conducteur'],$tableauAssoc['numero_lieu_depart'],$tableauAssoc['numero_lieu_arrivee']);
-        // $trajet->setNumero();
-        // $trajet->setHeureDep();
-        // $trajet->setHeureArr();
-        // $trajet->setPrix();
-        // $trajet->setDateDep();
-        // $trajet->setNbPlace();
-        // $trajet->setNumeroConducteur();
-        // $trajet->setNumeroConducteur();
         return $trajet;
     }
     /**
@@ -243,7 +236,7 @@ class TrajetDao{
     public function insert(?string $heureDep = null,?string $heureArr = null,?int $prix = null,?string $dateDep = null,?int $nbPlace = null,?int $numero_conducteur = null,?int $numero_lieu_depart = null,?int $numero_lieu_arrivee = null): void
     {
         $query = $this->PDO->prepare("INSERT INTO TRAJET(heureDep, heureArr, prix, dateDep, nbPlace, numero_conducteur, numero_lieu_depart, numero_lieu_arrivee) VALUES (:heureDep, :heureArr, :prix, :dateDep, :nbPlace, :numero_conducteur, :numero_lieu_depart, :numero_lieu_arrivee)");
-        $query->bindParam(':numero', $newNum[0]);
+        
         $query->bindParam(':heureDep', $heureDep);
         $query->bindParam(':heureArr', $heureArr);
         $query->bindParam(':prix', $prix);
@@ -252,6 +245,7 @@ class TrajetDao{
         $query->bindParam(':numero_conducteur', $numero_conducteur);
         $query->bindParam(':numero_lieu_depart', $numero_lieu_depart);
         $query->bindParam(':numero_lieu_arrivee', $numero_lieu_arrivee);
+
         $query->execute();
     }
     /**
@@ -292,4 +286,16 @@ class TrajetDao{
         $pdoStatement->setFetchMode(PDO::FETCH_NUM);
         return $pdoStatement->fetch()[0];
     }
+
+    public function findAllRue() 
+    { 
+        $sql = "SELECT numero, numRue, nomRue, ville FROM LIEU"; 
+        $pdoStatement = $this->PDO->prepare($sql); 
+        $pdoStatement->execute(); 
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC); 
+        $tableau = $pdoStatement->fetchAll(); 
+        $lieu = $this->hydrateAll($tableau); 
+        return $lieu; 
+
+    } 
 }
