@@ -84,18 +84,20 @@ class ControllerEtudiant extends Controller{
                 }
 
                 $messagesErreurs = [];
-
                 if(!is_uploaded_file($_FILES["image"]["tmp_name"])) {
-                    $photoProfil = $etudiant->getPhotoProfil();
+                    $photoProfil = $infoEtud->getPhotoProfil();
                     $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $photoProfil);
                 }
                 else{
                     $photoProfil = $_FILES["image"]["tmp_name"];
-                    if(!validerUploadEtPdp($_FILES["image"], $messagesErreurs)) {
+                    $photoValide = validerUploadEtPdp($_FILES["image"], $messagesErreurs);
+                    
+                    if(!empty($messagesErreurs)) {
                         $template = $this->getTwig()->load('profil.html.twig');
-        
+                        
                         echo $template->render(array(
                             'erreurs'=> $messagesErreurs,
+                            'etudiant' => $etudiant
                         ));
                     } 
                     else {
@@ -103,13 +105,12 @@ class ControllerEtudiant extends Controller{
                         $nomPhoto = rand(0, 2147483647) . ".png";
                         move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$nomPhoto");
                         $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
+                        
+                        echo "<div id=modalTriggerModif></div>";
                     }
                 }
                 
-                echo "<div id=modalTriggerModif></div>";
             }
         }
-
-    }
-    
+    }    
 }

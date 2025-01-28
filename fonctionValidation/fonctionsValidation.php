@@ -360,8 +360,6 @@ function validerUploadEtPdp(array $pdp, array &$messageErreurs)
                 $valide = false;
                 break;
         }
-
-
     }
 
     return $valide;

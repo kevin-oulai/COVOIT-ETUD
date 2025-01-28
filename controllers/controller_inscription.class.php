@@ -30,6 +30,7 @@ class ControllerInscription extends Controller
     {
         if (isset($_POST["Nom"]) && isset($_POST["Prenom"]) && isset($_POST["mail"]) && isset($_POST["tel"])) {
             $messagesErreurs = [];
+            
             $prenomValide = validerPrenom($_POST["Prenom"], $messagesErreurs);
             $nomValide = validerNom($_POST["Nom"], $messagesErreurs);
             $mailValide = validerMail($_POST["mail"], $messagesErreurs);
@@ -37,6 +38,7 @@ class ControllerInscription extends Controller
             $telValide = validerTelephone($_POST["tel"], $messagesErreurs);
             $mdpValide = validerMdp($_POST["pwd"], $messagesErreurs);
             $photoValide = validerUploadEtPdp($_FILES["image"], $messagesErreurs);
+
             if(!empty($messagesErreurs)) {
                 $template = $this->getTwig()->load('inscription.html.twig');
 
