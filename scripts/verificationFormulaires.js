@@ -13,4 +13,30 @@ function verifierAdresse(id){
     }
 }
 
+function verifierPrix(id){
+    let champ = document.getElementById(id);
+    let value = parseFloat(champ.value);
+    let valid = true;
+
+    if(value < parseFloat(champ.min)){
+        console.log("Inf");
+        document.querySelector("."+id+"MessageErreur").innerHTML = "Saisir un prix supérieur à "  + champ.min;
+        valid = false;
+    }
+    else if(value > parseFloat(champ.max)){
+        console.log("Sup");
+        document.querySelector("."+id+"MessageErreur").innerHTML = "Saisir un prix inférieur à " + champ.max;
+        valid = false;
+    }
+
+    if(!valid){
+        champ.classList.remove("valid-input");
+        champ.classList.add("invalid-input");
+    }
+    else{
+        document.querySelector("."+id+"MessageErreur").innerHTML = "";
+        champ.classList.remove("invalid-input");
+        champ.classList.add("valid-input");
+    }
+}
 function checkForm(){}

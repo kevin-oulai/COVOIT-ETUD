@@ -6,7 +6,7 @@
     <h1 class="fs-1 text-center mt-5">Enregistrer un trajet</h1>
     <main class="d-flex justify-content-center align-items-center mt-3">
         <div class="" style="width: 350px;">
-            <form action="index.php?controleur=trajet&methode=enregistrer&action=enregistrer" method="post" class="">
+            <form action="index.php?controleur=trajet&methode=enregistrer&action=enregistrer" method="post" class="me-3">
                 <div class="mt-5 row">
                     {#                            // Thibault -> regex stp#}
                     <label>Lieu de départ</label><input id="lieuDepart" name="lieuDepart" type="text" onkeyup="verifierAdresse('lieuDepart')" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
@@ -27,9 +27,10 @@
                         <div class="row ms-1">
                             <label>Prix</label>
                             <div class="input-group">
-                                <input name="prix" type="number" class="input-prix form-control" onkeyup="updateRealPrice()">
+                                <input id="prix" name="prix" type="number" class="input-prix form-control" onchange="verifierPrix('prix')">
                                 <span class="input-group-text" id="realPrice"></span>
                             </div>
+                                <p class="fst-italic prixMessageErreur" style="color:red;"></p>
                         <label>Nombre de places</label><input name="nbPlace" type="number" class="form-control">
                         </div>
                     </div>
@@ -40,6 +41,14 @@
                 <div class="mt-3 row">
                     <input type="Submit" onclick="checkForm()" value="Enregistrer le trajet" class="btn-submit btn btn-primary">
                 </div>
+
+{#                Infos de l'api à passer#}
+                <div hidden>
+                    <input type="text" value="test">
+                    <input type="text" value="test">
+                    <input type="text" value="test">
+                </div>
+
             </form>
         </div>
         <div class="ms-5" id="map"></div>
@@ -80,6 +89,10 @@
             if($('#errorModalTrigger').length){
                 $('#errorModal').modal('show');
             }
+        });
+
+        document.querySelector(".input-prix").addEventListener("change", function(){
+            updateRealPrice();
         });
 
         // Initialisation de la map
@@ -173,6 +186,8 @@
                                     let prixTotalMax = distToPrice(distKm)[2][0] + distToPrice(distKm)[2][1];
                                     let argentRecuMax = distToPrice(distKm)[2][0];
 
+                                    setPrixBornes('prix', argentRecuCons, argentRecuMin, argentRecuMax);
+
                                     // On l'ajoute à la map
                                     routeLayer = L.geoJSON(routeGeoJson, {
                                         style: { color: 'blue', weight: 5, opacity: 0.7 }
@@ -190,6 +205,13 @@
             xhr.send(formData);
         });
 
+        function setPrixBornes(id, cons, min, max){
+            let champ = document.getElementById(id)
+            champ.placeholder = "Conseillé : " + cons;
+            champ.min = min;
+            champ.max = max;
+        }
+
         function distToPrice(dist){
             if(dist < 10){
                 return [[Math.round(dist * 0.12 * 100) / 100, Math.round(dist*0.03 * 100) / 100],[Math.round(dist * 0.09 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.15 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
@@ -198,7 +220,10 @@
         }
 
         function calculPrixReel(prix){
+            prix = parseFloat(prix);
             let total = prix + (prix*(3/15));
+            total = round(total, 2);
+            console.log("prix : " + prix + " marge : " + prix*(3/15) + " total : " + total);
             return total;
         }
 
@@ -207,6 +232,10 @@
             let argentRecu = document.querySelector(".input-prix").value;
             let prix = calculPrixReel(argentRecu);
             document.querySelector("#realPrice").innerHTML = prix;
+        }
+
+        function round(value, decimals) {
+            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
         }
     </script>
 {% else %}
