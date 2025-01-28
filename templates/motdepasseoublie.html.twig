@@ -3,8 +3,11 @@
     <div class="d-flex justify-content-center align-items-center" style="height: 600px;">
         <div class="login-container align-right" style="width: 350px;">
             <h2 class="text-center">Mot de passe oublié</h2>
-            <form id="form" ACTION='?controleur=connexion&methode=mdpOublie' METHOD='POST'>
-                <input name="email" type="username" class="form-control mb-3" placeholder="Adresse mail" required>
+            <form id="form" action='?controleur=connexion&methode=mdpOublie' METHOD='POST'>
+            <div name="champSaisieMail" class="mb-3">
+                <input name="mail" type="username" class="form-control" placeholder="Adresse mail" onkeyup="verifMail();" required>
+                <div name="erreurMail" class="messageErreur"></div>
+            </div>
                 <div class="text-center">
                     <button id="btnSendLink" class="btn btn-primary" onclick="chargerBouton()">Envoyer un mail</button>
                 </div>
@@ -34,6 +37,7 @@
         </div>
     </div>
 
+    <script src="scripts/scriptValidationForm.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script>
         function chargerBouton() {

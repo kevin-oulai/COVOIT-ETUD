@@ -136,7 +136,7 @@ class ControllerConnexion extends Controller{
         if ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             // Récupération de l'email soumis via le formulaire
-            $email = $_POST['email'] ?? '';
+            $email = $_POST['mail'] ?? '';
 
             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
