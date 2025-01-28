@@ -350,15 +350,15 @@ class ControllerConnexion extends Controller{
     public function login()
     {
         if (isset($_POST['login']) && isset($_POST['pwd'])) {
-
+            $connexionFalse = True;
             $pdo = Bd::getInstance()->getConnexion();
-            $query = "SELECT motDePasse, numero, salt FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
+            $query = "SELECT motDePasse, numero FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
             $pdoStatement = $pdo->prepare($query);
             $pdoStatement->execute();
             $result = $pdoStatement->fetch(PDO::FETCH_NUM);
             $verifMDP = false;
             if(!empty($result)) {
-                $verifMDP = password_verify($result[2] . $_POST['pwd'], $result[0]);
+                $verifMDP = password_verify($_POST['pwd'], $result[0]);
             }
 
             // on vérifie les informations saisies
@@ -375,9 +375,12 @@ class ControllerConnexion extends Controller{
              }
             else {
                 session_destroy();
-                echo '<body onLoad="alert(\'Membre non reconnu...\')">';
                 // puis on le redirige vers la page d'accueil
-                //echo '<meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">';
+                $connexionFalse = False;
+                $template = $this->getTwig()->load('connexion.html.twig');
+                echo $template->render(array(
+                    'connexionFalse' => $connexionFalse
+                ));            
             }
          }
     }
