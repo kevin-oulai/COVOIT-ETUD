@@ -74,6 +74,8 @@ class EtudiantDao
         return $etudiant;
     }
 
+    
+
     /**
      * @brief retourne toutes les informations des étudiants
      *
@@ -84,24 +86,43 @@ class EtudiantDao
         $sql="SELECT * FROM ETUDIANT";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute();
-        return $pdoStatement->fetchAll();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $pdoStatement->fetchAll();
+        $infoEtud = $this->hydrateAll($tableau);
+        return $infoEtud; 
     }
 
+    public function findNbTrajets(?int $numero_etudiant): ?INT 
+    { 
+        $sql="SELECT COUNT(T.NUMERO) FROM TRAJET T JOIN ETUDIANT E ON T.NUMERO_CONDUCTEUR = E.NUMERO WHERE E.numero= $numero_etudiant"; 
+        $pdoStatement = $this->PDO->prepare($sql); 
+        $pdoStatement->execute(); 
+        $nbTrajet = $pdoStatement->fetchColumn(); 
+        return $nbTrajet; 
+    } 
+
+    public function hydrate(array $tableauAssoc): ?Etudiant
+    {
+        $etudiant = new Etudiant($tableauAssoc['numero'], $tableauAssoc['nom'], $tableauAssoc['prenom'], $tableauAssoc['dateNaiss'], $tableauAssoc['adresseMail'], $tableauAssoc['numTelephone'], $tableauAssoc['numero_voiture'], $tableauAssoc['photoProfil']);
+        return $etudiant;
+    }
+
+    public function hydrateAll($tableau): ?array{
+        $etudiants = [];
+        foreach($tableau as $tableauAssoc){
+            $etudiant = $this->hydrate($tableauAssoc);
+            $etudiants[] = $etudiant;
+        }
+        return $etudiants;
+    }
+    
     /**
      * @brief retourne le nombre de trajet n'un étudiant
      *
      * @param integer|null $numero_etudiant
      * @return INT|null
      */
-    public function findNbTrajets(?int $numero_etudiant): ?INT
-    {
-        $sql="SELECT COUNT(T.NUMERO) FROM TRAJET T JOIN ETUDIANT E ON T.NUMERO_CONDUCTEUR = E.NUMERO WHERE E.numero= $numero_etudiant";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute();
-        $nbTrajet = $pdoStatement->fetchColumn();
 
-        return $nbTrajet;
-    }
     /**
      * @brief retourne vrai si l'etudiant a un badge
      *

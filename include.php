@@ -32,3 +32,7 @@ require_once 'modeles/voiture.dao.php';
 
 //Ajout des validations de formulaires
 require_once 'fonctionValidation/fonctionsValidation.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+

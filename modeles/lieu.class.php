@@ -50,7 +50,7 @@ class Lieu {
      * @param string|null $nomRue
      * @param string|null $ville
      */
-    public function __construct(?int $numero = null, ?int $numRue = null, ?string $nomRue = null, ?string $ville = null) {
+    public function __construct(?int $numero, ?int $numRue, ?string $nomRue, ?string $ville) {
         $this->setNumero($numero);
         $this->setNumRue($numRue);
         $this->setNomRue($nomRue);

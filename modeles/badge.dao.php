@@ -80,11 +80,27 @@ class BadgeDao{
      */
     public function findAll(?int $numero_etudiant): array
     {
-        $requete = "SELECT * from BADGE B join OBTENIR O on B.numero = O.numero_badge WHERE numero_etudiant= :numero_etudiant";
+        $requete = "SELECT B.numero, B.titre, B.image from BADGE B join OBTENIR O on B.numero = O.numero_badge WHERE numero_etudiant= :numero_etudiant";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->bindValue(1, PDO::PARAM_STR);
         $pdoStatement->execute(array(":numero_etudiant"=>$numero_etudiant));
-        $listeAvisCommentateur = $pdoStatement->fetchAll();
+        $tableau = $pdoStatement->fetchAll();
+        $listeAvisCommentateur = $this->hydrateAll($tableau);
         return $listeAvisCommentateur;
+    }
+
+    public function hydrate(array $tableauAssoc): ?Badge
+    {
+        $badge = new Badge($tableauAssoc['numero'], $tableauAssoc['titre'], $tableauAssoc['image']);
+        return $badge;
+    }
+
+    public function hydrateAll($tableau): ?array{
+        $badges = [];
+        foreach($tableau as $tableauAssoc){
+            $badge = $this->hydrate($tableauAssoc);
+            $badges[] = $badge;
+        }
+        return $badges;
     }
 }

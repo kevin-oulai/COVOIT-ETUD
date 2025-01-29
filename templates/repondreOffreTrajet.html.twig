@@ -1,8 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-	{% for trajet in infoTrajet %}
-	<div class="container">
-		
+	<div class="container">		
 		<div class="row row-cols-1 g-4">
         	
 			{# Informations du trajet #}
@@ -11,20 +9,20 @@
                     <div class="row card-body">
 						<div class="col" style = "display: inline-block;">
 							<h4>Informations conducteur</h4>
-							<h5>{{trajet.nom }} {{trajet.prenom}}</h5>
+							<h5>{{infoConducteur.nom }} {{infoConducteur.prenom}}</h5>
 							<h5>{{age}} ans</h5>
-							<img src="images/{{ trajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
+							<img src="images/{{ infoTrajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
 						</div>
 						<div class="col">
 							<h3 class="col text-center">Information du trajet :</h3>
-							<h4 class="col text-center">{{trajet.dateDep|date("d/m/Y")}}</h4>
-							<h4 class="col text-center">{{trajet.prix}}€</h4>
+							<h4 class="col text-center">{{infoTrajet.dateDep|date("d/m/Y")}}</h4>
+							<h4 class="col text-center">{{infoTrajet.prix}}€</h4>
 						</div>
 						<div class="col text-end">
 							<h4>Informations voiture</h4>
-							<h5>{{trajet.marque}}</h5>
-							<h5>{{trajet.modele}}</h5>
-							<h5>{{trajet.nbPlace}} places libres</h5>
+							<h5>{{infoVoiture.marque}}</h5>
+							<h5>{{infoVoiture.modele}}</h5>
+							<h5>{{infoVoiture.nbPlace}} places libres</h5>
 						</div>
                     </div>
 					<hr>
@@ -32,15 +30,24 @@
 						<div class="row">
 							<div class="col text-center">
 								<h3 class="card-text">Heure de départ</h3>
-								<h2>{{trajet.heureDep|date("H:i")}}</h2>
+								<h2>{{infoTrajet.heureDep|date("H:i")}}</h2>
 								<h3 class="card-text">Heure d'arrivée</h3>
-								<h2>{{trajet.heureArr|date("H:i")}}</h2>
+								<h2>{{infoTrajet.heureArr|date("H:i")}}</h2>
 							</div>
 							<div class="col text-center">
 								<h4 class="card-text">Lieu de départ</h4>
-								<h3>{{trajet.numRueDep}} {{trajet.nomRueDep}} {{trajet.villeDep}}</h3>
+								{% for lieu in listeLieu %}
+                                    {% if lieu.numero == infoTrajet.numeroLieuDepart %}
+								<h3>{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</h3>
+									{% endif %}
+                                {% endfor %}
+
 								<h4 class="card-text">Lieu de d'arrivée</h4>
-								<h3>{{trajet.numRueArr}} {{trajet.nomRueArr}} {{trajet.villeArr}}</h3>
+								{% for lieu in listeLieu %}
+                                    {% if lieu.numero == infoTrajet.numeroLieuArrivee %}
+								<h3>{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</h3>
+								{% endif %}
+                                {% endfor %}
 							</div>
 						</div>
 					</div>
@@ -48,9 +55,12 @@
 			</div>
 			{# Bouton de validation #}
             <div class="col text-center">
+			{% if trajet.numConducteur == trajet.numEtudiant %}
+				<h4>Vous ne pouvez pas réserver votre propre trajet.</h4>
+			{% else %}
 				<a href="?controleur=paiement&methode=afficher&idTrajet={{trajet.numero}}" class="btn btn-primary">Payer</a>
+			{% endif %}
             </div>
-	{% endfor %}
 			<div class="text-center mt-5">
 				<a href="?controleur=&methode=" class="btn btn-danger">Retour</a>
 			</div>
