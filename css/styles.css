@@ -8,6 +8,9 @@
   #ecology {
     width: 50%;
   }
+  .cardError {
+    margin-left: 25% !important;
+  }
 }
 @media (max-width: 1199px) {
   #avis {
@@ -28,16 +31,23 @@
     display: flex !important;
     justify-content: center;
   }
+  .cardError {
+    width: 80% !important;
+    margin-left: 10% !important;
+  }
   .form-container {
     width: 100%;
     padding: 0;
+  }
+  .formulaireFiltre {
+    width: 50% !important; /* largeur du rectangle */
   }
   .input-group {
     display: flex !important;
     flex-direction: column !important;
     gap: 10px !important;
     width: 130% !important;
-    margin-left: -15% !important;
+    margin-left: -20% !important;
   }
   .form-control {
     width: 100% !important;
@@ -54,6 +64,15 @@
   .facts-container {
     display: flex !important;
     flex-direction: column !important;
+  }
+}
+@media (max-width: 500px) {
+  .input-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 160% !important;
+    margin-left: -30% !important;
   }
 }
 .bg-gradient-chill {
@@ -12233,7 +12252,7 @@ body {
 
 .cardError {
   width: 500px;
-  margin-left: 700px;
+  margin-left: 35%;
   margin-top: 100px;
 }
 
@@ -12271,6 +12290,7 @@ body {
 
 .carteTrajet {
   width: 80%;
+  top: 20px;
   margin-left: 10%;
   margin-top: 20%;
 }
@@ -12279,17 +12299,19 @@ body {
   position: relative;
   border-radius: 30px;
   border: solid;
-  right: -5%;
-  top: 30%; /* distance depuis le haut de la page */
-  width: 300px; /* largeur du rectangle */
-  height: auto; /* hauteur initiale */
-  background-color: rgb(211, 211, 211); /* couleur du rectangle */
+  border-color: #314299;
+  border-width: 2px;
+  left: 10%;
+  top: 15px; /* distance depuis le haut de la page */
+  width: 30%; /* largeur du rectangle */
+  height: 20%; /* hauteur initiale */
+  background-color: #E2EAFC; /* couleur du rectangle */
   z-index: 1000; /* s'assure que le rectangle reste au-dessus des autres éléments */
 }
 
 .form-check {
   display: flex;
-  margin-top: 20px;
+  margin-top: 15px;
   margin-left: 20px;
 }
 
