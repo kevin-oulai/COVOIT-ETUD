@@ -352,13 +352,13 @@ class ControllerConnexion extends Controller{
         if (isset($_POST['login']) && isset($_POST['pwd'])) {
 
             $pdo = Bd::getInstance()->getConnexion();
-            $query = "SELECT motDePasse, numero, salt FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
+            $query = "SELECT motDePasse, numero FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
             $pdoStatement = $pdo->prepare($query);
             $pdoStatement->execute();
             $result = $pdoStatement->fetch(PDO::FETCH_NUM);
             $verifMDP = false;
             if(!empty($result)) {
-                $verifMDP = password_verify($result[2] . $_POST['pwd'], $result[0]);
+                $verifMDP = password_verify($_POST['pwd'], $result[0]);
             }
 
             // on vérifie les informations saisies

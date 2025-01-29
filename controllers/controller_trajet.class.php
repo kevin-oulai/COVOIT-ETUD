@@ -153,7 +153,8 @@ class ControllerTrajet extends Controller{
         $listeLieux = $managerLieu->findAllAssoc();
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $listeEtudiants = $managerEtudiant->findAllAssoc();
-        $twigparams = array('listeTrajets' => $listeTrajets, 'lieux' => $listeLieux, 'etudiants' => $listeEtudiants);
+        $listeNbReservation = $managerTrajet->findAllNbPlaceReserve();
+        $twigparams = array('listeTrajets' => $listeTrajets, 'lieux' => $listeLieux, 'etudiants' => $listeEtudiants, 'listeNbReservation' => $listeNbReservation, 'numEtudiant' => $numero_etudiant);
         if(isset($listeErreurs)){
             $twigparams['listeErreurs'] = $listeErreurs;
         }

@@ -147,7 +147,11 @@
 
                         <div class="btn-toolbar justify-content-between mt-5">
                             <div class="btn-group">
-                                <p class="card-text fs-5">Nombre de places : {{ trajet.nbPlace }}</p>
+                                {% for nbReservation in listeNbReservation %}
+                                    {% if nbReservation.numero_trajet == trajet.numero and nbReservation.numero_passager == numEtudiant %}
+                                        <p class="card-text fs-5">Nombre de places reservé: {{ nbReservation.nbPlaceReserve }}</p>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                             <div class="input-group">
                                 <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : {{ trajet.prix }} €</p>

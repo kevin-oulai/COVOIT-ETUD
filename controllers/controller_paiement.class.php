@@ -52,6 +52,8 @@ class ControllerPaiement extends Controller
             $dateValide = validerDateExpiration($dateExp, $messagesErreurs);
             $codeValide = validerCodeSecurite($cvc, $messagesErreurs);
 
+            $managerTrajet = new TrajetDao($this->getPdo());
+
             // Si le formulaire comporte des erreurs, envoyer messagesErreurs à la vue
             if (!empty($messagesErreurs)) {
                 $template = $this->getTwig()->load('pagePaiement.html.twig');
@@ -67,14 +69,14 @@ class ControllerPaiement extends Controller
                 $nbPassager = $_SESSION["nombre_passagers"];
                 // Ajout du passager au trajet
                 $pdo = $this->getPdo();
-                $query = $pdo->prepare("INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES (:idTrajet, :numEtudiant)");
+                $query = $pdo->prepare("INSERT INTO CHOISIR (numero_trajet, numero_passager, nbPlaceReserve) VALUES (:idTrajet, :numEtudiant, :nbPassager)");
                 $query->bindParam(':idTrajet', $idTrajet);
                 $query->bindParam(':numEtudiant', $numEtudiant);
-                for ($i=0; $i < $nbPassager; $i++) { 
-                    $query->execute();
-                }
+                $query->bindParam(':nbPassager', $nbPassager);
+                $query->execute();
                 
-
+                $managerTrajet = new TrajetDao($this->getPdo());
+                $managerTrajet->decrementerNbPlace($idTrajet ,$nbPassager);
                 $template = $this->getTwig()->load('pagePaiement.html.twig');
 
                 echo $template->render(array(

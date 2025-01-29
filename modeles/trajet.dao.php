@@ -298,4 +298,23 @@ class TrajetDao{
         return $lieu; 
 
     } 
+
+    public function decrementerNbPlace(?int $numTrajet, ?int $nbPassager)
+    {
+        $sql = "UPDATE TRAJET SET nbPlace = nbPlace - :nbPassager WHERE numero = :numTrajet";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":nbPassager", $nbPassager);
+        $pdoStatement->bindParam(":numTrajet", $numTrajet);
+        $pdoStatement->execute();
+    }
+
+    public function findAllNbPlaceReserve(): array
+    {
+        $sql = "SELECT numero_trajet, numero_passager, nbPlaceReserve FROM CHOISIR";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC); 
+        $nbPlaceReserve = $pdoStatement->fetchAll(); 
+        return $nbPlaceReserve;
+    }
 }
