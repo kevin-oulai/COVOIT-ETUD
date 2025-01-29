@@ -65,17 +65,24 @@
     <title>Covoit'Etud</title>
 </head>
 <body class="bg-gradient-primary d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-light bg-header-color shadow">
+    {# <nav class="navbar navbar-expand-lg navbar-light bg-header-color shadow">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <a href="index.php"><img src = "images/transparent-logo.png" class = "col ms-3" width="60" height="72" class = "nav-item"></a>
+            <a class="navbar-brand" href="index.php"><img src = "images/transparent-logo.png" class = "col ms-3" width="60" height="72" class = "nav-item"></a>
             <a href="index.php"><li class = "nav-item position-absolute top-50 start-50 translate-middle"><img src="images/websiteName.png" class = "col" id = "siteNameImage" style="max-width: 220px;" height="auto"></li></a>
         </ul>
-        <div class="navbar-nav ms-auto">
             {% if CLIENT is defined %}
-                <a href="?controleur=trajet&methode=listerParticipations" class="nav-item me-4 mt-4">Mes participations</a>
-                {% if CLIENT.numeroVoiture != Null %}
-                    <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-item me-4 mt-4">Mes trajets</a>
-                {% endif %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-nav ms-auto">
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a href="?controleur=trajet&methode=listerParticipations" class="nav-item nav-link mt-1">Mes participations</a>
+                        {% if CLIENT.numeroVoiture != Null %}
+                            <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-item nav-link me-2 mt-1">Mes trajets</a>
+                        {% endif %}
+                    </div>
+                </div>
                 <p class="nav-item me-4 mt-4">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p>
                 <a href="index.php?controleur=etudiant&methode=afficher&id={{ CLIENT.numero }}" class="nav-item">
                     <img src="images/{{ CLIENT.photoProfil }}" width="70" height="70" style="border-radius: 100%; margin-right: 10px;">
@@ -85,8 +92,48 @@
                     <p class="nav-item me-4 mt-4">Se connecter</p>
                 </a>
             {% endif %}
+            </div>
+    </nav> #}
+    <nav class="navbar navbar-expand-lg navbar-light bg-header-color shadow">
+        <a class="navbar-brand" href="index.php">
+            <img src="images/transparent-logo.png" class="col ms-3" width="60" height="72">
+        </a>
+        <a class="navbar-brand" href="index.php">
+            <li class = "nav-item position-fixed start-50 translate-middle" style="list-style-type: none;">
+                <img src="images/websiteName.png" class = "col" id = "siteNameImage" style="max-width: 220px;" height="auto">
+            </li>
+        </a>
+            {% if CLIENT is defined %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav w-100 d-flex justify-content-between align-items-center">
+                <ul class="navbar-nav d-flex align-items-center">
+                    <li class="nav-item">
+                        <a href="?controleur=trajet&methode=listerParticipations" class="nav-link me-1 mt-2">Mes participations</a>
+                    </li>
+                    {% if CLIENT.numeroVoiture != Null %}
+                        <li class="nav-item">
+                            <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-link me-1 mt-2">Mes trajets</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex align-items-right">
+                <p class="nav-item me-2 mt-4">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p>
+                <a href="index.php?controleur=etudiant&methode=afficher&id={{ CLIENT.numero }}" class="nav-item">
+                    <img src="images/{{ CLIENT.photoProfil }}" width="70" height="70" style="border-radius: 100%; margin-right: 10px;">
+                </a>
+            {% else %}
+                <a href="?controleur=connexion&methode=afficher" class="nav-link" style="margin-right: 10px;">
+                    <p class="nav-item me-4 mt-4">Se connecter</p>
+                </a>
+            {% endif %}
         </div>
     </nav>
+
 
 {% block content %}
 {% endblock %}
@@ -114,5 +161,8 @@
         tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
         (tarteaucitron.job = tarteaucitron.job || []).push('gtag');
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
