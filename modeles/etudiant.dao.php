@@ -74,8 +74,6 @@ class EtudiantDao
         return $etudiant;
     }
 
-    
-
     /**
      * @brief retourne toutes les informations des étudiants
      *
@@ -86,43 +84,24 @@ class EtudiantDao
         $sql="SELECT * FROM ETUDIANT";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute();
-        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
-        $tableau = $pdoStatement->fetchAll();
-        $infoEtud = $this->hydrateAll($tableau);
-        return $infoEtud; 
+        return $pdoStatement->fetchAll();
     }
 
-    public function findNbTrajets(?int $numero_etudiant): ?INT 
-    { 
-        $sql="SELECT COUNT(T.NUMERO) FROM TRAJET T JOIN ETUDIANT E ON T.NUMERO_CONDUCTEUR = E.NUMERO WHERE E.numero= $numero_etudiant"; 
-        $pdoStatement = $this->PDO->prepare($sql); 
-        $pdoStatement->execute(); 
-        $nbTrajet = $pdoStatement->fetchColumn(); 
-        return $nbTrajet; 
-    } 
-
-    public function hydrate(array $tableauAssoc): ?Etudiant
-    {
-        $etudiant = new Etudiant($tableauAssoc['numero'], $tableauAssoc['nom'], $tableauAssoc['prenom'], $tableauAssoc['dateNaiss'], $tableauAssoc['adresseMail'], $tableauAssoc['numTelephone'], $tableauAssoc['numero_voiture'], $tableauAssoc['photoProfil']);
-        return $etudiant;
-    }
-
-    public function hydrateAll($tableau): ?array{
-        $etudiants = [];
-        foreach($tableau as $tableauAssoc){
-            $etudiant = $this->hydrate($tableauAssoc);
-            $etudiants[] = $etudiant;
-        }
-        return $etudiants;
-    }
-    
     /**
      * @brief retourne le nombre de trajet n'un étudiant
      *
      * @param integer|null $numero_etudiant
      * @return INT|null
      */
+    public function findNbTrajets(?int $numero_etudiant): ?INT
+    {
+        $sql="SELECT COUNT(T.NUMERO) FROM TRAJET T JOIN ETUDIANT E ON T.NUMERO_CONDUCTEUR = E.NUMERO WHERE E.numero= $numero_etudiant";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        $nbTrajet = $pdoStatement->fetchColumn();
 
+        return $nbTrajet;
+    }
     /**
      * @brief retourne vrai si l'etudiant a un badge
      *
@@ -191,10 +170,10 @@ class EtudiantDao
      * @param string $salt
      * @return void
      */
-    public function insert(string $nom, string $prenom, string $mail, string $tel, string $image, string $dateNaiss, string $mdp, string $salt)
+    public function insert(string $nom, string $prenom, string $mail, string $tel, string $image, string $dateNaiss, string $mdp)
     {
         $date = date($dateNaiss);
-        $query = $this->PDO->prepare("INSERT INTO ETUDIANT(nom, prenom, dateNaiss, adresseMail, numTelephone, numero_voiture, photoProfil, motDePasse, token_reinitialisation, expiration_token, salt) VALUES (:nom, :prenom, :dateNaiss, :mail, :tel, NULL, :image, :mdp, NULL, NULL, :salt)");
+        $query = $this->PDO->prepare("INSERT INTO ETUDIANT(nom, prenom, dateNaiss, adresseMail, numTelephone, numero_voiture, photoProfil, motDePasse, token_reinitialisation, expiration_token) VALUES (:nom, :prenom, :dateNaiss, :mail, :tel, NULL, :image, :mdp, NULL, NULL)");
 
         $query->bindParam(':nom', $nom);
         $query->bindParam(':prenom', $prenom);
@@ -203,7 +182,6 @@ class EtudiantDao
         $query->bindParam(':tel', $tel);
         $query->bindParam(':image', $image);
         $query->bindParam(':mdp', $mdp);
-        $query->bindParam(':salt', $salt);
 
         $query->execute();
     }
@@ -220,7 +198,6 @@ class EtudiantDao
      * @param string|null $image
      * @return void
      */
-
     public function update(?int $numero = null, ?string $nom = null,?string $prenom = null,?string $dateNaiss = null,?string $mail = null,?string $tel = null,?int $numVoiture = null,?string $image = null){
         $query = $this->PDO->prepare("UPDATE ETUDIANT SET nom = :nom, prenom = :prenom, dateNaiss = :dateNaiss, adresseMail = :adresseMail, numTelephone = :numTelephone, numero_voiture = :numero_voiture, photoProfil = :photoProfil WHERE numero = :numero");
         $query->bindParam(':numero', $numero);
