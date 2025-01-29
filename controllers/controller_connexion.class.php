@@ -50,16 +50,8 @@ class ControllerConnexion extends Controller{
 
                 if ($valide){
                     try {
-                        // Connexion à la base de données
-                        $baseDeDonnees = BD::getInstance();
-                        $pdo = $baseDeDonnees->getConnexion();
-
-                        // Vérification du token et récupération de l'utilisateur
-                        $requete = $pdo->prepare(
-                            'SELECT numero, expiration_token FROM ETUDIANT WHERE token_reinitialisation = :token'
-                        );
-                        $requete->execute(['token' => htmlspecialchars($token)]);
-                        $etudiant = $requete->fetch(PDO::FETCH_ASSOC);
+                        $managerEtudiant = new EtudiantDao($this->getPdo());
+                        $etudiant = $managerEtudiant->getToken(htmlspecialchars($token));
 
                         if (!$etudiant) {
                             $listeErreurs[] = 'le token invalide';
@@ -68,25 +60,12 @@ class ControllerConnexion extends Controller{
 
                         // Vérification de la validité temporelle du token
                         if ($valide) {
-                            $expiration = strtotime($etudiant['expiration_token']);
-                            if ($expiration < time()) {
-                                $listeErreurs[] = 'le token à expiré';
-                                $valide = false;
-                            }
+                            $valide = $etudiant->validerToken($listeErreurs);
                         }
                         if ($valide){
                             $passwordHache = password_hash($password, PASSWORD_DEFAULT);
-
                             //Mise à jour du mot de passe en BD
-                            $requete = $pdo->prepare(
-                                'UPDATE ETUDIANT 
-                                 SET motDePasse = :password, token_reinitialisation = NULL, expiration_token = NULL 
-                                 WHERE numero = :numero'
-                            );
-                            $requete->execute([
-                                'password' => $passwordHache,
-                                'numero' => $etudiant['numero'],
-                            ]);
+                            $etudiant->MAJMotDePasse($passwordHache);
                         }
                     } catch (Exception $e) {
                         $listeErreurs[] = $e->getMessage();
@@ -151,91 +130,91 @@ class ControllerConnexion extends Controller{
                 $to = $email;
                 $subject = "Reinitialisation de votre mot de passe";
                 $message = "<!DOCTYPE html>
-<html lang='fr'>
-  <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>Réinitialisation de Mot de Passe</title>
-    <style>
-      body {
-          font-family: Arial, sans-serif;
-          background-color: #6b97fd;
-          margin: 0;
-          padding: 0;
-      }
-      .container {
-          width: 100%;
-          max-width: 600px;
-          margin: 20px auto;
-          background-color: #c5d7ff;
-          padding: 20px;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      }
-      .header {
-          text-align: center;
-          color: #333333;
-      }
-      .content {
-          font-size: 16px;
-          color: #555555;
-          line-height: 1.5;
-      }
-      .button {
-          display: inline-block;
-          padding: 12px 24px;
-          background-color: #4357BD;
-          color: white !important;
-          text-decoration: none;
-          border-radius: 7px;
-          margin-top: 20px;
-          text-align: center;
-      }
-      
-      .button:hover{
-        text-decoration: none;
-      }
-      
-      .footer {
-          font-size: 14px;
-          color: #777777;
-          text-align: center;
-          margin-top: 30px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class='container'>
-      <div class='header'>
-        <h2>Réinitialisation de votre mot de passe</h2>
-      </div>
-      <div class='content'>
-        <p>Bonjour,</p>
-        <p>
-          Nous avons reçu une demande pour réinitialiser le mot de passe associé
-          à votre compte. Si vous êtes à l'origine de cette demande, veuillez
-          cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe :
-        </p>
-        <a
-          href='http://lakartxela.iutbayonne.univ-pau.fr/~koulai001/SAE/COVOIT-ETUD/?controleur=connexion&methode=reinitialisation_mdp&token=$token'
-          class='button'
-          >Réinitialiser mon mot de passe</a
-        >
-        <p>
-          Si vous n'avez pas fait cette demande, ignorez simplement ce message.
-          Votre mot de passe restera inchangé.
-        </p>
-        <p>Cordialement, <br />L'équipe de COVOIT'ETUD</p>
-      </div>
-      <div class='footer'>
-        <p>
-          Si vous avez des questions, contactez notre support à
-          <a href='mailto:covoit-etud@gmail.com'>covoit-etud@gmail.com</a>.
-        </p>
-      </div>
-    </div>
-  </body>
-</html>";
+                <html lang='fr'>
+                  <head>
+                    <meta charset='UTF-8' />
+                    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+                    <title>Réinitialisation de Mot de Passe</title>
+                    <style>
+                      body {
+                          font-family: Arial, sans-serif;
+                          background-color: #6b97fd;
+                          margin: 0;
+                          padding: 0;
+                      }
+                      .container {
+                          width: 100%;
+                          max-width: 600px;
+                          margin: 20px auto;
+                          background-color: #c5d7ff;
+                          padding: 20px;
+                          border-radius: 8px;
+                          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                      }
+                      .header {
+                          text-align: center;
+                          color: #333333;
+                      }
+                      .content {
+                          font-size: 16px;
+                          color: #555555;
+                          line-height: 1.5;
+                      }
+                      .button {
+                          display: inline-block;
+                          padding: 12px 24px;
+                          background-color: #4357BD;
+                          color: white !important;
+                          text-decoration: none;
+                          border-radius: 7px;
+                          margin-top: 20px;
+                          text-align: center;
+                      }
+                      
+                      .button:hover{
+                        text-decoration: none;
+                      }
+                      
+                      .footer {
+                          font-size: 14px;
+                          color: #777777;
+                          text-align: center;
+                          margin-top: 30px;
+                      }
+                    </style>
+                  </head>
+                  <body>
+                    <div class='container'>
+                      <div class='header'>
+                        <h2>Réinitialisation de votre mot de passe</h2>
+                      </div>
+                      <div class='content'>
+                        <p>Bonjour,</p>
+                        <p>
+                          Nous avons reçu une demande pour réinitialiser le mot de passe associé
+                          à votre compte. Si vous êtes à l'origine de cette demande, veuillez
+                          cliquer sur le lien ci-dessous pour réinitialiser votre mot de passe :
+                        </p>
+                        <a
+                          href='http://lakartxela.iutbayonne.univ-pau.fr/~koulai001/SAE/COVOIT-ETUD/?controleur=connexion&methode=reinitialisation_mdp&token=$token'
+                          class='button'
+                          >Réinitialiser mon mot de passe</a
+                        >
+                        <p>
+                          Si vous n'avez pas fait cette demande, ignorez simplement ce message.
+                          Votre mot de passe restera inchangé.
+                        </p>
+                        <p>Cordialement, <br />L'équipe de COVOIT'ETUD</p>
+                      </div>
+                      <div class='footer'>
+                        <p>
+                          Si vous avez des questions, contactez notre support à
+                          <a href='mailto:covoit-etud@gmail.com'>covoit-etud@gmail.com</a>.
+                        </p>
+                      </div>
+                    </div>
+                  </body>
+                </html>";
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                 $headers .= 'From: <covoit-etud@gmail.com>' . "\r\n";

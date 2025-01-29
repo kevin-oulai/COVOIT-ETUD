@@ -151,7 +151,7 @@ class ControllerTrajet extends Controller{
         if(isset($listeErreurs)){
             $twigparams['listeErreurs'] = $listeErreurs;
         }
-        $template = $this->getTwig()->load('mesParticipations.html.twig');
+        $template = $this->getTwig()->load('mesReservations.html.twig');
         echo $template->render($twigparams);
 
         if(isset($_GET['action'])){
