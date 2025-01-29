@@ -6,28 +6,52 @@
     <h1 class="fs-1 text-center mt-5">Enregistrer un trajet</h1>
     <main class="d-flex justify-content-center align-items-center mt-3">
         <div class="" style="width: 350px;">
-            <form action="index.php?controleur=trajet&methode=enregistrer&action=enregistrer" method="post" class="input-group">
-                <div data-mdb-input-init class="form-outline mt-5 me-2">
-                        <label>Heure de départ</label><input name="heureDep" type="time" class="form-control">
-                        <label>Heure d'arrivée</label><input name="heureArr" type="time" class="form-control">
+            <form action="index.php?controleur=trajet&methode=enregistrer&action=enregistrer" method="post" class="me-3">
+                <div class="mt-5 row form-part-1">
+                    <label>Lieu de départ</label><input id="lieuDepart" name="lieuDepart" type="text" onkeyup="verifierAdresse('lieuDepart')" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
+                    <p class="fst-italic lieuDepartMessageErreur" style="color:red;"></p>
+                    <label>Lieu d'arrivée</label><input id="lieuArrivee" name="lieuArrivee" type="text" onkeyup="verifierAdresse('lieuArrivee')" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
+                    <p class="fst-italic lieuArriveeMessageErreur" style="color:red;"></p>
+                    <button id="btnMap" class="mt-3 btn btn-primary"  onclick="checkFirstPart()">Voir sur la carte et continuer</button>
+                    <p class="fst-italic erreurExistanceLieu" style="color:red;"></p>
                 </div>
-                <div data-mdb-input-init class="form-outline mt-5">
-                    <label>Prix</label><input name="prix" type="number" class="form-control">
-                    <label>Nombre de places</label><input name="nbPlace" type="number" class="form-control">
+                <div class="hints alert-success pop-animation" hidden></div>
+                <div class="form-part-2" style="opacity: 0;">
+                    <div class="mt-3 row">
+                        <div class="col">
+                            <div class="row">
+                                <label>Heure de départ</label><input name="heureDep" type="time" class="form-control col">
+                                <p class="fst-italic heureDepMessageErreur" style="color:red;"></p>
+                                <label>Heure d'arrivée</label><input name="heureArr" type="time" class="form-control col">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row ms-1">
+                                <label>Prix</label>
+                                <div class="input-group">
+                                    <input id="prix" name="prix" type="number" step="any" class="input-prix form-control" onchange="verifierPrix('prix')">
+                                    <span class="input-group-text" id="realPrice"></span>
+                                </div>
+                                    <p class="fst-italic prixMessageErreur" style="color:red;"></p>
+                            <label>Nombre de places</label><input name="nbPlace" type="number" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 row">
+                        <label>Date de départ</label><input name="dateDep" type="date" value="now" class="form-control">
+                    </div>
+                    <div class="mt-3 row">
+                        <input type="Submit" id='btnEnregistrer' onclick="checkForm('btnEnregistrer')" value="Enregistrer le trajet" class="btn-submit btn btn-primary">
+                    </div>
                 </div>
-                <div data-mdb-input-init class="form-outline mt-5">
-{#                            // Thibault -> regex stp#}
-                    <label>Lieu de départ</label><input name="lieuDepart" type="text" pattern="^[0-9]{1,3}\s[a-zA-Z\s\u00C0-\u017F]+,[a-zA-Z\s-]+$" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
-                    <label>Lieu d'arrivée</label><input name="lieuArrivee" type="text" pattern="^[0-9]{1,3}\s[a-zA-Z\s\u00C0-\u017F]+,[a-zA-Z\s-]+$" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
+{#                Infos de l'api à passer#}
+                <div hidden>
+                    <input class="dist-storer" name="dist" type="text">
                 </div>
-                <div data-mdb-input-init class="form-outline mt-5">
-                    <label>Date de départ</label><input name="dateDep" type="date" value="now" class="form-control">
-                </div><br>
-                <div data-mdb-input-init class="form-outline mt-4 ms-3">
-                    <input type="Submit" value="Enregistrer le trajet" class="btn btn-primary mt-5">
-                </div>
+
             </form>
         </div>
+        <div class="ms-5" id="map"></div>
     </main>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
@@ -42,7 +66,10 @@
             </div>
         </div>
     </div>
+    <!-- Leaflet JS for map -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="scripts/verificationFormulaires.js"></script>
     <script>
         $(function(){
             $('#myModal').modal({
@@ -62,6 +89,183 @@
                 $('#errorModal').modal('show');
             }
         });
+
+        document.querySelector(".input-prix").addEventListener("change", function(){
+            updateRealPrice();
+        });
+
+        // Initialisation de la map
+        var map = L.map('map').setView([43.4833, -1.5333], 13);  // Default center coordinates
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // OpenRouteService API Key
+        const orsApiKey = '5b3ce3597851110001cf62484a61d9e32bdd4abdb099d663b6ca1f99';
+
+        // Variables pour enregistrer les anciens trajets
+        var routeLayer = null;
+        var markers = [];
+
+        // Fonction pour gérer l'envoi du formulaire et des requetes AJAX
+        document.getElementById("btnMap").addEventListener("click", function(event) {
+            event.preventDefault();  // Eviter de submit le formulaire normalement
+
+            // Reset le message d'erreur
+            document.querySelector(".erreurExistanceLieu").innerHTML = ""
+
+            // Récupérer les adresses
+            var lieuDepart = document.getElementById("lieuDepart").value;
+            var lieuArrivee = document.getElementById("lieuArrivee").value;
+
+            // Creer le formulaire qu'on va envoyer par AJAX
+            var formData = new FormData();
+            formData.append('lieuDepart', lieuDepart);
+            formData.append('lieuArrivee', lieuArrivee);
+
+            // Envoi de la requete AJAX au fichier geocode.php
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'geocode.php', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+
+                    // Si OK, on update la map
+                    if (response.status === 'success') {
+                        var lat1 = response.location1.lat;
+                        var lng1 = response.location1.lng;
+                        var lat2 = response.location2.lat;
+                        var lng2 = response.location2.lng;
+
+                        // On enleves les anciens pins
+                        markers.forEach(function(marker) {
+                            map.removeLayer(marker);
+                        });
+                        markers = [];
+
+                        // On ajoute les pins pour les nouvelles adresses
+                        var marker1 = L.marker([lat1, lng1]).addTo(map)
+                            .bindPopup('lieuDepart : ' + response.location1.address);
+                        markers.push(marker1);  // On le stocke pour pouvoir le remove plus tard
+
+                        var marker2 = L.marker([lat2, lng2]).addTo(map)
+                            .bindPopup('lieuArrivee : ' + response.location2.address);
+                        markers.push(marker2);  // On le stocke pour pouvoir le remove plus tard
+
+                        // On enleve les anciennes routes
+                        if (routeLayer) {
+                            map.removeLayer(routeLayer);
+                        }
+
+                        // On fait une requete à l'API OpenRouteService pour récup la route
+                        var routeUrl = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${orsApiKey}&start=${lng1},${lat1}&end=${lng2},${lat2}`;
+
+                        fetch(routeUrl)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.features.length > 0) {
+                                    // Ligne qui a la forme de la route
+                                    var routeGeoJson = data.features[0].geometry;
+                                    var dist = data.features[0].properties.summary.distance;
+                                    var distKm = dist / 1000;
+                                    var duree = data.features[0].properties.summary.duration;
+                                    document.querySelector(".dist-storer").value = distKm;
+                                    console.log(duree + " seconds or " + duree / 60 + " minutes or " + duree / 3600 + " hours");
+
+                                    let argentRecuCons = distToPrice(distKm)[0][0];
+
+                                    let argentRecuMin = distToPrice(distKm)[1][0];
+
+                                    let argentRecuMax = distToPrice(distKm)[2][0];
+
+                                    setPrixBornes('prix', argentRecuCons, argentRecuMin, argentRecuMax);
+                                    afficherHintPrix(argentRecuCons, argentRecuMin, argentRecuMax);
+
+                                    // On l'ajoute à la map
+                                    routeLayer = L.geoJSON(routeGeoJson, {
+                                        style: { color: 'blue', weight: 5, opacity: 0.7 }
+                                    }).addTo(map);
+
+                                    // On se place entre les deux localisations
+                                    map.setView([(lat1 + lat2) / 2, (lng1 + lng2) / 2], adjustZoom(distKm));
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error fetching route:", error);
+                            });
+                    } else {
+                        document.querySelector(".erreurExistanceLieu").innerHTML = "Au moins une adresse n'as pas pu être trouvée";
+                    }
+                }
+            };
+            xhr.send(formData);
+        });
+
+        function adjustZoom(dist){
+            if (dist < 2){
+                return 16
+            }
+            if (dist < 5){
+                return 14
+            }
+            if (dist < 10) {
+                return 12
+            }
+            if (dist < 75){
+                return 10
+            }
+            if (dist < 150){
+                return 7
+            }
+            if (dist > 200){
+                return 5
+            }
+            return 18 - dist/10
+        }
+
+        function setPrixBornes(id, cons, min, max){
+            let champ = document.getElementById(id)
+            champ.min = min;
+            champ.max = max;
+        }
+
+        function afficherHintPrix(cons, min, max) {
+            let hintPopUp = document.querySelector(".hints");
+            hintPopUp.hidden = false;
+            hintPopUp.style.animation = "pop-out 0.5s ease-in-out";
+            hintPopUp.innerHTML = "<ul><li>Prix conseillé : " + cons + " €</li><li>Prix minimum : " + min + " €</li><li>Prix maximum : " + max + " €</li></ul>";
+        }
+
+        function distToPrice(dist){
+            if(dist < 10){
+                return [[Math.round(dist * 0.12 * 100) / 100, Math.round(dist*0.03 * 100) / 100],[Math.round(dist * 0.09 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.15 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
+            }
+            return [[Math.round(dist * 0.07 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.05 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.1 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
+        }
+
+        function calculPrixReel(prix){
+            prix = parseFloat(prix);
+            let total = prix + (prix*(3/15));
+            total = round(total, 2);
+            console.log("prix : " + prix + " marge : " + prix*(3/15) + " total : " + total);
+            return total;
+        }
+
+        function updateRealPrice(){
+            let argentRecu = document.querySelector(".input-prix").value;
+            let prix = calculPrixReel(argentRecu);
+            if (!isNaN(prix)){
+                document.querySelector("#realPrice").innerHTML = prix;
+            }
+            else{
+                document.querySelector("#realPrice").innerHTML = "";
+            }
+        }
+
+        function round(value, decimals) {
+            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+        }
     </script>
 {% else %}
     <meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">
