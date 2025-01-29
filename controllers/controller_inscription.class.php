@@ -62,8 +62,6 @@ class ControllerInscription extends Controller
                     ));
             }
         } else {
-            echo "test";
-
             $template = $this->getTwig()->load('inscription.html.twig');
             echo $template->render(array(
             ));

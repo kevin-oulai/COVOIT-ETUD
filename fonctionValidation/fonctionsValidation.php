@@ -121,7 +121,7 @@ function validerMail(string $email, array &$messageErreurs): bool
     if($mailDispo == false)
     {
         $valide = false;
-        $messageErreurs[] = "L'adresse email déjà éxistant";
+        $messageErreurs[] = "Adresse email déjà existante";
     }
     // 6. Fichiers uploadé : non pertinent
 
