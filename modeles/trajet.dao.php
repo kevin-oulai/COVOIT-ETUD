@@ -317,4 +317,32 @@ class TrajetDao{
         $nbPlaceReserve = $pdoStatement->fetchAll(); 
         return $nbPlaceReserve;
     }
+
+    public function trajetDejaReserver($idTrajet, $numEtudiant): bool
+    {
+        $sql = "SELECT COUNT(numero_trajet) AS nbReserve FROM CHOISIR WHERE numero_trajet = :numTrajet AND numero_passager = :numPassager";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(':numTrajet', $idTrajet);
+        $pdoStatement->bindParam(':numPassager', $numEtudiant);
+        $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC); 
+        $bool = $pdoStatement->fetch(); 
+        if ($bool['nbReserve'] >= 1) {
+            $bool = true;
+        }
+        else {
+            $bool = false;
+        }
+        return $bool;
+    }
+
+    public function incrementationNbPlace($numTrajet, $numPassager, $nbPassager)
+    {
+        $sql = "UPDATE CHOISIR SET nbPlaceReserve = nbPlaceReserve + :nbPassager WHERE numero_trajet = :numTrajet AND numero_passager = :numPassager";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(':numTrajet', $numTrajet);
+        $pdoStatement->bindParam(':numPassager', $numPassager);
+        $pdoStatement->bindParam(':nbPassager', $nbPassager);
+        $pdoStatement->execute();
+    }
 }
