@@ -300,4 +300,9 @@ class Etudiant {
         }
         return false;
     }
+
+    function modifierMotDePasse(?string $mdp): void{
+
+    }
+
 }
