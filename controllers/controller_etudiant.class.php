@@ -61,56 +61,58 @@ class ControllerEtudiant extends Controller{
             $listeAvisReçus = $managerAvisReçus->findAllConcerne($num_etudiant);
             $twig_params['listeAvisReçus'] = $listeAvisReçus;
         }
-
-        $template = $this->getTwig()->load('profil.html.twig');
-
-        echo $template->render($twig_params);
-
+        
         if(isset($_GET['action'])){
             if($_GET['action'] == "modifier"){
-                $numero_voiture = NULL;
                 if($_POST['modele'] != '' && $_POST['marque'] != '' && $_POST['nbPlace'] != ''){
                     $modele = $_POST['modele'];
                     $marque = $_POST['marque'];
                     $nbPlace = $_POST['nbPlace'];
-
+                    
                     // On regarde si la voiture de départ existe, si ce n'est pas le cas on l'insere dans la bd
                     if (!$managerVoiture->existe($modele, $marque, $nbPlace)) {
                         $managerVoiture->insert($modele, $marque, $nbPlace);
                     }
-
+                    
                     // Récupération du numéro de voiture à partir des autres colonnes
                     $numero_voiture = $managerVoiture->findNum($modele, $marque, $nbPlace);
                 }
 
                 $messagesErreurs = [];
-                if(!is_uploaded_file($_FILES["image"]["tmp_name"])) {
-                    $photoProfil = $infoEtud->getPhotoProfil();
-                    $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $photoProfil);
+
+                validerNom($_POST['nom'], $messagesErreurs);
+                validerPrenom($_POST['prenom'], $messagesErreurs);
+                validerDateDeNaissance($_POST['dateNaiss'], $messagesErreurs);
+                validerTelephone($_POST['tel'], $messagesErreurs);
+                validerMailProfil($_POST['mail'], $messagesErreurs);
+
+                if (!is_uploaded_file($_FILES["image"]["tmp_name"])) {
+                    $nomPhoto = $etudiant->getPhotoProfil();
                 }
-                else{
+                else {
+                    validerUploadEtPdp($_FILES["image"], $messagesErreurs);
                     $photoProfil = $_FILES["image"]["tmp_name"];
-                    $photoValide = validerUploadEtPdp($_FILES["image"], $messagesErreurs);
-                    
-                    if(!empty($messagesErreurs)) {
-                        $template = $this->getTwig()->load('profil.html.twig');
-                        
-                        echo $template->render(array(
-                            'erreurs'=> $messagesErreurs,
-                            'etudiant' => $etudiant
-                        ));
-                    } 
-                    else {
+
+                    if (empty($messagesErreurs)) {
                         $dir = "images"; // Nom du dossier contenant les photos
                         $nomPhoto = rand(0, 2147483647) . ".png";
-                        move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$nomPhoto");
-                        $managerEtudiant->update($_GET['id'],$_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
-                        
-                        echo "<div id=modalTriggerModif></div>";
+                        move_uploaded_file($photoProfil, "$dir/$nomPhoto");
                     }
                 }
-                
+
+                if (!empty($messagesErreurs)) {
+                    $template = $this->getTwig()->load('profil.html.twig');
+                    
+                    $twig_params['erreurs'] = $messagesErreurs;
+                    $twig_params['etudiant'] = $etudiant;
+
+                } else {
+                    $managerEtudiant->update($num_etudiant, $_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
+                    echo "<div id=modalTriggerModif></div>";
+                }
             }
         }
+        $template = $this->getTwig()->load('profil.html.twig');                
+        echo $template->render($twig_params);
     }    
 }

@@ -81,7 +81,7 @@ class ControllerConnexion extends Controller{
                             $requeteSalt->execute();
                             $salt = $requeteSalt->fetch(PDO::FETCH_ASSOC)['salt'];
 
-                            $passwordHache = password_hash($salt.$password, PASSWORD_DEFAULT);
+                            $passwordHache = password_hash($password, PASSWORD_DEFAULT);
 
                             //Mise à jour du mot de passe en BD
                             $requete = $pdo->prepare(
@@ -352,7 +352,7 @@ class ControllerConnexion extends Controller{
         if (isset($_POST['login']) && isset($_POST['pwd'])) {
 
             $pdo = Bd::getInstance()->getConnexion();
-            $query = "SELECT motDePasse, numero, salt FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
+            $query = "SELECT motDePasse, numero FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
             $pdoStatement = $pdo->prepare($query);
             $pdoStatement->execute();
             $result = $pdoStatement->fetch(PDO::FETCH_NUM);

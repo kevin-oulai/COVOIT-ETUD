@@ -272,11 +272,13 @@
 							<div name="erreurPhoto" class="messageErreur"></div>
 						</div>
 					</p>
+						{% if erreurs != null %}
 						<div class="alert alert-danger" role="alert">
 							{% for e in erreurs %}
 								<p>{{ e }}</p>
 							{% endfor %}
 						</div>
+						{% endif %}
 				</div>
 
 				<div class='modal-body'>
