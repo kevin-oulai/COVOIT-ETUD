@@ -18,9 +18,19 @@
     width: 100%;
   }
 }
+@media (min-width: 1150px) {
+  .navbarDropDown {
+    display: none !important;
+  }
+}
+@media (max-width: 1150px) {
+  .navbarNonDropDown {
+    display: none !important;
+  }
+}
 @media (max-width: 780px) {
   #siteNameImage {
-    display: none;
+    display: none !important;
   }
   #avis {
     width: 100%;
