@@ -359,6 +359,50 @@ padding-right: ($spacer * 2.5);}
   transform: scale(1.01);
 }
 
+ #map {
+   height: 250px;
+   width: 600px;
+   box-shadow: 0 4px 7px rgba(0,0,0,0.3);
+ }
+
+.valid-input{
+  box-shadow: 2px 2px 2px rgba(0, 182, 71, 0.25);
+}
+
+.invalid-input{
+  box-shadow: 2px 2px 2px rgba(255, 46, 46, 0.25);
+}
+
+.form-part-1{
+  transition: all 0.1s ease-in-out;
+}
+
+.form-part-2{
+  transition: all 0.1s ease-in-out;
+}
+
+.pop-animation{
+
+}
+
+@keyframes pop-out {
+  0% {
+    transform: scale(0%);
+  }
+  90% {
+    transform: scale(110%);
+  }
+  100% {
+    transform: scale(100%);
+  }
+}
+
+@media (max-width: 1000px) {
+  #map {
+    display: none;
+  }
+}
+
 .messageErreur {
   color: red;
   font-style: italic;

@@ -121,7 +121,7 @@ function validerMail(string $email, array &$messageErreurs)
     if($mailDispo == false)
     {
         $valide = false;
-        $messageErreurs[] = "L'adresse email déjà éxistanttt";
+        $messageErreurs[] = "Adresse email déjà existante";
     }
     // 6. Fichiers uploadé : non pertinent
 
@@ -714,7 +714,7 @@ function validationPlageHoraire($heureDep, $heureArr, $dateDep, &$messagesErreur
  * @param array $messagesErreurs
  * @return bool
  */
-function validationPrix($prix, &$messagesErreur)
+function validationPrix($prix, $distance, &$messagesErreur): bool
 {
     $valide = true;
     //    - Champ obligatoire
@@ -722,18 +722,35 @@ function validationPrix($prix, &$messagesErreur)
         $valide = false;
         $messagesErreur[] = 'Veuillez renseigner un prix';
     }
-    //    - Type int
-    if (!preg_match('/^[0-9]{1,3}$/', $prix) && $valide == true) {
+    if(empty($distance)){
         $valide = false;
-        $messagesErreur[] = 'Le prix doit etre un nombre compris en 1 et 999';
+        $messagesErreur[] = "Erreur lors de la récupération de la distance";
     }
     //    - Longueur < 4
 //    - Aucun format
-//    - Plage : 1 - 999
-    if (($prix < 1 || $prix > 999) && $valide == true) {
-        $valide = false;
-        $messagesErreur[] = 'Le prix doit être compris entre 1 et 999';
+//    - Plage : Calculée à partir de la distance
+
+    if($distance < 10){
+        if($prix < $distance*0.09){
+            $valide = false;
+            $messagesErreur[] = 'Le prix doit etre supérieur à '. $distance*0.09;
+        }
+        if($prix > $distance*0.15){
+            $valide = false;
+            $messagesErreur[] = 'Le prix doit etre inférieur à '. $distance*0.015;
+        }
     }
+    else{
+        if($prix < $distance*0.05){
+            $valide = false;
+            $messagesErreur[] = 'Le prix doit etre supérieur à '. $distance*0.05;
+        }
+        if($prix > $distance*0.1){
+            $valide = false;
+            $messagesErreur[] = 'Le prix doit etre inférieur à '. $distance*0.01;
+        }
+    }
+
     //    - Pas de fichier
     return $valide;
 }

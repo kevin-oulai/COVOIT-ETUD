@@ -64,17 +64,22 @@ class ControllerTrajet extends Controller{
         $listeNum2 = $listeNum2 . ")";
         
         $managerTrajet = new TrajetDao($this->getPdo());
+        $managerLieu = new LieuDao($this->getPDO());
         //$listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $date, $nbPassager);
         if ($criteria === '') {
-            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeTrajet = $managerTrajet->findTrajetParHeure($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeLieu = $managerLieu->findAllAssoc();
             $infoFiltre = "departTot";
-            $nbPassager=$_SESSION["nombre_passagers"];
-        }elseif ($criteria === 'departTot') {
-            $listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+
+        }
+        elseif ($criteria === 'departTot') {
+            $listeTrajet = $managerTrajet->findTrajetParHeure($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeLieu = $managerLieu->findAllAssoc();
             $infoFiltre = "departTot";
             $nbPassager=$_SESSION["nombre_passagers"];
         } elseif ($criteria === 'prixBas') {
-            $listeTrajet = $managerTrajet->listeTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeTrajet = $managerTrajet->findTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
+            $listeLieu = $managerLieu->findAllAssoc();
             $infoFiltre = "PrixBas";
             $nbPassager=$_SESSION["nombre_passagers"];
         }
@@ -82,10 +87,10 @@ class ControllerTrajet extends Controller{
             $infoFiltre = "aucunTrajet";
         }
         $template = $this->getTwig()->load('pageTrajets.html.twig');
-        
         echo $template->render(array(
             'nbPassager' => $nbPassager,
             'listeTrajet' => $listeTrajet,
+            'listeLieu' => $listeLieu,
             'infoFiltre' => $infoFiltre
         ));
     }
@@ -97,27 +102,42 @@ class ControllerTrajet extends Controller{
      * @return void
      */
     public function repondreOffre(){
+        $nbPassager = $_SESSION["nombre_passagers"];
+        if (!isset($_SESSION['CLIENT'])) {
+            $numEtudiant = 'etudNonConnecte';
+        }
+        else {
+            $numEtudiant = $_SESSION['CLIENT'];
+        }
+        
         // On récupère l'id du trajet
         $id = $_GET["id"];
         $managerTrajet = new TrajetDao($this->getPdo());
-        $infoTrajet = $managerTrajet->infoRepOffre($id); 
-
-        // On récupère le nombre de passagers qui veulent prendre un trajet et le numéro de l'étudiant qui fait la recherche
-        $nbPassager=$_SESSION["nombre_passagers"];
-        $numEtudiant=$_SESSION['CLIENT'];
+        $infoTrajet = $managerTrajet->findTrajet($id); 
         
         // Calcul de l'age
-        $dateNaissance = $infoTrajet[0]['dateNaiss'];
+        $managerEtudiant = new EtudiantDao($this->getPdo());
+        $infoConducteur = $managerEtudiant->find($infoTrajet->getNumeroConducteur());
+
+        $managerVoiture = new VoitureDao($this->getPdo());
+        $infoVoiture = $managerVoiture->find($infoConducteur->getNumeroVoiture());
+
+        $dateNaissance = $infoConducteur->getDateNaiss();
         $aujourdhui = date("Y-m-d");
         $diff = date_diff(date_create($dateNaissance), date_create($aujourdhui));
         $age = $diff->format('%y');
 
+        $managerLieu = new LieuDao($this->getPdo());
+        $listeLieu = $managerLieu->findAllAssoc();
         // On affiche la page de réponse à l'offre
         $template = $this->getTwig()->load('repondreOffreTrajet.html.twig');
         echo $template->render(array(
             'nbPassager' => $nbPassager,
             'numEtudiant' => $numEtudiant,
             'infoTrajet' => $infoTrajet,
+            'infoConducteur' => $infoConducteur,
+            'infoVoiture'  => $infoVoiture,
+            'listeLieu' => $listeLieu,
             'age' => $age
         ));
     }
@@ -135,7 +155,8 @@ class ControllerTrajet extends Controller{
         $listeLieux = $managerLieu->findAllAssoc();
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $listeEtudiants = $managerEtudiant->findAllAssoc();
-        $twigparams = array('listeTrajets' => $listeTrajets, 'lieux' => $listeLieux, 'etudiants' => $listeEtudiants);
+        $listeNbReservation = $managerTrajet->findAllNbPlaceReserve();
+        $twigparams = array('listeTrajets' => $listeTrajets, 'lieux' => $listeLieux, 'etudiants' => $listeEtudiants, 'listeNbReservation' => $listeNbReservation, 'numEtudiant' => $numero_etudiant);
         if(isset($listeErreurs)){
             $twigparams['listeErreurs'] = $listeErreurs;
         }
@@ -318,7 +339,7 @@ class ControllerTrajet extends Controller{
                     $managerTrajet = new TrajetDao($this->getPdo());
 
                     $numero_conducteur = $_SESSION["CLIENT"]->getNumero();
-                    if(validationPlageHoraire($_POST["heureDep"], $_POST["heureArr"],date("Y-m-d", strtotime($_POST['dateDep'] )), $listeErreurs) && validationPrix($_POST["prix"], $listeErreurs) && validationNbPlaces($_POST["nbPlace"], $listeErreurs) && validationLieuDepart($_POST["lieuDepart"], $listeErreurs) && validationLieuArrivee($_POST["lieuArrivee"], $listeErreurs) && validationDateDep(date("Y-m-d", strtotime($_POST['dateDep'] )), $listeErreurs)){
+                    if(validationPlageHoraire($_POST["heureDep"], $_POST["heureArr"],date("Y-m-d", strtotime($_POST['dateDep'] )), $listeErreurs) && validationPrix($_POST["prix"], $_POST["dist"], $listeErreurs) && validationNbPlaces($_POST["nbPlace"], $listeErreurs) && validationLieuDepart($_POST["lieuDepart"], $listeErreurs) && validationLieuArrivee($_POST["lieuArrivee"], $listeErreurs) && validationDateDep(date("Y-m-d", strtotime($_POST['dateDep'] )), $listeErreurs)){
 
                         // On récupère toutes les variables nécessaires à l'insertion d'un trajet
                         $heureDep = $_POST["heureDep"];
