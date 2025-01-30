@@ -115,11 +115,14 @@ class ControllerTrajet extends Controller{
         $managerTrajet = new TrajetDao($this->getPdo());
         $infoTrajet = $managerTrajet->findTrajet($id); 
         
-        $managerVoiture = new VoitureDao($this->getPdo());
-        $infoVoiture = $managerVoiture->find($infoTrajet->getNumeroConducteur());
+        
         // Calcul de l'age
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $infoConducteur = $managerEtudiant->find($infoTrajet->getNumeroConducteur());
+
+        $managerVoiture = new VoitureDao($this->getPdo());
+        $infoVoiture = $managerVoiture->find($infoConducteur->getNumeroVoiture());
+
         $dateNaissance = $infoConducteur->getDateNaiss();
         $aujourdhui = date("Y-m-d");
         $diff = date_diff(date_create($dateNaissance), date_create($aujourdhui));
