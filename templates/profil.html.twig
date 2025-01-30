@@ -1,336 +1,378 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if CLIENT is defined %}
-<div class="container">
-    <div class="login-container align-right">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="background-color: rgba(0,0,0,0);"><h2 class="text-center">Profil</h2>
-                <div class ="text-center">
-                {% if CLIENT.numero == etudiant.numero %}
-                    <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
-                    <div class="row justify-content-end custom-line">
-                        <div class="col-2">
-                            <button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
-                        </div>
-                    </div>
-                {% endif %}
-            </li>
-                </div>
-            <form action="index.php?controleur=etudiant&methode=afficher" class="input-group">
-                <div class="container overflow-hidden">
-                    <div class="row gx-5">
-                        <div class="col-1" style="margin-right: 3%; margin-top: 3%; margin-left: 1%;">
-                            <img src = "images/{{etudiant.photoProfil}}" width="100" height="100"  style="border-radius: 100%;">
-                        </div>
-                        <div class="col-10">
-                            <li class="list-group-item"><h4>A Propos de vous</h4>
-                            <div class="row gx-3">
-                                <div class="col-4">Nom : {{etudiant.nom}}</div><br>
-                                <div class="col-4">Prenom : {{etudiant.prenom}}</div><br>
-                                <div class="col-4">Date de naissance : {{etudiant.dateNaiss|date("d/m/Y")}}</div><br><br>
-                                {% if nbTrajet is defined %}
-                                    <div class="col-12">Nombre de trajets total : {{nbTrajet}}</div></li>
-                                {% else %}
-                                    <div class="col-12">Vous n'avez pas effectué de trajets.</div></li>
-                                {% endif %}
-                                <div>
-                                    <br><li class="list-group-item"><h4>Informations personnelles</h4>
-                                    <div class="row gx-3">
-                                        <div class="col-6">Adresse mail : {{etudiant.adresseMail}}<br></div>
-                                        <div class="col-6">Numero de téléphone : {{etudiant.numTelephone}}</div>
-                                    </li>
-                                    </div><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container overflow-hidden">
-                            <div class="row gx-5">
-                                <div class="col-6">
-                                    <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
-                                        <div class="card bg-gradient-primaire">
-                                            <div class="card-body">
-                                                {% if CLIENT.numeroVoiture != Null %}
-                                                    Nom : {{voiture.modele}}<br>
-                                                    Marque : {{voiture.marque}}<br>
-                                                    Nombre de places : {{voiture.nbPlace}}
-                                                {% else %}
-                                                    <h6 class=" text-center">Vous n'avez pas de voiture.</h6>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
-                                        <div class="card bg-gradient-primaire container text-center">
-                                            <div class="card-body row">
-                                            {% if listeBadge is defined %}
-                                                    {% for badge in listeBadge %}
-                                                        <div class="col">
-                                                            <img src = "images/{{badge.image}}" width="60" height="60" style="border-radius: 100%;"> <br>
-                                                            {{badge.titre}}
-                                                        </div>
-                                                    {% endfor %}
-                                            {% else %}
-                                                <h6 class=" text-center">Vous ne possédez pas de badge.</h6>
-                                            {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
-                                        <div class="card bg-gradient-primaire">
-                                            <div class="card-body avis">
-                                            {% if listeAvisDonnes is defined %}
-                                                {% set firstItem = listeAvisDonnes|first %}
-                                                    {% if firstItem %}
-                                                        <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
-                                                            <div class="row gx-5 card-body">
-                                                                <div class="col-5">
-                                                                    Le {{firstItem.datePost|date("d/m/Y H:i")}}<br>
-                                                                    Par le passager :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
-                                                                    Note : {{firstItem.note}}
-                                                                </div>
-                                                                <div class="col-7">
-                                                                    Message : {{firstItem.message}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    {% set listeDonnes = listeAvisDonnes|length %}
-                                                        {% if listeDonnes > 1 %}
-                                                        <div class="more-avis-donnes" style="display: none;">
-                                                            {% for avisDonnes in listeAvisDonnes|slice(1) %}
-                                                                <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
-                                                                    <div class="row gx-5 card-body">
-                                                                        <div class="col-5">
-                                                                            Le {{ avisDonnes.datePost|date("d/m/Y H:i") }}<br>
-                                                                            Par le passager :<br>{{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
-                                                                            Note : {{ avisDonnes.note }}
-                                                                        </div>
-                                                                        <div class="col-7">
-                                                                            Message : {{ avisDonnes.message }}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            {% endfor %}
-                                                        </div>
-                                                            <div class=" text-center">
-                                                                <button type="button" class="btn btn-secondary read-more-avis-donnes-btn" onclick="toggleAvisDonnes()">Voir plus</button>
-                                                            </div>
-                                                        {% endif %}
-                                                    {% endif %}
-                                            {% else %}
-                                                <h6 class=" text-center">Vous n'avez pas donné d'avis.</h6>
-                                            {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
-                                        <div class="card bg-gradient-primaire">
-                                            <div class="card-body">
-                                            {% if listeAvisReçus is defined %}
-                                                {% set firstItem = listeAvisReçus|first %}
-                                                    {% if firstItem %}
-                                                        <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
-                                                            <div class="row gx-5 card-body">
-                                                                <div class="col-5">
-                                                                    Le {{firstItem.datePost|date("d/m/Y H:i")}}<br>
-                                                                    Par le passager :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
-                                                                    Note : {{firstItem.note}}
-                                                                </div>
-                                                                <div class="col-7">
-                                                                    Message : {{firstItem.message}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    {% set listeReçus = listeAvisReçus|length %}
-                                                        {% if listeReçus > 1 %}
-                                                        <div class="more-avis-reçus" style="display: none;">
-                                                            {% for avisReçus in listeAvisReçus|slice(1) %}
-                                                                <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
-                                                                    <div class="row gx-5 card-body">
-                                                                        <div class="col-5">
-                                                                            Le {{ avisReçus.datePost|date("d/m/Y H:i") }}<br>
-                                                                            Par le passager :<br>{{ avisReçus.nomEtudiant }} {{ avisReçus.prenomEtudiant }}<br>
-                                                                            Note : {{ avisReçus.note }}
-                                                                        </div>
-                                                                        <div class="col-7">
-                                                                            Message : {{ avisReçus.message }}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            {% endfor %}
-                                                        </div>
-                                                        <div class=" text-center">
-                                                            <button type="button" class="btn btn-secondary read-more-avis-reçus-btn" onclick="toggleAvisReçus()">Voir plus</button>
-                                                        </div>
-                                                        {% endif %}
-                                                    {% endif %}
-                                            {% else %}
-                                                <h6 class=" text-center">Vous n'avez pas reçu d'avis.</h6>
-                                            {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </ul>
-
-    </div>
+	{% if CLIENT is defined %}
+		<div class="container">
+			<div class="login-container align-right">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item" style="background-color: rgba(0,0,0,0);">
+						<h2 class="text-center">Profil</h2>
+						<div class="text-center">
+							{% if CLIENT.numero == etudiant.numero %}
+								<button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
+								<div class="row justify-content-end custom-line">
+									<div class="col-2">
+										<button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
+									</div>
+								</div>
+							{% endif %}
+						</li>
+					</li>
+				</div>
+				<form action="index.php?controleur=etudiant&methode=afficher" class="input-group">
+					<div class="container overflow-hidden">
+						<div class="row gx-5">
+							<div class="col-1" style="margin-right: 3%; margin-top: 3%; margin-left: 1%;">
+								<img src="images/{{etudiant.photoProfil}}" width="100" height="100" style="border-radius: 100%;">
+							</div>
+							<div class="col-10">
+								<li class="list-group-item">
+									<h4>A Propos de vous</h4>
+									<div class="row gx-3">
+										<div class="col-4">Nom :
+											{{etudiant.nom}}</div><br>
+										<div class="col-4">Prenom :
+											{{etudiant.prenom}}</div><br>
+										<div class="col-4">Date de naissance :
+											{{etudiant.dateNaiss|date("d/m/Y")}}</div><br><br>
+										{% if nbTrajet is defined %}
+											<div class="col-12">Nombre de trajets total :
+												{{nbTrajet}}</div>
+										</li>
+									{% else %}
+										<div class="col-12">Vous n'avez pas effectué de trajets.</div>
+									</li>
+								{% endif %}
+								<div>
+									<br><li class="list-group-item">
+										<h4>Informations personnelles</h4>
+										<div class="row gx-3">
+											<div class="col-6">Adresse mail :
+												{{etudiant.adresseMail}}<br></div>
+											<div class="col-6">Numero de téléphone :
+												{{etudiant.numTelephone}}</div>
+										</li>
+									</li>
+								</div><br>
+							</div>
+						</div>
+					</div>
+					<div class="container overflow-hidden">
+						<div class="row gx-5">
+							<div class="col-6">
+								<div class="p-3">
+									<h4 class=" text-center">Informations voiture</h4>
+									<div class="card bg-gradient-primaire">
+										<div class="card-body">
+											{% if CLIENT.numeroVoiture != Null %}
+												Nom :
+												{{voiture.modele}}<br>
+												Marque :
+												{{voiture.marque}}<br>
+												Nombre de places :
+												{{voiture.nbPlace}}
+											{% else %}
+												<h6 class=" text-center">Vous n'avez pas de voiture.</h6>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="p-3">
+									<h4 class=" text-center">Badge(s)</h4>
+									<div class="card bg-gradient-primaire container text-center">
+										<div class="card-body row">
+											{% if listeBadge is defined %}
+												{% for badge in listeBadge %}
+													<div class="col">
+														<img src="images/{{badge.image}}" width="60" height="60" style="border-radius: 100%;">
+														<br>
+														{{badge.titre}}
+													</div>
+												{% endfor %}
+											{% else %}
+												<h6 class=" text-center">Vous ne possédez pas de badge.</h6>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="p-3">
+									<h4 class=" text-center">Avis donné(s)</h4>
+									<div class="card bg-gradient-primaire">
+										<div class="card-body avis">
+											{% if listeAvisDonnes is defined %}
+												{% set firstItem = listeAvisDonnes|first %}
+												{% if firstItem %}
+													<div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
+														<div class="row gx-5 card-body">
+															<div class="col-5">
+																Le
+																{{firstItem.datePost|date("d/m/Y H:i")}}<br>
+																Par le passager :<br>{{firstItem.nomEtudiant}}
+																{{firstItem.prenomEtudiant}}<br>
+																Note :
+																{{firstItem.note}}
+															</div>
+															<div class="col-7">
+																Message :
+																{{firstItem.message}}
+															</div>
+														</div>
+													</div>
+													{% set listeDonnes = listeAvisDonnes|length %}
+													{% if listeDonnes > 1 %}
+														<div class="more-avis-donnes" style="display: none;">
+															{% for avisDonnes in listeAvisDonnes|slice(1) %}
+																<div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
+																	<div class="row gx-5 card-body">
+																		<div class="col-5">
+																			Le
+																			{{ avisDonnes.datePost|date("d/m/Y H:i") }}<br>
+																			Par le passager :<br>{{ avisDonnes.nomEtudiant }}
+																			{{ avisDonnes.prenomEtudiant }}<br>
+																			Note :
+																			{{ avisDonnes.note }}
+																		</div>
+																		<div class="col-7">
+																			Message :
+																			{{ avisDonnes.message }}
+																		</div>
+																	</div>
+																</div>
+															{% endfor %}
+														</div>
+														<div class=" text-center">
+															<button type="button" class="btn btn-secondary read-more-avis-donnes-btn" onclick="toggleAvisDonnes()">Voir plus</button>
+														</div>
+													{% endif %}
+												{% endif %}
+											{% else %}
+												<h6 class=" text-center">Vous n'avez pas donné d'avis.</h6>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="p-3">
+									<h4 class=" text-center">Avis reçu(s)</h4>
+									<div class="card bg-gradient-primaire">
+										<div class="card-body">
+											{% if listeAvisReçus is defined %}
+												{% set firstItem = listeAvisReçus|first %}
+												{% if firstItem %}
+													<div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
+														<div class="row gx-5 card-body">
+															<div class="col-5">
+																Le
+																{{firstItem.datePost|date("d/m/Y H:i")}}<br>
+																Par le passager :<br>{{firstItem.nomEtudiant}}
+																{{firstItem.prenomEtudiant}}<br>
+																Note :
+																{{firstItem.note}}
+															</div>
+															<div class="col-7">
+																Message :
+																{{firstItem.message}}
+															</div>
+														</div>
+													</div>
+													{% set listeReçus = listeAvisReçus|length %}
+													{% if listeReçus > 1 %}
+														<div class="more-avis-reçus" style="display: none;">
+															{% for avisReçus in listeAvisReçus|slice(1) %}
+																<div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
+																	<div class="row gx-5 card-body">
+																		<div class="col-5">
+																			Le
+																			{{ avisReçus.datePost|date("d/m/Y H:i") }}<br>
+																			Par le passager :<br>{{ avisReçus.nomEtudiant }}
+																			{{ avisReçus.prenomEtudiant }}<br>
+																			Note :
+																			{{ avisReçus.note }}
+																		</div>
+																		<div class="col-7">
+																			Message :
+																			{{ avisReçus.message }}
+																		</div>
+																	</div>
+																</div>
+															{% endfor %}
+														</div>
+														<div class=" text-center">
+															<button type="button" class="btn btn-secondary read-more-avis-reçus-btn" onclick="toggleAvisReçus()">Voir plus</button>
+														</div>
+													{% endif %}
+												{% endif %}
+											{% else %}
+												<h6 class=" text-center">Vous n'avez pas reçu d'avis.</h6>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</ul>
 </div>
 <!-- Fenetre modale modification -->
-            <div class='modal fade' id='fModifier_{{ etudiant.numero }}' tabindex='-1' aria-labelledby='Modifier' aria-hidden='true'>
-                <div class='modal-dialog modal-dialog-centered '>
-                    <div class='modal-content bg-gradient-primary border-2'>
-                        <div class='modal-header'>
-                            <h1 class='modal-title fs-5' id='fModifierLabel_{{ etudiant.numero }}'>Modifier mon profil</h1>
-                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
-                        </div>
-                        <form action="index.php?controleur=etudiant&methode=afficher&action=modifier&id={{ etudiant.numero }}" method="post">
-                        <div class='modal-body'>
+<div class='modal fade' id='fModifier_{{ etudiant.numero }}' tabindex='-1' aria-labelledby='Modifier' aria-hidden='true'>
+	<div class='modal-dialog modal-dialog-centered '>
+		<div class='modal-content bg-gradient-primary border-2'>
+			<div class='modal-header'>
+				<h1 class='modal-title fs-5' id='fModifierLabel_{{ etudiant.numero }}'>Modifier mon profil</h1>
+				<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
+			</div>
+			<form enctype='multipart/form-data' action="index.php?controleur=etudiant&methode=afficher&action=modifier&id={{ etudiant.numero }}" method="post">
+				<div class='modal-body'>
+					<p class="fw-bold text-align-left input-group">
+						<div class="btn-group">
+							<div name="champNom">
+								<label class="fw-bold">Nom
+									<input name="nom" class="form-control" type="text" pattern="^[A-Z]+[a-zA-Z''-'\s]*$" value="{{ etudiant.nom }}" name="nom" onkeyup="verifNom();"></label>
+								<div name="erreurNom" class="messageErreur"></div>
+							</div>
+							<div name="champPrenom">
+								<label class="fw-bold">Prenom
+									<input name="prenom" class="form-control" type="text" pattern="^[A-Z]+[a-zA-Z''-'\s]*$" value="{{ etudiant.prenom }}" name="prenom" onkeyup="verifPrenom();"></label>
+								<div name="erreurPrenom" class="messageErreur"></div>
+							</div>
+						</div>
+					</p>
+					<p class="fw-bold text-align-left input-group">
+						<div class="btn-group">
+							<div name="champDateNaiss">
+								<label class="fw-bold">Date de naissance
+									<input name="dateNaiss" class="form-control" type="date" pattern="^[0-9]{4}\-^[0-9]{2}\-^[0-9]{2}" value="{{ etudiant.dateNaiss }}" onchange="verifDateNaiss();"></label>
+								<div name="erreurDateNaiss" class="messageErreur"></div>
+							</div>
+							<div name="champTel">
+								<label class="fw-bold">Numéro de téléphone
+									<input name="tel" class="form-control" type="text" pattern="[0-9]{10}" minlength="10" maxlength="10" value="{{ etudiant.numTelephone }}" onkeyup="verifTel();"></label>
+								<div name="erreurTel" class="messageErreur"></div>
+							</div>
+						</div>
+					</p>
+					<p class="fw-bold input">
+						<div class="btn-group">
+							<label class="fw-bold">Adresse mail
+								<input name="mail" class="form-control" type="email" value="{{ etudiant.adresseMail }}" onkeyup="verifMail();"></label>
+							<div name="erreurMail" class="messageErreur"></div>
+						</div>
+					</p>
+					<p class="fw-bold text-align-center input">
+						<div class="btn-group">
+							<label class="fw-bold">Photo de profil
+								<input name="image" class="form-control" type="file" accept="image/*" value="{{ etudiant.photoProfil }}" onchange="verifPdp();"></label>
+							<div name="erreurPhoto" class="messageErreur"></div>
+						</div>
+					</p>
+						{% if erreurs != null %}
+						<div class="alert alert-danger" role="alert">
+							{% for e in erreurs %}
+								<p>{{ e }}</p>
+							{% endfor %}
+						</div>
+						{% endif %}
+				</div>
 
-                            <p class="fw-bold text-align-left input-group">
-                                <div class="btn-group">
-                                    <div name="champNom">
-                                        <label class="fw-bold">Nom
-                                        <input name="nom" class="form-control" type="text" pattern="^[A-Z]+[a-zA-Z''-'\s]*$" value="{{ etudiant.nom }}" name="nom" onkeyup="verifNom();"></label> 
-                                        <div name="erreurNom" class="messageErreur"></div>
-                                    </div>
-                                    <div name="champPrenom">
-                                        <label class="fw-bold">Prenom
-                                        <input name="prenom" class="form-control" type="text" pattern="^[A-Z]+[a-zA-Z''-'\s]*$" value="{{ etudiant.prenom }}" name="prenom" onkeyup="verifPrenom();"></label> 
-                                        <div name="erreurPrenom" class="messageErreur"></div>
-                                    </div>
-                                </div>
-                            </p>
-                            <p class="fw-bold text-align-left input-group">
-                                <div class="btn-group">
-                                    <div name="champDateNaiss">
-                                        <label class="fw-bold">Date de naissance
-                                        <input name="dateNaiss" class="form-control" type="date" pattern="^[0-9]{4}\-^[0-9]{2}\-^[0-9]{2}" value="{{ etudiant.dateNaiss }}" onchange="verifDateNaiss();"></label> 
-                                        <div name="erreurDateNaiss" class="messageErreur"></div>
-                                    </div>
-                                    <div name="champTel">
-                                        <label class="fw-bold">Numéro de téléphone
-                                        <input name="tel" class="form-control" type="text" pattern="[0-9]{10}" minlength=10 maxlength=10 value="{{ etudiant.numTelephone }}" onkeyup="verifTel();"></label> 
-                                        <div name="erreurTel" class="messageErreur"></div>
-                                    </div>
-                                </div>
-                            </p>
-                            <p class="fw-bold input">
-                                <div class="btn-group">
-                                    <label class="fw-bold">Adresse mail
-                                    <input name="mail" class="form-control" type="email" value="{{ etudiant.adresseMail }}" onkeyup="verifMail();"></label> 
-                                    <div name="erreurMail" class="messageErreur"></div>
-                                </div>
-                            </p>
-                            <p class="fw-bold text-align-center input">
-                                <div class="btn-group">
-                                    <label class="fw-bold">Photo de profil
-                                    <input name="image" class="form-control" type="file" value="{{ etudiant.photoProfil }}" onchange="verifPdp();"></label> 
-                                    <div name="erreurPhoto" class="messageErreur"></div>
-                                </div>
-                            </p>
-                        </div>
-                        
-                        <div class='modal-body'>
+				<div class='modal-body'>
 
-                            <p class="fw-bold text-align-left input-group">
-                                <h3>Votre voiture</h3>
-                                {% if voiture is not defined %}
-                                    Vous ne possédez pas encore de voiture.
-                                <div class="btn-group">
-                                    <label class="fw-bold">Modele
-                                    <input class="form-control" type="text" placeholder="ex : Clio" name="modele"></label> 
-                                    <label class="fw-bold">Marque
-                                    <input class="form-control" type="text" placeholder="ex : Renault" name="marque"></label> 
-                                    <label class="fw-bold">Nombre de places
-                                    <input class="form-control" type="number" placeholder="ex : 4" name="nbPlace"></label> 
-                                </div>
-                                {% else %}
-                                <div class="btn-group">
-                                    <label class="fw-bold">Modele
-                                    <input class="form-control" type="text" value="{{ voiture.modele }}" name="modele"></label> 
-                                    <label class="fw-bold">Marque
-                                    <input class="form-control" type="text" value="{{ voiture.marque }}" name="marque"></label> 
-                                    <label class="fw-bold">Nombre de places
-                                    <input class="form-control" type="number" value="{{ voiture.nbPlace }}" name="nbPlace"></label> 
-                                </div>
-                                {% endif %}
-                            </p>
-                        </div>
-                        <div class='modal-footer'>
-                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
-                                <input type="submit" class="btn btn-success" value="Confirmer">
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-    </div>
+					<p class="fw-bold text-align-left input-group">
+						<h3>Votre voiture</h3>
+						{% if voiture is not defined %}
+							Vous ne possédez pas encore de voiture.
+							<div class="btn-group">
+								<label class="fw-bold">Modele
+									<input class="form-control" type="text" placeholder="ex : Clio" name="modele"></label>
+								<label class="fw-bold">Marque
+									<input class="form-control" type="text" placeholder="ex : Renault" name="marque"></label>
+								<label class="fw-bold">Nombre de places
+									<input class="form-control" type="number" placeholder="ex : 4" name="nbPlace"></label>
+							</div>
+						{% else %}
+							<div class="btn-group">
+								<label class="fw-bold">Modele
+									<input class="form-control" type="text" value="{{ voiture.modele }}" name="modele"></label>
+								<label class="fw-bold">Marque
+									<input class="form-control" type="text" value="{{ voiture.marque }}" name="marque"></label>
+								<label class="fw-bold">Nombre de places
+									<input class="form-control" type="number" value="{{ voiture.nbPlace }}" name="nbPlace"></label>
+							</div>
+						{% endif %}
+					</p>
+				</div>
+				<div class='modal-footer'>
+					<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+					<input type="submit" class="btn btn-success" value="Confirmer">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="myModalModif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content bg-gradient-primary border-2">
+			<div class="modal-body">
+				Votre profil a bien été modifié.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=etudiant&methode=afficher&id={{CLIENT.numero}}';">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
 
-    <div class="modal fade" id="myModalModif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content bg-gradient-primary border-2">
-                <div class="modal-body">
-                    Votre profil a bien été modifié.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=etudiant&methode=afficher&id={{CLIENT.numero}}';">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="scripts/scriptValidationForm.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <script>
-        $(function(){
-            $('#myModalModif').modal({
-                show:true,
-                backdrop:'static'
-            });
-            if($('#modalTriggerModif').length){
-                $('#myModalModif').modal('show');
-            }
-        });
-
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-
-        function toggleAvisDonnes() {
-            var moreAvis = document.querySelector('.more-avis-donnes');
-            var button = document.querySelector('.read-more-avis-donnes-btn');
-            if (moreAvis.style.display === 'none') {
-                moreAvis.style.display = 'block';
-                button.innerHTML = 'Voir moins';  // Change le texte du bouton en "Lire moins"
-            } else {
-                moreAvis.style.display = 'none';
-                button.innerHTML = 'Voir plus';  // Change le texte du bouton en "Lire plus"
-            }
+<script src="scripts/scriptValidationForm.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+    
+    $(function () {
+        $('#myModalModif').modal({show: true, backdrop: 'static'});
+        if ($('#modalTriggerModif').length) {
+            $('#myModalModif').modal('show');
         }
+    });
 
-        function toggleAvisReçus() {
-            var moreAvis = document.querySelector('.more-avis-reçus');
-            var button = document.querySelector('.read-more-avis-reçus-btn');
-            if (moreAvis.style.display === 'none') {
-                moreAvis.style.display = 'block';
-                button.innerHTML = 'Voir moins';  // Change le texte du bouton en "Lire moins"
-            } else {
-                moreAvis.style.display = 'none';
-                button.innerHTML = 'Voir plus';  // Change le texte du bouton en "Lire plus"
-            }
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    function toggleAvisDonnes() {
+        var moreAvis = document.querySelector('.more-avis-donnes');
+        var button = document.querySelector('.read-more-avis-donnes-btn');
+        if (moreAvis.style.display === 'none') {
+            moreAvis.style.display = 'block';
+            button.innerHTML = 'Voir moins'; // Change le texte du bouton en "Lire moins"
+        } else {
+            moreAvis.style.display = 'none';
+            button.innerHTML = 'Voir plus'; // Change le texte du bouton en "Lire plus"
         }
-    </script>
+    }
 
+    function toggleAvisReçus() {
+        var moreAvis = document.querySelector('.more-avis-reçus');
+        var button = document.querySelector('.read-more-avis-reçus-btn');
+        if (moreAvis.style.display === 'none') {
+            moreAvis.style.display = 'block';
+            button.innerHTML = 'Voir moins'; // Change le texte du bouton en "Lire moins"
+        } else {
+            moreAvis.style.display = 'none';
+            button.innerHTML = 'Voir plus'; // Change le texte du bouton en "Lire plus"
+        }
+    }
+
+    {% if erreurs != null %}
+    window.onload = function () {
+        $('#fModifier_{{ etudiant.numero }}').modal('show');
+    }
+    {% endif %}
+</script>
 {% else %}
     <meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">
 {% endif %}

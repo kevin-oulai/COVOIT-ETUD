@@ -22,7 +22,7 @@ require_once "include.php";
  * @param array $messagesErreurs
  * @return bool
  */
-function validerNom(?string $nom, array &$messagesErreurs): bool
+function validerNom(?string $nom, array &$messagesErreurs)
 {
     $valide = true;
     // 1. Champs obligatoires : vérifier la présence du champ
@@ -54,7 +54,7 @@ function validerNom(?string $nom, array &$messagesErreurs): bool
  * @param array $messagesErreurs
  * @return bool
  */
-function validerPrenom(?string $prenom, array &$messagesErreurs): bool
+function validerPrenom(?string $prenom, array &$messagesErreurs)
 {
     $valide = true;
     // 1. Champs obligatoires : vérifier la présence du champ
@@ -86,7 +86,7 @@ function validerPrenom(?string $prenom, array &$messagesErreurs): bool
  * @param array $messageErreurs
  * @return bool
  */
-function validerMail(string $email, array &$messageErreurs): bool
+function validerMail(string $email, array &$messageErreurs)
 {
 
     $valide = true;
@@ -129,13 +129,55 @@ function validerMail(string $email, array &$messageErreurs): bool
 }
 
 /**
+ * @brief vérifie la cohérence du mail sur la page de modification profil
+ *
+ * @param string $email
+ * @param array $messageErreurs
+ * @return bool
+ */
+function validerMailProfil(string $email, array &$messageErreurs)
+{
+
+    $valide = true;
+
+    // 1. Champs obligatoires : vérifier la présence du champ
+    if (empty($email)) {
+        $messageErreurs[] = "L'adresse email est obligatoire";
+        $valide = false;
+    }
+
+    // 2. Type de données : vérifier que l'email est une chaine de charactères
+    if (!is_string($email)) {
+        $messageErreurs[] = "L'adresse mail doit être une chaine de charatères";
+        $valide = false;
+    }
+
+    // 3. Longueur des chaines : vérifier la longueur minimal et maximal (entre 5 et 255)
+    if (strlen($email) < 5 || strlen($email) > 255) {
+        $messageErreurs[] = "L'adresse email doit comporter entre 5 et 255 charactères";
+        $valide = false;
+    }
+
+    // 4. Format de données : vérifier le format de l'email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $messageErreurs[] = "L'adresse email est invalide";
+        $valide = false;
+    }
+
+    // 5. Plages de valeurs : non pertinent
+    // 6. Fichiers uploadé : non pertinent
+
+    return $valide;
+}
+
+/**
  * @brief vérifie la cohérence du nom
  *
  * @param string|null $num
  * @param array $messageErreurs
  * @return bool
  */
-function validerTelephone(?string $num, array &$messageErreurs): bool
+function validerTelephone(?string $num, array &$messageErreurs)
 {
 
     $valide = true;
@@ -178,7 +220,7 @@ function validerTelephone(?string $num, array &$messageErreurs): bool
  * @param array $messageErreurs
  * @return bool
  */
-function validerDateDeNaissance(string $dateNaiss, array &$messageErreurs): bool
+function validerDateDeNaissance(string $dateNaiss, array &$messageErreurs)
 {
 
     $valide = true;
@@ -211,11 +253,11 @@ function validerDateDeNaissance(string $dateNaiss, array &$messageErreurs): bool
     // Convertir les dates en timestamp UNIX pour faciliter les comparaisons
     $timestamp = strtotime($dateNaiss);
     $dateMin = strtotime('1950-01-01');
-    $dateMax = strtotime('2006-01-01');
+    $dateMax = strtotime(date("Y") - 18 . date("-m-d"));
 
     // Vérifier que le timestamp de la date est bien dans les bornes spécifiques
-    if ($timestamp < $dateMin || $dateMax > $dateMax) {
-        $messageErreurs[] = "La date de naissance doit être entre le 1er janvier 1950 et le 1er janvier 2006";
+    if ($timestamp < $dateMin || $timestamp > $dateMax) {
+        $messageErreurs[] = "La date de naissance doit être entre le 01/01/1950 et le " . (date("d/m")) . "/" . (date("Y") - 18);
         $valide = false;
     }
 
@@ -295,20 +337,13 @@ function validerPdp(array $pdp, array &$messageErreurs)
     // 6. Fichiers uploadé : vérifier la taille et le type
     $typeAutorises = ['image/jpeg', 'image/png']; // Types MIME valides en minuscules
 
-    // Vérification du type MIME réel pour contrer les falsifications d'extension
-    $typeMimeReel = mime_content_type($pdp['tmp_name']);
-    if (!in_array(strtolower($typeMimeReel), $typeAutorises)) {
-        $messageErreurs[] = "Le fichier doit être au format JPG ou PNG.";
-        $valide = false;
-    }
-
-    // Vérification de l'extension de fichier (au cas où le type MIME est mal retourné)
+    // Vérification du type MIME réel pour contrer les falsifications d'extension ET de l'extension de fichier (au cas où le type MIME est mal retourné)
     $extensionFichier = strtolower(pathinfo($pdp['name'], PATHINFO_EXTENSION));
-    if (!in_array($extensionFichier, ['jpg', 'jpeg', 'png'])) {
+    $typeMimeReel = mime_content_type($pdp['tmp_name']);
+    if (!in_array(strtolower($typeMimeReel), $typeAutorises) || !in_array($extensionFichier, ['jpg', 'jpeg', 'png'])) {
         $messageErreurs[] = "Le fichier doit être au format JPG ou PNG.";
         $valide = false;
     }
-
 
     // Vérification du poids du fichier
     $tailleMaxAutoriseeEnOctets = 2 * 1024 * 1024; //2Mo
@@ -360,8 +395,6 @@ function validerUploadEtPdp(array $pdp, array &$messageErreurs)
                 $valide = false;
                 break;
         }
-
-
     }
 
     return $valide;
@@ -374,7 +407,7 @@ function validerUploadEtPdp(array $pdp, array &$messageErreurs)
  * @return bool
  */
 
-function validerNumeroCarte(?string $numeroCarte, array &$messagesErreurs): bool
+function validerNumeroCarte(?string $numeroCarte, array &$messagesErreurs)
 {
     $valide = true;
     $numeroCarte = str_replace(" ", "", $numeroCarte);
@@ -462,7 +495,7 @@ function validerNumeroCarte(?string $numeroCarte, array &$messagesErreurs): bool
  * @param array $messagesErreurs
  * @return bool
  */
-function validerDateExpiration(?string $dateExpiration, array &$messagesErreurs): bool
+function validerDateExpiration(?string $dateExpiration, array &$messagesErreurs)
 {
     $valide = true;
 
@@ -533,7 +566,7 @@ function validerDateExpiration(?string $dateExpiration, array &$messagesErreurs)
  * @param array $messagesErreurs
  * @return bool
  */
-function validerCodeSecurite(?string $codeSecurite, array &$messagesErreurs): bool
+function validerCodeSecurite(?string $codeSecurite, array &$messagesErreurs)
 {
     $valide = true;
 
@@ -573,7 +606,7 @@ function validerCodeSecurite(?string $codeSecurite, array &$messagesErreurs): bo
  * @param array $messagesErreurs
  * @return bool
  */
-function validerNote(string $note, array &$messagesErreurs): bool
+function validerNote(string $note, array &$messagesErreurs)
 {
     $valide = true;
     //    Champ obligatoire
@@ -604,7 +637,7 @@ function validerNote(string $note, array &$messagesErreurs): bool
  * @param array $messagesErreurs
  * @return bool
  */
-function validerCommentaire(string $commentaire, array &$messagesErreurs): bool
+function validerCommentaire(string $commentaire, array &$messagesErreurs)
 {
     $valide = true;
     //Champ non-obligatoire
@@ -637,7 +670,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  * @param array $messagesErreurs
  * @return bool
  */
-function validationPlageHoraire($heureDep, $heureArr, $dateDep, &$messagesErreur): bool
+function validationPlageHoraire($heureDep, $heureArr, $dateDep, &$messagesErreur)
 {
     global $pdo;
     $valide = true;
@@ -729,7 +762,7 @@ function validationPrix($prix, $distance, &$messagesErreur): bool
  * @param array $messagesErreurs
  * @return bool
  */
-function validationNbPlaces($nbPlaces, &$messagesErreur): bool
+function validationNbPlaces($nbPlaces, &$messagesErreur)
 {
     global $pdo;
     $valide = true;
@@ -764,7 +797,7 @@ function validationNbPlaces($nbPlaces, &$messagesErreur): bool
  * @param array $messagesErreurs
  * @return bool
  */
-function validationLieuDepart($lieuDep, &$messagesErreur): bool
+function validationLieuDepart($lieuDep, &$messagesErreur)
 {
     $valide = true;
     //    - Champ obligatoire
@@ -791,7 +824,7 @@ function validationLieuDepart($lieuDep, &$messagesErreur): bool
  * @param array $messagesErreurs
  * @return bool
  */
-function validationLieuArrivee($lieuArr, &$messagesErreur): bool
+function validationLieuArrivee($lieuArr, &$messagesErreur)
 {
     $valide = true;
     //    - Champ obligatoire
@@ -818,7 +851,7 @@ function validationLieuArrivee($lieuArr, &$messagesErreur): bool
  * @param array $messagesErreurs
  * @return bool
  */
-function validationDateDep($dateDep, &$messagesErreur): bool
+function validationDateDep($dateDep, &$messagesErreur)
 {
     $valide = true;
     //- Champ obligatoire

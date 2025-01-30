@@ -66,6 +66,7 @@ class ControllerPaiement extends Controller
             } else {
                 // Quand le paiement est valide, j'ajoute le passager au trajet dans la table Choisir                
                 $numEtudiant = $_SESSION['CLIENT']->getNumero(); // Récupération du numéro de l'étudiant connecté
+
                 $nbPassager = $_SESSION["nombre_passagers"];
                 $nbPassager = intval($nbPassager);
                 $idTrajet = intval($idTrajet);
@@ -85,6 +86,7 @@ class ControllerPaiement extends Controller
                 
                 $managerTrajet = new TrajetDao($this->getPdo());
                 $managerTrajet->decrementerNbPlace($idTrajet ,$nbPassager);
+
                 $template = $this->getTwig()->load('pagePaiement.html.twig');
 
                 echo $template->render(array(

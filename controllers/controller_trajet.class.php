@@ -115,7 +115,6 @@ class ControllerTrajet extends Controller{
         $managerTrajet = new TrajetDao($this->getPdo());
         $infoTrajet = $managerTrajet->findTrajet($id); 
         
-        
         // Calcul de l'age
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $infoConducteur = $managerEtudiant->find($infoTrajet->getNumeroConducteur());
