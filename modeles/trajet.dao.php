@@ -175,7 +175,7 @@ class TrajetDao{
      */
     public function findTrajetParHeure(string $num_lieu_depart, string $num_lieu_arrivee, string $date, int $nbPassager): array
     {
-        $requete = "SELECT T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace,T.numero_conducteur, T.numero_lieu_depart, T.numero_lieu_arrivee FROM TRAJET T WHERE numero_lieu_depart IN " . $num_lieu_depart . " AND numero_lieu_arrivee IN " . $num_lieu_arrivee . " AND dateDep = ? AND nbPlace > " . $nbPassager . " ORDER BY T.heureDep ASC";
+        $requete = "SELECT T.numero, T.heureDep, T.nbPlace, T.heureArr, T.prix, T.dateDep, T.nbPlace,T.numero_conducteur, T.numero_lieu_depart, T.numero_lieu_arrivee FROM TRAJET T WHERE numero_lieu_depart IN " . $num_lieu_depart . " AND numero_lieu_arrivee IN " . $num_lieu_arrivee . " AND dateDep = ? AND nbPlace >= " . $nbPassager . " ORDER BY T.heureDep ASC";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->bindValue(1, $date, PDO::PARAM_STR);
         $pdoStatement->execute();
@@ -298,4 +298,51 @@ class TrajetDao{
         return $lieu; 
 
     } 
+
+    public function decrementerNbPlace(?int $numTrajet, ?int $nbPassager)
+    {
+        $sql = "UPDATE TRAJET SET nbPlace = nbPlace - :nbPassager WHERE numero = :numTrajet";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":nbPassager", $nbPassager);
+        $pdoStatement->bindParam(":numTrajet", $numTrajet);
+        $pdoStatement->execute();
+    }
+
+    public function findAllNbPlaceReserve(): array
+    {
+        $sql = "SELECT numero_trajet, numero_passager, nbPlaceReserve FROM CHOISIR";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC); 
+        $nbPlaceReserve = $pdoStatement->fetchAll(); 
+        return $nbPlaceReserve;
+    }
+
+    public function trajetDejaReserver($idTrajet, $numEtudiant): bool
+    {
+        $sql = "SELECT COUNT(numero_trajet) AS nbReserve FROM CHOISIR WHERE numero_trajet = :numTrajet AND numero_passager = :numPassager";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(':numTrajet', $idTrajet);
+        $pdoStatement->bindParam(':numPassager', $numEtudiant);
+        $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC); 
+        $bool = $pdoStatement->fetch(); 
+        if ($bool['nbReserve'] >= 1) {
+            $bool = true;
+        }
+        else {
+            $bool = false;
+        }
+        return $bool;
+    }
+
+    public function incrementationNbPlace($numTrajet, $numPassager, $nbPassager)
+    {
+        $sql = "UPDATE CHOISIR SET nbPlaceReserve = nbPlaceReserve + :nbPassager WHERE numero_trajet = :numTrajet AND numero_passager = :numPassager";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(':numTrajet', $numTrajet);
+        $pdoStatement->bindParam(':numPassager', $numPassager);
+        $pdoStatement->bindParam(':nbPassager', $nbPassager);
+        $pdoStatement->execute();
+    }
 }

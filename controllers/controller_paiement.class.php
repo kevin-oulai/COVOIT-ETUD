@@ -52,6 +52,8 @@ class ControllerPaiement extends Controller
             $dateValide = validerDateExpiration($dateExp, $messagesErreurs);
             $codeValide = validerCodeSecurite($cvc, $messagesErreurs);
 
+            $managerTrajet = new TrajetDao($this->getPdo());
+
             // Si le formulaire comporte des erreurs, envoyer messagesErreurs à la vue
             if (!empty($messagesErreurs)) {
                 $template = $this->getTwig()->load('pagePaiement.html.twig');
@@ -63,15 +65,26 @@ class ControllerPaiement extends Controller
                 ));
             } else {
                 // Quand le paiement est valide, j'ajoute le passager au trajet dans la table Choisir                
-                $numEtudiant = $GLOBALS['CLIENT']->getNumero(); // Récupération du numéro de l'étudiant connecté
-
-                // Ajout du passager au trajet
-                $pdo = $this->getPdo();
-                $query = $pdo->prepare("INSERT INTO CHOISIR (numero_trajet, numero_passager) VALUES (:idTrajet, :numEtudiant)");
-                $query->bindParam(':idTrajet', $idTrajet);
-                $query->bindParam(':numEtudiant', $numEtudiant);
-                $query->execute();
-
+                $numEtudiant = $_SESSION['CLIENT']->getNumero(); // Récupération du numéro de l'étudiant connecté
+                $nbPassager = $_SESSION["nombre_passagers"];
+                $nbPassager = intval($nbPassager);
+                $idTrajet = intval($idTrajet);
+                // On cherche a voir si il a deja une place de reserver pour ce trajet
+                if ($managerTrajet->trajetDejaReserver($idTrajet, $numEtudiant)) {
+                    $managerTrajet->incrementationNbPlace($idTrajet, $numEtudiant, $nbPassager);
+                }
+                else {
+                    // Ajout du passager au trajet
+                    $pdo = $this->getPdo();
+                    $query = $pdo->prepare("INSERT INTO CHOISIR (numero_trajet, numero_passager, nbPlaceReserve) VALUES (:idTrajet, :numEtudiant, :nbPassager)");
+                    $query->bindParam(':idTrajet', $idTrajet);
+                    $query->bindParam(':numEtudiant', $numEtudiant);
+                    $query->bindParam(':nbPassager', $nbPassager);
+                    $query->execute();
+                }
+                
+                $managerTrajet = new TrajetDao($this->getPdo());
+                $managerTrajet->decrementerNbPlace($idTrajet ,$nbPassager);
                 $template = $this->getTwig()->load('pagePaiement.html.twig');
 
                 echo $template->render(array(

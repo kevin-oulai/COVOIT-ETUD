@@ -16,7 +16,11 @@
 						<div class="col">
 							<h3 class="col text-center">Information du trajet :</h3>
 							<h4 class="col text-center">{{infoTrajet.dateDep|date("d/m/Y")}}</h4>
-							<h4 class="col text-center">{{infoTrajet.prix}}€</h4>
+							{% if nbPassager != 1 %}
+								<h4 class="col text-center">{{infoTrajet.prix}} x {{nbPassager}}€</h4>
+							{% else %}
+								<h4 class="col text-center">{{infoTrajet.prix}} €</h4>
+							{% endif %}
 						</div>
 						<div class="col text-end">
 							<h4>Informations voiture</h4>
@@ -55,10 +59,12 @@
 			</div>
 			{# Bouton de validation #}
             <div class="col text-center">
-			{% if trajet.numConducteur == trajet.numEtudiant %}
+			{% if  numEtudiant == 'etudNonConnecte' %}
+				<h4>Vous devez être connecté pour reserver ce trajet !</h4>
+			{% elseif infoTrajet.numConducteur == numEtudiant %}
 				<h4>Vous ne pouvez pas réserver votre propre trajet.</h4>
 			{% else %}
-				<a href="?controleur=paiement&methode=afficher&idTrajet={{trajet.numero}}" class="btn btn-primary">Payer</a>
+				<a href="?controleur=paiement&methode=afficher&idTrajet={{infoTrajet.numero}}" class="btn btn-primary">Payer</a>
 			{% endif %}
             </div>
 			<div class="text-center mt-5">
