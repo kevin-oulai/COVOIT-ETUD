@@ -17,9 +17,9 @@
 							<img src="images/{{ trajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
 						</div>
 						<div class="col">
-							<h3 class="col text-center"><B>Informations du trajet</B></h3>
-							<h4 class="col text-center"><em>Date :</em> {{trajet.dateDep|date("d/m/Y")}}</h4>
-							<h4 class="col text-center"><em>Prix :</em> {{trajet.prix}}€</h4>
+							<h4 class="col text-center"><B>Informations du trajet</B></h4>
+							<h5 class="col text-center"><em>Date :</em> {{trajet.dateDep|date("d/m/Y")}}</h5>
+							<h5 class="col text-center"><em>Prix :</em> {{trajet.prix}}€</h5>
 						</div>
 						<div class="col text-end">
 							<h4><B>Informations de la voiture</B></h4>
@@ -32,16 +32,16 @@
 					<div class="row">
 						<div class="row">
 							<div class="col text-center">
-								<h3 class="card-text"><B>Heure de départ</B></h3>
-								<h2>{{trajet.heureDep|date("H:i")}}</h2>
-								<h3 class="card-text"><B>Heure d'arrivée</B></h3>
-								<h2>{{trajet.heureArr|date("H:i")}}</h2>
+								<h4 class="card-text"><B>Heure de départ</B></h4>
+								<h5>{{trajet.heureDep|date("H:i")}}</h5>
+								<h4 class="card-text"><B>Heure d'arrivée</B></h4>
+								<h5>{{trajet.heureArr|date("H:i")}}</h5>
 							</div>
 							<div class="col text-center">
 								<h4 class="card-text"><B>Lieu de départ</B></h4>
-								<h3>{{trajet.numRueDep}} {{trajet.nomRueDep}} {{trajet.villeDep}}</h3>
+								<h5>{{trajet.numRueDep}} {{trajet.nomRueDep}} {{trajet.villeDep}}</h5>
 								<h4 class="card-text"><B>Lieu de d'arrivée</B></h4>
-								<h3>{{trajet.numRueArr}} {{trajet.nomRueArr}} {{trajet.villeArr}}</h3>
+								<h5>{{trajet.numRueArr}} {{trajet.nomRueArr}} {{trajet.villeArr}}</h5>
 							</div>
 						</div>
 					</div>
