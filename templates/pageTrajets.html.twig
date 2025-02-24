@@ -1,5 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
+    <h1 class="text-center mt-5 fs-1 fw-bold">Les trajets correspondants</h1>
     {% if infoFiltre != "aucunTrajet" %}
     <div class="formulaireFiltre">
         <form method="POST" action="?controleur=trajet&methode=lister">
@@ -15,7 +16,7 @@
                 />
                 <label for="prixBas">Prix le plus bas</label>
             </div>
-            <button style = "margin-left: 5%; margin-top: 1%;" type="submit" class = "mb-3">Appliquer</button>
+            <button style = "margin-left: 7%; margin-top: 1%;" type="submit" class = "mb-3 btn btn-primary">Appliquer</button>
         </form>
     </div>
     {% for trajet in listeTrajet %}
@@ -50,6 +51,7 @@
                 </div>
             </div>
             {% endfor %}
+        <br>
         {% endif %}
         {% if infoFiltre == "aucunTrajet" %}
         <div class="cardError card bg-gradient-secondary">

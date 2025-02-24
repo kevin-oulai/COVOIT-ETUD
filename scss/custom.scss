@@ -101,11 +101,11 @@ $gradients: map-merge((
   #siteNameImage {
     display: none !important;
   }
-  #carte {
-    width: 95% !important;
-  }
   #ecology {
     display: none;
+  }
+  #infos {
+    width: 95% !important;
   }
   #btn-ajouter {
     display: flex !important;
@@ -119,14 +119,11 @@ $gradients: map-merge((
     width: 100%;
     padding: 0;
   }
-  .formulaireFiltre {
-    width: 50% !important; /* largeur du rectangle */
-  }
   .input-group {
     display: flex !important;
     flex-direction: column !important;
     gap: 10px !important;
-    width: 130% !important;
+    width: 95% !important;
     margin-left: -20% !important;
   }
   .form-control {
@@ -319,7 +316,7 @@ padding-right: ($spacer * 2.5);}
   border-width: 2px;
   left: 10%;
   top: 15px; /* distance depuis le haut de la page */
-  width: 30%; /* largeur du rectangle */
+  width: 250px; /* largeur du rectangle */
   height: 20%; /* hauteur initiale */
   background-color: #E2EAFC; /* couleur du rectangle */
   z-index: 1000; /* s'assure que le rectangle reste au-dessus des autres éléments */
