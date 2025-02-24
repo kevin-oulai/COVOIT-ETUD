@@ -9,7 +9,7 @@
                 {% if CLIENT.numero == etudiant.numero %}
                     <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
                     <div class="row justify-content-end custom-line">
-                        <div class="col-4">
+                        <div>
                             <button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="container overflow-hidden">
                             <div class="row gx-5">
-                                <div class="col-6">
+                                <div class="col-6" id = "carte">
                                     <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
                                         <div class="card bg-gradient-primaire">
                                             <div class="card-body">
@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6" id = "carte">
                                     <div class="p-3"><h4 class=" text-center">Badge(s)</h4>
                                         <div class="card bg-gradient-primaire container text-center">
                                             <div class="card-body row column-gap-3">
@@ -78,7 +78,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6" id = "avis">
+                                <div class="col-6" id = "carte">
                                     <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
                                         <div class="card bg-gradient-primaire">
                                             <div class="card-body avis">
@@ -89,7 +89,7 @@
                                                             <div class="row gx-5 card-body">
                                                                 <div class="col-5">
                                                                     Le {{firstItem.datePost|date("d/m/Y H:i")}}<br>
-                                                                    Par le passager :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
+                                                                    Pour le conducteur :<br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
                                                                     Note : {{firstItem.note}}
                                                                 </div>
                                                                 <div class="col-7">
@@ -105,7 +105,7 @@
                                                                     <div class="row gx-5 card-body">
                                                                         <div class="col-5">
                                                                             Le {{ avisDonnes.datePost|date("d/m/Y H:i") }}<br>
-                                                                            Par le passager :<br>{{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
+                                                                            Pour le conducteur :<br>{{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
                                                                             Note : {{ avisDonnes.note }}
                                                                         </div>
                                                                         <div class="col-7">
@@ -127,7 +127,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6" id = "avis">
+                                <div class="col-6" id = "carte">
                                     <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
                                         <div class="card bg-gradient-primaire">
                                             <div class="card-body">

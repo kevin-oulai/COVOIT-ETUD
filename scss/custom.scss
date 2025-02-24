@@ -66,6 +66,11 @@ $gradients: map-merge((
   box-sizing: border-box;
 }
 
+@media (max-width: 1400px) {
+  #imageNomSite {
+    margin-left:30% !important;
+  }
+}
 @media (max-width: 1300px) {
   #ecology {
     width: 50%;
@@ -75,8 +80,11 @@ $gradients: map-merge((
   }
 }
 @media (max-width: 1199px) {
-  #avis {
-    width: 100%;
+  #carte {
+    width: 95% !important;
+  }
+  #imageNomSite {
+    margin-left:25% !important;
   }
 }
 @media (min-width: 1150px){
@@ -93,8 +101,8 @@ $gradients: map-merge((
   #siteNameImage {
     display: none !important;
   }
-  #avis {
-    width: 100%;
+  #carte {
+    width: 95% !important;
   }
   #ecology {
     display: none;

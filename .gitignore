@@ -8,3 +8,5 @@ node_modules
 composer.lock
 config/constantes.yaml
 data/backup
+css/styles.css
+css/styles.css.map
