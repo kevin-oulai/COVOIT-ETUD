@@ -68,39 +68,38 @@ class VoitureDao {
         $pdoStatement->execute(array(":numero"=>$numero));
         $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Voiture');
         $voiture = $pdoStatement->fetch();
-
         return $voiture;
     }
-    /**
-     * @brief retourne toutes les informations de la voiture d'un etudiant
-     *
-     * @param integer $numero
-     * @return Voiture
-     */
-    public function findByEtudiant(int $numero): Voiture
+
+    public function hydrate(array $tableauAssoc): ?Voiture
     {
-        $sql="SELECT * FROM VOITURE WHERE numero in (SELECT numero_voiture FROM ETUDIANT WHERE numero = :numero)";
-        $pdoStatement = $this->PDO->prepare($sql);
-        $pdoStatement->execute(array(":numero"=>$numero));
-        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Voiture');
-        $voiture = $pdoStatement->fetch();
-
+        $voiture = new Voiture($tableauAssoc['numero'], $tableauAssoc['modele'], $tableauAssoc['marque'], $tableauAssoc['nbPlace']);
         return $voiture;
     }
+
+    public function hydrateAll($tableau): ?array{
+        $voitures = [];
+        foreach($tableau as $tableauAssoc){
+            $voiture = $this->hydrate($tableauAssoc);
+            $voitures[] = $voiture;
+        }
+        return $voitures;
+    }
+
     /**
      * @brief retourne toutes les informations de la voiture d'un etudiant
      *
      * @param integer $numero_etudiant
-     * @return Etudiant
+     * @return Voiture
      */
-    public function findMonEtudiant(int $numero_etudiant): Etudiant
+    public function findMonEtudiant(int $numero_etudiant): Voiture
     {
-        $sql="SELECT * FROM VOITURE V JOIN ETUDIANT E ON V.NUMERO = E.NUMERO_VOITURE WHERE E.numero= :numero_etudiant";
+        $sql="SELECT V.numero, V.modele, V.marque, V.nbPlace FROM VOITURE V JOIN ETUDIANT E ON V.NUMERO = E.NUMERO_VOITURE WHERE E.numero= :numero_etudiant";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute(array(":numero_etudiant"=>$numero_etudiant));
-        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
-        $voiture = $pdoStatement->fetch();
-
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $pdoStatement->fetch();
+        $voiture = $this->hydrate($tableau);
         return $voiture;
     }
     /**
@@ -118,7 +117,6 @@ class VoitureDao {
         $pdoStatement->execute(array(":modele"=>$modele, ":marque"=>$marque, ":nbPlace"=>$nbPlace));
         $pdoStatement->setFetchMode(PDO::FETCH_NUM);
         $num = $pdoStatement->fetch()[0];
-
         return $num;
     }
     /**

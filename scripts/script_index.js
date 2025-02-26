@@ -14,3 +14,4 @@ function defaultButton(){
     this.innerText = "+";
     this.style.width = "60px";
 }
+

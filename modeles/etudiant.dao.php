@@ -1,18 +1,15 @@
 <?php
 /**
-* @file    etudiant.dao.php
-* @author  Thibault ROSALIE
-
-* @brief Classe EtudiantDao pour gérer les étudiants dans la base de données
-* 
-* @details Cette classe permet de gérer les étudiants dans la base de données
-* 
-* La connexion est représenté par l'objet PDO de PHP
-
-* @version 0.1
-* @date    14/11/2024
-*/
-
+ * @file    etudiant.dao.php
+ * @author  Thibault ROSALIE
+ * @brief Classe EtudiantDao pour gérer les étudiants dans la base de données
+ *
+ * @details Cette classe permet de gérer les étudiants dans la base de données
+ *
+ * La connexion est représenté par l'objet PDO de PHP
+ * @version 0.1
+ * @date    14/11/2024
+ */
 class EtudiantDao
 {
     // Attributs
@@ -22,7 +19,6 @@ class EtudiantDao
      * @var PDO|null
      */
     private ?PDO $PDO;
-
     // Constructeur
     /**
      * @brief Constructeur de la classe TrajetDao
@@ -33,7 +29,6 @@ class EtudiantDao
     {
         $this->PDO = $pdo;
     }
-
     // Getters & Setters
     /**
      * @brief Retourne l'objet PDO de connexion à la base de données
@@ -44,7 +39,6 @@ class EtudiantDao
     {
         return $this->PDO;
     }
-
     /**
      * @brief Modifie l'objet PDO de connexion à la base de données
      *
@@ -55,7 +49,6 @@ class EtudiantDao
     {
         $this->PDO = $PDO;
     }
-
     // Méthodes
     /**
      * @brief Retourne un étudiant à partir de son numéro
@@ -70,13 +63,25 @@ class EtudiantDao
         $pdoStatement->execute(array(":numero"=>$numero));
         $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Etudiant');
         $etudiant = $pdoStatement->fetch();
-
         return $etudiant;
     }
+
+
 
     /**
      * @brief retourne toutes les informations des étudiants
      *
+
+
+
+
+
+
+
+    Expand All
+
+    @@ -84,9 +86,27 @@ public function findAllAssoc(): ?array
+
      * @return array|null
      */
     public function findAllAssoc(): ?array
@@ -84,12 +89,41 @@ class EtudiantDao
         $sql="SELECT * FROM ETUDIANT";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute();
-        return $pdoStatement->fetchAll();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $pdoStatement->fetchAll();
+        $infoEtud = $this->hydrateAll($tableau);
+        return $infoEtud;
+    }
+
+    public function hydrate(array $tableauAssoc): ?Etudiant
+    {
+        $etudiant = new Etudiant($tableauAssoc['numero'], $tableauAssoc['nom'], $tableauAssoc['prenom'], $tableauAssoc['dateNaiss'], $tableauAssoc['adresseMail'], $tableauAssoc['numTelephone'], $tableauAssoc['numero_voiture'], $tableauAssoc['photoProfil'], $tableauAssoc['expiration_token']);
+        return $etudiant;
+    }
+
+    public function hydrateAll($tableau): ?array{
+        $etudiants = [];
+        foreach($tableau as $tableauAssoc){
+            $etudiant = $this->hydrate($tableauAssoc);
+            $etudiants[] = $etudiant;
+        }
+        return $etudiants;
     }
 
     /**
      * @brief retourne le nombre de trajet n'un étudiant
      *
+
+
+
+
+
+
+
+    Expand Down
+
+
+
      * @param integer|null $numero_etudiant
      * @return INT|null
      */
@@ -99,7 +133,6 @@ class EtudiantDao
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->execute();
         $nbTrajet = $pdoStatement->fetchColumn();
-
         return $nbTrajet;
     }
     /**
@@ -140,7 +173,7 @@ class EtudiantDao
     }
     /**
      * @brief retourne vrai si l'etudiant a reçu un avis
-     * 
+     *
      * @param integer|null $numero_etudiant
      * @return boolean|null
      */
@@ -156,7 +189,6 @@ class EtudiantDao
         }
         return false;
     }
-
     /**
      * @brief Permet d'ajouter un étudiant à la bd avec les informations en paramètre.
      *
@@ -174,7 +206,6 @@ class EtudiantDao
     {
         $date = date($dateNaiss);
         $query = $this->PDO->prepare("INSERT INTO ETUDIANT(nom, prenom, dateNaiss, adresseMail, numTelephone, numero_voiture, photoProfil, motDePasse, token_reinitialisation, expiration_token, salt) VALUES (:nom, :prenom, :dateNaiss, :mail, :tel, NULL, :image, :mdp, NULL, NULL, :salt)");
-
         $query->bindParam(':nom', $nom);
         $query->bindParam(':prenom', $prenom);
         $query->bindParam(':dateNaiss', $date);
@@ -183,7 +214,6 @@ class EtudiantDao
         $query->bindParam(':image', $image);
         $query->bindParam(':mdp', $mdp);
         $query->bindParam(':salt', $salt);
-
         $query->execute();
     }
     /**
@@ -199,7 +229,6 @@ class EtudiantDao
      * @param string|null $image
      * @return void
      */
-
     public function update(?int $numero = null, ?string $nom = null,?string $prenom = null,?string $dateNaiss = null,?string $mail = null,?string $tel = null,?int $numVoiture = null,?string $image = null){
         $query = $this->PDO->prepare("UPDATE ETUDIANT SET nom = :nom, prenom = :prenom, dateNaiss = :dateNaiss, adresseMail = :adresseMail, numTelephone = :numTelephone, numero_voiture = :numero_voiture, photoProfil = :photoProfil WHERE numero = :numero");
         $query->bindParam(':numero', $numero);
@@ -212,4 +241,21 @@ class EtudiantDao
         $query->bindParam(':photoProfil', $image);
         $query->execute();
     }
+
+    public function getToken(?string $token){
+        $query = $this->PDO->prepare('SELECT * FROM ETUDIANT WHERE token_reinitialisation = :token');
+        $query->bindParam('token', $token);
+        $query->execute();
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $query->fetch();
+        return $this->hydrate($tableau);
+    }
+
+    public function updateMdp(?int $numero = null,?string $mdp = null){
+        $query = $this->PDO->prepare("UPDATE ETUDIANT SET motDePasse = :mdp WHERE numero = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->bindParam(':mdp', $mdp);
+        $query->execute();
+    }
+
 }

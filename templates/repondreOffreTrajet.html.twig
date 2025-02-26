@@ -5,7 +5,6 @@
 	<div class="container">
 		
 		<div class="row row-cols-1 g-4">
-        	
 			{# Informations du trajet #}
 			<div class="col d-flex justify-content-center mt-xl">
 				<div class="card bg-gradient-secondary" style="width: 60rem">
@@ -14,12 +13,17 @@
 							<h4><B>Informations du conducteur</B></h4>
 							<h5>{{trajet.nom }} {{trajet.prenom}}</h5>
 							<h5>{{age}} ans</h5>
-							<img src="images/{{ trajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
+							<img src="images/{{ infoTrajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
+							<p>{{ infoConducteur.expiration_token }}</p>
 						</div>
 						<div class="col">
 							<h4 class="col text-center"><B>Informations du trajet</B></h4>
-							<h5 class="col text-center"><em>Date :</em> {{trajet.dateDep|date("d/m/Y")}}</h5>
-							<h5 class="col text-center"><em>Prix :</em> {{trajet.prix}}€</h5>
+							<h5 class="col text-center"><em>Date :</em> {{infoTrajet.dateDep|date("d/m/Y")}}</h5>
+							{% if nbPassager != 1 %}
+								<h5 class="col text-center"><em>Prix :</em> {{infoTrajet.prix}} x {{nbPassager}}€</h4>
+							{% else %}
+								<h4 class="col text-center">{{infoTrajet.prix}} €</h5>
+							{% endif %}
 						</div>
 						<div class="col text-end">
 							<h4><B>Informations de la voiture</B></h4>
@@ -49,9 +53,14 @@
 			</div>
 			{# Bouton de validation #}
             <div class="col text-center">
-				<a href="?controleur=paiement&methode=afficher&idTrajet={{trajet.numero}}" class="btn btn-primary">Payer</a>
+			{% if  numEtudiant == 'etudNonConnecte' %}
+				<h4>Vous devez être connecté pour reserver ce trajet !</h4>
+			{% elseif infoTrajet.numConducteur == numEtudiant %}
+				<h4>Vous ne pouvez pas réserver votre propre trajet.</h4>
+			{% else %}
+				<a href="?controleur=paiement&methode=afficher&idTrajet={{infoTrajet.numero}}" class="btn btn-primary">Payer</a>
+			{% endif %}
             </div>
-	{% endfor %}
 			<div class="text-center mt-5">
 				<a href="?controleur=&methode=" class="btn btn-danger">Retour</a>
 			</div>
