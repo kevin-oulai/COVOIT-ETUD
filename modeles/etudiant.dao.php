@@ -199,13 +199,12 @@ class EtudiantDao
      * @param string $image
      * @param string $dateNaiss
      * @param string $mdp
-     * @param string $salt
      * @return void
      */
-    public function insert(string $nom, string $prenom, string $mail, string $tel, string $image, string $dateNaiss, string $mdp, string $salt)
+    public function insert(string $nom, string $prenom, string $mail, string $tel, string $image, string $dateNaiss, string $mdp)
     {
         $date = date($dateNaiss);
-        $query = $this->PDO->prepare("INSERT INTO ETUDIANT(nom, prenom, dateNaiss, adresseMail, numTelephone, numero_voiture, photoProfil, motDePasse, token_reinitialisation, expiration_token, salt) VALUES (:nom, :prenom, :dateNaiss, :mail, :tel, NULL, :image, :mdp, NULL, NULL, :salt)");
+        $query = $this->PDO->prepare("INSERT INTO ETUDIANT(nom, prenom, dateNaiss, adresseMail, numTelephone, numero_voiture, photoProfil, motDePasse, token_reinitialisation, expiration_token) VALUES (:nom, :prenom, :dateNaiss, :mail, :tel, NULL, :image, :mdp, NULL, NULL)");
         $query->bindParam(':nom', $nom);
         $query->bindParam(':prenom', $prenom);
         $query->bindParam(':dateNaiss', $date);
@@ -213,7 +212,6 @@ class EtudiantDao
         $query->bindParam(':tel', $tel);
         $query->bindParam(':image', $image);
         $query->bindParam(':mdp', $mdp);
-        $query->bindParam(':salt', $salt);
         $query->execute();
     }
     /**
