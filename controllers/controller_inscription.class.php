@@ -28,10 +28,12 @@ class ControllerInscription extends Controller
      */
     public function afficher()
     {
-        if (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["mail"]) && isset($_POST["tel"])) {
+        if (isset($_POST["Nom"]) && isset($_POST["Prenom"]) && isset($_POST["mail"]) && isset($_POST["tel"])) {
             $messagesErreurs = [];
-            $prenomValide = validerPrenom($_POST["prenom"], $messagesErreurs);
-            $nomValide = validerNom($_POST["nom"], $messagesErreurs);
+          
+
+            $prenomValide = validerPrenom($_POST["Prenom"], $messagesErreurs);
+            $nomValide = validerNom($_POST["Nom"], $messagesErreurs);
             $mailValide = validerMail($_POST["mail"], $messagesErreurs);
             $dateNaissanceValide = validerDateDeNaissance($_POST["dateNaiss"], $messagesErreurs);
             $telValide = validerTelephone($_POST["tel"], $messagesErreurs);
@@ -55,9 +57,9 @@ class ControllerInscription extends Controller
                         $name = rand(0, 2147483647) . ".png";
                         move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$name");
                     }
-                    $managerEtudiant->insert($_POST["nom"], $_POST["prenom"], $_POST["mail"], $_POST["tel"], $name, $_POST["dateNaiss"], $pwd);
-                    $template = $this->getTwig()->load('connexion.html.twig');
+                    $managerEtudiant->insert($_POST["Nom"], $_POST["Prenom"], $_POST["mail"], $_POST["tel"], $name, $_POST["dateNaiss"], $pwd);
 
+                    $template = $this->getTwig()->load('connexion.html.twig');
                     echo $template->render(array(
                     ));
             }

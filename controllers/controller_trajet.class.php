@@ -103,17 +103,25 @@ class ControllerTrajet extends Controller{
      */
     public function repondreOffre(){
         $nbPassager = $_SESSION["nombre_passagers"];
-        $numEtudiant = $_SESSION['CLIENT'];
+        if (!isset($_SESSION['CLIENT'])) {
+            $numEtudiant = 'etudNonConnecte';
+        }
+        else {
+            $numEtudiant = $_SESSION['CLIENT'];
+        }
+        
         // On récupère l'id du trajet
         $id = $_GET["id"];
         $managerTrajet = new TrajetDao($this->getPdo());
         $infoTrajet = $managerTrajet->findTrajet($id); 
         
-        $managerVoiture = new VoitureDao($this->getPdo());
-        $infoVoiture = $managerVoiture->find($infoTrajet->getNumeroConducteur());
         // Calcul de l'age
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $infoConducteur = $managerEtudiant->find($infoTrajet->getNumeroConducteur());
+
+        $managerVoiture = new VoitureDao($this->getPdo());
+        $infoVoiture = $managerVoiture->find($infoConducteur->getNumeroVoiture());
+
         $dateNaissance = $infoConducteur->getDateNaiss();
         $aujourdhui = date("Y-m-d");
         $diff = date_diff(date_create($dateNaissance), date_create($aujourdhui));
@@ -147,7 +155,8 @@ class ControllerTrajet extends Controller{
         $listeLieux = $managerLieu->findAllAssoc();
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $listeEtudiants = $managerEtudiant->findAllAssoc();
-        $twigparams = array('listeTrajets' => $listeTrajets, 'lieux' => $listeLieux, 'etudiants' => $listeEtudiants);
+        $listeNbReservation = $managerTrajet->findAllNbPlaceReserve();
+        $twigparams = array('listeTrajets' => $listeTrajets, 'lieux' => $listeLieux, 'etudiants' => $listeEtudiants, 'listeNbReservation' => $listeNbReservation, 'numEtudiant' => $numero_etudiant);
         if(isset($listeErreurs)){
             $twigparams['listeErreurs'] = $listeErreurs;
         }

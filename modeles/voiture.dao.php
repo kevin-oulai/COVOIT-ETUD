@@ -68,7 +68,6 @@ class VoitureDao {
         $pdoStatement->execute(array(":numero"=>$numero));
         $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Voiture');
         $voiture = $pdoStatement->fetch();
-
         return $voiture;
     }
 

@@ -115,12 +115,27 @@ function verifDateNaiss() {
     // Variables locales
     dateCourant = document.getElementsByName('dateNaiss')[0].value; // Date de naissance en cours de saisie
     champErreur = document.getElementsByName('erreurDateNaiss')[0];
-    messageErreur = 'La date de naissance doit être entre le 1er janvier 1950 et le 1er janvier 2006'; // Message d'erreur à afficher
-
-    // Vérification de la date de naissance
     dateNaiss = new Date(dateCourant);
     dateNaissMin = new Date('1950-01-01');
-    dateNaissMax = new Date('2006-01-01');
+
+        // Récupération de la date actuelle
+    dateActuelle = new Date();
+    anneeActuelle = dateActuelle.getFullYear();
+    moisActuel = dateActuelle.getMonth();
+    jourActuel = dateActuelle.getDate();
+    
+    dateNaissMax = new Date(anneeActuelle - 18, moisActuel, jourActuel); // Date de naissance maximale (18 ans)
+    if (moisActuel < 10) {
+        moisActuel = '0' + (moisActuel + 1);
+    }
+    
+    dateNaissMaxString = jourActuel + '/' + moisActuel + '/' + (anneeActuelle - 18).toString();
+    messageErreur = 'La date de naissance doit être entre le 01/01/1950 et le ' + dateNaissMaxString + '.';
+    console.log(messageErreur);
+    
+    console.log(dateNaiss);
+    console.log(dateNaissMaxString);
+    console.log(dateNaiss > dateNaissMax);
 
     // Vérification de la date de naissance
     if (dateNaiss < dateNaissMin || dateNaiss > dateNaissMax) {
