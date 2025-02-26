@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+@media (max-width: 1400px) {
+  #imageNomSite {
+    margin-left: 30% !important;
+  }
+}
 @media (max-width: 1300px) {
   #ecology {
     width: 50%;
@@ -14,8 +19,11 @@
   }
 }
 @media (max-width: 1199px) {
-  #avis {
-    width: 100%;
+  #carte {
+    width: 95% !important;
+  }
+  #imageNomSite {
+    margin-left: 25% !important;
   }
 }
 @media (min-width: 1150px) {
@@ -32,11 +40,11 @@
   #siteNameImage {
     display: none !important;
   }
-  #avis {
-    width: 100%;
-  }
   #ecology {
     display: none;
+  }
+  #infos {
+    width: 95% !important;
   }
   #btn-ajouter {
     display: flex !important;
@@ -50,14 +58,11 @@
     width: 100%;
     padding: 0;
   }
-  .formulaireFiltre {
-    width: 50% !important; /* largeur du rectangle */
-  }
   .input-group {
     display: flex !important;
     flex-direction: column !important;
     gap: 10px !important;
-    width: 130% !important;
+    width: 95% !important;
     margin-left: -20% !important;
   }
   .form-control {
@@ -12318,7 +12323,7 @@ body {
   border-width: 2px;
   left: 10%;
   top: 15px; /* distance depuis le haut de la page */
-  width: 30%; /* largeur du rectangle */
+  width: 250px; /* largeur du rectangle */
   height: 20%; /* hauteur initiale */
   background-color: #E2EAFC; /* couleur du rectangle */
   z-index: 1000; /* s'assure que le rectangle reste au-dessus des autres éléments */
