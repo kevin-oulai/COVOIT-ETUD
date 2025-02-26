@@ -18,16 +18,17 @@
                             <div class="btn-group">
                                 {% for lieu in lieux %}
                                     {% if lieu.numero == trajet.numero_lieu_depart %}
-                                        <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }} → </p>
+                                        <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
                                     {% endif %}
                                 {% endfor %}
+                            <p class="card-title fs-4 btn-group"> → </p>
                                 {% for lieu in lieux %}
                                     {% if lieu.numero == trajet.numero_lieu_arrivee %}
                                         <p class="card-title fs-4 btn-group">‎ {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
                                     {% endif %}
                                 {% endfor %}
                                 </div>
-                            <div class="input-group">
+                            <div class="btn-group">
                                 <p class="card-title fs-4 btn-group">{{ trajet.heureDep|date("H:i") }} - {{ trajet.heureArr|date("H:i") }}</p>
                             </div>
                         </div>
@@ -38,7 +39,7 @@
                             <div class="btn-group">
                                 <p class="card-text fs-5">Nombre de places : {{ trajet.nbPlace }}</p>
                             </div>
-                            <div class="input-group">
+                            <div class="btn-group">
                                 <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : {{ trajet.prix }} €</p>
                             </div>
                         </div>

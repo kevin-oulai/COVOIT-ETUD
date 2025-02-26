@@ -1,5 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
+    <h1 class="text-center mt-5 fs-1 fw-bold">Les trajets correspondants</h1>
     {% if infoFiltre != "aucunTrajet" %}
     <div class="formulaireFiltre">
         <form method="POST" action="?controleur=trajet&methode=lister">
@@ -15,7 +16,7 @@
                 />
                 <label for="prixBas">Prix le plus bas</label>
             </div>
-            <button style = "margin-left: 20px; margin-top: 20px;" type="submit" class = "mb-3">Appliquer</button>
+            <button style = "margin-left: 7%; margin-top: 1%;" type="submit" class = "mb-3 btn btn-primary">Appliquer</button>
         </form>
     </div>
     {% for trajet in listeTrajet %}
@@ -23,19 +24,11 @@
                 <div class="card-body ">
                     <div class="btn-toolbar justify-content-between">
                         <div class="btn-group">
-                                {% for lieu in listeLieu %}
-                                    {% if lieu.numero == trajet.numeroLieuDepart %}
-                                        <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }} → </p>
-                                    {% endif %}
-                                {% endfor %}
-
-                                {% for lieu in listeLieu %}
-                                    {% if lieu.numero == trajet.numeroLieuArrivee %}
-                                        <p class="card-title fs-4 btn-group"> {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
-                                    {% endif %}
-                                {% endfor %}
+                                <p class="card-title fs-4 btn-group">{{ trajet.numRueDep }} {{ trajet.nomRueDep }}, {{ trajet.villeDep }}</p>
+                                <p class="card-title fs-4 btn-group"> → </p>
+                                <p class="card-title fs-4 btn-group">{{ trajet.numRueArr }} {{ trajet.nomRueArr }}, {{ trajet.villeArr }}</p>
                             </div>
-                        <div class="input-group">
+                        <div class="btn-group">
                             <p class="card-title fs-4 btn-group">{{ trajet.heureDep|date("H:i") }} - {{ trajet.heureArr|date("H:i") }}</p>
                         </div>
                     </div>
@@ -48,7 +41,7 @@
                         <div class="btn-group">
                             <p class="card-text fs-5">{{ trajet.nbPlace }} places restantes</p>
                         </div>
-                        <div class="input-group">
+                        <div class="btn-group">
                         {% if nbPassager == 1 %}
                             <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : {{ trajet.prix }} €</p>
                         {% else %}
@@ -62,6 +55,7 @@
                 </div>
             </div>
             {% endfor %}
+        <br>
         {% endif %}
         {% if infoFiltre == "aucunTrajet" %}
         <div class="cardError card bg-gradient-secondary">

@@ -67,27 +67,52 @@
 </head>
 <body class="bg-gradient-primary d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-header-color shadow">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <a href="index.php"><img src = "images/transparent-logo.png" class = "col ms-3" width="60" height="72" class = "nav-item"></a>
-            <a href="index.php"><li class = "nav-item position-absolute top-50 start-50 translate-middle"><img src="images/websiteName.png" class = "col" id = "siteNameImage" style="max-width: 220px;" height="auto"></li></a>
-        </ul>
-    <div class="navbar-nav ms-auto">
+        <a class="navbar-brand" href="index.php">
+            <img src="images/transparent-logo.png" class="col ms-3" width="60" height="72">
+        </a>
+        <a class="navbar-brand" id="imageNomSite" href="index.php" style="margin-left:40%;">
+            <li class = "nav-item position-static" style="list-style-type: none; margin:auto;">
+                <img src="images/websiteName.png" class = "col" id = "siteNameImage" style="max-width: 220px;" height="auto">
+            </li>
+        </a>
         {% if CLIENT is defined %}
-            <a href="?controleur=trajet&methode=listerParticipations" class="nav-item me-4 mt-4">Mes réservations</a>
-            {% if CLIENT.numeroVoiture != Null %}
-                <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-item me-4 mt-4">Mes trajets</a>
-            {% endif %}
-            <p class="nav-item me-4 mt-4">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p>
-            <a href="index.php?controleur=etudiant&methode=afficher&id={{ CLIENT.numero }}" class="nav-item">
-                <img src="images/{{ CLIENT.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
-            </a>
-        {% else %}
-            <a href="?controleur=connexion&methode=afficher" class="link-body-emphasis link-offset-2 link-underline link-underline-opacity-0">
-                <p class="nav-item me-4 mt-4">Se connecter</p>
-            </a>
+        {# dropdown quand on arrive sous la barre des 950px#}
+        <div class="dropdown navbarDropDown ms-auto" style = "margin-right: 5%;">
+            <button type="button" class="btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end">
+                <li class="nav-item dropdown-item">
+                    <a href="?controleur=trajet&methode=listerParticipations" class="nav-link me-1 mt-2">Mes participations</a>
+                </li>
+                {% if CLIENT.numeroVoiture != Null %}
+                    <li class="nav-item dropdown-item">
+                        <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-link me-1 mt-2">Mes trajets</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item dropdown-item">
+                    <a href="?controleur=etudiant&methode=afficher&id={{ CLIENT.numero }}" class="nav-link me-1 mt-2">Profil</a>
+                </li>
+            </div>
+        </div> 
+        <div class="navbarNonDropDown navbar-nav ms-auto"> 
+            <a href="?controleur=trajet&methode=listerParticipations" class="nav-item me-4 mt-4">Mes participations</a> 
+            {% if CLIENT.numeroVoiture != Null %} 
+                <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-item me-4 mt-4">Mes trajets</a> 
+            {% endif %} 
+            <p class="nav-item me-4 mt-4">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p> 
+            <a href="index.php?controleur=etudiant&methode=afficher&id={{ CLIENT.numero }}" class="nav-item"> 
+                <img src="images/{{ CLIENT.photoProfil }}" width="70" height="70" style="border-radius: 100%;"> 
+            </a> 
+            {% else %} 
+            <a href="?controleur=connexion&methode=afficher" class="link-body-emphasis link-offset-2 link-underline link-underline-opacity-0 ms-auto"> 
+                <p class="nav-item me-4 mt-4">Se connecter</p> 
+            </a> 
+        </div> 
         {% endif %}
-    </div>
-</nav>
+    </nav>
 
 {% block content %}
 {% endblock %}
@@ -105,7 +130,8 @@
         </div>
         <div class="row mt-2">
             <div class="col">
-                <a class="link-primary link-offset-2 link-underline link-underline-opacity-0" href="credits.php">Crédits</a>
+                <a class="link-primary link-offset-2 link-underline link-underline-opacity-0" href="credits.php">Crédits</a><br>
+                <a class="link-primary link-offset-2 link-underline link-underline-opacity-0" href="politique_conf.php">Politique de confidentialité</a>
             </div>
         </div>
     </footer>
@@ -115,5 +141,8 @@
         tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
         (tarteaucitron.job = tarteaucitron.job || []).push('gtag');
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

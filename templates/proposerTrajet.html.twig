@@ -3,10 +3,10 @@
 {% if CLIENT is defined %}
 
 
-    <h1 class="fs-1 text-center mt-5">Enregistrer un trajet</h1>
+    <h1 class="text-center mt-5 fs-1 fw-bold">Enregistrer un trajet</h1>
     <main class="d-flex justify-content-center align-items-center mt-3">
         <div class="" style="width: 350px;">
-            <form action="index.php?controleur=trajet&methode=enregistrer&action=enregistrer" method="post" class="me-3">
+            <form action="index.php?controleur=trajet&methode=enregistrer&action=enregistrer" method="post" class="me-3 ms-1 me-1">
                 <div class="mt-5 row form-part-1">
                     <label>Lieu de départ</label><input id="lieuDepart" name="lieuDepart" type="text" onkeyup="verifierAdresse('lieuDepart')" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
                     <p class="fst-italic lieuDepartMessageErreur" style="color:red;"></p>
