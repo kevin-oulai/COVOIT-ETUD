@@ -2,14 +2,35 @@
 {% block content %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Back Office</h1>
     <div class="container mt-5 text-center">
-    <div>
-        <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <button onclick="openTrajet(0)" name = "btnTrajet" class = "btnTrajet btn btn-primary" >Trajets à venir</button>
-            </li>
-            <li class="nav-item" style = "margin-left: 20px;">
-                <button onclick="openTrajet(1)" name = "btnTrajet" class = "btnTrajet btn btn-outline-primary">Trajets passés</button>
-            </li>
-        </ul>
+        <div>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <button onclick="openBackOffice(0)" name = "btnBackOffice" class = "btnBackOffice btn btn-primary" >Badges</button>
+                </li>
+                <li class="nav-item" style = "margin-left: 20px;">
+                    <button onclick="openBackOffice(1)" name = "btnBackOffice" class = "btnBackOffice btn btn-outline-primary">Gestion utilisateurs</button>
+                </li>
+                <li class="nav-item" style = "margin-left: 20px;">
+                    <button onclick="openBackOffice(2)" name = "btnBackOffice" class = "btnBackOffice btn btn-outline-primary">Sauvegarde/Restauration</button>
+                </li>
+            </ul>
+        </div>
+        <div class = "backOffice">
+            <div class = "tab-content" style = "display: block;">
+                <p>test</p>
+            </div>
+            <div class = "tab-content">
+                <p>test 2</p>
+            </div>
+            <div class = "tab-content">
+                <p>test 3</p>
+            </div>
+        </div>
     </div>
+
+    <div class="text-center mt-5">
+        <a href="index.php" class="btn btn-danger">Retour</a>
+    </div>
+
+    <script src="scripts/script_backOffice.js"></script>
 {% endblock %}

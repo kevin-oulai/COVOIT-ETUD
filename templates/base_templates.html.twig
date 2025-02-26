@@ -85,6 +85,9 @@
             </button>
             <div class="dropdown-menu dropdown-menu-end">
                 <li class="nav-item dropdown-item">
+                    <a href="?controleur=backOffice&methode=afficher" class="nav-link me-1 mt-2">Back Office</a>
+                </li>
+                <li class="nav-item dropdown-item">
                     <a href="?controleur=trajet&methode=listerParticipations" class="nav-link me-1 mt-2">Mes participations</a>
                 </li>
                 {% if CLIENT.numeroVoiture != Null %}
@@ -98,6 +101,7 @@
             </div>
         </div> 
         <div class="navbarNonDropDown navbar-nav ms-auto"> 
+            <a href="?controleur=backOffice&methode=afficher" class="nav-item me-4 mt-4">Back Office</a>
             <a href="?controleur=trajet&methode=listerParticipations" class="nav-item me-4 mt-4">Mes participations</a> 
             {% if CLIENT.numeroVoiture != Null %} 
                 <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-item me-4 mt-4">Mes trajets</a> 
