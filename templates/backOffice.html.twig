@@ -1,0 +1,15 @@
+{% extends "base_templates.html.twig" %}
+{% block content %}
+    <h1 class="text-center mt-5 fs-1 fw-bold">Back Office</h1>
+    <div class="container mt-5 text-center">
+    <div>
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <button onclick="openTrajet(0)" name = "btnTrajet" class = "btnTrajet btn btn-primary" >Trajets à venir</button>
+            </li>
+            <li class="nav-item" style = "margin-left: 20px;">
+                <button onclick="openTrajet(1)" name = "btnTrajet" class = "btnTrajet btn btn-outline-primary">Trajets passés</button>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
