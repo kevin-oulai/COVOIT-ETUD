@@ -1,0 +1,27 @@
+{% extends 'base_templates.html.twig' %}
+{% block content %}
+
+    <h1>Page descriptive des badges !</h1>
+
+    <div class="container">
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="images/Thibault.jpg" alt="photoThibault">
+                    <div class="card-body">
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-primary">View</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary">Edit</button>
+                            </div>
+                            <small class="text-body-secondary">9 mins</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -15,6 +15,7 @@ require_once 'controllers/controller_inscription.class.php';
 require_once 'controllers/controller_factory.class.php';
 require_once 'controllers/controller_paiement.class.php';
 require_once 'controllers/controller_connexion.class.php';
+require_once 'controllers/controller_badge.class.php';
 
 //Ajout des modeles
 require_once 'modeles/avis.class.php';
