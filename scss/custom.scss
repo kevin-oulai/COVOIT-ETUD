@@ -75,9 +75,6 @@ $gradients: map-merge((
   #ecology {
     width: 50%;
   }
-  .cardError {
-    margin-left: 25% !important;
-  }
 }
 @media (max-width: 1199px) {
   #carte {
@@ -113,7 +110,6 @@ $gradients: map-merge((
   }
   .cardError {
     width: 80% !important;
-    margin-left: 10% !important;
   }
   .form-container {
     width: 100%;
@@ -267,8 +263,8 @@ padding-right: ($spacer * 2.5);}
 
 .cardError{
   width: 500px;
-  margin-left: 700px;
-  margin-top: 100px;
+  align-self: center;
+  margin-top: 5%;
 }
 .card .btn-secondary{
   transition: all 0.1s ease-in-out;
