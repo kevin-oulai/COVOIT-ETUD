@@ -1,9 +1,7 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Informations complémentaires</h1>
-	{% for trajet in infoTrajet %}
 	<div class="container">
-		
 		<div class="row row-cols-1 g-4">
 			{# Informations du trajet #}
 			<div class="col d-flex justify-content-center mt-xl">
@@ -27,25 +25,34 @@
 						</div>
 						<div class="col text-end">
 							<h4><B>Informations de la voiture</B></h4>
-							<h5>{{trajet.marque}}</h5>
-							<h5>{{trajet.modele}}</h5>
-							<h5>{{trajet.nbPlace}} places libres</h5>
+							<h5>{{infoVoiture.marque}}</h5>
+							<h5>{{infoVoiture.modele}}</h5>
+							<h5>{{infoVoiture.nbPlace}} places libres</h5>
 						</div>
                     </div>
 					<hr>
 					<div class="row">
 						<div class="row">
 							<div class="col text-center">
-								<h4 class="card-text"><B>Heure de départ</B></h4>
-								<h5>{{trajet.heureDep|date("H:i")}}</h5>
-								<h4 class="card-text"><B>Heure d'arrivée</B></h4>
-								<h5>{{trajet.heureArr|date("H:i")}}</h5>
+								<h3 class="card-text">Heure de départ</h3>
+								<h2>{{infoTrajet.heureDep|date("H:i")}}</h2>
+								<h3 class="card-text">Heure d'arrivée</h3>
+								<h2>{{infoTrajet.heureArr|date("H:i")}}</h2>
 							</div>
 							<div class="col text-center">
-								<h4 class="card-text"><B>Lieu de départ</B></h4>
-								<h5>{{trajet.numRueDep}} {{trajet.nomRueDep}} {{trajet.villeDep}}</h5>
-								<h4 class="card-text"><B>Lieu de d'arrivée</B></h4>
-								<h5>{{trajet.numRueArr}} {{trajet.nomRueArr}} {{trajet.villeArr}}</h5>
+								<h4 class="card-text">Lieu de départ</h4>
+								{% for lieu in listeLieu %}
+									{% if lieu.numero == infoTrajet.numeroLieuDepart %}
+										<h3>{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</h3>
+									{% endif %}
+								{% endfor %}
+
+								<h4 class="card-text">Lieu de d'arrivée</h4>
+								{% for lieu in listeLieu %}
+									{% if lieu.numero == infoTrajet.numeroLieuArrivee %}
+										<h3>{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</h3>
+									{% endif %}
+								{% endfor %}
 							</div>
 						</div>
 					</div>

@@ -24,9 +24,17 @@
                 <div class="card-body ">
                     <div class="btn-toolbar justify-content-between">
                         <div class="btn-group">
-                                <p class="card-title fs-4 btn-group">{{ trajet.numRueDep }} {{ trajet.nomRueDep }}, {{ trajet.villeDep }}</p>
-                                <p class="card-title fs-4 btn-group"> → </p>
-                                <p class="card-title fs-4 btn-group">{{ trajet.numRueArr }} {{ trajet.nomRueArr }}, {{ trajet.villeArr }}</p>
+                                {% for lieu in listeLieu %}
+                                    {% if lieu.numero == trajet.numeroLieuDepart %}
+                                        <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }} → </p>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% for lieu in listeLieu %}
+                                    {% if lieu.numero == trajet.numeroLieuArrivee %}
+                                        <p class="card-title fs-4 btn-group"> {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         <div class="btn-group">
                             <p class="card-title fs-4 btn-group">{{ trajet.heureDep|date("H:i") }} - {{ trajet.heureArr|date("H:i") }}</p>
