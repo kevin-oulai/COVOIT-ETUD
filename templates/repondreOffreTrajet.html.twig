@@ -2,7 +2,6 @@
 {% block content %}
 	<div class="container">		
 		<div class="row row-cols-1 g-4">
-        	
 			{# Informations du trajet #}
 			<div class="col d-flex justify-content-center mt-xl">
 				<div class="card bg-gradient-secondary" style="width: 60rem">
@@ -12,6 +11,7 @@
 							<h5>{{infoConducteur.nom }} {{infoConducteur.prenom}}</h5>
 							<h5>{{age}} ans</h5>
 							<img src="images/{{ infoTrajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
+							<p>{{ infoConducteur.expiration_token }}</p>
 						</div>
 						<div class="col">
 							<h3 class="col text-center">Information du trajet :</h3>

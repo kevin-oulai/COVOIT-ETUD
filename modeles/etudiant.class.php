@@ -60,6 +60,11 @@ class Etudiant {
      * @var string|null
      */
     private string|null $photoProfil;
+    /**
+     * @brief Temps restant avant la fin de la validité du token
+     * @var string|null
+     */
+    private string|null $expiration_token;
 
     //constructeur
     /**
@@ -73,8 +78,9 @@ class Etudiant {
      * @param string|null $numTelephone Numéro de téléphone de l'étudiant.
      * @param integer|null $numero_voiture Numéro de la voiture de l'étudiant.
      * @param string|null $photoProfil Chemin d'acces de la photo de profil de l'étudiant
+     * @param string|null $expiration_token Temps restant avant la fin de la validité du token
      */
-    public function __construct(?int $numero=null, ?string $nom = null, ?string $prenom = null, ?string $dateNaiss = null, ?string $adresseMail = null, ?string $numTelephone = null, ?int $numero_voiture = null, ?string $photoProfil = null) {
+    public function __construct(?int $numero=null, ?string $nom = null, ?string $prenom = null, ?string $dateNaiss = null, ?string $adresseMail = null, ?string $numTelephone = null, ?int $numero_voiture = null, ?string $photoProfil = null, ?string $expirationToken = null) {
         $this->numero = $numero;
         $this->nom = $nom;
         $this->prenom = $prenom;
@@ -83,6 +89,7 @@ class Etudiant {
         $this->numTelephone = $numTelephone;
         $this->numero_voiture = $numero_voiture;
         $this->photoProfil = $photoProfil;
+        $this->expiration_token = $expirationToken;
     }
 
     //getters & setters
@@ -238,6 +245,26 @@ class Etudiant {
         $this->photoProfil = $photoProfil;
     }
     /**
+     * @brief
+     * @return string|null
+     */
+    public function getExpirationToken(): ?string
+    {
+        return $this->expiration_token;
+    }
+
+    /**
+     * @brief Assigne un temps d'expiration au token
+     * @param string|null $expirationToken
+     * @return void
+     */
+    public function setExpirationToken(?int $expirationToken): void
+    {
+        $this->expiration_token = $expirationToken;
+    }
+
+
+    /**
      * @brief Génère un token de reinitialisation
      *
      * @return string
@@ -300,4 +327,22 @@ class Etudiant {
         }
         return false;
     }
+
+    function validerToken(?array &$listeErreurs): bool{
+        $expiration = strtotime($this->getExpirationToken());
+        if ($expiration < time()) {
+            $listeErreurs[] = 'le token a expiré';
+            return false;
+        }
+        return true;
+    }
+
+    function MAJMotDePasse(?string $mdp): void{
+        $baseDeDonnees = BD::getInstance();
+        $pdo = $baseDeDonnees->getConnexion();
+
+        $managerEtudiant = new EtudiantDao($pdo);
+        $managerEtudiant->updateMdp($this->getNumero(), $mdp);
+    }
+
 }
