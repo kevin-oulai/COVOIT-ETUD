@@ -25,15 +25,15 @@ class ControllerTrajet extends Controller{
     public function lister(){
         $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
         if ($criteria === '') {
-                $depart = $_POST['depart'];
-                $_SESSION["depart"]=$depart;
-                $arrivee = $_POST['arrivee'];
-                $_SESSION["arrivee"]=$arrivee;
-                $date = $_POST['date'];
-                $_SESSION["date"]=$date;
-                $nbPassager = $_POST['nombre_passagers'];
-                $_SESSION["nombre_passagers"]=$nbPassager;
-            }
+            $depart = $_POST['depart'];
+            $_SESSION["depart"]=$depart;
+            $arrivee = $_POST['arrivee'];
+            $_SESSION["arrivee"]=$arrivee;
+            $date = $_POST['date'];
+            $_SESSION["date"]=$date;
+            $nbPassager = $_POST['nombre_passagers'];
+            $_SESSION["nombre_passagers"]=$nbPassager;
+        }
         $managerLieu = new LieuDao($this->getPdo());
         $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
         $numTrajet2 = $managerLieu->findNumByVille($_SESSION["arrivee"]);

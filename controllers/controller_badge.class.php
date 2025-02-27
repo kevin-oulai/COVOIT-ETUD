@@ -27,7 +27,12 @@ class ControllerBadge extends Controller {
      * @brief Affiche la page descriptive des badges
      */
     public function afficher() {
+        $managerBadge = new BadgeDao($this->getPdo());
+        $listeBadges = $managerBadge->getAll();
         $template = $this->getTwig()->load('descriptionBadges.html.twig');
-        echo $template->render();
+        var_dump($listeBadges);
+        echo $template->render(array(
+            'listeBadges'=>$listeBadges,
+        ));
     }
 }

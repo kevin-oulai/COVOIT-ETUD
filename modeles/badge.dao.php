@@ -103,4 +103,15 @@ class BadgeDao{
         }
         return $badges;
     }
+
+    public function getAll(): array {
+        $requete = "SELECT * FROM BADGE";
+        $pdoStatement = $this->PDO->prepare($requete);
+        $pdoStatement->execute();
+
+        $tableau = $pdoStatement->fetchAll();
+        $listeBadges = $this->hydrateAll($tableau);
+
+        return $listeBadges;
+    }
 }
