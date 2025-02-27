@@ -6,6 +6,15 @@
 * @brief   Classe ControllerConnexion s'occupe de gérer l'ouverture des vues concernant la page de connexion
 *     
 */
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+require 'vendor/phpmailer/PHPMailer/src/Exception.php';
+require 'vendor/phpmailer/PHPMailer/src/PHPMailer.php';
+require 'vendor/phpmailer/PHPMailer/src/SMTP.php';
+
 class ControllerConnexion extends Controller{
     /**
      * @brief Permet de créer l'instance du controller
@@ -221,8 +230,23 @@ class ControllerConnexion extends Controller{
                 $headers .= 'From: <covoit-etud@gmail.com>' . "\r\n";
 
                 // Envoi de l'email
-                echo ($to . " " . $subject . " " . $message . " " . $headers ."\n");
-                mail($to, $subject, $message, $headers);
+//                mail($to, $subject, $message, $headers);
+                $mail = new PHPMailer(true);
+
+                //Recipients
+                $mail->setFrom('covoit-etud@gmail.com', 'COVOIT-ETUD');
+                $mail->addAddress($to);
+
+                //Content
+                $mail->Subject = $subject;
+                $mail->Body    = $message;
+
+                if(!$mail->send()) {
+                    echo 'Message could not be sent.';
+                    echo 'Mailer Error: ' . $mail->ErrorInfo;
+                } else {
+                    echo 'Message has been sent';
+                }
 
                 //echo "<div id=sentModalTrigger></div>";
 
@@ -230,7 +254,7 @@ class ControllerConnexion extends Controller{
             catch (Exception $e)
             {
                 // Gestion des erreurs (par exemple, utilisateur introuvable)
-                $listeErreurs[] = $e->getMessage();
+                echo $mail->ErrorInfo;
             }
             if(!empty($listeErreurs)){
                 echo "<div class=\"modal fade\" id=errorModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true style=\"backdrop-filter: blur(2px)\">
