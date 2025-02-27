@@ -46,7 +46,7 @@
                             <div class="row gx-5">
                                 <div class="col-6" id = "carte">
                                     <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
-                                        <div class="card bg-gradient-primaire">
+                                        <div class="card bg-gradient-primaire" >
                                             <div class="card-body">
                                                 {% if CLIENT.numeroVoiture != Null %}
                                                     <B>Nom :</B> {{voiture.modele}}<br>
@@ -77,48 +77,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6" id = "carte">
+                                <div class="col-6"  id = "carte">
                                     <div class="p-3"><h4 class=" text-center">Avis donné(s)</h4>
-                                        <div class="card bg-gradient-primaire">
+                                        <div class="card bg-gradient-primaire height: 100%;">
                                             <div class="card-body avis">
                                             {% if listeAvisDonnes is defined %}
-                                                {% set firstItem = listeAvisDonnes|first %}
-                                                    {% if firstItem %}
-                                                        <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
-                                                            <div class="row gx-5 card-body">
-                                                                <div class="col-5" id = "infos">
-                                                                    <B>Le</B> {{firstItem.datePost|date("d/m/Y H:i")}}<br>
-                                                                    <B>Pour le conducteur :</B><br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
-                                                                    <B>Note :</B> {{firstItem.note}}
-                                                                </div>
-                                                                <div class="col-7" id = "infos">
-                                                                    <B>Message :</B> {{firstItem.message}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     {% set listeDonnes = listeAvisDonnes|length %}
-                                                        {% if listeDonnes > 1 %}
-                                                        <div class="more-avis-donnes" style="display: none;">
+                                                        <div class="scroll">
+                                                        <div class="more-avis-donnes" style="display: block;">
                                                             {% for avisDonnes in listeAvisDonnes|slice(1) %}
-                                                                <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
+                                                                <div class="card bg-gradient-secondaire" style="margin: 2px;">
                                                                     <div class="row gx-5 card-body">
-                                                                        <div class="col-5" id = "infos">
+                                                                        <div id = "infos">
                                                                             <B>Le</B> {{ avisDonnes.datePost|date("d/m/Y H:i") }}<br>
-                                                                            <B>Pour le conducteur :</B><br>{{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
-                                                                            <B>Note :</B> {{ avisDonnes.note }}
+                                                                            <B>Pour le conducteur :</B>{{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
+                                                                            <B>Note :</B> {{ avisDonnes.note }}<br>
+																			<B>Message :</B> {{ avisDonnes.message }}
                                                                         </div>
-                                                                        <div class="col-7" id = "infos">
-                                                                            <B>Message :</B> {{ avisDonnes.message }}
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             {% endfor %}
-                                                        </div>
-                                                            <div class=" text-center">
-                                                                <button type="button" class="btn btn-secondary read-more-avis-donnes-btn" onclick="toggleAvisDonnes()">Voir plus</button>
-                                                            </div>
-                                                        {% endif %}
-                                                    {% endif %}
+                                                    </div>
                                             {% else %}
                                                 <h6 class=" text-center">Vous n'avez pas donné d'avis.</h6>
                                             {% endif %}
@@ -128,46 +108,26 @@
                                 </div>
                                 <div class="col-6" id = "carte">
                                     <div class="p-3"><h4 class=" text-center">Avis reçu(s)</h4>
-                                        <div class="card bg-gradient-primaire">
-                                            <div class="card-body">
+                                        <div class="card bg-gradient-primaire height: 100%">
+                                            <div class="card-body avis">
                                             {% if listeAvisReçus is defined %}
-                                                {% set firstItem = listeAvisReçus|first %}
-                                                    {% if firstItem %}
-                                                        <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
-                                                            <div class="row gx-5 card-body">
-                                                                <div class="col-5" id = "infos">
-                                                                    <B>Le</B> {{firstItem.datePost|date("d/m/Y H:i")}}<br>
-                                                                    <B>Par le passager :</B><br>{{firstItem.nomEtudiant}} {{firstItem.prenomEtudiant}}<br>
-                                                                    <B>Note :</B> {{firstItem.note}}
-                                                                </div>
-                                                                <div class="col-7" id = "infos">
-                                                                    <B>Message :</B> {{firstItem.message}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     {% set listeReçus = listeAvisReçus|length %}
-                                                        {% if listeReçus > 1 %}
-                                                        <div class="more-avis-reçus" style="display: none;">
+                                                    <div class="scroll">
+                                                    <div class="more-avis-donnes" style="display: block;">
                                                             {% for avisReçus in listeAvisReçus|slice(1) %}
-                                                                <div class="card bg-gradient-secondaire" style="margin-bottom: 2%;">
+                                                                <div class="card bg-gradient-secondaire" style="margin: 2%; ">
                                                                     <div class="row gx-5 card-body">
-                                                                        <div class="col-5" id = "infos">
+                                                                        <div class="" id = "infos">
                                                                             <B>Le</B> {{ avisReçus.datePost|date("d/m/Y H:i") }}<br>
-                                                                            <B>Par le passager :</B><br>{{ avisReçus.nomEtudiant }} {{ avisReçus.prenomEtudiant }}<br>
-                                                                            <B>Note :</B> {{ avisReçus.note }}
-                                                                        </div>
-                                                                        <div class="col-7" id = "infos">
+                                                                            <B>Par le passager :</B>{{ avisReçus.nomEtudiant }} {{ avisReçus.prenomEtudiant }}<br>
+                                                                            <B>Note :</B> {{ avisReçus.note }}<br>
                                                                             <B>Message :</B> {{ avisReçus.message }}
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             {% endfor %}
+														</div>
                                                         </div>
-                                                        <div class=" text-center">
-                                                            <button type="button" class="btn btn-secondary read-more-avis-reçus-btn" onclick="toggleAvisReçus()">Voir plus</button>
-                                                        </div>
-                                                        {% endif %}
-                                                    {% endif %}
                                             {% else %}
                                                 <h6 class=" text-center">Vous n'avez pas reçu d'avis.</h6>
                                             {% endif %}

@@ -480,3 +480,9 @@ padding-right: ($spacer * 2.5);}
   z-index: 1050;    /* Assurez-vous que le bouton est au-dessus du contenu */
   margin-left: 100px;
 }
+
+.scroll {
+  overflow-x: hidden;
+  overflow-y:scroll;
+  height: 500px;
+}

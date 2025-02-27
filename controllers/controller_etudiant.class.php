@@ -31,6 +31,7 @@ class ControllerEtudiant extends Controller{
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $etudiant = $managerEtudiant->find($num_etudiant);
         $twig_params = array('etudiant' => $etudiant);
+        // var_dump($_SESSION);
 
         if($managerEtudiant->possedeBadge($num_etudiant)) { // Verifier si l'étudiant possède des badges
             $managerBadge = new BadgeDao($this->getPdo());
