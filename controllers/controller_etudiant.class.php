@@ -27,6 +27,7 @@ class ControllerEtudiant extends Controller{
      * @return void
      */
     public function afficher(){
+        $this->verifierConnexion();
         $num_etudiant = $_GET['id'];
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $etudiant = $managerEtudiant->find($num_etudiant);

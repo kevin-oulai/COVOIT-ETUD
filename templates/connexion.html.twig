@@ -1,6 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if STATUS == 'connected' %}
+    {% if CLIENT is defined %}
 	{# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
 	<script>
 		window.location.href = "index.php";

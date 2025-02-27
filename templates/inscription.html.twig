@@ -1,6 +1,11 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-
+    {% if CLIENT is defined %}
+	{# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
+<script>
+	window.location.href = "index.php";
+</script>
+{% else %}
 
 	<!-- JS Bootstrap et jQuery -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

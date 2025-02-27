@@ -26,6 +26,7 @@ class ControllerPaiement extends Controller
 
     public function afficher()
     {
+        $this->verifierConnexion();
         $formulaireRempli = (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["num_carte"]) && isset($_POST["date_exp"]) && isset($_POST["cvc"]));
         $idTrajet = $_GET["idTrajet"];
 
