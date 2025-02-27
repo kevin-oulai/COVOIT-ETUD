@@ -1,8 +1,15 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if CLIENT is defined %}
-
-
+    {% if not CLIENT is defined %}
+        {# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
+        <script>
+            window.location.href = "index.php";
+        </script>
+    {% elseif not CLIENT.voiture is defined %}
+        <script>
+            window.location.href = "index.php";
+        </script>
+    {% else %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Enregistrer un trajet</h1>
     <main class="d-flex justify-content-center align-items-center mt-3">
         <div class="" style="width: 350px;">
@@ -267,7 +274,5 @@
             return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
         }
     </script>
-{% else %}
-    <meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">
 {% endif %}
 {% endblock %}

@@ -1,6 +1,11 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if CLIENT is defined %}
+    {% if not CLIENT is defined %}
+        {# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
+    <script>
+        window.location.href = "index.php";
+    </script>
+{% else %}
 <h1 class="text-center mt-5 fs-1 fw-bold">Profil</h1>
 <div class="container">
     <div class="login-container align-right">
@@ -337,7 +342,5 @@
     }
     {% endif %}
 </script>
-{% else %}
-    <meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">
 {% endif %}
 {% endblock %}
