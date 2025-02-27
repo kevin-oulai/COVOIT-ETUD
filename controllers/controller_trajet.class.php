@@ -146,7 +146,7 @@ class ControllerTrajet extends Controller{
      *
      * @return void
      */
-    public function listerParticipations(){
+    public function listerReservations(){
         $this->verifierConnexion();
         $numero_etudiant = $_SESSION["CLIENT"]->getNumero();
         $managerTrajet = new TrajetDao($this->getPdo());
@@ -190,7 +190,7 @@ class ControllerTrajet extends Controller{
                                         echo "</ul>
                                     </div>
                                     <div class=modal-footer>
-                                        <button type=button class='btn btn-primary' onclick=\"location = 'index.php?controleur=trajet&methode=listerParticipations';\">OK</button>
+                                        <button type=button class='btn btn-primary' onclick=\"location = 'index.php?controleur=trajet&methode=listerReservations';\">OK</button>
                                     </div>
                                 </div>
                             </div>
