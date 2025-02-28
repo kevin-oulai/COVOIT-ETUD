@@ -56,6 +56,41 @@ class BadgeDao{
 
     // Méthodes
     /**
+     * @brief Permet de trouver un badge en fonction de son numéro
+     *
+     * @param int $numero
+     * @return Badge|null
+     */
+    public function findBadge(int $numero): ?Badge
+    {
+        $sql="SELECT * FROM BADGE B WHERE numero= :numero";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":numero"=>$numero));
+        $pdoStatement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Badge');
+        $badge = $pdoStatement->fetch();
+
+        return $badge;
+    }
+
+    /**
+     * @brief Permet de trouver tous les badges
+     *
+     * @param int|null $numero
+     * @return array
+     */
+    public function findAllBadge(): array
+    {
+        $requete = "SELECT * from BADGE B";
+        $pdoStatement = $this->PDO->prepare($requete);
+        $pdoStatement->execute();
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $pdoStatement->fetchAll();
+        $listeAvisCommentateur = $this->hydrateAll($tableau);
+        return $listeAvisCommentateur;
+    }
+
+    // Méthodes
+    /**
      * @brief Permet de trouver un badge en fonction du numéro de l'étudiant
      *
      * @param int $numeroEtudiant
@@ -102,5 +137,15 @@ class BadgeDao{
             $badges[] = $badge;
         }
         return $badges;
+    }
+
+    public function insert($titre, $image, $description): void {
+        $query = $this->PDO->prepare("INSERT INTO Badge(titre, image, description) VALUES (:titre, :image, :description)");
+
+        $query->bindParam(':titre', $titre);
+        $query->bindParam(':image', $image);
+        $query->bindParam(':description', $description);
+        
+        $query->execute();
     }
 }
