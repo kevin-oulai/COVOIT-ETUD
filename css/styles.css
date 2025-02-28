@@ -12690,4 +12690,9 @@ body {
   filter: invert(1) grayscale(100);
 }
 
+.carousel-catalogue {
+  margin: auto;
+  padding: 10px;
+}
+
 /*# sourceMappingURL=styles.css.map */
