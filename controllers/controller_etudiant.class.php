@@ -43,7 +43,7 @@ class ControllerEtudiant extends Controller{
         if($_SESSION['CLIENT']->getNumeroVoiture() != null) { // Verifier si l'étudiant est un conducteur
             $managerNbTrajet = new EtudiantDao($this->getPdo());
             $nbTrajet = $managerNbTrajet->findNbTrajets($num_etudiant);
-            $voiture = $managerVoiture->findMonEtudiant($num_etudiant);
+            $voiture = $managerVoiture->findByEtudiant($num_etudiant);
             $twig_params['nbTrajet'] = $nbTrajet;
             $twig_params['voiture'] = $voiture;
         }
