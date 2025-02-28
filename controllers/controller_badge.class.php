@@ -30,7 +30,6 @@ class ControllerBadge extends Controller {
         $managerBadge = new BadgeDao($this->getPdo());
         $listeBadges = $managerBadge->getAll();
         $template = $this->getTwig()->load('descriptionBadges.html.twig');
-        var_dump($listeBadges);
         echo $template->render(array(
             'listeBadges'=>$listeBadges,
         ));
