@@ -64,6 +64,15 @@
             </div>
         {% endfor %}
         <br>
+    {# Gestion des pages #}
+    <div class="container text-center" style="width: {{nbPages*75}}px">
+        <div class="row row-cols-{{nbPages}}">
+        {% for i in range(1, nbPages) %}
+            <div class="col"><a href="index.php?controleur=trajet&methode=lister&boutonPage={{i}}" class="btn btn-primary">{{i}}</a></div>
+        {% endfor %}
+        </div>
+    </div>
+        
     {% endif %}
     {% if infoFiltre == "aucunTrajet" %}
     <div class="cardError card bg-gradient-secondary">
