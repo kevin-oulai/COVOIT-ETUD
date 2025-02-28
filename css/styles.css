@@ -12472,9 +12472,23 @@ body {
 }
 
 .scroll {
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow: auto;
   height: 500px;
+}
+
+.scroll .card-body {
+  width: 100%;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 7px;
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #0f8dd6;
+  border-radius: 10%;
 }
 
 /*# sourceMappingURL=styles.css.map */
