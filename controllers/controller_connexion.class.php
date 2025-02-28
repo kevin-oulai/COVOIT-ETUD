@@ -7,14 +7,6 @@
 *     
 */
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
-
-require 'vendor/phpmailer/PHPMailer/src/Exception.php';
-require 'vendor/phpmailer/PHPMailer/src/PHPMailer.php';
-require 'vendor/phpmailer/PHPMailer/src/SMTP.php';
-
 class ControllerConnexion extends Controller{
     /**
      * @brief Permet de créer l'instance du controller
@@ -231,22 +223,12 @@ class ControllerConnexion extends Controller{
 
                 // Envoi de l'email
 //                mail($to, $subject, $message, $headers);
-                $mail = new PHPMailer(true);
-
+               
                 //Recipients
-                $mail->setFrom('covoit-etud@gmail.com', 'COVOIT-ETUD');
-                $mail->addAddress($to);
+                
 
                 //Content
-                $mail->Subject = $subject;
-                $mail->Body    = $message;
 
-                if(!$mail->send()) {
-                    echo 'Message could not be sent.';
-                    echo 'Mailer Error: ' . $mail->ErrorInfo;
-                } else {
-                    echo 'Message has been sent';
-                }
 
                 //echo "<div id=sentModalTrigger></div>";
 
