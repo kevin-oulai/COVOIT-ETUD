@@ -883,7 +883,7 @@ function validationDateDep($dateDep, &$messagesErreur)
  * @param array $messageErreurs
  * @return bool
  */
-function verifierTitre(?string $titre, array &$messagesErreurs)
+function validerTitre(?string $titre, array &$messagesErreurs)
 {
     $valide = true;
     // 1. Champs obligatoires : vérifier la présence du champ

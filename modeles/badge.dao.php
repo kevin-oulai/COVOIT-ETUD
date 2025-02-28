@@ -139,13 +139,40 @@ class BadgeDao{
         return $badges;
     }
 
-    public function insert($titre, $image, $description): void {
-        $query = $this->PDO->prepare("INSERT INTO Badge(titre, image, description) VALUES (:titre, :image, :description)");
+    public function insert(string $titre, string $image, string $description): void {
+        $query = $this->PDO->prepare("INSERT INTO BADGE(titre, image, description) VALUES (:titre, :image, :description)");
 
         $query->bindParam(':titre', $titre);
         $query->bindParam(':image', $image);
         $query->bindParam(':description', $description);
         
         $query->execute();
+    }
+
+    /**
+     * @brief permet de modifier un badge
+     *
+     * @param integer|null $numero
+     * @param string|null $titre
+     * @param string|null $description
+     * @param string|null $image
+     * @return void
+     */
+    public function update(?int $numero = null, ?string $titre = null,?string $description = null,?string $image = null){
+        $query = $this->PDO->prepare("UPDATE BADGE SET titre = :titre, description = :description, image = :image WHERE numero = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->bindParam(':titre', $titre);
+        $query->bindParam(':description', $description);
+        $query->bindParam(':image', $image);
+        $query->execute();
+    }
+
+    public function delete(int $numero): void {
+        $query1 = $this->PDO->prepare("DELETE FROM OBTENIR WHERE numero_badge= :numero");
+        $query1->bindParam(":numero",$numero);
+        $query1->execute();
+        $query2 = $this->PDO->prepare("DELETE FROM BADGE WHERE numero= :numero");
+        $query2->bindParam(":numero",$numero);
+        $query2->execute();
     }
 }

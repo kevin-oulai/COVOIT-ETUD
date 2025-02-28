@@ -228,3 +228,37 @@ function verifCVC() {
         champErreur.innerHTML = '';
     }
 }
+
+function verifTitre() {
+    // Variables locales
+    titreCourant = document.getElementsByName('titre')[0].value; // Titre en cours de saisie
+    champErreur = document.getElementsByName('erreurTitre')[0];
+    messageErreur = 'Le titre doit contenir au moins 2 caractères'; // Message d'erreur à afficher
+
+    // Vérification de la longueur du titre
+    if (titreCourant.length < 2 && titreCourant != '') {
+        // Affichage du message d'erreur
+        champErreur.innerHTML = messageErreur;
+
+    } else if (titreCourant.length >= 2 || titreCourant == '') {
+        // Suppression du message d'erreur
+        champErreur.innerHTML = '';
+    }
+}
+
+function verifDescription() {
+    // Variables locales
+    descriptionCourante = document.getElementsByName('description')[0].value; // Description en cours de saisie
+    champErreur = document.getElementsByName('erreurDescription')[0];
+    messageErreur = 'La description doit contenir au moins 2 caractères'; // Message d'erreur à afficher
+
+    // Vérification de la longueur de la description
+    if (descriptionCourante.length < 2 && descriptionCourante != '') {
+        // Affichage du message d'erreur
+        champErreur.innerHTML = messageErreur;
+
+    } else if (descriptionCourante.length >= 2 || descriptionCourante == '') {
+        // Suppression du message d'erreur
+        champErreur.innerHTML = '';
+    }
+}

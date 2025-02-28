@@ -28,18 +28,45 @@ class ControllerBackOffice extends Controller{
      */
     public function afficher(){
         $managerBadge = new BadgeDao($this->getPdo());
+        $numero = $_GET['id'];
+        $badge = $managerBadge->findBadge($numero);
         $listeBadge = $managerBadge->findAllBadge();
+        $twigparams = array('badges' => $listeBadge);
+        if(isset($listeErreurs)){
+            $twigparams['listeErreurs'] = $listeErreurs;
+        }
         $template = $this->getTwig()->load('backOffice.html.twig');
-        echo $template->render(array(
-            'badges' => $listeBadge
-        ));
+        echo $template->render($twigparams);
 
         if(isset($_GET['action'])){
             if($_GET['action'] == "ajouter"){
-                $listeErreurs = [];
-                if(validerTitre($_POST['titre'],$listeErreurs) && validerImage($_POST['image'], $listeErreurs) && validerDescription($_POST['description'], $listeErreurs)) {
+                $messagesErreurs = [];
+                if(isset($_POST["titre"]) && isset($_POST["description"])) {
                     $managerBadge = new BadgeDao($this->getPdo());
-                    $managerBadge->insert($_POST['titre'], $_POST['image'], $_POST['description']);
+                    $prenomValide = validerTitre($_POST["titre"], $messagesErreurs);
+                    $nomValide = validerDescription($_POST["description"], $messagesErreurs);
+                    $imageValide = validerUploadEtPdp($_FILES["image"], $messagesErreurs);
+
+                    if(!empty($messagesErreurs)) {
+                        $template = $this->getTwig()->load('inscription.html.twig');
+        
+                        echo $template->render(array(
+                            'erreurs'=> $messagesErreurs,
+                        ));
+                    
+                    } else {
+                            $dir = "images/assets"; // Nom du dossier contenant les photos
+                            $name = "etoile-icon.png";
+                            if (is_uploaded_file($_FILES["image"]["tmp_name"]) && !exists($_POST["image"])) {
+                                $name = $_POST["image"] . ".png";
+                                move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$name");
+                            }
+                            $managerEtudiant->insert($_POST["titre"], $name, $_POST["description"]);
+        
+                            $template = $this->getTwig()->load('connexion.html.twig');
+                            echo $template->render(array(
+                            ));
+                    }
                     echo "<div id=modalTrigger></div>";
                 }
                 else{
@@ -65,6 +92,41 @@ class ControllerBackOffice extends Controller{
                         <div id=errorModalTrigger></div>";
                                             
                 }
+            }
+            elseif ($_GET['action'] == "modifier") {
+                $messagesErreurs = [];
+
+                validerTitre($_POST['titre'], $messagesErreurs);
+                validerDescription($_POST['description'], $messagesErreurs);
+
+                if (!is_uploaded_file($_FILES["image"]["tmp_name"])) {
+                    $nomPhoto = $badge->getImage();
+                }
+                else {
+                    validerUploadEtPdp($_FILES["image"], $messagesErreurs);
+                    $image = $_FILES["image"]["tmp_name"];
+
+                    if (empty($messagesErreurs)) {
+                        $dir = "images/assets"; // Nom du dossier contenant les photos
+                        $nomPhoto = $_POST['image'] . ".png";
+                        move_uploaded_file($image, "$dir/$nomPhoto");
+                    }
+                }
+
+                if (!empty($messagesErreurs)) {
+                    $template = $this->getTwig()->load('backOffice.html.twig');
+                    
+                    $twig_params['erreurs'] = $messagesErreurs;
+                    $twig_params['badges'] = $listeBadge;
+
+                } else {
+                    $managerBadge->update($numero, $_POST['titre'], $_POST['description'], $nomPhoto);
+                    echo "<div id=modalTriggerModif></div>";
+                }
+            }
+            elseif ($_GET['action'] == "supprimer") {
+                $managerBadge->delete($_GET['id']);
+                echo "<div id=modalTriggerSuppr></div>";
             }
         }
     }
