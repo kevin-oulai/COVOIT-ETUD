@@ -28,8 +28,6 @@ class ControllerBackOffice extends Controller{
      */
     public function afficher(){
         $managerBadge = new BadgeDao($this->getPdo());
-        $numero = $_GET['id'];
-        $badge = $managerBadge->findBadge($numero);
         $listeBadge = $managerBadge->findAllBadge();
         $twigparams = array('badges' => $listeBadge);
         if(isset($listeErreurs)){
@@ -41,11 +39,13 @@ class ControllerBackOffice extends Controller{
         if(isset($_GET['action'])){
             if($_GET['action'] == "ajouter"){
                 $messagesErreurs = [];
-                if(isset($_POST["titre"]) && isset($_POST["description"])) {
+                if(isset($_POST["titre"]) && isset($_POST["description"]) && isset($_POST["categorie"]) && isset($_POST["rang"])) {
                     $managerBadge = new BadgeDao($this->getPdo());
-                    $prenomValide = validerTitre($_POST["titre"], $messagesErreurs);
-                    $nomValide = validerDescription($_POST["description"], $messagesErreurs);
+                    $titreValide = validerTitre($_POST["titre"], $messagesErreurs);
+                    $descriptionValide = validerDescription($_POST["description"], $messagesErreurs);
                     $imageValide = validerUploadEtPdp($_FILES["image"], $messagesErreurs);
+                    $categorieValide = validerCategorie($_POST["categorie"], $messagesErreurs);
+                    $rangValide = validerRang($_POST["rang"], $messagesErreurs);
 
                     if(!empty($messagesErreurs)) {
                         $template = $this->getTwig()->load('inscription.html.twig');
@@ -94,6 +94,9 @@ class ControllerBackOffice extends Controller{
                 }
             }
             elseif ($_GET['action'] == "modifier") {
+                $numero = $_GET['id'];
+                var_dump($numero);
+                $badge = $managerBadge->findBadge($numero);
                 $messagesErreurs = [];
 
                 validerTitre($_POST['titre'], $messagesErreurs);
@@ -108,7 +111,7 @@ class ControllerBackOffice extends Controller{
 
                     if (empty($messagesErreurs)) {
                         $dir = "images/assets"; // Nom du dossier contenant les photos
-                        $nomPhoto = $_POST['image'] . ".png";
+                        $nomPhoto = $_FILES['image']["name"];
                         move_uploaded_file($image, "$dir/$nomPhoto");
                     }
                 }
@@ -125,7 +128,10 @@ class ControllerBackOffice extends Controller{
                 }
             }
             elseif ($_GET['action'] == "supprimer") {
-                $managerBadge->delete($_GET['id']);
+                $numero = $_GET['id'];
+                var_dump($numero);
+                $badge = $managerBadge->findBadge($numero);
+                $managerBadge->delete($numero);
                 echo "<div id=modalTriggerSuppr></div>";
             }
         }

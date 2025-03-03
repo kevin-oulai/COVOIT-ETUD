@@ -262,3 +262,37 @@ function verifDescription() {
         champErreur.innerHTML = '';
     }
 }
+
+function verifCategorie() {
+    // Variables locales
+    categorieCourant = document.getElementsByName('categorie')[0].value; // Categorie en cours de saisie
+    champErreur = document.getElementsByName('erreurCategorie')[0];
+    messageErreur = 'La categorie doit contenir au moins 2 caractères'; // Message d'erreur à afficher
+
+    // Vérification de la longueur de la categorie
+    if (categorieCourant.length < 2 && categorieCourant != '') {
+        // Affichage du message d'erreur
+        champErreur.innerHTML = messageErreur;
+
+    } else if (categorieCourant.length >= 2 || categorieCourant == '') {
+        // Suppression du message d'erreur
+        champErreur.innerHTML = '';
+    }
+}
+
+function verifRang() {
+    // Variables locales
+    rangCourant = document.getElementsByName('rang')[0].value; // Rang en cours de saisie
+    champErreur = document.getElementsByName('erreurRang')[0];
+    messageErreur = 'Le rang doit contenir 3 chiffres'; // Message d'erreur à afficher
+
+    // Vérification de la longueur du rang
+    if (rangCourant.length != 3 && rangCourant != '') {
+        // Affichage du message d'erreur
+        champErreur.innerHTML = messageErreur;
+
+    } else if (rangCourant.length == 3 || rangCourant == '') {
+        // Suppression du message d'erreur
+        champErreur.innerHTML = '';
+    }
+}

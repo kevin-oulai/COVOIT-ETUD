@@ -63,7 +63,21 @@
                                             <div class="btn-group">
                                                 <label class="fw-bold">Image
                                                     <input name="image" class="form-control" type="file" accept="image/*" onchange="verifPdp();"></label>
-                                                <div name="erreurImage" class="messageErreur"></div>
+                                                <div name="erreurPhoto" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Categorie
+                                                    <input name="categorie" class="form-control" type="text" onchange="verifCategorie();"></label>
+                                                <div name="erreurCategorie" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Rang
+                                                    <input name="rang" class="form-control" type="number" onchange="verifRang();"></label>
+                                                <div name="erreurRang" class="messageErreur"></div>
                                             </div>
                                         </p>
                                             {% if erreurs != null %}
@@ -113,7 +127,21 @@
                                             <div class="btn-group">
                                                 <label class="fw-bold">Description
                                                     <input name="description" class="form-control" type="textarea" value="{{ badge.description }}" onchange="verifDescription();"></label>
-                                                <div name="erreurImage" class="messageErreur"></div>
+                                                <div name="erreurDescription" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Categorie
+                                                    <input name="categorie" class="form-control" type="text" value="{{ badge.categorie }}" onchange="verifCategorie();"></label>
+                                                <div name="erreurCategorie" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Rang
+                                                    <input name="rang" class="form-control" type="number" value="{{ badge.rang }}" onchange="verifRang();"></label>
+                                                <div name="erreurRang" class="messageErreur"></div>
                                             </div>
                                         </p>
                                             {% if erreurs != null %}
@@ -147,7 +175,7 @@
                                 </div>
                                 <div class='modal-footer'>
                                     <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
-                                    <button onclick=window.location.href='index.php?controleur=backOffice&methode=afficher&action=supprimer&id={{ badge.numero }}'; class='btn btn-danger'><i class='bi bi-trash-fill'></i>Confirmer</button>
+                                    <button onclick=window.location.href='index.php?controleur=backOffice&methode=afficher&{#action=supprimer&#}id={{ badge.numero }}'; class='btn btn-danger' id="confirmDelete"><i class='bi bi-trash-fill'></i>Confirmer</button>
                                 </div>
                             </div>
                         </div>
@@ -168,11 +196,11 @@
         <a href="index.php" class="btn btn-danger">Retour</a>
     </div>
 
-    <div class="modal fade" id="myModalModif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content bg-gradient-primary border-2">
                 <div class="modal-body">
-                    Le badge {{ badge.titre }} a bien été modifié.
+                    Le badge a bien été posté.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
@@ -181,11 +209,11 @@
         </div>
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+    <div class="modal fade" id="myModalModif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content bg-gradient-primary border-2">
                 <div class="modal-body">
-                    Le badge a bien été posté.
+                    Le badge {{ badge.titre }} a bien été modifié.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
@@ -226,6 +254,14 @@
                 $('#myModalModif').modal('show');
             }
         });
+    
+        $(function () {
+            $('#myModalSuppr').modal({show: true, backdrop: 'static'});
+            if ($('#modalTriggerSuppr').length) {
+                $('#myModalSuppr').modal('show');
+            }
+        });
+
 
     {% if erreurs != null %}
     window.onload = function () {
