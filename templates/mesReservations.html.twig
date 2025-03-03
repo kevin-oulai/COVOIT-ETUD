@@ -3,227 +3,227 @@
 {% if CLIENT is defined %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Mes réservations</h1>
     <div class="container mt-5 text-center">
-    <div>
-        <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <button onclick="openTrajet(0)" name = "btnTrajet" class = "btnTrajet btn btn-primary" >Trajets à venir</button>
-            </li>
-            <li class="nav-item" style = "margin-left: 20px;">
-                <button onclick="openTrajet(1)" name = "btnTrajet" class = "btnTrajet btn btn-outline-primary">Trajets passés</button>
-            </li>
-        </ul>
-    </div>
-    <div class = "infoTrajets">
-        <div class = "tab-content" style = "display: block;">
-            {% for trajet in listeTrajets %}
-                {% if "now"|date("Y-m-d") < trajet.dateDep %}
-                <div class="card mt-3 bg-gradient-secondary hover shadow">
-                    <div class="card-body">
-                        <div class="btn-toolbar justify-content-between right">
-                            <div class="btn-group">
-                                {% for etudiant in etudiants %}
-                                    {% if etudiant.numero == trajet.numeroConducteur %}
-                                        <a class="text-decoration-none" href="index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}">
-                                        <img class="pdp-sm" src="images/{{ etudiant.photoProfil }}">
-                                        <p class="card-title fs-5 btn-group ms-2 mt-2" style="color: black;">{{ etudiant.prenom }} {{ etudiant.nom }}</p>
-                                        </a>
-                                    {% endif %}
-                                {% endfor %}
+        <div>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <button onclick="openTrajet(0)" name = "btnTrajet" class = "btnTrajet btn btn-primary" >Trajets à venir</button>
+                </li>
+                <li class="nav-item" style = "margin-left: 20px;">
+                    <button onclick="openTrajet(1)" name = "btnTrajet" class = "btnTrajet btn btn-outline-primary">Trajets passés</button>
+                </li>
+            </ul>
+        </div>
+        <div class = "infoTrajets">
+            <div class = "tab-content" style = "display: block;">
+                {% for trajet in listeTrajets %}
+                    {% if "now"|date("Y-m-d") < trajet.dateDep %}
+                    <div class="card mt-3 bg-gradient-secondary hover shadow">
+                        <div class="card-body">
+                            <div class="btn-toolbar justify-content-between right">
+                                <div class="btn-group">
+                                    {% for etudiant in etudiants %}
+                                        {% if etudiant.numero == trajet.numeroConducteur %}
+                                            <a class="text-decoration-none" href="index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}">
+                                            <img class="pdp-sm" src="images/{{ etudiant.photoProfil }}">
+                                            <p class="card-title fs-5 btn-group ms-2 mt-2" style="color: black;">{{ etudiant.prenom }} {{ etudiant.nom }}</p>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="btn-toolbar justify-content-between">
-                            <div class="btn-group">
-                                {% for lieu in lieux %}
-                                    {% if lieu.numero == trajet.numeroLieuDepart %}
-                                        <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}  </p>
-                                    {% endif %}
-                                {% endfor %}
-                                <p class="card-title fs-4 btn-group"> → </p>
-                                {% for lieu in lieux %}
-                                    {% if lieu.numero == trajet.numeroLieuArrivee %}
-                                        <p class="card-title fs-4 btn-group">‎ {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
-                                    {% endif %}
-                                {% endfor %}
+                            <hr>
+                            <div class="btn-toolbar justify-content-between">
+                                <div class="btn-group">
+                                    {% for lieu in lieux %}
+                                        {% if lieu.numero == trajet.numeroLieuDepart %}
+                                            <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}  </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <p class="card-title fs-4 btn-group"> → </p>
+                                    {% for lieu in lieux %}
+                                        {% if lieu.numero == trajet.numeroLieuArrivee %}
+                                            <p class="card-title fs-4 btn-group">‎ {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="btn-group">
+                                    <p class="card-title fs-4 btn-group">{{ trajet.heureDep|date("H:i") }} - {{ trajet.heureArr|date("H:i") }}</p>
+                                </div>
                             </div>
-                            <div class="btn-group">
-                                <p class="card-title fs-4 btn-group">{{ trajet.heureDep|date("H:i") }} - {{ trajet.heureArr|date("H:i") }}</p>
-                            </div>
-                        </div>
 
-                        <div class="text-end">
-                            <p> le {{ trajet.dateDep|date("d/m/Y") }}</p>
-                        </div>
+                            <div class="text-end">
+                                <p> le {{ trajet.dateDep|date("d/m/Y") }}</p>
+                            </div>
 
-                        <div class="btn-toolbar justify-content-between mt-5">
-                            <div class="btn-group">
-                                {% for nbReservation in listeNbReservation %}
-                                    {% if nbReservation.numero_trajet == trajet.numero and nbReservation.numero_passager == numEtudiant %}
-                                        <p class="card-text fs-5">Nombre de places reservées: {{ nbReservation.nbPlaceReserve }}</p>
-                                    {% endif %}
-                                {% endfor %}
+                            <div class="btn-toolbar justify-content-between mt-5">
+                                <div class="btn-group">
+                                    {% for nbReservation in listeNbReservation %}
+                                        {% if nbReservation.numero_trajet == trajet.numero and nbReservation.numero_passager == numEtudiant %}
+                                            <p class="card-text fs-5">Nombre de places reservées: {{ nbReservation.nbPlaceReserve }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="btn-group">
+                                    {% for nbReservation in listeNbReservation %}
+                                        {% if nbReservation.numero_trajet == trajet.numero and nbReservation.numero_passager == numEtudiant %}
+                                            <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : {{ nbReservation.nbPlaceReserve * trajet.prix }} €</p>
+                                            
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="btn-group">
-                                {% for nbReservation in listeNbReservation %}
-                                    {% if nbReservation.numero_trajet == trajet.numero and nbReservation.numero_passager == numEtudiant %}
-                                        <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : {{ nbReservation.nbPlaceReserve * trajet.prix }} €</p>
-                                        
-                                    {% endif %}
-                                {% endfor %}
+                        </div>
+                        {% if "now"|date("Y-m-d") > trajet.dateDep %}
+                        <div class="card-footer text-align-right">
+                            <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'>Laisser un avis</button>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                <!-- Fenetre modale avis -->
+                <div class='modal fade' id='fAvis_{{ trajet.numero }}' tabindex='-1' aria-labelledby='Avis' aria-hidden='true'>
+                    <div class='modal-dialog modal-dialog-centered modal-lg'>
+                        <div class='modal-content bg-gradient-primary border-2'>
+                            <div class='modal-header'>
+                                <h1 class='modal-title fs-5' id='fAvisLabel_{{ trajet.numero }}'>Laisser un avis sur le conducteur</h1>
+                                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
                             </div>
+                            <form action="index.php?controleur=trajet&methode=listerParticipations&action=poster&id={{ trajet.numero }}" method="post" novalidate>
+                                <div class='modal-body'>
+                                    <p class="fw-semibold text-align-left badge bg-gradient-dark text-wrap">
+                                        Attention, l'avis sera laissé sur la page du conducteur.
+                                    </p>
+
+                                    <select class="form-select form-select-sm width" name="note" aria-label="Laisser une note" required>
+                                        <option selected>Laisser une note</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <textarea class="form-control mt-3 " placeholder="Laisser un commentaire..." name="message" rows="10"></textarea>
+                                </div>
+                                <div class='modal-footer'>
+                                    <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Annuler</button>
+                                    <input type="submit" class='btn btn-secondary' value="Poster l'avis">
+                                </div>
+                            </form>
                         </div>
                     </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+            <div class = "tab-content">
+                {% for trajet in listeTrajets %}
                     {% if "now"|date("Y-m-d") > trajet.dateDep %}
-                    <div class="card-footer text-align-right">
-                        <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'>Laisser un avis</button>
-                    </div>
-                    {% endif %}
-                </div>
+                    <div class="card mt-3 bg-gradient-secondary hover shadow">
+                        <div class="card-body">
+                            <div class="btn-toolbar justify-content-between right">
+                                <div class="btn-group">
+                                    {% for etudiant in etudiants %}
+                                        {% if etudiant.numero == trajet.numeroConducteur %}
+                                            <a class="text-decoration-none" href="index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}">
+                                            <img class="pdp-sm" src="images/{{ etudiant.photoProfil }}">
+                                            <p class="card-title fs-5 btn-group ms-2 mt-2" style="color: black;">{{ etudiant.prenom }} {{ etudiant.nom }}</p>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="btn-toolbar justify-content-between">
+                                <div class="btn-group">
+                                    {% for lieu in lieux %}
+                                        {% if lieu.numero == trajet.numeroLieuDepart %}
+                                            <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }} </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <p class="card-title fs-4 btn-group"> → </p>
+                                    {% for lieu in lieux %}
+                                        {% if lieu.numero == trajet.numeroLieuArrivee %}
+                                            <p class="card-title fs-4 btn-group">‎ {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="btn-group">
+                                    <p class="card-title fs-4 btn-group">{{ trajet.heureDep|date("H:i") }} - {{ trajet.heureArr|date("H:i") }}</p>
+                                </div>
+                            </div>
 
-            <!-- Fenetre modale avis -->
-            <div class='modal fade' id='fAvis_{{ trajet.numero }}' tabindex='-1' aria-labelledby='Avis' aria-hidden='true'>
-                <div class='modal-dialog modal-dialog-centered modal-lg'>
-                    <div class='modal-content bg-gradient-primary border-2'>
-                        <div class='modal-header'>
-                            <h1 class='modal-title fs-5' id='fAvisLabel_{{ trajet.numero }}'>Laisser un avis sur le conducteur</h1>
-                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
+                            <div class="text-end">
+                                <p> le {{ trajet.dateDep|date("d/m/Y") }}</p>
+                            </div>
+
+                            <div class="btn-toolbar justify-content-between mt-5">
+                                <div class="btn-group">
+                                    {% for nbReservation in listeNbReservation %}
+                                        {% if nbReservation.numero_trajet == trajet.numero and nbReservation.numero_passager == numEtudiant %}
+                                            <p class="card-text fs-5">Nombre de places reservées: {{ nbReservation.nbPlaceReserve }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="btn-group">
+                                    {% for nbReservation in listeNbReservation %}
+                                        {% if nbReservation.numero_trajet == trajet.numero and nbReservation.numero_passager == numEtudiant %}
+                                            <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : {{ nbReservation.nbPlaceReserve * trajet.prix }} €</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
-                        <form action="index.php?controleur=trajet&methode=listerParticipations&action=poster&id={{ trajet.numero }}" method="post" novalidate>
-                            <div class='modal-body'>
-                                <p class="fw-semibold text-align-left badge bg-gradient-dark text-wrap">
-                                    Attention, l'avis sera laissé sur la page du conducteur.
-                                </p>
+                        <div class="card-footer text-align-right">
+                            <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'{% if "now"|date("Y-m-d") < trajet.dateDep %} disabled {% endif %}>Laisser un avis</button>
+                        </div>
+                        
+                    </div>
 
-                                <select class="form-select form-select-sm width" name="note" aria-label="Laisser une note" required>
-                                    <option selected>Laisser une note</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                                <textarea class="form-control mt-3 " placeholder="Laisser un commentaire..." name="message" rows="10"></textarea>
+                <!-- Fenetre modale avis -->
+                <div class='modal fade' id='fAvis_{{ trajet.numero }}' tabindex='-1' aria-labelledby='Avis' aria-hidden='true'>
+                    <div class='modal-dialog modal-dialog-centered modal-lg'>
+                        <div class='modal-content bg-gradient-primary border-2'>
+                            <div class='modal-header'>
+                                <h1 class='modal-title fs-5' id='fAvisLabel_{{ trajet.numero }}'>Laisser un avis sur le conducteur</h1>
+                                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
                             </div>
-                            <div class='modal-footer'>
-                                <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Annuler</button>
-                                <input type="submit" class='btn btn-secondary' value="Poster l'avis">
-                            </div>
-                        </form>
+                            <form action="index.php?controleur=trajet&methode=listerParticipations&action=poster&id={{ trajet.numero }}" method="post" novalidate>
+                                <div class='modal-body'>
+                                    <p class="fw-semibold text-align-left badge bg-gradient-dark text-wrap">
+                                        Attention, l'avis sera laissé sur la page du conducteur.
+                                    </p>
+
+                                    <select class="form-select form-select-sm width" name="note" aria-label="Laisser une note" required>
+                                        <option selected>Laisser une note</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <textarea class="form-control mt-3 " placeholder="Laisser un commentaire..." name="message" rows="10"></textarea>
+                                </div>
+                                <div class='modal-footer'>
+                                    <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Annuler</button>
+                                    <input type="submit" class='btn btn-secondary' value="Poster l'avis">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+                {% endif %}
+            {% endfor %}
             </div>
-            {% endif %}
-        {% endfor %}
         </div>
-        <div class = "tab-content">
-            {% for trajet in listeTrajets %}
-                {% if "now"|date("Y-m-d") > trajet.dateDep %}
-                <div class="card mt-3 bg-gradient-secondary hover shadow">
-                    <div class="card-body">
-                        <div class="btn-toolbar justify-content-between right">
-                            <div class="btn-group">
-                                {% for etudiant in etudiants %}
-                                    {% if etudiant.numero == trajet.numeroConducteur %}
-                                        <a class="text-decoration-none" href="index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}">
-                                        <img class="pdp-sm" src="images/{{ etudiant.photoProfil }}">
-                                        <p class="card-title fs-5 btn-group ms-2 mt-2" style="color: black;">{{ etudiant.prenom }} {{ etudiant.nom }}</p>
-                                        </a>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="btn-toolbar justify-content-between">
-                            <div class="btn-group">
-                                {% for lieu in lieux %}
-                                    {% if lieu.numero == trajet.numeroLieuDepart %}
-                                        <p class="card-title fs-4 btn-group">{{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }} </p>
-                                    {% endif %}
-                                {% endfor %}
-                                <p class="card-title fs-4 btn-group"> → </p>
-                                {% for lieu in lieux %}
-                                    {% if lieu.numero == trajet.numeroLieuArrivee %}
-                                        <p class="card-title fs-4 btn-group">‎ {{ lieu.numRue }} {{ lieu.nomRue }}, {{ lieu.ville }}</p>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div class="btn-group">
-                                <p class="card-title fs-4 btn-group">{{ trajet.heureDep|date("H:i") }} - {{ trajet.heureArr|date("H:i") }}</p>
-                            </div>
-                        </div>
-
-                        <div class="text-end">
-                            <p> le {{ trajet.dateDep|date("d/m/Y") }}</p>
-                        </div>
-
-                        <div class="btn-toolbar justify-content-between mt-5">
-                            <div class="btn-group">
-                                {% for nbReservation in listeNbReservation %}
-                                    {% if nbReservation.numero_trajet == trajet.numero and nbReservation.numero_passager == numEtudiant %}
-                                        <p class="card-text fs-5">Nombre de places reservées: {{ nbReservation.nbPlaceReserve }}</p>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div class="btn-group">
-                                {% for nbReservation in listeNbReservation %}
-                                    {% if nbReservation.numero_trajet == trajet.numero and nbReservation.numero_passager == numEtudiant %}
-                                        <p class="card-text fs-5 badge bg-gradient-dark text-wrap">Prix : {{ nbReservation.nbPlaceReserve * trajet.prix }} €</p>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-align-right">
-                        <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'{% if "now"|date("Y-m-d") < trajet.dateDep %} disabled {% endif %}>Laisser un avis</button>
-                    </div>
-                    
-                </div>
-
-            <!-- Fenetre modale avis -->
-            <div class='modal fade' id='fAvis_{{ trajet.numero }}' tabindex='-1' aria-labelledby='Avis' aria-hidden='true'>
-                <div class='modal-dialog modal-dialog-centered modal-lg'>
-                    <div class='modal-content bg-gradient-primary border-2'>
-                        <div class='modal-header'>
-                            <h1 class='modal-title fs-5' id='fAvisLabel_{{ trajet.numero }}'>Laisser un avis sur le conducteur</h1>
-                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
-                        </div>
-                        <form action="index.php?controleur=trajet&methode=listerParticipations&action=poster&id={{ trajet.numero }}" method="post" novalidate>
-                            <div class='modal-body'>
-                                <p class="fw-semibold text-align-left badge bg-gradient-dark text-wrap">
-                                    Attention, l'avis sera laissé sur la page du conducteur.
-                                </p>
-
-                                <select class="form-select form-select-sm width" name="note" aria-label="Laisser une note" required>
-                                    <option selected>Laisser une note</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                                <textarea class="form-control mt-3 " placeholder="Laisser un commentaire..." name="message" rows="10"></textarea>
-                            </div>
-                            <div class='modal-footer'>
-                                <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Annuler</button>
-                                <input type="submit" class='btn btn-secondary' value="Poster l'avis">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-        {% endfor %}
-        </div>
-    </div>
     
 
+        <div class="text-end mt-5">
+            <a href="index.php" class="btn btn-danger">Retour</a>
+        </div>
         
     </div>
 
 
-    <div class="text-center mt-5">
-        <a href="index.php" class="btn btn-danger">Retour</a>
-    </div>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
         <div class="modal-dialog modal-dialog-centered" role="document">

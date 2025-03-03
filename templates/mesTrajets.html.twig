@@ -3,9 +3,6 @@
 {% if CLIENT is defined %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Vos trajets</h1>
     <div class="container mt-5 text-center">
-        <div class="container mb-5">
-            <button class="btn btn-primary" onclick="location.href='index.php?controleur=trajet&methode=enregistrer'">Ajouter un trajet</button>
-        </div>
         {% if listeTrajets is empty %}
             <div>
                 <p>Vous n'avez pas publié de trajet</p>
@@ -177,12 +174,13 @@
                 </div>
             {% endfor %}
         {% endif %}
+
+        <div class="text-end mt-5">
+            <button class="btn btn-primary" onclick="location.href='index.php?controleur=trajet&methode=enregistrer'">Ajouter un trajet</button>
+            <a href="index.php" class="btn btn-danger">Retour</a>
+        </div>
     </div>
 
-
-    <div class="text-center mt-5">
-        <a href="index.php" class="btn btn-danger">Retour</a>
-    </div>
 
     <div class="modal fade" id="myModalSuppr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
         <div class="modal-dialog modal-dialog-centered" role="document">
