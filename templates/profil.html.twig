@@ -7,6 +7,12 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item" style="background-color: rgba(0,0,0,0);">
                 <div class ="text-end">
+                        {% if CLIENT.numero == etudiant.numero %}
+                        <div class ="text-end">
+                                <button class="btn btn-primary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
+                                <button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
+                        </div>
+                        {% endif %}
             </li>
                 </div>
             <form action="index.php?controleur=etudiant&methode=afficher">
@@ -131,12 +137,6 @@
                                 </div>
                             </div>
                         </div>
-                        {% if CLIENT.numero == etudiant.numero %}
-                        <div class ="text-end">
-                                <button class="btn btn-primary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
-                                <button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
             </form>
