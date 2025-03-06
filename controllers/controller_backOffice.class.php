@@ -28,8 +28,21 @@ class ControllerBackOffice extends Controller{
      */
     public function afficher(){
         $managerBadge = new BadgeDao($this->getPdo());
+        $managerEtudiant = new EtudiantDao($this->getPdo());
+        $listeEtudiant = $managerEtudiant->findAllAssoc();
         $listeBadge = $managerBadge->findAllBadge();
-        $twigparams = array('badges' => $listeBadge);
+        // Récupération des fichiers de backup
+        $files = array_filter(scandir('./data/backup/'), function ($file) {
+            return $file !== '.' && $file !== '..' && str_starts_with($file, "backup");
+        });
+
+        // Vérification si une restauration a été demandée
+        $message = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selectionBackup'])) {
+            $message = $this->restaurerBackup($_POST['selectionBackup']);
+        }
+
+        $twigparams = array('badges' => $listeBadge, 'etudiants' => $listeEtudiant, 'files' => $files, 'message' => $message);
         if(isset($listeErreurs)){
             $twigparams['listeErreurs'] = $listeErreurs;
         }
@@ -136,4 +149,30 @@ class ControllerBackOffice extends Controller{
             }
         }
     }
+
+    private function restaurerBackup($filename) {
+        $path = "./data/backup/";
+        $file = fopen($path . $filename, 'r');
+
+        if (!$file) {
+            return "Erreur : impossible d'ouvrir le fichier.";
+        }
+
+        while (!feof($file)) {
+            $query = trim(fgets($file, 255));
+            while (!str_ends_with($query, ";")) {
+                $query .= trim(fgets($file, 255));
+            }
+            try {
+                $stmt = $this->pdo->prepare($query);
+                $stmt->execute();
+            } catch (Exception $e) {
+                fclose($file);
+                return "Erreur lors de la restauration : " . $e->getMessage();
+            }
+        }
+        fclose($file);
+        return "La base de données a été restaurée avec succès.";
+    }
+
 }

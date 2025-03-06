@@ -20,7 +20,7 @@
                 <button class="btn btn-primary" data-bs-toggle='modal' data-bs-target='#fBadge'>Ajouter un badge</button>
                 <div class="row gap-4" style="justify-content: center;">
                 {% for badge in badges %}
-                    <div class="card mt-3 bg-gradient-secondary shadow carteBadge" style="justify-self: center;">
+                    <div class="card mt-3 bg-gradient-secondary shadow carteBadge col-2" style="justify-self: center;">
                         <div class="card-body">
                             <div class="justify-content-between">
                                 <div>
@@ -180,59 +180,86 @@
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                    {% endfor %}
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content bg-gradient-primary border-2">
+                                <div class="modal-body">
+                                    Le badge a bien été posté.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="myModalModif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content bg-gradient-primary border-2">
+                                <div class="modal-body">
+                                    Le badge {{ badge.titre }} a bien été modifié.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="myModalSuppr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content bg-gradient-primary border-2">
+                                <div class="modal-body">
+                                    Le badge a bien été supprimé.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            </div>
+
+
             <div class = "tab-content">
-                <p>test 2</p>
+                <div class="row gap-3" style="justify-content: center;">
+                    {% for etudiant in etudiants %}
+                        <div class="card mt-3 bg-gradient-secondary shadow carteBadge col-2" style="justify-self: center;">
+                            <div class="card-body">
+                                <p>{{ etudiant.nom }} {{ etudiant.prenom }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
+
+
             <div class = "tab-content">
-                <p>test 3</p>
+                <div class="mt-5">
+                <form action="index.php?controleur=backOffice&methode=afficher&action=recover" method="post">
+                <label for="selectionBackup">Choisir un fichier de backup :</label>
+                <select name="selectionBackup" id="selectionBackup">
+                    {% for file in files %}
+                        <option value="{{ file }}">{{ file }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+                <input class="btn btn-primary" type="submit" value="Démarrer la backup">
+                </div>
+            </form>
+
+            {% if message %}
+                <p class="alert alert-info">{{ message }}</p>
+            {% endif %}
             </div>
         </div>
     </div>
 
     <div class="text-center mt-5">
         <a href="index.php" class="btn btn-danger">Retour</a>
-    </div>
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content bg-gradient-primary border-2">
-                <div class="modal-body">
-                    Le badge a bien été posté.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="myModalModif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content bg-gradient-primary border-2">
-                <div class="modal-body">
-                    Le badge {{ badge.titre }} a bien été modifié.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="myModalSuppr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content bg-gradient-primary border-2">
-                <div class="modal-body">
-                    Le badge a bien été supprimé.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="scripts/script_backOffice.js"></script>

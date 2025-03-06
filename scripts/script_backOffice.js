@@ -24,7 +24,7 @@ function openBackOffice(x) {
         btns[2].classList.add("btn");
         btns[2].classList.add("btn-outline-primary"); 
     }
-    else {
+    else if(x==2){
         btns[0].classList.add("btn");
         btns[0].classList.add("btn-outline-primary"); 
         btns[1].classList.add("btn");
