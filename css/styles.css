@@ -12288,10 +12288,6 @@ body {
   scale: 1.05;
 }
 
-.modal {
-  backdrop-filter: blur(1px);
-}
-
 .listeTrajet2 {
   display: inline-block;
   margin-left: 200px;

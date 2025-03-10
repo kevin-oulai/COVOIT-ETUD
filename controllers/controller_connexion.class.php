@@ -6,6 +6,7 @@
 * @brief   Classe ControllerConnexion s'occupe de gérer l'ouverture des vues concernant la page de connexion
 *     
 */
+
 class ControllerConnexion extends Controller{
     /**
      * @brief Permet de créer l'instance du controller
@@ -16,11 +17,13 @@ class ControllerConnexion extends Controller{
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
         parent::__construct($twig, $loader);
     }
+
     /**
      * @brief Affiche la page connexion et vérifie si le login et le mot de passe correspondent
      *
      * @return void
      */
+
     public function afficher(){
         $template = $this->getTwig()->load('connexion.html.twig');
 
@@ -102,8 +105,7 @@ class ControllerConnexion extends Controller{
     public function mdpOublie(){
         $template = $this->getTwig()->load('motdepasseoublie.html.twig');
         $listeErreurs = array();
-        echo $template->render(array(
-        ));
+        echo $template->render();
 
         // Vérification que le formulaire a été soumis via POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -220,15 +222,21 @@ class ControllerConnexion extends Controller{
                 $headers .= 'From: <covoit-etud@gmail.com>' . "\r\n";
 
                 // Envoi de l'email
-                mail($to, $subject, $message, $headers);
+//                mail($to, $subject, $message, $headers);
+               
+                //Recipients
+                
 
-                echo "<div id=sentModalTrigger></div>";
+                //Content
+
+
+                //echo "<div id=sentModalTrigger></div>";
 
             }
             catch (Exception $e)
             {
                 // Gestion des erreurs (par exemple, utilisateur introuvable)
-                $listeErreurs[] = $e->getMessage();
+                echo $mail->ErrorInfo;
             }
             if(!empty($listeErreurs)){
                 echo "<div class=\"modal fade\" id=errorModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true style=\"backdrop-filter: blur(2px)\">
@@ -341,8 +349,6 @@ class ControllerConnexion extends Controller{
          
                 $managerEtudiant = new EtudiantDao($pdo);
                 $_SESSION['CLIENT'] = $managerEtudiant->find($result[1]);
-         
-                $_SESSION['id'] = $result[1];
                 //on redirige notre visiteur vers une page de notre section membre
                 echo "<meta http-equiv='refresh' content='0;url=index.php' />";
              }

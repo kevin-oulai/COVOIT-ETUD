@@ -1,6 +1,6 @@
 function verifierAdresse(id){
     let champ = document.getElementById(id);
-    let regexp = new RegExp("^[0-9]{1,3}\\s[a-zA-Z\\s\u00C0-\u017F]+,[a-zA-Z\\s-]+$");
+    let regexp = new RegExp("^[0-9]{1,3}\\s[a-zA-Z-'\\s\u00C0-\u017F]+,[a-zA-Z\\s-]+$");
     if(regexp.test(champ.value)){
         document.querySelector("."+id+"MessageErreur").innerHTML = "";
         champ.classList.remove("invalid-input");

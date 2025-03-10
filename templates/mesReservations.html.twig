@@ -1,6 +1,11 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if CLIENT is defined %}
+    {% if not CLIENT is defined %}
+        {# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
+        <script>
+            window.location.href = "index.php";
+        </script>
+    {% else %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Mes réservations</h1>
     <div class="container mt-5 text-center">
     <div>
@@ -88,7 +93,7 @@
                             <h1 class='modal-title fs-5' id='fAvisLabel_{{ trajet.numero }}'>Laisser un avis sur le conducteur</h1>
                             <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
                         </div>
-                        <form action="index.php?controleur=trajet&methode=listerParticipations&action=poster&id={{ trajet.numero }}" method="post" novalidate>
+                        <form action="index.php?controleur=trajet&methode=listerReservations&action=poster&id={{ trajet.numero }}" method="post" novalidate>
                             <div class='modal-body'>
                                 <p class="fw-semibold text-align-left badge bg-gradient-dark text-wrap">
                                     Attention, l'avis sera laissé sur la page du conducteur.
@@ -187,7 +192,7 @@
                             <h1 class='modal-title fs-5' id='fAvisLabel_{{ trajet.numero }}'>Laisser un avis sur le conducteur</h1>
                             <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
                         </div>
-                        <form action="index.php?controleur=trajet&methode=listerParticipations&action=poster&id={{ trajet.numero }}" method="post" novalidate>
+                        <form action="index.php?controleur=trajet&methode=listerReservations&action=poster&id={{ trajet.numero }}" method="post" novalidate>
                             <div class='modal-body'>
                                 <p class="fw-semibold text-align-left badge bg-gradient-dark text-wrap">
                                     Attention, l'avis sera laissé sur la page du conducteur.
@@ -232,7 +237,7 @@
                     L'avis a bien été posté.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=trajet&methode=listerParticipations';">OK</button>
+                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=trajet&methode=listerReservations';">OK</button>
                 </div>
             </div>
         </div>
@@ -260,8 +265,6 @@
             }
         });
     </script>
-{% else %}
-    <meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">
 {% endif %}
 {% endblock %}
 

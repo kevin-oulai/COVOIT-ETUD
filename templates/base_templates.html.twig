@@ -85,7 +85,7 @@
             </button>
             <div class="dropdown-menu dropdown-menu-end">
                 <li class="nav-item dropdown-item">
-                    <a href="?controleur=trajet&methode=listerParticipations" class="nav-link me-1 mt-2">Mes participations</a>
+                    <a href="?controleur=trajet&methode=listerReservations" class="nav-link me-1 mt-2">Mes reservations</a>
                 </li>
                 {% if CLIENT.numeroVoiture != Null %}
                     <li class="nav-item dropdown-item">
@@ -98,7 +98,7 @@
             </div>
         </div> 
         <div class="navbarNonDropDown navbar-nav ms-auto"> 
-            <a href="?controleur=trajet&methode=listerParticipations" class="nav-item me-4 mt-4">Mes participations</a> 
+            <a href="?controleur=trajet&methode=listerReservations" class="nav-item me-4 mt-4">Mes reservations</a> 
             {% if CLIENT.numeroVoiture != Null %} 
                 <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-item me-4 mt-4">Mes trajets</a> 
             {% endif %} 

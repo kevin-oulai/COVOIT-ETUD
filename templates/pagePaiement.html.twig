@@ -1,6 +1,13 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-	{% if CLIENT is defined %}
+	{% if not CLIENT is defined %}
+		{# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
+		<div class="alert alert-danger text-center" role="alert" style="width: 18rem; margin: auto; margin-top: 1%;">
+			<p><b>Vous devez être connecté pour accéder à cette page.</b></p>
+			<hr>
+			<button type="button" class="btn btn-primary" onclick="window.location.href ='connexion.php'">Se Connecter</button>
+		</div>
+	{% else %}
 		{% if paiementValide %}
 
 			<div class="alert alert-success text-center" role="alert" style="width: 18rem; margin: auto; margin-top: 1%;">
@@ -11,7 +18,7 @@
 
 			{# Redirection automatique vers la page d'accueil #}
 			<script>
-				setTimeout(function () { window.location.href = ".?controleur=trajet&methode=listerParticipations"; }, 5000);
+				setTimeout(function () { window.location.href = ".?controleur=trajet&methode=listerReservations"; }, 5000);
 			</script>
 
 		{% else %}
@@ -85,11 +92,5 @@
 				});
 			</script>
 		{% endif %}
-	{% else %}
-		<div class="alert alert-danger text-center" role="alert" style="width: 18rem; margin: auto; margin-top: 1%;">
-			<p><b>Vous devez être connecté pour accéder à cette page.</b></p>
-			<hr>
-			<button type="button" class="btn btn-primary" onclick="window.location.href ='connexion.php'">Se Connecter</button>
-		</div>
 	{% endif %}
 {% endblock %}
