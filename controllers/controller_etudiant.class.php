@@ -109,6 +109,8 @@ class ControllerEtudiant extends Controller{
                     $twig_params['etudiant'] = $etudiant;
 
                 } else {
+                    $updated = new Etudiant($num_etudiant, $_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
+                    $_SESSION['CLIENT'] = $updated;
                     $managerEtudiant->update($num_etudiant, $_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
                     echo "<div id=modalTriggerModif></div>";
                 }
