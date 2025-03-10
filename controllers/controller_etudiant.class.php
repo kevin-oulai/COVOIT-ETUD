@@ -64,6 +64,7 @@ class ControllerEtudiant extends Controller{
         }
         
         if(isset($_GET['action'])){
+            $numero_voiture = NULL;
             if($_GET['action'] == "modifier"){
                 if($_POST['modele'] != '' && $_POST['marque'] != '' && $_POST['nbPlace'] != ''){
                     $modele = $_POST['modele'];
