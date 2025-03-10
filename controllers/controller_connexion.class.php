@@ -332,35 +332,39 @@ class ControllerConnexion extends Controller{
     {
         if (isset($_POST['login']) && isset($_POST['pwd'])) {
             $connexionFalse = True;
-            $pdo = Bd::getInstance()->getConnexion();
-            $query = "SELECT motDePasse, numero FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
-            $pdoStatement = $pdo->prepare($query);
-            $pdoStatement->execute();
-            $result = $pdoStatement->fetch(PDO::FETCH_NUM);
-            $verifMDP = false;
-            if(!empty($result)) {
-                $verifMDP = password_verify($_POST['pwd'], $result[0]);
-            }
-
+            $etudiant = new Etudiant(null, null, null, null, $_POST['login']);
+            $administrateur = new Administrateur(null, $_POST['login']);
+            
             // on vérifie les informations saisies
-            if ($verifMDP) {
+            if ($etudiant->log($_POST['pwd'])) {
                 $pdo = new PDO('mysql:host='. DB_HOST . ';dbname='. DB_NAME, DB_USER, DB_PASS);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
          
                 $managerEtudiant = new EtudiantDao($pdo);
-                $_SESSION['CLIENT'] = $managerEtudiant->find($result[1]);
+                $_SESSION['CLIENT'] = $managerEtudiant->find($etudiant->getNumero());
+                $_SESSION['ADMIN'] = false;
                 //on redirige notre visiteur vers une page de notre section membre
                 echo "<meta http-equiv='refresh' content='0;url=index.php' />";
              }
-            else {
-                session_destroy();
-                // puis on le redirige vers la page d'accueil
-                $connexionFalse = False;
-                $template = $this->getTwig()->load('connexion.html.twig');
-                echo $template->render(array(
-                    'connexionFalse' => $connexionFalse
-                ));            
+            else if($administrateur->log($_POST['pwd'])){
+                    $pdo = new PDO('mysql:host='. DB_HOST . ';dbname='. DB_NAME, DB_USER, DB_PASS);
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                    $administrateurClient = new Etudiant($administrateur->getNumero(), "Admin", NULL, NULL, $administrateur->getAdresseMail() );
+                    $_SESSION['CLIENT'] = $administrateurClient;
+                    $_SESSION['ADMIN'] = true;
+                    //Redirection
+                    echo "<meta http-equiv='refresh' content='0;url=index.php' />";
+                }
+                else{
+                    session_destroy();
+                    // puis on le redirige vers la page d'accueil
+                    $connexionFalse = False;
+                    $template = $this->getTwig()->load('connexion.html.twig');
+                    echo $template->render(array(
+                        'connexionFalse' => $connexionFalse
+                    ));  
+                }
             }
          }
     }
-}

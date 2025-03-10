@@ -99,7 +99,17 @@ class Etudiant {
      */
     public function getNumero(): ?int
     {
-        return $this->numero;
+        if($this->numero){
+            return $this->numero;
+        }
+        else{
+            $pdo = Bd::getInstance()->getConnexion();
+            $query = "SELECT numero FROM ETUDIANT WHERE adresseMail = '". $this->getAdresseMail() ."'";
+            $pdoStatement = $pdo->prepare($query);
+            $pdoStatement->execute();
+            $result = $pdoStatement->fetch(PDO::FETCH_NUM);
+            return $result[0];
+        }
     }
 
     /**
@@ -351,6 +361,18 @@ class Etudiant {
 
         $managerEtudiant = new EtudiantDao($pdo);
         $managerEtudiant->updateMdp($this->getNumero(), $mdp);
+    }
+
+    function log(?string $password): bool{
+        $pdo = Bd::getInstance()->getConnexion();
+        $query = "SELECT motDePasse FROM ETUDIANT WHERE adresseMail = '". $this->getAdresseMail() ."'";
+        $pdoStatement = $pdo->prepare($query);
+        $pdoStatement->execute();
+        $result = $pdoStatement->fetch(PDO::FETCH_NUM);
+        if(!empty($result)) {
+            return password_verify($_POST['pwd'], $result[0]);
+        }
+        return false;
     }
 
 }
