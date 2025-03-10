@@ -284,14 +284,14 @@ function verifRang() {
     // Variables locales
     rangCourant = document.getElementsByName('rang')[0].value; // Rang en cours de saisie
     champErreur = document.getElementsByName('erreurRang')[0];
-    messageErreur = 'Le rang doit contenir 3 chiffres'; // Message d'erreur à afficher
+    messageErreur = 'Le rang doit contenir 1 chiffres'; // Message d'erreur à afficher
 
     // Vérification de la longueur du rang
-    if (rangCourant.length != 3 && rangCourant != '') {
+    if (rangCourant.length != 1 && rangCourant != '') {
         // Affichage du message d'erreur
         champErreur.innerHTML = messageErreur;
 
-    } else if (rangCourant.length == 3 || rangCourant == '') {
+    } else if (rangCourant.length == 1 || rangCourant == '') {
         // Suppression du message d'erreur
         champErreur.innerHTML = '';
     }

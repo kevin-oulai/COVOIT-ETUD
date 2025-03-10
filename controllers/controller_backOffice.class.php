@@ -65,15 +65,12 @@ class ControllerBackOffice extends Controller{
                     } else {
                             $dir = "images/assets"; // Nom du dossier contenant les photos
                             $name = "etoile-icon.png";
-                            if (is_uploaded_file($_FILES["image"]["tmp_name"]) && !exists($_POST["image"])) {
-                                $name = $_POST["image"] . ".png";
+                            if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
+                                $name = $_FILES['image']["name"];
                                 move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$name");
                             }
-                            $managerEtudiant->insert($_POST["titre"], $name, $_POST["description"], $_POST["categorie"], $_POST["rang"]);
+                            $managerBadge->insert($_POST["titre"], $name, $_POST["description"], $_POST["categorie"], $_POST["rang"]);
         
-                            $template = $this->getTwig()->load('backOffice.html.twig');
-                            echo $template->render(array(
-                            ));
                     }
                     echo "<div id=modalTrigger></div>";
                 }
@@ -102,15 +99,29 @@ class ControllerBackOffice extends Controller{
                 }
             }
             elseif ($_GET['action'] == "modifier") {
-                $numero = $_GET['id'];
-                var_dump($numero);
+                if (isset($_GET['id'])) {
+                    $numero = $_GET['id'];
+                    var_dump($numero);
+                } else {
+                    // Gérer l'erreur si 'id' n'est pas présent
+                    echo "Le paramètre 'id' est manquant.";
+                    exit;
+                }
                 $badge = $managerBadge->findBadge($numero);
+                if ($badge === null) {
+                    // Le badge n'existe pas, gérer l'erreur
+                    echo "Le badge avec l'ID $numero n'a pas été trouvé.";
+                    exit;
+                }
                 $messagesErreurs = [];
 
                 validerTitre($_POST['titre'], $messagesErreurs);
-                validerDescription($_POST['description'], $messagesErreurs);
-                validerCategorie($_POST["categorie"], $messagesErreurs);
-                validerRang($_POST["rang"], $messagesErreurs);
+                if (isset($_POST['description']) && isset($_POST["categorie"]) && isset($_POST["rang"])) {
+                    validerDescription($_POST['description'], $messagesErreurs);
+                    validerCategorie($_POST["categorie"], $messagesErreurs);
+                    validerRang($_POST["rang"], $messagesErreurs);
+                }
+                var_dump($_POST['titre']);
 
                 if (!is_uploaded_file($_FILES["image"]["tmp_name"])) {
                     $nomPhoto = $badge->getImage();
@@ -125,6 +136,7 @@ class ControllerBackOffice extends Controller{
                         move_uploaded_file($image, "$dir/$nomPhoto");
                     }
                 }
+                var_dump($nomPhoto);
 
                 if (!empty($messagesErreurs)) {
                     $template = $this->getTwig()->load('backOffice.html.twig');
@@ -133,7 +145,7 @@ class ControllerBackOffice extends Controller{
                     $twig_params['badges'] = $listeBadge;
 
                 } else {
-                    $managerBadge->update($numero, $_POST['titre'], $_POST['description'], $nomPhoto, $_POST["categorie"], $_POST["rang"]);
+                    $managerBadge->update($numero, $_POST['titre'], $nomPhoto, $_POST['description'], $_POST["categorie"], $_POST["rang"]);
                     echo "<div id=modalTriggerModif></div>";
                 }
             }

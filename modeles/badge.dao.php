@@ -158,14 +158,18 @@ class BadgeDao{
      * @param string|null $titre
      * @param string|null $description
      * @param string|null $image
+     * @param string|null $categorie
+     * @param int|null $rang
      * @return void
      */
-    public function update(?int $numero = null, ?string $titre = null,?string $description = null,?string $image = null){
-        $query = $this->PDO->prepare("UPDATE BADGE SET titre = :titre, description = :description, image = :image WHERE numero = :numero");
+    public function update(?int $numero = null, ?string $titre = null,?string $image = null,?string $description = null,?string $categrie = null,?int $rang = null){
+        $query = $this->PDO->prepare("UPDATE BADGE SET titre = :titre, image = :image, description = :description, categorie = :categorie, rang = :rang WHERE numero = :numero");
         $query->bindParam(':numero', $numero);
         $query->bindParam(':titre', $titre);
-        $query->bindParam(':description', $description);
         $query->bindParam(':image', $image);
+        $query->bindParam(':description', $description);
+        $query->bindParam(':categorie', $categorie);
+        $query->bindParam(':rang', $rang);
         $query->execute();
     }
 

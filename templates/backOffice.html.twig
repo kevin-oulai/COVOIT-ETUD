@@ -125,7 +125,7 @@
                                 </div>
                                 <div class='modal-footer'>
                                     <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
-                                    <button onclick=window.location.href='index.php?controleur=backOffice&methode=afficher&{#action=supprimer&#}id={{ badge.numero }}'; class='btn btn-danger' id="confirmDelete"><i class='bi bi-trash-fill'></i>Confirmer</button>
+                                    <button onclick=window.location.href='index.php?controleur=backOffice&methode=afficher&action=supprimer&id={{ badge.numero }}'; class='btn btn-danger' id="confirmDelete"><i class='bi bi-trash-fill'></i>Confirmer</button>
                                 </div>
                             </div>
                         </div>
@@ -203,14 +203,14 @@
                                     </div>
                                     <div class='modal-footer'>
                                         <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Annuler</button>
-                                        <input type="submit" class='btn btn-secondary' value="Ajouter le badge" data-toggle="modal" data-target="#exampleModal">
+                                        <input type="submit" class='btn btn-secondary' value="Ajouter le badge" data-toggle="modal" data-target="#myModal">
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
 
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" style="backdrop-filter: blur(2px)">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content bg-gradient-primary border-2">
                                 <div class="modal-body">
