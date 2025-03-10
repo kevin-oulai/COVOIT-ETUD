@@ -934,3 +934,58 @@ function validerDescription(string $description, array &$messagesErreurs)
     //Pas un fichier
     return $valide;
 }
+
+/**
+ * @brief vérifie la cohérence de la catégorie entré
+ *
+ * @param string|null $categorie
+ * @param array $messagesErreurs
+ * @return bool
+ */
+function validerCategorie(string $categorie, array &$messagesErreurs)
+{
+    $valide = true;
+    //Champ non-obligatoire
+
+    //Type chaine de carateres
+    if (!is_string($categorie)) {
+        $valide = false;
+        $messagesErreurs[] = "La categorie doit être une chaine de caractères";
+    }
+    //Longueur < 255
+    if (strlen($categorie) > 255) {
+        $valide = false;
+        $messagesErreurs[] = "Taille de la categorie supérieure à 255";
+    }
+    //Aucun format
+    //Pas de plage de valeur
+    //Pas un fichier
+    return $valide;
+}
+
+/**
+ * @brief vérifie la cohérence de le rang entrée
+ *
+ * @param string|null $rang
+ * @param array $messagesErreurs
+ * @return bool
+ */
+function validerRang(string $rang, array &$messagesErreurs)
+{
+    $valide = true;
+    //    Champ non obligatoire
+    //    Type Entier
+    if (!is_string($rang)) {
+        $valide = false;
+        $messagesErreurs[] = "Valeur de rang invalide";
+    }
+    //    Longueur 1
+//    Aucun format
+//    Plage de valeur 1 - 3
+    if ($rang < '0' || $rang > '3') {
+        $valide = false;
+        $messagesErreurs[] = "Le rang doit être comprise entre 1 et 3";
+    }
+    //    Pas un fichier
+    return $valide;
+}

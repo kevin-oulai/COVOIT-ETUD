@@ -32,70 +32,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Fenetre modale ajouter -->
-                    <div class='modal fade' id='fBadge' tabindex='-1' aria-labelledby='Badge' aria-hidden='true'>
-                        <div class='modal-dialog modal-dialog-centered'>
-                            <div class='modal-content bg-gradient-primary border-2'>
-                                <div class='modal-header'>
-                                    <h1 class='modal-title fs-5' id='fBadgeLabel_{{ badge.numero }}'>Ajouter un badge</h1>
-                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
-                                </div>
-                                <form action="index.php?controleur=backOffice&methode=afficher&action=ajouter&id={{ badge.numero }}" method="post" novalidate>
-                                    <div class='modal-body'>
-                                        <p class="fw-bold text-align-left input-group">
-                                            <div class="btn-group">
-                                                <div name="champTitre">
-                                                    <label class="fw-bold">Titre
-                                                        <input name="titre" class="form-control" type="text" name="titre" onkeyup="verifTitre();"></label>
-                                                    <div name="erreurTitre" class="messageErreur"></div>
-                                                </div>
-                                            </div>
-                                        </p>
-                                        <p class="fw-bold text-align-center input">
-                                            <div class="btn-group">
-                                                <label class="fw-bold">Description
-                                                    <input name="description" class="form-control" type="textarea" onchange="verifDescription();"></label>
-                                                <div name="erreurImage" class="messageErreur"></div>
-                                            </div>
-                                        </p>
-                                        <p class="fw-bold text-align-center input">
-                                            <div class="btn-group">
-                                                <label class="fw-bold">Image
-                                                    <input name="image" class="form-control" type="file" accept="image/*" onchange="verifPdp();"></label>
-                                                <div name="erreurPhoto" class="messageErreur"></div>
-                                            </div>
-                                        </p>
-                                        <p class="fw-bold text-align-center input">
-                                            <div class="btn-group">
-                                                <label class="fw-bold">Categorie
-                                                    <input name="categorie" class="form-control" type="text" onchange="verifCategorie();"></label>
-                                                <div name="erreurCategorie" class="messageErreur"></div>
-                                            </div>
-                                        </p>
-                                        <p class="fw-bold text-align-center input">
-                                            <div class="btn-group">
-                                                <label class="fw-bold">Rang
-                                                    <input name="rang" class="form-control" type="number" onchange="verifRang();"></label>
-                                                <div name="erreurRang" class="messageErreur"></div>
-                                            </div>
-                                        </p>
-                                            {% if erreurs != null %}
-                                            <div class="alert alert-danger" role="alert">
-                                                {% for e in erreurs %}
-                                                    <p>{{ e }}</p>
-                                                {% endfor %}
-                                            </div>
-                                            {% endif %}
-                                    </div>
-                                    <div class='modal-footer'>
-                                        <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Annuler</button>
-                                        <input type="submit" class='btn btn-secondary' value="Ajouter le badge">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     
                     <!-- Fenetre modale modification -->
                     <div class='modal fade' id='fModifier_{{ badge.numero }}' tabindex='-1' aria-labelledby='Modifier' aria-hidden='true'>
@@ -160,6 +96,20 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="myModalModif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content bg-gradient-primary border-2">
+                                <div class="modal-body">
+                                    Le badge {{ badge.titre }} a bien été modifié.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Fenetre modale suppression -->
                     <div class='modal fade' id='fSupprimer_{{ badge.numero }}' tabindex='-1' aria-labelledby='Supprimer' aria-hidden='true'>
                         <div class='modal-dialog modal-dialog-centered'>
@@ -180,39 +130,91 @@
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
-
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content bg-gradient-primary border-2">
-                                <div class="modal-body">
-                                    Le badge a bien été posté.
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal fade" id="myModalModif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content bg-gradient-primary border-2">
-                                <div class="modal-body">
-                                    Le badge {{ badge.titre }} a bien été modifié.
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="modal fade" id="myModalSuppr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content bg-gradient-primary border-2">
                                 <div class="modal-body">
                                     Le badge a bien été supprimé.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                    <!-- Fenetre modale ajouter -->
+                    <div class='modal fade' id='fBadge' tabindex='-1' aria-labelledby='Badge' aria-hidden='true'>
+                        <div class='modal-dialog modal-dialog-centered'>
+                            <div class='modal-content bg-gradient-primary border-2'>
+                                <div class='modal-header'>
+                                    <h1 class='modal-title fs-5' id='fBadgeLabel_{{ badge.numero }}'>Ajouter un badge</h1>
+                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
+                                </div>
+                                <form enctype='multipart/form-data' action="index.php?controleur=backOffice&methode=afficher&action=ajouter" method="post" novalidate>
+                                    <div class='modal-body'>
+                                        <p class="fw-bold text-align-left input-group">
+                                            <div class="btn-group">
+                                                <div name="champTitre">
+                                                    <label class="fw-bold">Titre
+                                                        <input name="titre" class="form-control" type="text" name="titre" onkeyup="verifTitre();"></label>
+                                                    <div name="erreurTitre" class="messageErreur"></div>
+                                                </div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Description
+                                                    <input name="description" class="form-control" type="textarea" onchange="verifDescription();"></label>
+                                                <div name="erreurDescription" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Image
+                                                    <input name="image" class="form-control" type="file" accept="image/*" onchange="verifPdp();"></label>
+                                                <div name="erreurPhoto" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Categorie
+                                                    <input name="categorie" class="form-control" type="text" onchange="verifCategorie();"></label>
+                                                <div name="erreurCategorie" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Rang
+                                                    <input name="rang" class="form-control" type="number" onchange="verifRang();"></label>
+                                                <div name="erreurRang" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                            {% if erreurs != null %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {% for e in erreurs %}
+                                                    <p>{{ e }}</p>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                    </div>
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Annuler</button>
+                                        <input type="submit" class='btn btn-secondary' value="Ajouter le badge" data-toggle="modal" data-target="#exampleModal">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content bg-gradient-primary border-2">
+                                <div class="modal-body">
+                                    Le badge a bien été posté.
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>

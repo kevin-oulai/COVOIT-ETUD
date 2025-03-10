@@ -52,7 +52,7 @@ class ControllerBackOffice extends Controller{
         if(isset($_GET['action'])){
             if($_GET['action'] == "ajouter"){
                 $messagesErreurs = [];
-                if(isset($_POST["titre"]) && isset($_POST["description"]) && isset($_POST["categorie"]) && isset($_POST["rang"])) {
+                if(isset($_POST["titre"])) {
                     $managerBadge = new BadgeDao($this->getPdo());
                     $titreValide = validerTitre($_POST["titre"], $messagesErreurs);
                     $descriptionValide = validerDescription($_POST["description"], $messagesErreurs);
@@ -61,11 +61,6 @@ class ControllerBackOffice extends Controller{
                     $rangValide = validerRang($_POST["rang"], $messagesErreurs);
 
                     if(!empty($messagesErreurs)) {
-                        $template = $this->getTwig()->load('inscription.html.twig');
-        
-                        echo $template->render(array(
-                            'erreurs'=> $messagesErreurs,
-                        ));
                     
                     } else {
                             $dir = "images/assets"; // Nom du dossier contenant les photos
@@ -74,9 +69,9 @@ class ControllerBackOffice extends Controller{
                                 $name = $_POST["image"] . ".png";
                                 move_uploaded_file($_FILES["image"]["tmp_name"], "$dir/$name");
                             }
-                            $managerEtudiant->insert($_POST["titre"], $name, $_POST["description"]);
+                            $managerEtudiant->insert($_POST["titre"], $name, $_POST["description"], $_POST["categorie"], $_POST["rang"]);
         
-                            $template = $this->getTwig()->load('connexion.html.twig');
+                            $template = $this->getTwig()->load('backOffice.html.twig');
                             echo $template->render(array(
                             ));
                     }
@@ -114,6 +109,8 @@ class ControllerBackOffice extends Controller{
 
                 validerTitre($_POST['titre'], $messagesErreurs);
                 validerDescription($_POST['description'], $messagesErreurs);
+                validerCategorie($_POST["categorie"], $messagesErreurs);
+                validerRang($_POST["rang"], $messagesErreurs);
 
                 if (!is_uploaded_file($_FILES["image"]["tmp_name"])) {
                     $nomPhoto = $badge->getImage();
@@ -136,7 +133,7 @@ class ControllerBackOffice extends Controller{
                     $twig_params['badges'] = $listeBadge;
 
                 } else {
-                    $managerBadge->update($numero, $_POST['titre'], $_POST['description'], $nomPhoto);
+                    $managerBadge->update($numero, $_POST['titre'], $_POST['description'], $nomPhoto, $_POST["categorie"], $_POST["rang"]);
                     echo "<div id=modalTriggerModif></div>";
                 }
             }

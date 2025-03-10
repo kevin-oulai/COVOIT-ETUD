@@ -139,12 +139,14 @@ class BadgeDao{
         return $badges;
     }
 
-    public function insert(string $titre, string $image, string $description): void {
-        $query = $this->PDO->prepare("INSERT INTO BADGE(titre, image, description) VALUES (:titre, :image, :description)");
+    public function insert(string $titre, string $image, string $description, string $categorie, int $rang): void {
+        $query = $this->PDO->prepare("INSERT INTO BADGE(titre, image, description, categorie, rang) VALUES (:titre, :image, :description, :categorie, :rang)");
 
         $query->bindParam(':titre', $titre);
         $query->bindParam(':image', $image);
         $query->bindParam(':description', $description);
+        $query->bindParam(':categorie', $categorie);
+        $query->bindParam(':rang', $rang);
         
         $query->execute();
     }
