@@ -268,10 +268,7 @@
     <script src="scripts/scriptValidationForm.js"></script>
     <script>
         $(function(){
-            $('#myModal').modal({
-                show:true,
-                backdrop:'static'
-            });
+            $('#myModal').modal({show:true, backdrop:'static'});
             if($('#modalTrigger').length){
                 $('#myModal').modal('show');
             }
@@ -294,7 +291,7 @@
 
     {% if erreurs != null %}
     window.onload = function () {
-        $('#fModifier_{{ etudiant.numero }}').modal('show');
+        $('#fModifier_{{ badge.numero }}').modal('show');
     }
     {% endif %}
     </script>

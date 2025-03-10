@@ -53,7 +53,9 @@ class Badge {
      * @param integer|null $pNumero Numéro du badge.
      * @param string|null $pTitre Titre du badge.
      * @param string|null $pImage URL de l'image du badge.
-     * @param string|null $pDescription Descriptoin du badge
+     * @param string|null $pDescription Descriptoin du badge.
+     * @param string|null $pCategorie Categorie du badge.
+     * @param string|null $pRang Rang du badge.
      */
     public function __construct(?int $pNumero=null, ?string $pTitre=null, ?string $pImage=null, ?string $pDescription=null, ?string $pCategorie=null, ?int $pRang=null) {
         $this -> setNumero($pNumero);

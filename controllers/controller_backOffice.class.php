@@ -114,6 +114,7 @@ class ControllerBackOffice extends Controller{
                     exit;
                 }
                 $messagesErreurs = [];
+                var_dump($badge);
 
                 validerTitre($_POST['titre'], $messagesErreurs);
                 if (isset($_POST['description']) && isset($_POST["categorie"]) && isset($_POST["rang"])) {
@@ -122,11 +123,10 @@ class ControllerBackOffice extends Controller{
                     validerRang($_POST["rang"], $messagesErreurs);
                 }
                 var_dump($_POST['titre']);
+                var_dump($_POST['categorie']);
 
-                if (!is_uploaded_file($_FILES["image"]["tmp_name"])) {
-                    $nomPhoto = $badge->getImage();
-                }
-                else {
+                $nomPhoto = $badge->getImage();
+                if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
                     validerUploadEtPdp($_FILES["image"], $messagesErreurs);
                     $image = $_FILES["image"]["tmp_name"];
 
@@ -151,10 +151,7 @@ class ControllerBackOffice extends Controller{
             }
             elseif ($_GET['action'] == "supprimer") {
                 $numero = $_GET['id'];
-                var_dump($numero);
-                $badge = $managerBadge->findBadge($numero);
                 $managerBadge->delete($numero);
-                echo "<div id=modalTriggerSuppr></div>";
             }
         }
     }
