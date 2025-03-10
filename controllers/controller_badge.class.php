@@ -29,6 +29,15 @@ class ControllerBadge extends Controller {
     public function afficher() {
         $managerBadge = new BadgeDao($this->getPdo());
         $listeBadges = $managerBadge->getAll();
+
+        $listeCategories = array();
+        $newListeBadges = array();
+        foreach ($listeBadges as $badge) {
+            if (!(in_array($badge['categorie'], $listeCategories))) {
+                
+            }
+        }
+
         $template = $this->getTwig()->load('descriptionBadges.html.twig');
         echo $template->render(array(
             'listeBadges'=>$listeBadges,
