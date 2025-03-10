@@ -342,7 +342,6 @@ class ControllerConnexion extends Controller{
          
                 $managerEtudiant = new EtudiantDao($pdo);
                 $_SESSION['CLIENT'] = $managerEtudiant->find($etudiant->getNumero());
-                $_SESSION['ADMIN'] = false;
                 //on redirige notre visiteur vers une page de notre section membre
                 echo "<meta http-equiv='refresh' content='0;url=index.php' />";
              }
@@ -352,7 +351,6 @@ class ControllerConnexion extends Controller{
 
                     $managerEtudiant = new EtudiantDao($pdo);
                     $_SESSION['CLIENT'] = $managerEtudiant->find(0);
-                    $_SESSION['ADMIN'] = true;
                     //Redirection
                     echo "<meta http-equiv='refresh' content='0;url=index.php' />";
             }
