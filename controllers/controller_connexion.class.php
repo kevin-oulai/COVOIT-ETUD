@@ -350,21 +350,21 @@ class ControllerConnexion extends Controller{
                     $pdo = new PDO('mysql:host='. DB_HOST . ';dbname='. DB_NAME, DB_USER, DB_PASS);
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                    $administrateurClient = new Etudiant($administrateur->getNumero(), "Admin", NULL, NULL, $administrateur->getAdresseMail() );
-                    $_SESSION['CLIENT'] = $administrateurClient;
+                    $managerEtudiant = new EtudiantDao($pdo);
+                    $_SESSION['CLIENT'] = $managerEtudiant->find(0);
                     $_SESSION['ADMIN'] = true;
                     //Redirection
                     echo "<meta http-equiv='refresh' content='0;url=index.php' />";
-                }
-                else{
-                    session_destroy();
-                    // puis on le redirige vers la page d'accueil
-                    $connexionFalse = False;
-                    $template = $this->getTwig()->load('connexion.html.twig');
-                    echo $template->render(array(
-                        'connexionFalse' => $connexionFalse
-                    ));  
-                }
             }
-         }
+            else{
+                session_destroy();
+                // Redirection vers la page d'accueil
+                $connexionFalse = False;
+                $template = $this->getTwig()->load('connexion.html.twig');
+                echo $template->render(array(
+                    'connexionFalse' => $connexionFalse
+                ));  
+            }
+        }
     }
+}
