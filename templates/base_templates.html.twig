@@ -87,7 +87,7 @@
                 <li class="nav-item dropdown-item">
                     <a href="?controleur=trajet&methode=listerReservations" class="nav-link me-1 mt-2">Mes reservations</a>
                 </li>
-                {% if CLIENT.numeroVoiture != Null %}
+                {% if CLIENT.numeroVoiture is not empty %}
                     <li class="nav-item dropdown-item">
                         <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-link me-1 mt-2">Mes trajets</a>
                     </li>
@@ -99,7 +99,7 @@
         </div> 
         <div class="navbarNonDropDown navbar-nav ms-auto"> 
             <a href="?controleur=trajet&methode=listerReservations" class="nav-item me-4 mt-4">Mes reservations</a> 
-            {% if CLIENT.numeroVoiture != Null %} 
+            {% if CLIENT.numeroVoiture is not empty %} 
                 <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-item me-4 mt-4">Mes trajets</a> 
             {% endif %} 
             <p class="nav-item me-4 mt-4">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p> 
