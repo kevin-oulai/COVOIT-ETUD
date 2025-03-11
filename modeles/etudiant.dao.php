@@ -256,4 +256,33 @@ class EtudiantDao
         $query->execute();
     }
 
+    public function delete(int $numero)
+    {
+        var_dump($numero);
+        $query = $this->PDO->prepare("SELECT * FROM TRAJET WHERE numero_conducteur = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->execute();
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $query->fetchAll();
+        var_dump($tableau);
+        for($i=0; $i< sizeof($tableau) ; $i++)
+        {
+            $query = $this->PDO->prepare("DELETE FROM CHOISIR WHERE numero_trajet = :numero");
+            $query->bindParam(':numero', $tableau[$i].getNuemero());
+            $query->execute();
+        }
+
+        $query = $this->PDO->prepare("DELETE FROM CHOISIR WHERE numero_passager = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->execute();
+
+        $query = $this->PDO->prepare("DELETE FROM TRAJET WHERE numero_conducteur = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->execute();
+
+        $query = $this->PDO->prepare("DELETE FROM ETUDIANT WHERE numero = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->execute();
+    }
+
 }
