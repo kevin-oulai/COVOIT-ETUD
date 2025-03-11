@@ -27,6 +27,7 @@ class ControllerEtudiant extends Controller{
      * @return void
      */
     public function afficher(){
+        $this->verifierConnexion();
         $num_etudiant = $_GET['id'];
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $etudiant = $managerEtudiant->find($num_etudiant);
@@ -43,7 +44,7 @@ class ControllerEtudiant extends Controller{
         if($_SESSION['CLIENT']->getNumeroVoiture() != null) { // Verifier si l'étudiant est un conducteur
             $managerNbTrajet = new EtudiantDao($this->getPdo());
             $nbTrajet = $managerNbTrajet->findNbTrajets($num_etudiant);
-            $voiture = $managerVoiture->findMonEtudiant($num_etudiant);
+            $voiture = $managerVoiture->findByEtudiant($num_etudiant);
             $twig_params['nbTrajet'] = $nbTrajet;
             $twig_params['voiture'] = $voiture;
         }
@@ -64,6 +65,7 @@ class ControllerEtudiant extends Controller{
         }
         
         if(isset($_GET['action'])){
+            $numero_voiture = NULL;
             if($_GET['action'] == "modifier"){
                 if($_POST['modele'] != '' && $_POST['marque'] != '' && $_POST['nbPlace'] != ''){
                     $modele = $_POST['modele'];
@@ -108,6 +110,8 @@ class ControllerEtudiant extends Controller{
                     $twig_params['etudiant'] = $etudiant;
 
                 } else {
+                    $updated = new Etudiant($num_etudiant, $_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
+                    $_SESSION['CLIENT'] = $updated;
                     $managerEtudiant->update($num_etudiant, $_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
                     echo "<div id=modalTriggerModif></div>";
                 }

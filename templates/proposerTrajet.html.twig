@@ -1,8 +1,15 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if CLIENT is defined %}
-
-
+    {% if not CLIENT is defined %}
+        {# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
+        <script>
+            window.location.href = "index.php";
+        </script>
+    {% elseif CLIENT.numeroVoiture is empty %}
+        <script>
+            window.location.href = "index.php";
+        </script>
+    {% else %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Enregistrer un trajet</h1>
     <div class="container mt-5 text-center">
         <main class="d-flex justify-content-center align-items-center mt-3">
@@ -50,15 +57,12 @@
                         <input class="dist-storer" name="dist" type="text">
                     </div>
 
-                </form>
-            </div>
-            <div class="ms-5" id="map"></div>
-        </main>
-        
-        <div class="text-end">
-            <button onclick="window.location.href ='index.php';" class="btn btn-warning mt-3">Retour</button>
+            </form>
         </div>
-    </div>
+        <div class="ms-5">
+            <div id="map"></div>
+        </div>
+    </main>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -134,7 +138,7 @@
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'geocode.php', true);
             xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.readyState == 4 && xhr.status == 200 && verifierAdresse('lieuDepart') && verifierAdresse('lieuArrivee')) {
                     var response = JSON.parse(xhr.responseText);
 
                     // Si OK, on update la map
@@ -245,9 +249,9 @@
 
         function distToPrice(dist){
             if(dist < 10){
-                return [[Math.round(dist * 0.12 * 100) / 100, Math.round(dist*0.03 * 100) / 100],[Math.round(dist * 0.09 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.15 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
+                return [[Math.trunc(dist * 0.12 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100],[Math.trunc(dist * 0.09 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100], [Math.trunc(dist * 0.15 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100]];
             }
-            return [[Math.round(dist * 0.07 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.05 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.1 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
+            return [[Math.trunc(dist * 0.07 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100], [Math.trunc(dist * 0.05 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100], [Math.trunc(dist * 0.1 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100]];
         }
 
         function calculPrixReel(prix){
@@ -262,7 +266,7 @@
             let argentRecu = document.querySelector(".input-prix").value;
             let prix = calculPrixReel(argentRecu);
             if (!isNaN(prix)){
-                document.querySelector("#realPrice").innerHTML = prix;
+                document.querySelector("#realPrice").innerHTML = prix + " *";
             }
             else{
                 document.querySelector("#realPrice").innerHTML = "";
@@ -273,7 +277,5 @@
             return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
         }
     </script>
-{% else %}
-    <meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">
 {% endif %}
 {% endblock %}

@@ -1,6 +1,15 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if CLIENT is defined %}
+    {% if not CLIENT is defined %}
+        {# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
+        <script>
+            window.location.href = "index.php";
+        </script>
+    {% elseif CLIENT.numeroVoiture is empty %}
+        <script>
+            window.location.href = "index.php";
+        </script>
+    {% else %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Vos trajets</h1>
     <div class="container mt-5 text-center">
         {% if listeTrajets is empty %}
@@ -244,7 +253,5 @@
             }
         });
     </script>
-{% else %}
-    <meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">
 {% endif %}
 {% endblock %}

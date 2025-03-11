@@ -70,8 +70,8 @@
         <a class="navbar-brand" href="index.php">
             <img src="images/transparent-logo.png" class="col ms-3" width="60" height="72">
         </a>
-        <a class="navbar-brand" id="imageNomSite" href="index.php" style="margin-left:40%;">
-            <li class = "nav-item position-static" style="list-style-type: none; margin:auto;">
+        <a class="navbar-brand position-absolute top-50 start-50 translate-middle" id="imageNomSite" href="index.php">
+            <li class="nav-item" style="list-style-type: none;">
                 <img src="images/websiteName.png" class = "col" id = "siteNameImage" style="max-width: 220px;" height="auto">
             </li>
         </a>
@@ -85,9 +85,9 @@
             </button>
             <div class="dropdown-menu dropdown-menu-end">
                 <li class="nav-item dropdown-item">
-                    <a href="?controleur=trajet&methode=listerParticipations" class="nav-link me-1 mt-2">Mes participations</a>
+                    <a href="?controleur=trajet&methode=listerReservations" class="nav-link me-1 mt-2">Mes reservations</a>
                 </li>
-                {% if CLIENT.numeroVoiture != Null %}
+                {% if CLIENT.numeroVoiture is not empty %}
                     <li class="nav-item dropdown-item">
                         <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-link me-1 mt-2">Mes trajets</a>
                     </li>
@@ -98,8 +98,8 @@
             </div>
         </div> 
         <div class="navbarNonDropDown navbar-nav ms-auto"> 
-            <a href="?controleur=trajet&methode=listerParticipations" class="nav-item me-4 mt-4">Mes participations</a> 
-            {% if CLIENT.numeroVoiture != Null %} 
+            <a href="?controleur=trajet&methode=listerReservations" class="nav-item me-4 mt-4">Mes reservations</a> 
+            {% if CLIENT.numeroVoiture is not empty %} 
                 <a href="?controleur=trajet&methode=listerMesTrajets" class="nav-item me-4 mt-4">Mes trajets</a> 
             {% endif %} 
             <p class="nav-item me-4 mt-4">{{ CLIENT.prenom }} {{ CLIENT.nom }}</p> 

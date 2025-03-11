@@ -30,7 +30,6 @@ class ControllerInscription extends Controller
     {
         if (isset($_POST["Nom"]) && isset($_POST["Prenom"]) && isset($_POST["mail"]) && isset($_POST["tel"])) {
             $messagesErreurs = [];
-          
 
             $prenomValide = validerPrenom($_POST["Prenom"], $messagesErreurs);
             $nomValide = validerNom($_POST["Nom"], $messagesErreurs);

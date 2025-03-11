@@ -731,23 +731,27 @@ function validationPrix($prix, $distance, &$messagesErreur): bool
 //    - Plage : Calculée à partir de la distance
 
     if($distance < 10){
-        if($prix < $distance*0.09){
+        $prixMin = $distance*0.09;
+        $prixMax = $distance*0.15;
+        if($prix < $prixMin){
             $valide = false;
-            $messagesErreur[] = 'Le prix doit etre supérieur à '. $distance*0.09;
+            $messagesErreur[] = 'Le prix doit etre supérieur à '. $prixMin;
         }
-        if($prix > $distance*0.15){
+        if($prix > $prixMax){
             $valide = false;
-            $messagesErreur[] = 'Le prix doit etre inférieur à '. $distance*0.015;
+            $messagesErreur[] = 'Le prix doit etre inférieur à '. $prixMax;
         }
     }
     else{
-        if($prix < $distance*0.05){
+        $prixMax = $distance*0.1;
+        $prixMin = $distance*0.05;
+        if($prix < $prixMin){
             $valide = false;
-            $messagesErreur[] = 'Le prix doit etre supérieur à '. $distance*0.05;
+            $messagesErreur[] = 'Le prix doit etre supérieur à '. $prixMin;
         }
-        if($prix > $distance*0.1){
+        if($prix > $prixMax){
             $valide = false;
-            $messagesErreur[] = 'Le prix doit etre inférieur à '. $distance*0.01;
+            $messagesErreur[] = 'Le prix doit etre inférieur à '. $prixMax;
         }
     }
 

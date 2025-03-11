@@ -1,6 +1,6 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if STATUS == 'connected' %}
+    {% if CLIENT is defined %}
 	{# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
 	<script>
 		window.location.href = "index.php";
@@ -8,7 +8,6 @@
 {% else %}
 	{# Sinon, afficher le formulaire de connexion #}
 <h1 class="text-center mt-5 fs-1 fw-bold">Connectez-vous</h1>
-<link rel='stylesheet' type='text/css' href='node_modules/bootstrap/dist/css/bootstrap.css'>
 <div class="d-flex justify-content-center align-items-center" style="height: 300px;">
 <div class="login-container align-right" style="width: 350px;">
     <form ACTION='.?controleur=connexion&methode=login' METHOD='POST'>

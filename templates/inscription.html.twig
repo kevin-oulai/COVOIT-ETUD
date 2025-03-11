@@ -1,12 +1,20 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-
+    {% if CLIENT is defined %}
+	{# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
+<script>
+	window.location.href = "index.php";
+</script>
+{% else %}
 
 	<!-- JS Bootstrap et jQuery -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <h1 class="text-center mt-5 fs-1 fw-bold">Inscription</h1>
+
+<div class="d-flex justify-content-center align-items-center">
+<div class="login-container align-right" style="width: 350px;">
 	<div class="d-flex justify-content-center align-items-center">
 		<div class="login-container align-right" style="width: 350px;">
 			<form enctype='multipart/form-data' action='?controleur=inscription&methode=afficher' method='POST' id="formInscription">
@@ -70,7 +78,7 @@
 							</div>
 							<div class="modal-body">
 								<h4>Abonnez vous à notre NewsLetter</h4>
-								<h5>pour ne rater aucune acualité</h5>
+								<h5>pour ne rater aucune actualité</h5>
 								<img src="images/logoCovoit-etud.png" width="260" height="190">
 								<br>
 								<div>
@@ -92,6 +100,11 @@
 				</div>
 			</div>
 		</form>
+		</div>
+	</div>
+</div>
+</div>
+
 
 		<!-- Button trigger modal -->
 		<div class="text-end">
@@ -108,4 +121,6 @@
 
 
 <script src="scripts/sauvegarderInscription.js"></script>
-<script src="scripts/scriptValidationForm.js"></script>{% endblock %}
+<script src="scripts/scriptValidationForm.js"></script>
+	{% endif %}
+	{% endblock %}
