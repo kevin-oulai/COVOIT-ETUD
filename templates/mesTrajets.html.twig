@@ -89,7 +89,7 @@
                                 {% endfor %}
                             </div>
                             <div class='modal-footer'>
-                                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+                                <button type='button' class='btn btn-warning' data-bs-dismiss='modal'>Annuler</button>
                                 <button onclick=window.location.href='index.php?controleur=trajet&methode=listerMesTrajets&action=supprimer&id={{ trajet.numero }}'; class='btn btn-danger'><i class='bi bi-trash-fill'></i>Confirmer</button>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                                     {% endfor %}
                                 </div>
                                 <div class='modal-footer'>
-                                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+                                    <button type='button' class='btn btn-warning' data-bs-dismiss='modal'>Annuler</button>
                                     <input type="submit" class="btn btn-success" value="Confirmer">
                                 </div>
                             </form>
@@ -177,7 +177,7 @@
 
         <div class="text-end mt-5">
             <button class="btn btn-primary" onclick="location.href='index.php?controleur=trajet&methode=enregistrer'">Ajouter un trajet</button>
-            <a href="index.php" class="btn btn-danger">Retour</a>
+            <a href="index.php" class="btn btn-warning">Retour</a>
         </div>
     </div>
 
