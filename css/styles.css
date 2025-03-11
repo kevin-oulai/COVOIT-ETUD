@@ -12163,7 +12163,12 @@ textarea.form-control-lg {
 }
 
 .btn-danger {
-  background-color: #ea9c9c;
+  background-color: #FF0004 !important;
+  color: #ffffff !important;
+}
+
+.btn-warning {
+  background-color: #ea9c9c !important;
 }
 
 .btn-success {
@@ -12179,7 +12184,11 @@ textarea.form-control-lg {
 }
 
 .btn-danger:hover {
-  background-color: #d37070;
+  background-color: #c50003 !important;
+}
+
+.btn-warning:hover {
+  background-color: #d37070 !important;
 }
 
 body {
