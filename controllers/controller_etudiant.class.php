@@ -114,10 +114,19 @@ class ControllerEtudiant extends Controller{
                     $_SESSION['CLIENT'] = $updated;
                     $managerEtudiant->update($num_etudiant, $_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
                     echo "<div id=modalTriggerModif></div>";
+                    
                 }
             }
         }
         $template = $this->getTwig()->load('profil.html.twig');                
         echo $template->render($twig_params);
     }    
+
+    public function delete()
+    {
+        $managerEtudiant = new EtudiantDao($this->getPdo());
+        $managerTrajet = new TrajetDao($this->getPdo());
+        $managerEtudiant->delete($_SESSION['CLIENT']->getNumero());
+        header('Location: logout.php');
+    }
 }
