@@ -78,6 +78,7 @@
                             </div>
                         </div>
                     </div>
+
                     {% if "now"|date("Y-m-d") > trajet.dateDep %}
                     <div class="card-footer text-align-right">
                         <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'>Laisser un avis</button>
@@ -206,7 +207,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-align-right">
-                        <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'{% if "now"|date("Y-m-d") < trajet.dateDep %} disabled {% endif %}>Laisser un avis</button>
+                        <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'>Laisser un avis</button>
                     </div>
                     
                 </div>
