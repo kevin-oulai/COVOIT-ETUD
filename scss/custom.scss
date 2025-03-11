@@ -307,8 +307,8 @@ padding-right: ($spacer * 2.5);}
 }
 
 .carteBadge {
-  width: 200px;
-  top: 5%;
+  width: 200px !important;
+  top: 5% !important;
 }
 
 .formulaireFiltre {

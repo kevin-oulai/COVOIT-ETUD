@@ -153,6 +153,10 @@ class ControllerBackOffice extends Controller{
                 $numero = $_GET['id'];
                 $managerBadge->delete($numero);
             }
+            elseif ($_GET['action'] == "supprimerEtud") {
+                $numero = $_GET['id'];
+                //$managerEtudiant->delete($numero);
+            }
         }
     }
 
