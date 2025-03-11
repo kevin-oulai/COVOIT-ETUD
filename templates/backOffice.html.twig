@@ -16,6 +16,7 @@
             </ul>
         </div>
         <div class = "backOffice">
+            {# Partie des badges #}
             <div class = "tab-content" style = "display: block;"><br>
                 <div class="row gap-4" style="justify-content: center;">
                 {% for badge in badges %}
@@ -230,7 +231,7 @@
                 </div>
             </div>
 
-
+            {# Partie des étudiants #}
             <div class = "tab-content">
                 <div class="row gap-3" style="justify-content: center;">
                     {% for etudiant in etudiants %}
@@ -270,7 +271,7 @@
                 </div>
             </div>
 
-
+            {# Partie de la restauration #}
             <div class = "tab-content">
                 <div class="mt-5">
                 <form action="index.php?controleur=backOffice&methode=afficher&action=recover" method="post">
