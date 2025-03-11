@@ -45,7 +45,7 @@
                                         <p class="fw-bold text-align-left input-group">
                                             <div class="btn-group">
                                                 <div name="champTitre">
-                                                    <label class="fw-bold">Titre
+                                                    <label class="fw-bold">Titre*
                                                         <input name="titre" class="form-control" type="text" value="{{ badge.titre }}" name="titre" onkeyup="verifTitre();"></label>
                                                     <div name="erreurTitre" class="messageErreur"></div>
                                                 </div>
@@ -74,11 +74,12 @@
                                         </p>
                                         <p class="fw-bold text-align-center input">
                                             <div class="btn-group">
-                                                <label class="fw-bold">Rang
+                                                <label class="fw-bold">Rang*
                                                     <input name="rang" class="form-control" type="number" value="{{ badge.rang }}" onchange="verifRang();"></label>
                                                 <div name="erreurRang" class="messageErreur"></div>
                                             </div>
                                         </p>
+                                        <p>* Champs obligatoires</p>
                                             {% if erreurs != null %}
                                             <div class="alert alert-danger" role="alert">
                                                 {% for e in erreurs %}
@@ -261,19 +262,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="modal fade" id="myModalSupprEtud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content bg-gradient-primary border-2">
-                                    <div class="modal-body">
-                                        L'étudiant a bien été supprimé.
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     {% endfor %}
 
                     <div class="text-end mt-5">
@@ -308,6 +296,20 @@
         </div>
     </div>
 
+    <div class="modal fade" id="myModalSupprEtud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-gradient-primary border-2">
+                <div class="modal-body">
+                    L'étudiant a bien été supprimé.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="scripts/script_backOffice.js"></script>
     <script src="scripts/scriptValidationForm.js"></script>
     <script>
@@ -329,6 +331,13 @@
             $('#myModalSuppr').modal({show: true, backdrop: 'static'});
             if ($('#modalTriggerSuppr').length) {
                 $('#myModalSuppr').modal('show');
+            }
+        });
+    
+        $(function () {
+            $('#myModalSupprEtud').modal({show: true, backdrop: 'static'});
+            if ($('#modalTriggerSupprEtud').length) {
+                $('#myModalSupprEtud').modal('show');
             }
         });
 

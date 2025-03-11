@@ -126,7 +126,7 @@ class BadgeDao{
 
     public function hydrate(array $tableauAssoc): ?Badge
     {
-        $badge = new Badge($tableauAssoc['numero'], $tableauAssoc['titre'], $tableauAssoc['image']);
+        $badge = new Badge($tableauAssoc['numero'], $tableauAssoc['titre'], $tableauAssoc['image'], $tableauAssoc['description'], $tableauAssoc['categorie'], $tableauAssoc['rang']);
         return $badge;
     }
 

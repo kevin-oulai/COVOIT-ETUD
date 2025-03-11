@@ -101,7 +101,6 @@ class ControllerBackOffice extends Controller{
             elseif ($_GET['action'] == "modifier") {
                 if (isset($_GET['id'])) {
                     $numero = $_GET['id'];
-                    var_dump($numero);
                 } else {
                     // Gérer l'erreur si 'id' n'est pas présent
                     echo "Le paramètre 'id' est manquant.";
@@ -114,7 +113,6 @@ class ControllerBackOffice extends Controller{
                     exit;
                 }
                 $messagesErreurs = [];
-                var_dump($badge);
 
                 validerTitre($_POST['titre'], $messagesErreurs);
                 if (isset($_POST['description']) && isset($_POST["categorie"]) && isset($_POST["rang"])) {
@@ -122,8 +120,6 @@ class ControllerBackOffice extends Controller{
                     validerCategorie($_POST["categorie"], $messagesErreurs);
                     validerRang($_POST["rang"], $messagesErreurs);
                 }
-                var_dump($_POST['titre']);
-                var_dump($_POST['categorie']);
 
                 $nomPhoto = $badge->getImage();
                 if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
@@ -140,7 +136,6 @@ class ControllerBackOffice extends Controller{
 
                 if (!empty($messagesErreurs)) {
                     $template = $this->getTwig()->load('backOffice.html.twig');
-                    
                     $twig_params['erreurs'] = $messagesErreurs;
                     $twig_params['badges'] = $listeBadge;
 
@@ -152,10 +147,12 @@ class ControllerBackOffice extends Controller{
             elseif ($_GET['action'] == "supprimer") {
                 $numero = $_GET['id'];
                 $managerBadge->delete($numero);
+                echo "<div id=modalTriggerSuppr></div>";
             }
             elseif ($_GET['action'] == "supprimerEtud") {
                 $numero = $_GET['id'];
-                //$managerEtudiant->delete($numero);
+                $managerEtudiant->delete($numero);
+                echo "<div id=modalTriggerSupprEtud></div>";
             }
         }
     }
