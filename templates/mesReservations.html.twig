@@ -78,45 +78,7 @@
                             </div>
                         </div>
                     </div>
-                    {% if "now"|date("Y-m-d") > trajet.dateDep %}
-                    <div class="card-footer text-align-right">
-                        <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'>Laisser un avis</button>
-                    </div>
-                    {% endif %}
                 </div>
-
-            <!-- Fenetre modale avis -->
-            <div class='modal fade' id='fAvis_{{ trajet.numero }}' tabindex='-1' aria-labelledby='Avis' aria-hidden='true'>
-                <div class='modal-dialog modal-dialog-centered modal-lg'>
-                    <div class='modal-content bg-gradient-primary border-2'>
-                        <div class='modal-header'>
-                            <h1 class='modal-title fs-5' id='fAvisLabel_{{ trajet.numero }}'>Laisser un avis sur le conducteur</h1>
-                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
-                        </div>
-                        <form action="index.php?controleur=trajet&methode=listerReservations&action=poster&id={{ trajet.numero }}" method="post" novalidate>
-                            <div class='modal-body'>
-                                <p class="fw-semibold text-align-left badge bg-gradient-dark text-wrap">
-                                    Attention, l'avis sera laissé sur la page du conducteur.
-                                </p>
-
-                                <select class="form-select form-select-sm width" name="note" aria-label="Laisser une note" required>
-                                    <option selected>Laisser une note</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                                <textarea class="form-control mt-3 " placeholder="Laisser un commentaire..." name="message" rows="10"></textarea>
-                            </div>
-                            <div class='modal-footer'>
-                                <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Annuler</button>
-                                <input type="submit" class='btn btn-secondary' value="Poster l'avis">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
             {% endif %}
         {% endfor %}
         </div>
@@ -179,7 +141,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-align-right">
-                        <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'{% if "now"|date("Y-m-d") < trajet.dateDep %} disabled {% endif %}>Laisser un avis</button>
+                        <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'>Laisser un avis</button>
                     </div>
                     
                 </div>
