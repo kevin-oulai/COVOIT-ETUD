@@ -71,17 +71,6 @@ class EtudiantDao
     /**
      * @brief retourne toutes les informations des étudiants
      *
-
-
-
-
-
-
-
-    Expand All
-
-    @@ -84,9 +86,27 @@ public function findAllAssoc(): ?array
-
      * @return array|null
      */
     public function findAllAssoc(): ?array
@@ -112,18 +101,6 @@ class EtudiantDao
 
     /**
      * @brief retourne le nombre de trajet n'un étudiant
-     *
-
-
-
-
-
-
-
-    Expand Down
-
-
-
      * @param integer|null $numero_etudiant
      * @return INT|null
      */
@@ -256,4 +233,28 @@ class EtudiantDao
         $query->execute();
     }
 
+    public function delete(int $numero)
+    {
+        $query = $this->PDO->prepare("SELECT * FROM TRAJET WHERE numero_conducteur = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->execute();   
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $tableau = $query->fetchAll();
+        $infoTrajet = $this->hydrateAll($tableau);
+
+        for($i=0; i < $infoTrajet.length();$i++ )
+        {
+            $query = $this->PDO->prepare("DELETE FROM CHOISIR WHERE numero_trajer = :numero");
+            $query->bindParam(':numero', $trajet[$i].getNumero());
+            $query->execute(); 
+        }
+
+        $query = $this->PDO->prepare("DELETE FROM CHOISIR WHERE numero_passager = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->execute(); 
+
+        $query = $this->PDO->prepare("DELETE FROM ETUDIANT WHERE numero = :numero");
+        $query->bindParam(':numero', $numero);
+        $query->execute(); 
+    }
 }
