@@ -199,6 +199,10 @@ class ControllerTrajet extends Controller{
                                             
                 }
             }
+            elseif ($_GET['action'] == "annuler") {
+                $managerTrajet->annuler($_GET["id"]);
+                echo "<div id=modalTriggerAnnulation></div>";
+            }
         }
     }
     /**
