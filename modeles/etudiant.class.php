@@ -99,7 +99,17 @@ class Etudiant {
      */
     public function getNumero(): ?int
     {
-        return $this->numero;
+        if($this->numero){
+            return $this->numero;
+        }
+        else{
+            $pdo = Bd::getInstance()->getConnexion();
+            $query = "SELECT numero FROM ETUDIANT WHERE adresseMail = '". $this->getAdresseMail() ."'";
+            $pdoStatement = $pdo->prepare($query);
+            $pdoStatement->execute();
+            $result = $pdoStatement->fetch(PDO::FETCH_NUM);
+            return $result[0];
+        }
     }
 
     /**
@@ -315,13 +325,21 @@ class Etudiant {
         $baseDeDonnees = BD::getInstance();
         $pdo = $baseDeDonnees->getConnexion();
 
+        // Verification dans la table étudiant
         $sql="SELECT COUNT(*) FROM ETUDIANT WHERE adressemail = :mail";
         $pdoStatement = $pdo->prepare($sql);
 
         $pdoStatement->execute(array(":mail"=>$this->adresseMail));
         $pdoStatement->setFetchMode(PDO::FETCH_NUM);
-        $count = $pdoStatement->fetch();
-        if($count[0]<1)
+        $countEtudiant = $pdoStatement->fetch();
+
+        // Verification dans la table administrateur
+        $sql="SELECT COUNT(*) FROM ADMINISTRATEUR WHERE adresseMail = :mail";
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute(array(":mail"=>$this->adresseMail));
+        $countAdmin = $pdoStatement->fetch();
+        if($countAdmin[0]<1 && $countEtudiant[0]<1)
         {
             return true;
         }
@@ -343,6 +361,18 @@ class Etudiant {
 
         $managerEtudiant = new EtudiantDao($pdo);
         $managerEtudiant->updateMdp($this->getNumero(), $mdp);
+    }
+
+    function log(?string $password): bool{
+        $pdo = Bd::getInstance()->getConnexion();
+        $query = "SELECT motDePasse FROM ETUDIANT WHERE adresseMail = '". $this->getAdresseMail() ."'";
+        $pdoStatement = $pdo->prepare($query);
+        $pdoStatement->execute();
+        $result = $pdoStatement->fetch(PDO::FETCH_NUM);
+        if(!empty($result)) {
+            return password_verify($_POST['pwd'], $result[0]);
+        }
+        return false;
     }
 
 }
