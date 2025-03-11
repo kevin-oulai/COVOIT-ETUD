@@ -222,15 +222,9 @@ class ControllerConnexion extends Controller{
                 $headers .= 'From: <covoit-etud@gmail.com>' . "\r\n";
 
                 // Envoi de l'email
-//                mail($to, $subject, $message, $headers);
-               
-                //Recipients
-                
+                mail($to, $subject, $message, $headers);
 
-                //Content
-
-
-                //echo "<div id=sentModalTrigger></div>";
+                echo "<div id=sentModalTrigger></div>";
 
             }
             catch (Exception $e)
