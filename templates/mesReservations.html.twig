@@ -82,6 +82,10 @@
                     <div class="card-footer text-align-right">
                         <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fAvis_{{ trajet.numero }}'>Laisser un avis</button>
                     </div>
+                    {% else %}
+                    <div class="card-footer text-align-right">
+                        <button class="btn btn-danger" data-bs-toggle='modal' data-bs-target='#fSupp_{{ trajet.numero }}'>Annuler la reservation</button>
+                    </div>
                     {% endif %}
                 </div>
 
@@ -112,6 +116,29 @@
                             <div class='modal-footer'>
                                 <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Annuler</button>
                                 <input type="submit" class='btn btn-secondary' value="Poster l'avis">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fenetre modale suppression -->
+            <div class='modal fade' id='fSupp_{{ trajet.numero }}' tabindex='-1' aria-labelledby='Suppression' aria-hidden='true'>
+                <div class='modal-dialog modal-dialog-centered modal-lg'>
+                    <div class='modal-content bg-gradient-primary border-2'>
+                        <div class='modal-header'>
+                            <h1 class='modal-title fs-5' id='fSupressionLabel_{{ trajet.numero }}'>Annuler la reservation</h1>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
+                        </div>
+                        <form action="index.php?controleur=trajet&methode=listerReservations&action=annuler&id={{ trajet.numero }}" method="post" novalidate>
+                            <div class='modal-body'>
+                                <p class="fw-semibold text-align-left">
+                                    Etes-vous sûr de vouloir annuler la reservation du {{ trajet.dateDep|date("d/m/Y") }} ?
+                                </p>
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn btn-warning' data-bs-dismiss='modal'>Non</button>
+                                <input type="submit" class='btn btn-danger' value="Oui">
                             </div>
                         </form>
                     </div>
@@ -242,6 +269,19 @@
             </div>
         </div>
     </div>
+
+        <div class="modal fade" id="annulModal" tabindex="-1" role="dialog" aria-labelledby="annulModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-gradient-primary border-2">
+                <div class="modal-body">
+                    La reservation à bien été annulée.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=trajet&methode=listerReservations';">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="scripts/script_trajet.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script>
@@ -262,6 +302,16 @@
             });
             if($('#errorModalTrigger').length){
                 $('#errorModal').modal('show');
+            }
+        });
+        
+        $(function(){
+            $('#annulModal').modal({
+                show:true,
+                backdrop:'static'
+            });
+            if($('#modalTriggerAnnulation').length){
+                $('#annulModal').modal('show');
             }
         });
     </script>
