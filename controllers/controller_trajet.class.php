@@ -23,7 +23,13 @@ class ControllerTrajet extends Controller{
      * @return void
      */
     public function lister(){
-        $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
+        if (isset($_GET["filtre"])) {
+            $criteria = $_GET["filtre"];
+        }
+        else {
+            $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
+        }
+        
         if (isset($_GET["boutonPage"])) {
             $numeroPage = $_GET["boutonPage"];
         }
@@ -69,7 +75,6 @@ class ControllerTrajet extends Controller{
         }
         $listeNum2 = substr($listeNum2, 0, -2);
         $listeNum2 = $listeNum2 . ")";
-        
         $managerTrajet = new TrajetDao($this->getPdo());
         $managerLieu = new LieuDao($this->getPDO());
         //$listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $date, $nbPassager);
@@ -87,12 +92,13 @@ class ControllerTrajet extends Controller{
         } elseif ($criteria === 'prixBas') {
             $listeTrajet = $managerTrajet->findTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             $listeLieu = $managerLieu->findAllAssoc();
-            $infoFiltre = "PrixBas";
+            $infoFiltre = "prixBas";
             $nbPassager=$_SESSION["nombre_passagers"];
         }
         if (empty($listeTrajet)) {
             $infoFiltre = "aucunTrajet";
         }
+
         $nbPages = ceil((count($listeTrajet))/10);
         if ($nbPages>1) {
             $nb = $numeroPage*10-10;
