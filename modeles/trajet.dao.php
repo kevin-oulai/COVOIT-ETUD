@@ -352,4 +352,11 @@ class TrajetDao{
         $pdoStatement->bindParam(':nbPassager', $nbPassager);
         $pdoStatement->execute();
     }
+
+    public function annuler($numTrajet){
+        $sql = "DELETE FROM CHOISIR WHERE numero_trajet = :numTrajet";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(':numTrajet', $numTrajet);
+        $pdoStatement->execute();
+    }
 }

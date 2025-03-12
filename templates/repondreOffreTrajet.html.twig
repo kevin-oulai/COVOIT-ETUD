@@ -58,17 +58,15 @@
 				</div>
 			</div>
 			{# Bouton de validation #}
-            <div class="col text-center">
+            <div class="col text-end">
 			{% if  numEtudiant == 'etudNonConnecte' %}
-				<h4>Vous devez être connecté pour reserver ce trajet !</h4>
+				<h4 class="col text-center">Vous devez être connecté pour reserver ce trajet !</h4>
 			{% elseif infoTrajet.numConducteur == numEtudiant %}
-				<h4>Vous ne pouvez pas réserver votre propre trajet.</h4>
+				<h4 class="col text-center">Vous ne pouvez pas réserver votre propre trajet.</h4>
 			{% else %}
 				<a href="?controleur=paiement&methode=afficher&idTrajet={{infoTrajet.numero}}" class="btn btn-primary">Payer</a>
 			{% endif %}
-            </div>
-			<div class="text-center mt-5">
-				<a href="?controleur=&methode=" class="btn btn-danger">Retour</a>
+				<a href="?controleur=&methode=" class="btn btn-warning">Retour</a>
 			</div>
 		</div>
 	</div>
