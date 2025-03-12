@@ -105,7 +105,7 @@ class BadgeDao{
     }
 
     public function getAll(): array {
-        $requete = "SELECT * FROM BADGE";
+        $requete = "SELECT * FROM BADGE ORDER BY rang";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->execute();
 

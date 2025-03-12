@@ -32,15 +32,23 @@ class ControllerBadge extends Controller {
 
         $listeCategories = array();
         $newListeBadges = array();
-        foreach ($listeBadges as $badge) {
-            if (!(in_array($badge['categorie'], $listeCategories))) {
-                
+        foreach ($listeBadges as $monBadge) {
+            if (!in_array($monBadge->getCategorie(), $listeCategories)) {
+                $listeCategories[] = $monBadge->getCategorie();
+                $nvBadge = array();
+                foreach ($listeBadges as $badge) {
+                    if (!in_array($badge, $nvBadge) && $badge->getCategorie() == $monBadge->getCategorie()) {
+                        $nvBadge[] = $badge;
+                    }
+                }
+                $newListeBadges[] = $nvBadge;
             }
         }
 
         $template = $this->getTwig()->load('descriptionBadges.html.twig');
         echo $template->render(array(
-            'listeBadges'=>$listeBadges,
+            'listeBadges'=>$newListeBadges,
+            'nbCategorie'=>sizeof($newListeBadges),
         ));
     }
 }
