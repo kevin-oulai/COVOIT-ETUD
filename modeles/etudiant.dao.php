@@ -71,17 +71,6 @@ class EtudiantDao
     /**
      * @brief retourne toutes les informations des étudiants
      *
-
-
-
-
-
-
-
-    Expand All
-
-    @@ -84,9 +86,27 @@ public function findAllAssoc(): ?array
-
      * @return array|null
      */
     public function findAllAssoc(): ?array
@@ -112,18 +101,6 @@ class EtudiantDao
 
     /**
      * @brief retourne le nombre de trajet n'un étudiant
-     *
-
-
-
-
-
-
-
-    Expand Down
-
-
-
      * @param integer|null $numero_etudiant
      * @return INT|null
      */
@@ -279,6 +256,4 @@ class EtudiantDao
         $query->execute();
     }
 }
-
-
 
