@@ -37,10 +37,14 @@ class ControllerTrajet extends Controller{
         else {
             $numeroPage = 1;
             if ($criteria === '') {
-                    $depart = $_POST['depart'];
-                    $_SESSION["depart"]=$depart;
-                    $arrivee = $_POST['arrivee'];
-                    $_SESSION["arrivee"]=$arrivee;
+                    $villeDepart = $_POST['villeDepart'];
+                    $rueDepart = $_POST['rueDepart'];
+                    $_SESSION["villeDepart"]=$villeDepart;
+                    $_SESSION["rueDepart"]=$rueDepart;
+                    $villeArrive = $_POST['villeArrive'];
+                    $rueArrive = $_POST['rueArrive'];
+                    $_SESSION["villeArrive"]=$villeArrive;
+                    $_SESSION["rueArrive"]=$rueArrive;
                     $date = $_POST['date'];
                     $_SESSION["date"]=$date;
                     $nbPassager = $_POST['nombre_passagers'];
@@ -49,8 +53,8 @@ class ControllerTrajet extends Controller{
         }
         $nbPassager = $_SESSION["nombre_passagers"];
         $managerLieu = new LieuDao($this->getPdo());
-        $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
-        $numTrajet2 = $managerLieu->findNumByVille($_SESSION["arrivee"]);
+        $numTrajet1 = $managerLieu->findNumByVilleEtRue($_SESSION["villeDepart"], $_SESSION["rueDepart"]);
+        $numTrajet2 = $managerLieu->findNumByVilleEtRue($_SESSION["villeArrive"], $_SESSION["rueArrive"] );
         if (empty($numTrajet1) || empty($numTrajet2)) {
             $template = $this->getTwig()->load('pageTrajets.html.twig');
             $infoFiltre = "aucunTrajet";
