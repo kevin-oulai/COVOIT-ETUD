@@ -127,6 +127,6 @@ class ControllerEtudiant extends Controller{
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $managerTrajet = new TrajetDao($this->getPdo());
         $managerEtudiant->delete($_SESSION['CLIENT']->getNumero());
-        // header('Location: logout.php');
+        header('Location: logout.php');
     }
 }
