@@ -92,7 +92,7 @@ class VoitureDao {
      * @param integer $numero_etudiant
      * @return Voiture
      */
-    public function findByEtudiant(int $numero_etudiant): Voiture
+    public function findByEtudiant(int $numero_etudiant): ?Voiture
     {
         $sql="SELECT V.numero, V.modele, V.marque, V.nbPlace FROM VOITURE V JOIN ETUDIANT E ON V.NUMERO = E.NUMERO_VOITURE WHERE E.numero= :numero_etudiant";
         $pdoStatement = $this->PDO->prepare($sql);

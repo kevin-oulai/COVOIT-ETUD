@@ -177,7 +177,12 @@ $gradients: map-merge((
 }
 
 .btn-danger{
-  background-color: #ea9c9c;
+  background-color: #FF0004 !important;
+  color: #ffffff !important;
+}
+
+.btn-warning{
+  background-color: #ea9c9c !important;
 }
 
 .btn-success{
@@ -193,7 +198,11 @@ $gradients: map-merge((
 }
 
 .btn-danger:hover{
-  background-color: #d37070;
+  background-color: #c50003 !important;
+}
+
+.btn-warning:hover{
+  background-color: #d37070 !important;
 }
 
 body{
@@ -283,6 +292,11 @@ padding-right: ($spacer * 2.5);}
   scale: 1.05;
 }
 
+.modal {
+  // backdrop-filter: blur(1px);
+}
+
+
 .listeTrajet2{
   display: inline-block;
   margin-left: 200px;
@@ -300,6 +314,11 @@ padding-right: ($spacer * 2.5);}
   top: 20px;
   margin-left: 10%;
   margin-top: 20%;
+}
+
+.carteBadge {
+  width: 200px !important;
+  top: 5% !important;
 }
 
 .formulaireFiltre {
@@ -405,7 +424,7 @@ padding-right: ($spacer * 2.5);}
 }
 
  #map {
-   height: 250px;
+   height: 500px;
    width: 600px;
    box-shadow: 0 4px 7px rgba(0,0,0,0.3);
  }

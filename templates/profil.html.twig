@@ -11,15 +11,14 @@
     <div class="login-container align-right">
         <ul class="list-group list-group-flush">
             <li class="list-group-item" style="background-color: rgba(0,0,0,0);">
-                <div class ="text-center">
-                {% if CLIENT.numero == etudiant.numero %}
-                    <button class="btn btn-primary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
-                    <div style="margin-top: 1%;">
-                        <button type='button' class='btn btn-danger' onclick="location = 'logout.php'">Déconnexion</button>
-                        <button type='button' class='btn btn-danger' onclick="location = 'index.php?controleur=etudiant&methode=delete'">Supprimer votre compte</button>
-
-                    </div>
-                {% endif %}
+                <div class ="text-end">
+                        {% if CLIENT.numero == etudiant.numero %}
+                        <div class ="text-end">
+                                <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
+                                <button type='button' class='btn btn-warning' onclick="location = 'logout.php'">Déconnexion</button>
+                                <button class="btn btn-danger" data-bs-toggle='modal' data-bs-target='#fSupprimer_{{ etudiant.numero }}'>Supprimer mon profil</button>
+                        </div>
+                        {% endif %}
             </li>
                 </div>
             <form action="index.php?controleur=etudiant&methode=afficher">
@@ -55,7 +54,7 @@
                                     <div class="p-3"><h4 class=" text-center">Informations voiture</h4>
                                         <div class="card bg-gradient-primaire" >
                                             <div class="card-body">
-                                                {% if CLIENT.numeroVoiture != Null %}
+                                                {% if etudiant.numeroVoiture != Null %}
                                                     <B>Nom :</B> {{voiture.modele}}<br>
                                                     <B>Marque :</B> {{voiture.marque}}<br>
                                                     <B>Nombre de places :</B> {{voiture.nbPlace}}
@@ -89,21 +88,21 @@
                                         <div class="card bg-gradient-primaire height: 100%;">
                                             <div class="card-body avis">
                                             {% if listeAvisDonnes is defined %}
-                                                    {% set listeDonnes = listeAvisDonnes|length %}
-                                                        <div class="scroll">
-                                                        <div class="more-avis-donnes" style="display: block;">
-                                                            {% for avisDonnes in listeAvisDonnes %}
-                                                                <div class="card bg-gradient-secondaire" style="margin: 2%;">
-                                                                    <div class="row gx-5 card-body">
-                                                                        <div id = "infos">
-                                                                            <B>Le</B> {{ avisDonnes.datePost|date("d/m/Y H:i") }}<br>
-                                                                            <B>Pour le conducteur :</B>{{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
-                                                                            <B>Note :</B> {{ avisDonnes.note }}<br>
-																			<B>Message :</B> {{ avisDonnes.message }}
-                                                                        </div>
-                                                                        </div>
-                                                                </div>
-                                                            {% endfor %}
+                                                {% set listeDonnes = listeAvisDonnes|length %}
+                                                <div class="scroll">
+                                                    <div class="more-avis-donnes" style="display: block;">
+                                                        {% for avisDonnes in listeAvisDonnes %}
+                                                            <div class="card bg-gradient-secondaire" style="margin: 2%;">
+                                                                <div class="row gx-5 card-body">
+                                                                    <div id = "infos">
+                                                                        <B>Le</B> {{ avisDonnes.datePost|date("d/m/Y") }} <B>à</B> {{ avisDonnes.datePost|date("H:i") }}<br>
+                                                                        <B>Pour le conducteur :</B> {{ avisDonnes.nomEtudiant }} {{ avisDonnes.prenomEtudiant }}<br>
+                                                                        <B>Note :</B> {{ avisDonnes.note }}<br>
+                                                                        <B>Message :</B> {{ avisDonnes.message }}
+                                                                    </div>
+                                                                    </div>
+                                                            </div>
+                                                        {% endfor %}
                                                     </div>
                                                 </div>
                                             {% else %}
@@ -118,23 +117,23 @@
                                         <div class="card bg-gradient-primaire height: 100%">
                                             <div class="card-body avis">
                                             {% if listeAvisReçus is defined %}
-                                                    {% set listeReçus = listeAvisReçus|length %}
-                                                    <div class="scroll">
+                                                {% set listeReçus = listeAvisReçus|length %}
+                                                <div class="scroll">
                                                     <div class="more-avis-donnes" style="display: block;">
-                                                            {% for avisReçus in listeAvisReçus %}
-                                                                <div class="card bg-gradient-secondaire" style="margin: 2%; ">
-                                                                    <div class="row gx-5  card-body">
-                                                                        <div class="" id = "infos">
-                                                                            <B>Le</B> {{ avisReçus.datePost|date("d/m/Y H:i") }}<br>
-                                                                            <B>Par le passager :</B>{{ avisReçus.nomEtudiant }} {{ avisReçus.prenomEtudiant }}<br>
-                                                                            <B>Note :</B> {{ avisReçus.note }}<br>
-                                                                            <B>Message :</B> {{ avisReçus.message }}
-                                                                        </div>
+                                                        {% for avisReçus in listeAvisReçus %}
+                                                            <div class="card bg-gradient-secondaire" style="margin: 2%; ">
+                                                                <div class="row gx-5  card-body">
+                                                                    <div class="" id = "infos">
+                                                                        <B>Le</B> {{ avisReçus.datePost|date("d/m/Y") }} <B>à</B> {{ avisReçus.datePost|date("H:i") }}<br>
+                                                                        <B>Par le passager :</B> {{ avisReçus.nomEtudiant }} {{ avisReçus.prenomEtudiant }}<br>
+                                                                        <B>Note :</B> {{ avisReçus.note }}<br>
+                                                                        <B>Message :</B> {{ avisReçus.message }}
                                                                     </div>
                                                                 </div>
-                                                            {% endfor %}
-														</div>
-                                                        </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
                                             {% else %}
                                                 <h6 class=" text-center">Vous n'avez pas reçu d'avis.</h6>
                                             {% endif %}
@@ -148,9 +147,33 @@
                 </div>
             </form>
         </ul>
-
+        <div style="margin-left:72.5%">
+        </div>
     </div>
 </div>
+
+<!-- Fenetre modale supprimer votre compte -->
+					<div class="modal fade" id="fSupprimer_{{ etudiant.numero }}" style='backdrop-filter: blur(2px)' tabindex="-1" role="dialog" aria-labelledby="supprimer" aria-hidden="true">
+						<div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
+							<div class="modal-content" style='background-color: #CCDBFD;'>
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel"></h5>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h4>Etes vous sur de supprimer votre compte ?</h4>
+                                
+
+							</div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+                                <button type='button' class='btn btn-danger'  onclick="location = '?controleur=etudiant&methode=delete'">Supprimer votre compte</button>
+                            </div>
+						</div>
+					</div>
+				</div>
+
+
 <!-- Fenetre modale modification -->
 <div class='modal fade' id='fModifier_{{ etudiant.numero }}' tabindex='-1' aria-labelledby='Modifier' aria-hidden='true'>
 	<div class='modal-dialog modal-dialog-centered '>
