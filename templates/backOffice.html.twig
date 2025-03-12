@@ -328,12 +328,6 @@
     <script src="scripts/script_backOffice.js"></script>
     <script src="scripts/scriptValidationForm.js"></script>
     <script>
-        $(document).ready( function () {
-        $('#myTable').DataTable();
-        } );
-        let table = new DataTable('#myTable', {
-            responsive: true
-        });
         
         $(function(){
             $('#myModal').modal({show:true, backdrop:'static'});
@@ -369,5 +363,12 @@
         $('#fModifier_{{ badge.numero }}').modal('show');
     }
     {% endif %}
+    
+        $(document).ready( function () {
+        $('#myTable').DataTable();
+        } );
+        let table = new DataTable('#myTable', {
+            responsive: true
+        });
     </script>
 {% endblock %}
