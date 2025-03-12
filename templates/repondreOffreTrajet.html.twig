@@ -9,10 +9,9 @@
                     <div class="row card-body">
 						<div class="col" style = "display: inline-block;">
 							<h4><B>Informations du conducteur</B></h4>
-							<h5>{{trajet.nom }} {{trajet.prenom}}</h5>
+							<h5>{{infoConducteur.nom }} {{infoConducteur.prenom}}</h5>
 							<h5>{{age}} ans</h5>
 							<img src="images/{{ infoTrajet.photoProfil }}" width="70" height="70" style="border-radius: 100%;">
-							<p>{{ infoConducteur.expiration_token }}</p>
 						</div>
 						<div class="col">
 							<h4 class="col text-center"><B>Informations du trajet</B></h4>
@@ -59,17 +58,15 @@
 				</div>
 			</div>
 			{# Bouton de validation #}
-            <div class="col text-center">
+            <div class="col text-end">
 			{% if  numEtudiant == 'etudNonConnecte' %}
-				<h4>Vous devez être connecté pour reserver ce trajet !</h4>
+				<h4 class="col text-center">Vous devez être connecté pour reserver ce trajet !</h4>
 			{% elseif infoTrajet.numConducteur == numEtudiant %}
-				<h4>Vous ne pouvez pas réserver votre propre trajet.</h4>
+				<h4 class="col text-center">Vous ne pouvez pas réserver votre propre trajet.</h4>
 			{% else %}
 				<a href="?controleur=paiement&methode=afficher&idTrajet={{infoTrajet.numero}}" class="btn btn-primary">Payer</a>
 			{% endif %}
-            </div>
-			<div class="text-center mt-5">
-				<a href="?controleur=&methode=" class="btn btn-danger">Retour</a>
+				<a href="?controleur=&methode=" class="btn btn-warning">Retour</a>
 			</div>
 		</div>
 	</div>

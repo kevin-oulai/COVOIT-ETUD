@@ -12163,7 +12163,12 @@ textarea.form-control-lg {
 }
 
 .btn-danger {
-  background-color: #ea9c9c;
+  background-color: #FF0004 !important;
+  color: #ffffff !important;
+}
+
+.btn-warning {
+  background-color: #ea9c9c !important;
 }
 
 .btn-success {
@@ -12179,7 +12184,11 @@ textarea.form-control-lg {
 }
 
 .btn-danger:hover {
-  background-color: #d37070;
+  background-color: #c50003 !important;
+}
+
+.btn-warning:hover {
+  background-color: #d37070 !important;
 }
 
 body {
@@ -12288,10 +12297,6 @@ body {
   scale: 1.05;
 }
 
-.modal {
-  backdrop-filter: blur(1px);
-}
-
 .listeTrajet2 {
   display: inline-block;
   margin-left: 200px;
@@ -12309,6 +12314,11 @@ body {
   top: 20px;
   margin-left: 10%;
   margin-top: 20%;
+}
+
+.carteBadge {
+  width: 200px !important;
+  top: 5% !important;
 }
 
 .formulaireFiltre {
@@ -12403,7 +12413,7 @@ body {
 }
 
 #map {
-  height: 250px;
+  height: 500px;
   width: 600px;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
 }
@@ -12469,11 +12479,6 @@ body {
   top: 25px; /* Distance par rapport au haut */
   z-index: 1050; /* Assurez-vous que le bouton est au-dessus du contenu */
   margin-left: 100px;
-}
-
-a.disabled {
-  pointer-events: none;
-  cursor: default;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -177,7 +177,8 @@ class ControllerTrajet extends Controller{
      *
      * @return void
      */
-    public function listerParticipations(){
+    public function listerReservations(){
+        $this->verifierConnexion();
         $numero_etudiant = $_SESSION["CLIENT"]->getNumero();
         $managerTrajet = new TrajetDao($this->getPdo());
         $listeTrajets = $managerTrajet->findAllByPassager($numero_etudiant);
@@ -220,7 +221,7 @@ class ControllerTrajet extends Controller{
                                         echo "</ul>
                                     </div>
                                     <div class=modal-footer>
-                                        <button type=button class='btn btn-primary' onclick=\"location = 'index.php?controleur=trajet&methode=listerParticipations';\">OK</button>
+                                        <button type=button class='btn btn-primary' onclick=\"location = 'index.php?controleur=trajet&methode=listerReservations';\">OK</button>
                                     </div>
                                 </div>
                             </div>
@@ -228,6 +229,10 @@ class ControllerTrajet extends Controller{
                         <div id=errorModalTrigger></div>";
                                             
                 }
+            }
+            elseif ($_GET['action'] == "annuler") {
+                $managerTrajet->annuler($_GET["id"]);
+                echo "<div id=modalTriggerAnnulation></div>";
             }
         }
     }
@@ -237,6 +242,7 @@ class ControllerTrajet extends Controller{
      * @return void
      */
     public function listerMesTrajets(){
+        $this->verifierConnexion();
         $template = $this->getTwig()->load('mesTrajets.html.twig');
         $managerTrajet = new TrajetDao($this->getPdo());
         $managerLieu = new LieuDao($this->getPdo());
@@ -356,7 +362,8 @@ class ControllerTrajet extends Controller{
      */
     public function enregistrer()
     {
-        if (isset($_SESSION["CLIENT"])) {
+        $this->verifierConnexion();
+
             $template = $this->getTwig()->load('proposerTrajet.html.twig');
             $listeErreurs = array();
 
@@ -456,11 +463,6 @@ class ControllerTrajet extends Controller{
 
                     }
                 }
-            }
-        }
-
-        else{
-            echo '<meta http-equiv="refresh" content="0;URL=index.php">';
         }
     }
 }

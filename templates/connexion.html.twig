@@ -1,16 +1,15 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if STATUS == 'connected' %}
+    {% if CLIENT is defined %}
 	{# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
 	<script>
 		window.location.href = "index.php";
 	</script>
 {% else %}
 	{# Sinon, afficher le formulaire de connexion #}
-<link rel='stylesheet' type='text/css' href='node_modules/bootstrap/dist/css/bootstrap.css'>
-<div class="d-flex justify-content-center align-items-center" style="height: 600px;">
+<h1 class="text-center mt-5 fs-1 fw-bold">Connectez-vous</h1>
+<div class="d-flex justify-content-center align-items-center" style="height: 300px;">
 <div class="login-container align-right" style="width: 350px;">
-    <h2 class="text-center">Connectez-vous</h2>
     <form ACTION='.?controleur=connexion&methode=login' METHOD='POST'>
         <div name="champSaisieMail" class="mb-3">
             <input name="login" type="username" class="form-control" placeholder="Adresse mail" required>
@@ -18,7 +17,7 @@
         <div name="champSaisieMdp" class="mb-3">
             <input name="pwd" type="password" class="form-control" placeholder="Mot de passe" required>
         </div>
-        <div class="text-center">
+        <div class="text-end">
             <input class="btn btn-primary" TYPE='SUBMIT' VALUE='Se connecter'>
         </div>
         </br>

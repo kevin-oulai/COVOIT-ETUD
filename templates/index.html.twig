@@ -13,7 +13,7 @@
             </form>
         </div>
         <main class="container-fluid mt-xl fs-4 fw-bold lh-sm">
-            {% if CLIENT.numeroVoiture != NULL %}
+            {% if CLIENT.numeroVoiture is not empty %}
                 <button id="ajout" class="btn btn-primary">+</button>
             {% endif %}
             <div class="container-fluid">

@@ -1,19 +1,8 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Politique de Confidentialité - Covoit Etud</title>
-  <style>
-
-  </style>
-</head>
-<body>
-
+    <h1 class="text-center mt-5 fs-1 fw-bold">Politique de Confidentialité</h1>
   <div class="container" style="margin-top: 50px;" >
-    <div class="card">
+    <div class="card bg-gradient-secondary">
       <div class="card-body" >
         <h5 class="card-title">Politique de Confidentialité</h5>
         <h6 class="card-subtitle mb-2 text-muted">Covoit Etud - Covoiturage entre étudiants</h6>
@@ -68,12 +57,9 @@
         <p>Pour toute question, veuillez nous contacter à l'adresse : <a href="mailto:contact@covoit-etud.com">contact@covoit-etud.com</a></p>
       </div>
     </div>
-  </div>
-<div class="text-center">
-  <button onclick="window.location.href ='.?controleur=inscription&methode=afficher';" class="btn btn-primary btn-sm mt-3">Retour</button>
+<div class="text-end">
+  <button onclick="window.location.href ='.?controleur=inscription&methode=afficher';" class="btn btn-warning mt-3">Retour</button>
 </div>
-
-</body>
-</html>
+  </div>
 
 {% endblock %}

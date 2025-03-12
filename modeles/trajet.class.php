@@ -37,7 +37,7 @@ class Trajet {
     /**
      * @brief Prix du trajet
      *
-     * @var integer|null
+     * @var float|null
      */
     private float|null $prix;
 
@@ -72,7 +72,7 @@ class Trajet {
      * @param integer|null $numero
      * @param string|null $heureDep
      * @param string|null $heureArr
-     * @param integer|null $prix
+     * @param float|null $prix
      * @param string|null $dateDep
      * @param integer|null $nbPlace
      * @param integer|null $numero_conducteur
@@ -126,7 +126,7 @@ class Trajet {
     /**
      * @brief Retourne le prix du trajet
      *
-     * @return integer|null
+     * @return float|null
      */
     public function getPrix(): ?float
     {
@@ -200,7 +200,7 @@ class Trajet {
     /**
      * @brief Assigne un prix au trajet
      *
-     * @param integer|null $prix
+     * @param float|null $prix
      * @return void
      */
     public function setPrix(?float $prix): void
