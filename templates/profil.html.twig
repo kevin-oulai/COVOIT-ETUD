@@ -16,7 +16,6 @@
                         <div class ="text-end">
                                 <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
                                 <button type='button' class='btn btn-warning' onclick="location = 'logout.php'">Déconnexion</button>
-                                <button class="btn btn-danger" data-bs-toggle='modal' data-bs-target='#fSupprimer_{{ etudiant.numero }}'>Supprimer mon profil</button>
                         </div>
                         {% endif %}
             </li>
@@ -147,8 +146,11 @@
                 </div>
             </form>
         </ul>
+        {% if CLIENT.numero == etudiant.numero %}
         <div style="margin-left:72.5%">
+            <button class="btn btn-danger" data-bs-toggle='modal' data-bs-target='#fSupprimer_{{ etudiant.numero }}'>Supprimer mon profil</button>
         </div>
+        {% endif %}
     </div>
 </div>
 
