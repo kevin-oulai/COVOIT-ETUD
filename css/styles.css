@@ -14,9 +14,6 @@
   #ecology {
     width: 50%;
   }
-  .cardError {
-    margin-left: 25% !important;
-  }
 }
 @media (max-width: 1199px) {
   #carte {
@@ -52,7 +49,6 @@
   }
   .cardError {
     width: 80% !important;
-    margin-left: 10% !important;
   }
   .form-container {
     width: 100%;
@@ -12272,8 +12268,8 @@ body {
 
 .cardError {
   width: 500px;
-  margin-left: 700px;
-  margin-top: 100px;
+  align-self: center;
+  margin-top: 5%;
 }
 
 .card .btn-secondary {
@@ -12473,6 +12469,11 @@ body {
   top: 25px; /* Distance par rapport au haut */
   z-index: 1050; /* Assurez-vous que le bouton est au-dessus du contenu */
   margin-left: 100px;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -39,7 +39,7 @@ class Trajet {
      *
      * @var integer|null
      */
-    private int|null $prix;
+    private float|null $prix;
 
     /**
      * @brief Date de départ du trajet
@@ -78,7 +78,7 @@ class Trajet {
      * @param integer|null $numero_conducteur
      */
 
-    public function __construct(?int $numero = null,?string $heureDep = null,?string $heureArr = null,?int $prix = null,?string $dateDep = null,?int $nbPlace = null,?int $numero_conducteur = null, ?int $numero_lieu_depart = null, ?int $numero_lieu_arrivee = null)
+    public function __construct(?int $numero = null,?string $heureDep = null,?string $heureArr = null,?float $prix = null,?string $dateDep = null,?int $nbPlace = null,?int $numero_conducteur = null, ?int $numero_lieu_depart = null, ?int $numero_lieu_arrivee = null)
     {
         $this->setNumero($numero);
         $this->setHeureDep($heureDep);
@@ -128,7 +128,7 @@ class Trajet {
      *
      * @return integer|null
      */
-    public function getPrix(): ?int
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
@@ -203,7 +203,7 @@ class Trajet {
      * @param integer|null $prix
      * @return void
      */
-    public function setPrix(?int $prix): void
+    public function setPrix(?float $prix): void
     {
         $this->prix = $prix;
     }

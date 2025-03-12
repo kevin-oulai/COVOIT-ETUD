@@ -25,11 +25,10 @@ class ControllerTrajet extends Controller{
     public function lister(){
         $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
         if (isset($_GET["boutonPage"])) {
-            $nbPage = $_GET["boutonPage"];
-            var_dump($nbPage);
+            $numeroPage = $_GET["boutonPage"];
         }
         else {
-            
+            $numeroPage = 1;
             if ($criteria === '') {
                     $depart = $_POST['depart'];
                     $_SESSION["depart"]=$depart;
@@ -94,10 +93,9 @@ class ControllerTrajet extends Controller{
         if (empty($listeTrajet)) {
             $infoFiltre = "aucunTrajet";
         }
-        var_dump($listeTrajet);
         $nbPages = ceil((count($listeTrajet))/10);
-        if (isset($nbPage)) {
-            $nb = $nbPage*10-10;
+        if ($nbPages>1) {
+            $nb = $numeroPage*10-10;
             $trajetInter = [];
             for ($i=$nb; $i < $nb+10; $i++) { 
                 if (isset($listeTrajet[$i])) {
@@ -116,14 +114,15 @@ class ControllerTrajet extends Controller{
             }
             $listeTrajet = $trajetInter;
         }
-        var_dump($listeTrajet);
         $template = $this->getTwig()->load('pageTrajets.html.twig');
         echo $template->render(array(
             'nbPassager' => $nbPassager,
             'listeTrajet' => $listeTrajet,
             'listeLieu' => $listeLieu,
             'infoFiltre' => $infoFiltre,
-            'nbPages' => $nbPages
+            'nbPages' => intval($nbPages),
+            'numeroPage' => intval($numeroPage)
+
         ));
     }
    

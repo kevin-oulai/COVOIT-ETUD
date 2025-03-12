@@ -21,4 +21,3 @@ function openTrajet(x) {
         btns[0].classList.add("btn-outline-primary"); 
     }
 }
-
