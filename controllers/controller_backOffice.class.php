@@ -151,7 +151,7 @@ class ControllerBackOffice extends Controller{
             elseif ($_GET['action'] == "supprimerEtud") {
                 $numero = $_GET['id'];
                 $managerEtudiant->delete($numero);
-                echo "<div id=modalTriggerSupprEtud></div>";
+                //echo "<div id=modalTriggerSupprEtud></div>";
             }
         }
     }
