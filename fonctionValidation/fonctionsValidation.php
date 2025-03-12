@@ -879,3 +879,117 @@ function validationDateDep($dateDep, &$messagesErreur)
     //- Pas de fichier
     return $valide;
 }
+
+/**
+ * @brief vérifie la cohérence du titre du badge
+ * 
+ * @param string|null $titre
+ * @param array $messageErreurs
+ * @return bool
+ */
+function validerTitre(?string $titre, array &$messagesErreurs)
+{
+    $valide = true;
+    // 1. Champs obligatoires : vérifier la présence du champ
+    if (empty($titre)) {
+        $messagesErreurs[] = "Le titre du badge est obligatoire.";
+        $valide = false;
+
+    } else {
+        // 2. Type de données : vérifier que le type de données est correct
+        if (!is_string($titre)) {
+            $messagesErreurs[] = "Le titre du badge doit être une chaîne de caractères.";
+            $valide = false;
+        }
+
+        // 3. Longueur des chaînes : vérifier la longueur minimale et maximale
+        if (strlen($titre) < 2 || strlen($titre) > 50) {
+            $messagesErreurs[] = "Le titre du badge doit contenir entre 2 et 50 caractères.";
+            $valide = false;
+        }
+    }
+    return $valide;
+}
+
+/**
+ * @brief vérifie la cohérence du description entré
+ *
+ * @param string|null $description
+ * @param array $messagesErreurs
+ * @return bool
+ */
+function validerDescription(string $description, array &$messagesErreurs)
+{
+    $valide = true;
+    //Champ non-obligatoire
+
+    //Type chaine de carateres
+    if (!is_string($description)) {
+        $valide = false;
+        $messagesErreurs[] = "La description doit être une chaine de caractères";
+    }
+    //Longueur < 255
+    if (strlen($description) > 255) {
+        $valide = false;
+        $messagesErreurs[] = "Taille de la description supérieure à 255";
+    }
+    //Aucun format
+    //Pas de plage de valeur
+    //Pas un fichier
+    return $valide;
+}
+
+/**
+ * @brief vérifie la cohérence de la catégorie entré
+ *
+ * @param string|null $categorie
+ * @param array $messagesErreurs
+ * @return bool
+ */
+function validerCategorie(string $categorie, array &$messagesErreurs)
+{
+    $valide = true;
+    //Champ non-obligatoire
+
+    //Type chaine de carateres
+    if (!is_string($categorie)) {
+        $valide = false;
+        $messagesErreurs[] = "La categorie doit être une chaine de caractères";
+    }
+    //Longueur < 255
+    if (strlen($categorie) > 255) {
+        $valide = false;
+        $messagesErreurs[] = "Taille de la categorie supérieure à 255";
+    }
+    //Aucun format
+    //Pas de plage de valeur
+    //Pas un fichier
+    return $valide;
+}
+
+/**
+ * @brief vérifie la cohérence de le rang entrée
+ *
+ * @param string|null $rang
+ * @param array $messagesErreurs
+ * @return bool
+ */
+function validerRang(string $rang, array &$messagesErreurs)
+{
+    $valide = true;
+    //    Champ non obligatoire
+    //    Type Entier
+    if (!is_string($rang)) {
+        $valide = false;
+        $messagesErreurs[] = "Valeur de rang invalide";
+    }
+    //    Longueur 1
+//    Aucun format
+//    Plage de valeur 1 - 3
+    if ($rang < '0' || $rang > '3') {
+        $valide = false;
+        $messagesErreurs[] = "Le rang doit être comprise entre 1 et 3";
+    }
+    //    Pas un fichier
+    return $valide;
+}

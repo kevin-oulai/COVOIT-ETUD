@@ -10,6 +10,7 @@ require_once 'modeles/bd.class.php';
 //Ajout des controleurs
 require_once 'controllers/controller.class.php';
 require_once 'controllers/controller_trajet.class.php';
+require_once 'controllers/controller_backOffice.class.php';
 require_once 'controllers/controller_etudiant.class.php';
 require_once 'controllers/controller_inscription.class.php';
 require_once 'controllers/controller_factory.class.php';

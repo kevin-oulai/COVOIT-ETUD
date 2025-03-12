@@ -292,6 +292,11 @@ padding-right: ($spacer * 2.5);}
   scale: 1.05;
 }
 
+.modal {
+  // backdrop-filter: blur(1px);
+}
+
+
 .listeTrajet2{
   display: inline-block;
   margin-left: 200px;
@@ -309,6 +314,11 @@ padding-right: ($spacer * 2.5);}
   top: 20px;
   margin-left: 10%;
   margin-top: 20%;
+}
+
+.carteBadge {
+  width: 200px !important;
+  top: 5% !important;
 }
 
 .formulaireFiltre {

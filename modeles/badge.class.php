@@ -30,6 +30,21 @@ class Badge {
      * @var string|null
      */
     private string|null $image;
+    /**
+     * @brief Description du badge
+     * @var string|null
+     */
+    private string|null $description;
+    /**
+     * @brief Categorie du badge
+     * @var string|null
+     */
+    private string|null $categorie;
+    /**
+     * @brief Rang du badge
+     * @var int|null
+     */
+    private int|null $rang;
 
     // Constructeur
     /**
@@ -38,11 +53,17 @@ class Badge {
      * @param integer|null $pNumero Numéro du badge.
      * @param string|null $pTitre Titre du badge.
      * @param string|null $pImage URL de l'image du badge.
+     * @param string|null $pDescription Descriptoin du badge.
+     * @param string|null $pCategorie Categorie du badge.
+     * @param string|null $pRang Rang du badge.
      */
-    public function __construct(?int $pNumero=null, ?string $pTitre=null, ?string $pImage=null) {
+    public function __construct(?int $pNumero=null, ?string $pTitre=null, ?string $pImage=null, ?string $pDescription=null, ?string $pCategorie=null, ?int $pRang=null) {
         $this -> setNumero($pNumero);
         $this -> setTitre($pTitre);
         $this -> setImage($pImage);
+        $this -> setDescription($pDescription);
+        $this -> setCategorie($pCategorie);
+        $this -> setRang($pRang);
     }
 
     // Getters & Setters
@@ -68,6 +89,27 @@ class Badge {
     public function getImage(): ?string {
         return $this -> image;
     }
+    /**
+     * @brief Retourne la description du badge.
+     * @return string|null
+     */
+    public function getDescription(): ?string {
+        return $this -> description;
+    }
+    /**
+     * @brief Retourne la categorie du badge.
+     * @return string|null
+     */
+    public function getCategorie(): ?string {
+        return $this -> categorie;
+    }
+    /**
+     * @brief Retourne le rang du badge.
+     * @return string|null
+     */
+    public function getRang(): ?string {
+        return $this -> rang;
+    }
         // Setters
     /**
      * @brief Assigne un numéro au badge.
@@ -92,5 +134,29 @@ class Badge {
      */
     public function setImage(?string $pImage): void {
         $this -> image = $pImage;
+    }
+    /**
+     * @brief Assigne une description au badge.
+     * @param string|null $pDescription
+     * @return void
+     */
+    public function setDescription(?string $pDescription): void {
+        $this -> description = $pDescription;
+    }
+    /**
+     * @brief Assigne une categorie au badge.
+     * @param string|null $pCategorie
+     * @return void
+     */
+    public function setCategorie(?string $pCategorie): void {
+        $this -> categorie = $pCategorie;
+    }
+    /**
+     * @brief Assigne un rang au badge.
+     * @param string|null $pRang
+     * @return void
+     */
+    public function setRang(?string $pRang): void {
+        $this -> rang = $pRang;
     }
 }

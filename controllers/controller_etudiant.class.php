@@ -41,7 +41,7 @@ class ControllerEtudiant extends Controller{
         }
 
         $managerVoiture = new VoitureDao($this->getPdo());
-        if($_SESSION['CLIENT']->getNumeroVoiture() != null) { // Verifier si l'étudiant est un conducteur
+        if($etudiant->getNumeroVoiture() != null) { // Verifier si l'étudiant est un conducteur
             $managerNbTrajet = new EtudiantDao($this->getPdo());
             $nbTrajet = $managerNbTrajet->findNbTrajets($num_etudiant);
             $voiture = $managerVoiture->findByEtudiant($num_etudiant);

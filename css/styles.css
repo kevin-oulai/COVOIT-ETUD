@@ -12316,6 +12316,11 @@ body {
   margin-top: 20%;
 }
 
+.carteBadge {
+  width: 200px !important;
+  top: 5% !important;
+}
+
 .formulaireFiltre {
   position: relative;
   border-radius: 30px;

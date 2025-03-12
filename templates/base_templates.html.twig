@@ -85,6 +85,9 @@
             </button>
             <div class="dropdown-menu dropdown-menu-end">
                 <li class="nav-item dropdown-item">
+                    <a href="?controleur=backOffice&methode=afficher" class="nav-link me-1 mt-2">Back Office</a>
+                </li>
+                <li class="nav-item dropdown-item">
                     <a href="?controleur=trajet&methode=listerReservations" class="nav-link me-1 mt-2">Mes reservations</a>
                 </li>
                 {% if CLIENT.numeroVoiture is not empty %}
@@ -98,10 +101,11 @@
             </div>
         </div> 
         <div class="navbarNonDropDown navbar-nav ms-auto"> 
+
             {% if CLIENT.numero == 0 %}
-            <a href="?controleur=backoffice&methode=afficher" class="nav-item me-4 mt-4">BackOffice</a> 
+            <a href="index.php?controleur=backoffice&methode=afficher" class="nav-item me-4 mt-4">BackOffice</a> 
             {% else %}
-            <a href="?controleur=trajet&methode=listerReservations" class="nav-item me-4 mt-4">Mes reservations</a> 
+            <a href="index.php?controleur=trajet&methode=listerReservations" class="nav-item me-4 mt-4">Mes reservations</a> 
             {% endif %}
             {% if CLIENT.numeroVoiture != Null %} 
 
@@ -112,7 +116,7 @@
                 <img src="images/{{ CLIENT.photoProfil }}" width="70" height="70" style="border-radius: 100%;"> 
             </a> 
             {% else %} 
-            <a href="?controleur=connexion&methode=afficher" class="link-body-emphasis link-offset-2 link-underline link-underline-opacity-0 ms-auto"> 
+            <a href="index.php?controleur=connexion&methode=afficher" class="link-body-emphasis link-offset-2 link-underline link-underline-opacity-0 ms-auto"> 
                 <p class="nav-item me-4 mt-4">Se connecter</p> 
             </a> 
         {% endif %}
