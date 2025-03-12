@@ -8,7 +8,7 @@
         {% for indexCategorie in 0..{nbCategorie} %}
             <div class="col">
                 <div class="card bg-gradient-secondary" style="width: 250px; padding: 5px;">
-                    <div class="card-title" style="margin: auto;">{{ listeBadges[indexCategorie][0].titre }}</div>
+                    <div class="card-title" style="margin: auto;">{{ listeBadges[indexCategorie][0].categorie }}</div>
                     <div id="carousel{{ indexCategorie }}" class="carousel carousel-catalogue slide">
                         <div class="carousel-inner">
                             {% for badge in listeBadges[indexCategorie] %}
@@ -19,7 +19,7 @@
                                 {% endif %}
                                         <img src="images/assets/{{ badge.image }}" class="badge-catalogue d-block p-2" alt="Badge recurent">
                                         <div class="d-block p-2">
-                                            <p>{{ badge.titre }}</p>
+                                            <p><b>{{ badge.titre }}</b></p>
                                             <p>{{ badge.description }}</p>
                                         </div>
                                     </div>
