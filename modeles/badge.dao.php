@@ -139,6 +139,15 @@ class BadgeDao{
         return $badges;
     }
 
+    public function getAll(): array {
+        $requete = "SELECT * FROM BADGE ORDER BY rang";
+        $pdoStatement = $this->PDO->prepare($requete);
+        $pdoStatement->execute();
+
+        $tableau = $pdoStatement->fetchAll();
+        $listeBadges = $this->hydrateAll($tableau);
+
+        return $listeBadges;
     public function insert(string $titre, string $image, string $description, string $categorie, int $rang): void {
         $query = $this->PDO->prepare("INSERT INTO BADGE(titre, image, description, categorie, rang) VALUES (:titre, :image, :description, :categorie, :rang)");
 

@@ -23,6 +23,7 @@ class ControllerTrajet extends Controller{
      * @return void
      */
     public function lister(){
+
         if (isset($_GET["filtre"])) {
             $criteria = $_GET["filtre"];
         }

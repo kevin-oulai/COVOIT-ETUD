@@ -162,6 +162,7 @@ $gradients: map-merge((
 @import "../node_modules/bootstrap/scss/buttons";
 @import "../node_modules/bootstrap/scss/card";
 @import "../node_modules/bootstrap/scss/alert";
+@import "../node_modules/bootstrap/scss/carousel";
 
 .tab-content{
   display:none;
@@ -494,4 +495,21 @@ padding-right: ($spacer * 2.5);}
   top: 25px;        /* Distance par rapport au haut */
   z-index: 1050;    /* Assurez-vous que le bouton est au-dessus du contenu */
   margin-left: 100px;
+}
+
+.badge-catalogue {
+  margin: auto;
+  padding: inherit;
+  width: auto;
+  height: 40%;
+  max-height: 177px;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  filter: invert(1) grayscale(100);
+}
+
+.carousel-catalogue {
+  margin: auto;
+  padding: 10px;
 }
