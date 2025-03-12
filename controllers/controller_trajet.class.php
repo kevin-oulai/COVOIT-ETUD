@@ -23,20 +23,38 @@ class ControllerTrajet extends Controller{
      * @return void
      */
     public function lister(){
-        $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
-        if ($criteria === '') {
-                $depart = $_POST['depart'];
-                $_SESSION["depart"]=$depart;
-                $arrivee = $_POST['arrivee'];
-                $_SESSION["arrivee"]=$arrivee;
-                $date = $_POST['date'];
-                $_SESSION["date"]=$date;
-                $nbPassager = $_POST['nombre_passagers'];
-                $_SESSION["nombre_passagers"]=$nbPassager;
-            }
+
+        if (isset($_GET["filtre"])) {
+            $criteria = $_GET["filtre"];
+        }
+        else {
+            $criteria = isset($_POST['criteria']) ? $_POST['criteria'] : '';
+        }
+        
+        if (isset($_GET["boutonPage"])) {
+            $numeroPage = $_GET["boutonPage"];
+        }
+        else {
+            $numeroPage = 1;
+            if ($criteria === '') {
+                    $villeDepart = $_POST['villeDepart'];
+                    $rueDepart = $_POST['rueDepart'];
+                    $_SESSION["villeDepart"]=$villeDepart;
+                    $_SESSION["rueDepart"]=$rueDepart;
+                    $villeArrive = $_POST['villeArrive'];
+                    $rueArrive = $_POST['rueArrive'];
+                    $_SESSION["villeArrive"]=$villeArrive;
+                    $_SESSION["rueArrive"]=$rueArrive;
+                    $date = $_POST['date'];
+                    $_SESSION["date"]=$date;
+                    $nbPassager = $_POST['nombre_passagers'];
+                    $_SESSION["nombre_passagers"] = $nbPassager;
+                }
+        }
+        $nbPassager = $_SESSION["nombre_passagers"];
         $managerLieu = new LieuDao($this->getPdo());
-        $numTrajet1 = $managerLieu->findNumByVille($_SESSION["depart"]);
-        $numTrajet2 = $managerLieu->findNumByVille($_SESSION["arrivee"]);
+        $numTrajet1 = $managerLieu->findNumByVilleEtRue($_SESSION["villeDepart"], $_SESSION["rueDepart"]);
+        $numTrajet2 = $managerLieu->findNumByVilleEtRue($_SESSION["villeArrive"], $_SESSION["rueArrive"] );
         if (empty($numTrajet1) || empty($numTrajet2)) {
             $template = $this->getTwig()->load('pageTrajets.html.twig');
             $infoFiltre = "aucunTrajet";
@@ -62,7 +80,6 @@ class ControllerTrajet extends Controller{
         }
         $listeNum2 = substr($listeNum2, 0, -2);
         $listeNum2 = $listeNum2 . ")";
-        
         $managerTrajet = new TrajetDao($this->getPdo());
         $managerLieu = new LieuDao($this->getPDO());
         //$listeTrajet = $managerTrajet->listeTrajetTrieeParHeureDep($listeNum1, $listeNum2, $date, $nbPassager);
@@ -80,18 +97,43 @@ class ControllerTrajet extends Controller{
         } elseif ($criteria === 'prixBas') {
             $listeTrajet = $managerTrajet->findTrajetTrieeParPrix($listeNum1, $listeNum2, $_SESSION["date"], $_SESSION["nombre_passagers"]);
             $listeLieu = $managerLieu->findAllAssoc();
-            $infoFiltre = "PrixBas";
+            $infoFiltre = "prixBas";
             $nbPassager=$_SESSION["nombre_passagers"];
         }
         if (empty($listeTrajet)) {
             $infoFiltre = "aucunTrajet";
+        }
+
+        $nbPages = ceil((count($listeTrajet))/10);
+        if ($nbPages>1) {
+            $nb = $numeroPage*10-10;
+            $trajetInter = [];
+            for ($i=$nb; $i < $nb+10; $i++) { 
+                if (isset($listeTrajet[$i])) {
+                    array_push($trajetInter, $listeTrajet[$i]);
+                }
+            }
+            $listeTrajet = $trajetInter;
+        }
+        else {
+            $trajetInter = [];
+            for ($i=0; $i < 10; $i++) { 
+                if (isset($listeTrajet[$i])) {
+                    array_push($trajetInter, $listeTrajet[$i]);
+                    //$trajetInter += $listeTrajet[$i];
+                }
+            }
+            $listeTrajet = $trajetInter;
         }
         $template = $this->getTwig()->load('pageTrajets.html.twig');
         echo $template->render(array(
             'nbPassager' => $nbPassager,
             'listeTrajet' => $listeTrajet,
             'listeLieu' => $listeLieu,
-            'infoFiltre' => $infoFiltre
+            'infoFiltre' => $infoFiltre,
+            'nbPages' => intval($nbPages),
+            'numeroPage' => intval($numeroPage)
+
         ));
     }
    

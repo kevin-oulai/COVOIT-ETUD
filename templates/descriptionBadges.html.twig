@@ -1,0 +1,43 @@
+{% extends 'base_templates.html.twig' %}
+{% block content %}
+
+    <h1>Page descriptive des badges</h1>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for indexCategorie in 0..{nbCategorie} %}
+            <div class="col">
+                <div class="card bg-gradient-secondary" style="width: 250px; padding: 5px;">
+                    <div class="card-title" style="margin: auto;">{{ listeBadges[indexCategorie][0].categorie }}</div>
+                    <div id="carousel{{ indexCategorie }}" class="carousel carousel-catalogue slide">
+                        <div class="carousel-inner">
+                            {% for badge in listeBadges[indexCategorie] %}
+                                {% if badge.rang == 1 %}
+                                    <div class="carousel-item active">
+                                {% else %}
+                                    <div class="carousel-item">
+                                {% endif %}
+                                        <img src="images/assets/{{ badge.image }}" class="badge-catalogue d-block p-2" alt="Badge recurent">
+                                        <div class="d-block p-2">
+                                            <p><b>{{ badge.titre }}</b></p>
+                                            <p>{{ badge.description }}</p>
+                                        </div>
+                                    </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ indexCategorie }}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ indexCategorie }}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

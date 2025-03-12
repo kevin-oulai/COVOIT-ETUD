@@ -185,4 +185,15 @@ class LieuDao{
         return $lieu;
     }
 
+    
+    public function findNumByVilleEtRue(string $ville, string $rue): ?array
+    {
+        $sql="SELECT numero FROM LIEU WHERE ville= :ville AND nomRue= :rue";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->execute(array(":ville"=>$ville, ":rue"=>$rue));
+        $pdoStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $lieu = $pdoStatement->fetchAll();
+
+        return $lieu;
+    }
 }
