@@ -132,7 +132,6 @@ class ControllerBackOffice extends Controller{
                         move_uploaded_file($image, "$dir/$nomPhoto");
                     }
                 }
-                var_dump($nomPhoto);
 
                 if (!empty($messagesErreurs)) {
                     $template = $this->getTwig()->load('backOffice.html.twig');
