@@ -248,17 +248,11 @@
                     <tr>
                         <td>{{ etudiant.nom }}</td>
                         <td>{{ etudiant.prenom }}</td>
-                        <td><button class="btn btn-secondary" style="justify-self: end;" onclick=window.location.href='index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}';><img src="images/assets/eye-icon.png" width="20px"></button>
-                                <button class="btn btn-danger" style="justify-self: end;" data-bs-toggle='modal' data-bs-target='#fSupprimerEtud_{{ etudiant.numero }}'><img src="images/assets/bin-icon.png" width="20px"></button></td>
+                        <td>
+                            <button class="btn btn-secondary" style="justify-self: end;" onclick=window.location.href='index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}';><img src="images/assets/eye-icon.png" width="20px"></button>
+                            <button class="btn btn-danger" style="justify-self: end;" data-bs-toggle='modal' data-bs-target='#fSupprimerEtud_{{ etudiant.numero }}'><img src="images/assets/bin-icon.png" width="20px"></button>
+                        </td>
                     </tr>
-{#                             
-                        <div class="card mt-3 bg-gradient-secondary shadow carteBadge" style="justify-self: center;">
-                            <div class="card-body">
-                                <p>{{ etudiant.nom }} {{ etudiant.prenom }}</p>
-                                <button class="btn btn-secondary" style="justify-self: end;" onclick=window.location.href='index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}';><img src="images/assets/eye-icon.png" width="20px"></button>
-                                <button class="btn btn-danger" style="justify-self: end;" data-bs-toggle='modal' data-bs-target='#fSupprimerEtud_{{ etudiant.numero }}'><img src="images/assets/bin-icon.png" width="20px"></button>
-                            </div>
-                        </div> #}
 
                         <!-- Fenetre modale suppression -->
                         <div class='modal fade' id='fSupprimerEtud_{{ etudiant.numero }}' tabindex='-1' aria-labelledby='Supprimer' aria-hidden='true'>
@@ -334,12 +328,13 @@
     <script src="scripts/script_backOffice.js"></script>
     <script src="scripts/scriptValidationForm.js"></script>
     <script>
-    $(document).ready( function () {
-    $('#myTable').DataTable();
-} );
-    let table = new DataTable('#myTable', {
-        responsive: true
-    });
+        $(document).ready( function () {
+        $('#myTable').DataTable();
+        } );
+        let table = new DataTable('#myTable', {
+            responsive: true
+        });
+        
         $(function(){
             $('#myModal').modal({show:true, backdrop:'static'});
             if($('#modalTrigger').length){
