@@ -134,6 +134,13 @@ class TrajetDao{
      * @return void
      */
     public function delete(int $numero): void{
+        // En raison des contraintes, on supprime d'abord le trajet dans la table choisir
+        $sql="DELETE FROM CHOISIR WHERE numero_trajet = :numero";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(":numero",$numero);
+        $pdoStatement->execute();
+
+        // On supprime ensuite le trajet dans la table TRAJET
         $sql="DELETE FROM TRAJET WHERE numero = :numero";
         $pdoStatement = $this->PDO->prepare($sql);
         $pdoStatement->bindParam(":numero",$numero);
@@ -343,6 +350,13 @@ class TrajetDao{
         $pdoStatement->bindParam(':numTrajet', $numTrajet);
         $pdoStatement->bindParam(':numPassager', $numPassager);
         $pdoStatement->bindParam(':nbPassager', $nbPassager);
+        $pdoStatement->execute();
+    }
+
+    public function annuler($numTrajet){
+        $sql = "DELETE FROM CHOISIR WHERE numero_trajet = :numTrajet";
+        $pdoStatement = $this->PDO->prepare($sql);
+        $pdoStatement->bindParam(':numTrajet', $numTrajet);
         $pdoStatement->execute();
     }
 }

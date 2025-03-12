@@ -27,10 +27,12 @@ class ControllerEtudiant extends Controller{
      * @return void
      */
     public function afficher(){
+        $this->verifierConnexion();
         $num_etudiant = $_GET['id'];
         $managerEtudiant = new EtudiantDao($this->getPdo());
         $etudiant = $managerEtudiant->find($num_etudiant);
         $twig_params = array('etudiant' => $etudiant);
+        // var_dump($_SESSION);
 
         if($managerEtudiant->possedeBadge($num_etudiant)) { // Verifier si l'étudiant possède des badges
             $managerBadge = new BadgeDao($this->getPdo());
@@ -63,6 +65,7 @@ class ControllerEtudiant extends Controller{
         }
         
         if(isset($_GET['action'])){
+            $numero_voiture = NULL;
             if($_GET['action'] == "modifier"){
                 if($_POST['modele'] != '' && $_POST['marque'] != '' && $_POST['nbPlace'] != ''){
                     $modele = $_POST['modele'];
@@ -107,12 +110,23 @@ class ControllerEtudiant extends Controller{
                     $twig_params['etudiant'] = $etudiant;
 
                 } else {
+                    $updated = new Etudiant($num_etudiant, $_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
+                    $_SESSION['CLIENT'] = $updated;
                     $managerEtudiant->update($num_etudiant, $_POST['nom'], $_POST['prenom'], $_POST['dateNaiss'], $_POST['mail'], $_POST['tel'], $numero_voiture, $nomPhoto);
                     echo "<div id=modalTriggerModif></div>";
+                    
                 }
             }
         }
         $template = $this->getTwig()->load('profil.html.twig');                
         echo $template->render($twig_params);
     }    
+
+    public function delete()
+    {
+        $managerEtudiant = new EtudiantDao($this->getPdo());
+        $managerTrajet = new TrajetDao($this->getPdo());
+        $managerEtudiant->delete($_SESSION['CLIENT']->getNumero());
+        header('Location: logout.php');
+    }
 }
