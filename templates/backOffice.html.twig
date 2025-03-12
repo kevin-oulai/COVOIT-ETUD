@@ -1,0 +1,352 @@
+{% extends "base_templates.html.twig" %}
+{% block content %}
+    <h1 class="text-center mt-5 fs-1 fw-bold">Back Office</h1>
+    <div class="container mt-5 text-center">
+        <div>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <button onclick="openBackOffice(0)" name = "btnBackOffice" class = "btnBackOffice btn btn-primary" >Badges</button>
+                </li>
+                <li class="nav-item" style = "margin-left: 20px;">
+                    <button onclick="openBackOffice(1)" name = "btnBackOffice" class = "btnBackOffice btn btn-outline-primary">Gestion utilisateurs</button>
+                </li>
+                <li class="nav-item" style = "margin-left: 20px;">
+                    <button onclick="openBackOffice(2)" name = "btnBackOffice" class = "btnBackOffice btn btn-outline-primary">Sauvegarde/Restauration</button>
+                </li>
+            </ul>
+        </div>
+        <div class = "backOffice">
+            {# Partie des badges #}
+            <div class = "tab-content" style = "display: block;"><br>
+                <div class="row gap-4" style="justify-content: center;">
+                {% for badge in badges %}
+                    <div class="card mt-3 bg-gradient-secondary shadow carteBadge" style="justify-self: center;">
+                        <div class="card-body">
+                            <div class="justify-content-between">
+                                <div>
+                                    <img src="images/assets/{{ badge.image }}" width="90px">
+                                    <p>{{ badge.titre }}</p>
+                                    <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ badge.numero }}'><img src="images/assets/edit-icon.png" width="20px"></button>
+                                    <button class="btn btn-danger" data-bs-toggle='modal' data-bs-target='#fSupprimer_{{ badge.numero }}'><img src="images/assets/bin-icon.png" width="20px"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fenetre modale modification -->
+                    <div class='modal fade' id='fModifier_{{ badge.numero }}' tabindex='-1' aria-labelledby='Modifier' aria-hidden='true'>
+                        <div class='modal-dialog modal-dialog-centered '>
+                            <div class='modal-content bg-gradient-primary border-2'>
+                                <div class='modal-header'>
+                                    <h1 class='modal-title fs-5' id='fModifierLabel_{{ badge.numero }}'>Modifier le badge {{ badge.titre }}</h1>
+                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
+                                </div>
+                                <form enctype='multipart/form-data' action="index.php?controleur=backOffice&methode=afficher&action=modifier&id={{ badge.numero }}" method="post">
+                                    <div class='modal-body'>
+                                        <p class="fw-bold text-align-left input-group">
+                                            <div class="btn-group">
+                                                <div name="champTitre">
+                                                    <label class="fw-bold">Titre*
+                                                        <input name="titre" class="form-control" type="text" value="{{ badge.titre }}" name="titre" onkeyup="verifTitre();"></label>
+                                                    <div name="erreurTitre" class="messageErreur"></div>
+                                                </div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Image
+                                                    <input name="image" class="form-control" type="file" accept="image/*" value="{{ badge.image }}" onchange="verifImage();"></label>
+                                                <div name="erreurImage" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Description
+                                                    <input name="description" class="form-control" type="textarea" value="{{ badge.description }}" onchange="verifDescription();"></label>
+                                                <div name="erreurDescription" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Categorie
+                                                    <input name="categorie" class="form-control" type="text" value="{{ badge.categorie }}" onchange="verifCategorie();"></label>
+                                                <div name="erreurCategorie" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Rang*
+                                                    <input name="rang" class="form-control" type="number" value="{{ badge.rang }}" onchange="verifRang();"></label>
+                                                <div name="erreurRang" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p>* Champs obligatoires</p>
+                                            {% if erreurs != null %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {% for e in erreurs %}
+                                                    <p>{{ e }}</p>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                    </div>
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+                                        <input type="submit" class="btn btn-success" value="Confirmer">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="myModalModif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content bg-gradient-primary border-2">
+                                <div class="modal-body">
+                                    Le badge {{ badge.titre }} a bien été modifié.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fenetre modale suppression -->
+                    <div class='modal fade' id='fSupprimer_{{ badge.numero }}' tabindex='-1' aria-labelledby='Supprimer' aria-hidden='true'>
+                        <div class='modal-dialog modal-dialog-centered'>
+                            <div class='modal-content bg-gradient-primary border-2'>
+                                <div class='modal-header'>
+                                    <h1 class='modal-title fs-5' id='fSupprimerLabel_{{ badge.numero }}'>Supprimer un badge</h1>
+                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
+                                </div>
+                                <div class='modal-body'>
+                                    <p>
+                                        Voulez-vous vraiment supprimer le badge {{ badge.titre }} ?
+                                    </p>
+                                </div>
+                                <div class='modal-footer'>
+                                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+                                    <button onclick=window.location.href='index.php?controleur=backOffice&methode=afficher&action=supprimer&id={{ badge.numero }}'; class='btn btn-danger' id="confirmDelete"><i class='bi bi-trash-fill'></i>Confirmer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="myModalSuppr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content bg-gradient-primary border-2">
+                                <div class="modal-body">
+                                    Le badge a bien été supprimé.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                    <div class="text-end mt-5">
+                        <button class="btn btn-primary" data-bs-toggle='modal' data-bs-target='#fBadge'>Ajouter un badge</button>
+                        <a href="index.php" class="btn btn-warning">Retour</a>
+                    </div>
+
+                    <!-- Fenetre modale ajouter -->
+                    <div class='modal fade' id='fBadge' tabindex='-1' aria-labelledby='Badge' aria-hidden='true'>
+                        <div class='modal-dialog modal-dialog-centered'>
+                            <div class='modal-content bg-gradient-primary border-2'>
+                                <div class='modal-header'>
+                                    <h1 class='modal-title fs-5' id='fBadgeLabel_{{ badge.numero }}'>Ajouter un badge</h1>
+                                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
+                                </div>
+                                <form enctype='multipart/form-data' action="index.php?controleur=backOffice&methode=afficher&action=ajouter" method="post" novalidate>
+                                    <div class='modal-body'>
+                                        <p class="fw-bold text-align-left input-group">
+                                            <div class="btn-group">
+                                                <div name="champTitre">
+                                                    <label class="fw-bold">Titre
+                                                        <input name="titre" class="form-control" type="text" name="titre" onkeyup="verifTitre();"></label>
+                                                    <div name="erreurTitre" class="messageErreur"></div>
+                                                </div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Description
+                                                    <input name="description" class="form-control" type="textarea" onchange="verifDescription();"></label>
+                                                <div name="erreurDescription" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Image
+                                                    <input name="image" class="form-control" type="file" accept="image/*" onchange="verifPdp();"></label>
+                                                <div name="erreurPhoto" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Categorie
+                                                    <input name="categorie" class="form-control" type="text" onchange="verifCategorie();"></label>
+                                                <div name="erreurCategorie" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                        <p class="fw-bold text-align-center input">
+                                            <div class="btn-group">
+                                                <label class="fw-bold">Rang
+                                                    <input name="rang" class="form-control" type="number" onchange="verifRang();"></label>
+                                                <div name="erreurRang" class="messageErreur"></div>
+                                            </div>
+                                        </p>
+                                            {% if erreurs != null %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {% for e in erreurs %}
+                                                    <p>{{ e }}</p>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                    </div>
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Annuler</button>
+                                        <input type="submit" class='btn btn-secondary' value="Ajouter le badge" data-toggle="modal" data-target="#myModal">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" style="backdrop-filter: blur(2px)">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content bg-gradient-primary border-2">
+                                <div class="modal-body">
+                                    Le badge a bien été posté.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Partie des étudiants #}
+            <div class = "tab-content">
+                <div class="row gap-3" style="justify-content: center;">
+                    {% for etudiant in etudiants %}
+                        <div class="card mt-3 bg-gradient-secondary shadow carteBadge" style="justify-self: center;">
+                            <div class="card-body">
+                                <p>{{ etudiant.nom }} {{ etudiant.prenom }}</p>
+                                <button class="btn btn-secondary" style="justify-self: end;" onclick=window.location.href='index.php?controleur=etudiant&methode=afficher&id={{ etudiant.numero }}';><img src="images/assets/eye-icon.png" width="20px"></button>
+                                <button class="btn btn-danger" style="justify-self: end;" data-bs-toggle='modal' data-bs-target='#fSupprimerEtud_{{ etudiant.numero }}'><img src="images/assets/bin-icon.png" width="20px"></button>
+                            </div>
+                        </div>
+
+                        <!-- Fenetre modale suppression -->
+                        <div class='modal fade' id='fSupprimerEtud_{{ etudiant.numero }}' tabindex='-1' aria-labelledby='Supprimer' aria-hidden='true'>
+                            <div class='modal-dialog modal-dialog-centered'>
+                                <div class='modal-content bg-gradient-primary border-2'>
+                                    <div class='modal-header'>
+                                        <h1 class='modal-title fs-5' id='fSupprimerLabel_{{ etudiant.numero }}'>Supprimer un étudiant</h1>
+                                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Annuler'></button>
+                                    </div>
+                                    <div class='modal-body'>
+                                        <p>
+                                            Voulez-vous vraiment supprimer l'étudiant {{ etudiant.nom }} {{ etudiant.prenom }} ?
+                                        </p>
+                                    </div>
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+                                        <button onclick=window.location.href='index.php?controleur=backOffice&methode=afficher&action=supprimerEtud&id={{ etudiant.numero }}'; class='btn btn-danger' id="confirmDelete"><i class='bi bi-trash-fill'></i>Confirmer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="text-end mt-5">
+                        <a href="index.php" class="btn btn-warning">Retour</a>
+                    </div>
+                </div>
+            </div>
+
+            {# Partie de la restauration #}
+            <div class = "tab-content">
+                <div class="mt-5">
+                <form action="index.php?controleur=backOffice&methode=afficher&action=recover" method="post">
+                <label for="selectionBackup">Choisir un fichier de backup :</label>
+                <select name="selectionBackup" id="selectionBackup">
+                    {% for file in files %}
+                        <option value="{{ file }}">{{ file }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+                <input class="btn btn-primary" type="submit" value="Démarrer la backup">
+                </div>
+            </form>
+
+            {% if message %}
+                <p class="alert alert-info">{{ message }}</p>
+            {% endif %}
+
+            <div class="text-end mt-5">
+                <a href="index.php" class="btn btn-warning">Retour</a>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModalSupprEtud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-gradient-primary border-2">
+                <div class="modal-body">
+                    L'étudiant a bien été supprimé.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="location = 'index.php?controleur=backOffice&methode=afficher';">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="scripts/script_backOffice.js"></script>
+    <script src="scripts/scriptValidationForm.js"></script>
+    <script>
+        $(function(){
+            $('#myModal').modal({show:true, backdrop:'static'});
+            if($('#modalTrigger').length){
+                $('#myModal').modal('show');
+            }
+        });
+    
+        $(function () {
+            $('#myModalModif').modal({show: true, backdrop: 'static'});
+            if ($('#modalTriggerModif').length) {
+                $('#myModalModif').modal('show');
+            }
+        });
+    
+        $(function () {
+            $('#myModalSuppr').modal({show: true, backdrop: 'static'});
+            if ($('#modalTriggerSuppr').length) {
+                $('#myModalSuppr').modal('show');
+            }
+        });
+    
+        $(function () {
+            $('#myModalSupprEtud').modal({show: true, backdrop: 'static'});
+            if ($('#modalTriggerSupprEtud').length) {
+                $('#myModalSupprEtud').modal('show');
+            }
+        });
+
+
+    {% if erreurs != null %}
+    window.onload = function () {
+        $('#fModifier_{{ badge.numero }}').modal('show');
+    }
+    {% endif %}
+    </script>
+{% endblock %}

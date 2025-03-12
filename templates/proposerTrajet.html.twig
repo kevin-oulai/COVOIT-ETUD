@@ -1,57 +1,66 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-{% if CLIENT is defined %}
-
-
+    {% if not CLIENT is defined %}
+        {# Si l'utilisateur est déjà connecté, redirection vers la page d'accueil #}
+        <script>
+            window.location.href = "index.php";
+        </script>
+    {% elseif CLIENT.numeroVoiture is empty %}
+        <script>
+            window.location.href = "index.php";
+        </script>
+    {% else %}
     <h1 class="text-center mt-5 fs-1 fw-bold">Enregistrer un trajet</h1>
-    <main class="d-flex justify-content-center align-items-center mt-3">
-        <div class="" style="width: 350px;">
-            <form action="index.php?controleur=trajet&methode=enregistrer&action=enregistrer" method="post" class="me-3 ms-1 me-1">
-                <div class="mt-5 row form-part-1">
-                    <label>Lieu de départ</label><input id="lieuDepart" name="lieuDepart" type="text" onkeyup="verifierAdresse('lieuDepart')" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
-                    <p class="fst-italic lieuDepartMessageErreur" style="color:red;"></p>
-                    <label>Lieu d'arrivée</label><input id="lieuArrivee" name="lieuArrivee" type="text" onkeyup="verifierAdresse('lieuArrivee')" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
-                    <p class="fst-italic lieuArriveeMessageErreur" style="color:red;"></p>
-                    <button id="btnMap" class="mt-3 btn btn-primary"  onclick="checkFirstPart()">Voir sur la carte et continuer</button>
-                    <p class="fst-italic erreurExistanceLieu" style="color:red;"></p>
-                </div>
-                <div class="hints alert-success pop-animation" hidden></div>
-                <div class="form-part-2" style="opacity: 0;">
-                    <div class="mt-3 row">
-                        <div class="col">
-                            <div class="row">
-                                <label>Heure de départ</label><input name="heureDep" type="time" class="form-control col">
-                                <p class="fst-italic heureDepMessageErreur" style="color:red;"></p>
-                                <label>Heure d'arrivée</label><input name="heureArr" type="time" class="form-control col">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="row ms-1">
-                                <label>Prix</label>
-                                <div class="input-group">
-                                    <input id="prix" name="prix" type="number" step="any" class="input-prix form-control" onchange="verifierPrix('prix')">
-                                    <span class="input-group-text" id="realPrice"></span>
+        <main class="d-flex justify-content-center align-items-center mt-3">
+            <div class="" style="width: 350px;">
+                <form action="index.php?controleur=trajet&methode=enregistrer&action=enregistrer" method="post" class="me-3 ms-1 me-1">
+                    <div class="mt-5 row form-part-1">
+                        <label>Lieu de départ</label><input id="lieuDepart" name="lieuDepart" type="text" onkeyup="verifierAdresse('lieuDepart')" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
+                        <p class="fst-italic lieuDepartMessageErreur" style="color:red;"></p>
+                        <label>Lieu d'arrivée</label><input id="lieuArrivee" name="lieuArrivee" type="text" onkeyup="verifierAdresse('lieuArrivee')" class="form-control" placeholder="Ex : 2 Allée parc Montaury, Anglet">
+                        <p class="fst-italic lieuArriveeMessageErreur" style="color:red;"></p>
+                        <button id="btnMap" class="mt-3 btn btn-primary"  onclick="checkFirstPart()">Voir sur la carte et continuer</button>
+                        <p class="fst-italic erreurExistanceLieu" style="color:red;"></p>
+                    </div>
+                    <div class="hints alert-success pop-animation" hidden></div>
+                    <div class="form-part-2" style="opacity: 0;">
+                        <div class="mt-3 row">
+                            <div class="col">
+                                <div class="row">
+                                    <label>Heure de départ</label><input name="heureDep" type="time" class="form-control col">
+                                    <p class="fst-italic heureDepMessageErreur" style="color:red;"></p>
+                                    <label>Heure d'arrivée</label><input name="heureArr" type="time" class="form-control col">
                                 </div>
-                                    <p class="fst-italic prixMessageErreur" style="color:red;"></p>
-                            <label>Nombre de places</label><input name="nbPlace" type="number" class="form-control">
+                            </div>
+                            <div class="col">
+                                <div class="row ms-1">
+                                    <label>Prix</label>
+                                    <div class="input-group">
+                                        <input id="prix" name="prix" type="number" step="any" class="input-prix form-control" onchange="verifierPrix('prix')">
+                                        <span class="input-group-text" id="realPrice"></span>
+                                    </div>
+                                        <p class="fst-italic prixMessageErreur" style="color:red;"></p>
+                                <label>Nombre de places</label><input name="nbPlace" type="number" class="form-control">
+                                </div>
                             </div>
                         </div>
+                        <div class="mt-3 row">
+                            <label>Date de départ</label><input name="dateDep" type="date" value="now" class="form-control">
+                        </div>
+                        <div class="mt-3 row">
+                            <input type="Submit" id='btnEnregistrer' onclick="checkForm('btnEnregistrer')" value="Enregistrer le trajet" class="btn-submit btn btn-primary">
+                        </div>
                     </div>
-                    <div class="mt-3 row">
-                        <label>Date de départ</label><input name="dateDep" type="date" value="now" class="form-control">
+    {#                Infos de l'api à passer#}
+                    <div hidden>
+                        <input class="dist-storer" name="dist" type="text">
                     </div>
-                    <div class="mt-3 row">
-                        <input type="Submit" id='btnEnregistrer' onclick="checkForm('btnEnregistrer')" value="Enregistrer le trajet" class="btn-submit btn btn-primary">
-                    </div>
-                </div>
-{#                Infos de l'api à passer#}
-                <div hidden>
-                    <input class="dist-storer" name="dist" type="text">
-                </div>
 
             </form>
         </div>
-        <div class="ms-5" id="map"></div>
+        <div class="ms-5">
+            <div id="map"></div>
+        </div>
     </main>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(2px)">
@@ -128,7 +137,7 @@
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'geocode.php', true);
             xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.readyState == 4 && xhr.status == 200 && verifierAdresse('lieuDepart') && verifierAdresse('lieuArrivee')) {
                     var response = JSON.parse(xhr.responseText);
 
                     // Si OK, on update la map
@@ -239,9 +248,9 @@
 
         function distToPrice(dist){
             if(dist < 10){
-                return [[Math.round(dist * 0.12 * 100) / 100, Math.round(dist*0.03 * 100) / 100],[Math.round(dist * 0.09 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.15 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
+                return [[Math.trunc(dist * 0.12 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100],[Math.trunc(dist * 0.09 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100], [Math.trunc(dist * 0.15 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100]];
             }
-            return [[Math.round(dist * 0.07 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.05 * 100) / 100, Math.round(dist*0.03 * 100) / 100], [Math.round(dist * 0.1 * 100) / 100, Math.round(dist*0.03 * 100) / 100]];
+            return [[Math.trunc(dist * 0.07 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100], [Math.trunc(dist * 0.05 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100], [Math.trunc(dist * 0.1 * 100) / 100, Math.trunc(dist*0.03 * 100) / 100]];
         }
 
         function calculPrixReel(prix){
@@ -256,7 +265,7 @@
             let argentRecu = document.querySelector(".input-prix").value;
             let prix = calculPrixReel(argentRecu);
             if (!isNaN(prix)){
-                document.querySelector("#realPrice").innerHTML = prix;
+                document.querySelector("#realPrice").innerHTML = prix + " *";
             }
             else{
                 document.querySelector("#realPrice").innerHTML = "";
@@ -267,7 +276,5 @@
             return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
         }
     </script>
-{% else %}
-    <meta http-equiv="refresh" content="0;URL=.?controleur=connexion&methode=afficher">
 {% endif %}
 {% endblock %}

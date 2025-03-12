@@ -1,14 +1,14 @@
 {% extends "base_templates.html.twig" %}
 {% block content %}
-    <div class="d-flex justify-content-center align-items-center" style="height: 600px;">
+<h1 class="text-center mt-5 fs-1 fw-bold">Mot de passe oublié</h1>
+    <div class="d-flex justify-content-center align-items-center" style="height: 300px;">
         <div class="login-container align-right" style="width: 350px;">
-            <h2 class="text-center">Mot de passe oublié</h2>
             <form id="form" action='?controleur=connexion&methode=mdpOublie' METHOD='POST'>
             <div name="champSaisieMail" class="mb-3">
                 <input name="mail" type="username" class="form-control" placeholder="Adresse mail" onkeyup="verifMail();" required>
                 <div name="erreurMail" class="messageErreur"></div>
             </div>
-                <div class="text-center">
+                <div class="text-end">
                     <button id="btnSendLink" class="btn btn-primary" onclick="chargerBouton()">Envoyer un mail</button>
                 </div>
                 </br>

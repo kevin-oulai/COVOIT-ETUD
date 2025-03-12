@@ -34,6 +34,7 @@ class Badge
     private string|null $image;
     /**
      * @brief Description du badge.
+
      * @var string|null
      */
     private string|null $description;
@@ -43,11 +44,11 @@ class Badge
      */
     private string|null $categorie;
     /**
-     * @brief Rang du badge.
-     * @var string|null
-     */
-    private string|null $rang;
 
+     * @brief Rang du badge
+     * @var int|null
+     */
+    private int|null $rang;
     // Constructeur
     /**
      * @brief Constructeur de la classe badge.
@@ -55,6 +56,9 @@ class Badge
      * @param integer|null $pNumero Numéro du badge.
      * @param string|null $pTitre Titre du badge.
      * @param string|null $pImage URL de l'image du badge.
+     * @param string|null $pDescription Descriptoin du badge.
+     * @param string|null $pCategorie Categorie du badge.
+     * @param string|null $pRang Rang du badge.
      */
     public function __construct(?int $pNumero = null, ?string $pTitre = null, ?string $pImage = null, ?string $pDescription = null, ?string $pCategorie = null, ?string $pRang = null)
     {
@@ -64,6 +68,7 @@ class Badge
         $this->setDescription($pDescription);
         $this->setCategorie($pCategorie);
         $this->setRang($pRang);
+
     }
 
     // Getters & Setters
@@ -118,6 +123,7 @@ class Badge
     }
 
     // Setters
+
     /**
      * @brief Assigne un numéro au badge.
      * @param integer|null $pNumero

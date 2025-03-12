@@ -228,3 +228,71 @@ function verifCVC() {
         champErreur.innerHTML = '';
     }
 }
+
+function verifTitre() {
+    // Variables locales
+    titreCourant = document.getElementsByName('titre')[0].value; // Titre en cours de saisie
+    champErreur = document.getElementsByName('erreurTitre')[0];
+    messageErreur = 'Le titre doit contenir au moins 2 caractères'; // Message d'erreur à afficher
+
+    // Vérification de la longueur du titre
+    if (titreCourant.length < 2 && titreCourant != '') {
+        // Affichage du message d'erreur
+        champErreur.innerHTML = messageErreur;
+
+    } else if (titreCourant.length >= 2 || titreCourant == '') {
+        // Suppression du message d'erreur
+        champErreur.innerHTML = '';
+    }
+}
+
+function verifDescription() {
+    // Variables locales
+    descriptionCourante = document.getElementsByName('description')[0].value; // Description en cours de saisie
+    champErreur = document.getElementsByName('erreurDescription')[0];
+    messageErreur = 'La description doit contenir au moins 2 caractères'; // Message d'erreur à afficher
+
+    // Vérification de la longueur de la description
+    if (descriptionCourante.length < 2 && descriptionCourante != '') {
+        // Affichage du message d'erreur
+        champErreur.innerHTML = messageErreur;
+
+    } else if (descriptionCourante.length >= 2 || descriptionCourante == '') {
+        // Suppression du message d'erreur
+        champErreur.innerHTML = '';
+    }
+}
+
+function verifCategorie() {
+    // Variables locales
+    categorieCourant = document.getElementsByName('categorie')[0].value; // Categorie en cours de saisie
+    champErreur = document.getElementsByName('erreurCategorie')[0];
+    messageErreur = 'La categorie doit contenir au moins 2 caractères'; // Message d'erreur à afficher
+
+    // Vérification de la longueur de la categorie
+    if (categorieCourant.length < 2 && categorieCourant != '') {
+        // Affichage du message d'erreur
+        champErreur.innerHTML = messageErreur;
+
+    } else if (categorieCourant.length >= 2 || categorieCourant == '') {
+        // Suppression du message d'erreur
+        champErreur.innerHTML = '';
+    }
+}
+
+function verifRang() {
+    // Variables locales
+    rangCourant = document.getElementsByName('rang')[0].value; // Rang en cours de saisie
+    champErreur = document.getElementsByName('erreurRang')[0];
+    messageErreur = 'Le rang doit contenir 1 chiffres'; // Message d'erreur à afficher
+
+    // Vérification de la longueur du rang
+    if (rangCourant.length != 1 && rangCourant != '') {
+        // Affichage du message d'erreur
+        champErreur.innerHTML = messageErreur;
+
+    } else if (rangCourant.length == 1 || rangCourant == '') {
+        // Suppression du message d'erreur
+        champErreur.innerHTML = '';
+    }
+}

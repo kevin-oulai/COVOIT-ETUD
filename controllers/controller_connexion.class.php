@@ -6,6 +6,7 @@
 * @brief   Classe ControllerConnexion s'occupe de gérer l'ouverture des vues concernant la page de connexion
 *     
 */
+
 class ControllerConnexion extends Controller{
     /**
      * @brief Permet de créer l'instance du controller
@@ -16,11 +17,13 @@ class ControllerConnexion extends Controller{
     public function __construct(Twig\Environment $twig, Twig\Loader\FilesystemLoader $loader){
         parent::__construct($twig, $loader);
     }
+
     /**
      * @brief Affiche la page connexion et vérifie si le login et le mot de passe correspondent
      *
      * @return void
      */
+
     public function afficher(){
         $template = $this->getTwig()->load('connexion.html.twig');
 
@@ -102,8 +105,7 @@ class ControllerConnexion extends Controller{
     public function mdpOublie(){
         $template = $this->getTwig()->load('motdepasseoublie.html.twig');
         $listeErreurs = array();
-        echo $template->render(array(
-        ));
+        echo $template->render();
 
         // Vérification que le formulaire a été soumis via POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -228,7 +230,7 @@ class ControllerConnexion extends Controller{
             catch (Exception $e)
             {
                 // Gestion des erreurs (par exemple, utilisateur introuvable)
-                $listeErreurs[] = $e->getMessage();
+                echo $mail->ErrorInfo;
             }
             if(!empty($listeErreurs)){
                 echo "<div class=\"modal fade\" id=errorModal tabindex=-1 role=dialog aria-labelledby=exampleModalLabel aria-hidden=true style=\"backdrop-filter: blur(2px)\">
@@ -324,37 +326,37 @@ class ControllerConnexion extends Controller{
     {
         if (isset($_POST['login']) && isset($_POST['pwd'])) {
             $connexionFalse = True;
-            $pdo = Bd::getInstance()->getConnexion();
-            $query = "SELECT motDePasse, numero FROM ETUDIANT WHERE adresseMail = '" . $_POST['login'] . "'";
-            $pdoStatement = $pdo->prepare($query);
-            $pdoStatement->execute();
-            $result = $pdoStatement->fetch(PDO::FETCH_NUM);
-            $verifMDP = false;
-            if(!empty($result)) {
-                $verifMDP = password_verify($_POST['pwd'], $result[0]);
-            }
-
+            $etudiant = new Etudiant(null, null, null, null, $_POST['login']);
+            $administrateur = new Administrateur(null, $_POST['login']);
+            
             // on vérifie les informations saisies
-            if ($verifMDP) {
+            if ($etudiant->log($_POST['pwd'])) {
                 $pdo = new PDO('mysql:host='. DB_HOST . ';dbname='. DB_NAME, DB_USER, DB_PASS);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
          
                 $managerEtudiant = new EtudiantDao($pdo);
-                $_SESSION['CLIENT'] = $managerEtudiant->find($result[1]);
-         
-                $_SESSION['id'] = $result[1];
+                $_SESSION['CLIENT'] = $managerEtudiant->find($etudiant->getNumero());
                 //on redirige notre visiteur vers une page de notre section membre
                 echo "<meta http-equiv='refresh' content='0;url=index.php' />";
              }
-            else {
+            else if($administrateur->log($_POST['pwd'])){
+                    $pdo = new PDO('mysql:host='. DB_HOST . ';dbname='. DB_NAME, DB_USER, DB_PASS);
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                    $managerEtudiant = new EtudiantDao($pdo);
+                    $_SESSION['CLIENT'] = $managerEtudiant->find(0);
+                    //Redirection
+                    echo "<meta http-equiv='refresh' content='0;url=index.php' />";
+            }
+            else{
                 session_destroy();
-                // puis on le redirige vers la page d'accueil
+                // Redirection vers la page d'accueil
                 $connexionFalse = False;
                 $template = $this->getTwig()->load('connexion.html.twig');
                 echo $template->render(array(
                     'connexionFalse' => $connexionFalse
-                ));            
+                ));  
             }
-         }
+        }
     }
 }
