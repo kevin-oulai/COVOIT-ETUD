@@ -71,13 +71,19 @@
                                             {% if listeBadge is defined %}
                                                     {% for badge in listeBadge %}
                                                         <div class="col">
-                                                            <img src = "images/{{badge.image}}" width="60" height="60" style="border-radius: 100%;"> <br>
+                                                            <img src = "images/assets/{{badge.image}}" width="60"> <br>
                                                             {{badge.titre}}
                                                         </div>
                                                     {% endfor %}
                                             {% else %}
-                                                <h6 class=" text-center">Vous ne possédez pas de badge.</h6>
-                                                <div class=" text-center">
+                                                {% if CLIENT.numero == etudiant.numero %}
+                                                    <h6 class=" text-center">Vous ne possédez pas de badge.</h6>
+                                                {% else %}
+                                                    <h6 class=" text-center"> {{etudiant.prenom}} {{etudiant.nom}} ne possède pas de badge.</h6>
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if CLIENT.numero == etudiant.numero %}
+                                                <div class=" text-end">
                                                     <button type="button" class="btn btn-secondary" onclick="location.href='?controleur=badge&methode=afficher'">Obtenir plus de badges</button>
                                                 </div>
                                             {% endif %}

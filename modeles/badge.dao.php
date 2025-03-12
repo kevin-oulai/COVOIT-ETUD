@@ -115,7 +115,7 @@ class BadgeDao{
      */
     public function findAll(?int $numero_etudiant): array
     {
-        $requete = "SELECT B.numero, B.titre, B.image from BADGE B join OBTENIR O on B.numero = O.numero_badge WHERE numero_etudiant= :numero_etudiant";
+        $requete = "SELECT * from BADGE B join OBTENIR O on B.numero = O.numero_badge WHERE numero_etudiant= :numero_etudiant";
         $pdoStatement = $this->PDO->prepare($requete);
         $pdoStatement->bindValue(1, PDO::PARAM_STR);
         $pdoStatement->execute(array(":numero_etudiant"=>$numero_etudiant));
