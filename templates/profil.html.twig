@@ -16,6 +16,7 @@
                         <div class ="text-end">
                                 <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#fModifier_{{ etudiant.numero }}'>Modifier mon profil</button>
                                 <button type='button' class='btn btn-warning' onclick="location = 'logout.php'">Déconnexion</button>
+                                <button class="btn btn-danger" data-bs-toggle='modal' data-bs-target='#fSupprimer_{{ etudiant.numero }}'>Supprimer mon profil</button>
                         </div>
                         {% endif %}
             </li>
@@ -146,9 +147,33 @@
                 </div>
             </form>
         </ul>
-
+        <div style="margin-left:72.5%">
+        </div>
     </div>
 </div>
+
+<!-- Fenetre modale supprimer votre compte -->
+					<div class="modal fade" id="fSupprimer_{{ etudiant.numero }}" style='backdrop-filter: blur(2px)' tabindex="-1" role="dialog" aria-labelledby="supprimer" aria-hidden="true">
+						<div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
+							<div class="modal-content" style='background-color: #CCDBFD;'>
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel"></h5>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h4>Etes vous sur de supprimer votre compte ?</h4>
+                                
+
+							</div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Annuler</button>
+                                <button type='button' class='btn btn-danger'  onclick="location = '?controleur=etudiant&methode=delete'">Supprimer votre compte</button>
+                            </div>
+						</div>
+					</div>
+				</div>
+
+
 <!-- Fenetre modale modification -->
 <div class='modal fade' id='fModifier_{{ etudiant.numero }}' tabindex='-1' aria-labelledby='Modifier' aria-hidden='true'>
 	<div class='modal-dialog modal-dialog-centered '>
