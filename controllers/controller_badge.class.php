@@ -48,7 +48,7 @@ class ControllerBadge extends Controller {
         $template = $this->getTwig()->load('descriptionBadges.html.twig');
         echo $template->render(array(
             'listeBadges'=>$newListeBadges,
-            'nbCategorie'=>sizeof($newListeBadges),
+            'nbCategorie'=>(sizeof($newListeBadges) - 1),
         ));
     }
 }

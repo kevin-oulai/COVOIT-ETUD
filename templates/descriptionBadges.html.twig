@@ -1,14 +1,12 @@
 {% extends 'base_templates.html.twig' %}
 {% block content %}
 
-    <h1>Page descriptive des badges</h1>
-
-    <div class="container">
+    <div class="container" style="padding-top: 50px;">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for indexCategorie in 0..{nbCategorie} %}
+        {% for indexCategorie in 0..listeBadges|length-1 %}
             <div class="col">
                 <div class="card bg-gradient-secondary" style="width: 250px; padding: 5px;">
-                    <div class="card-title" style="margin: auto;">{{ listeBadges[indexCategorie][0].categorie }}</div>
+                    <div class="card-title" style="margin: auto;"><b>{{ listeBadges[indexCategorie][0].categorie }}</b></div>
                     <div id="carousel{{ indexCategorie }}" class="carousel carousel-catalogue slide">
                         <div class="carousel-inner">
                             {% for badge in listeBadges[indexCategorie] %}
@@ -35,6 +33,11 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+            </div>
+            {% else %}
+            <div class="card alert-danger">
+                <div class="card-title">Erreur</div>
+                <div class="card-body">Il n'y a pas de badge</div>
             </div>
         {% endfor %}
         </div>
