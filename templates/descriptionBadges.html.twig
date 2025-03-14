@@ -1,8 +1,9 @@
 {% extends 'base_templates.html.twig' %}
 {% block content %}
 
+<h1 class="text-center mt-5 fs-1 fw-bold">Catalogue des badges</h1>
     <div class="container" style="padding-top: 50px;">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="text-align:center;">
         {% for indexCategorie in 0..listeBadges|length-1 %}
             <div class="col">
                 <div class="card bg-gradient-secondary" style="width: 250px; padding: 5px;">
