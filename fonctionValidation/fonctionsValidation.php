@@ -986,9 +986,9 @@ function validerRang(string $rang, array &$messagesErreurs)
     //    Longueur 1
 //    Aucun format
 //    Plage de valeur 1 - 3
-    if ($rang < '0' || $rang > '3') {
+    if ($rang < '0' || $rang > '5') {
         $valide = false;
-        $messagesErreurs[] = "Le rang doit être comprise entre 1 et 3";
+        $messagesErreurs[] = "Le rang doit être comprise entre 1 et 5";
     }
     //    Pas un fichier
     return $valide;
